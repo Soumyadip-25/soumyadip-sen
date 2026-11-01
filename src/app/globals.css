@@ -79,3 +79,23 @@
   background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
   background-size: 24px 24px;
 }
+
+/* Custom Viewfinder Cursor - Desktop Fine-Pointer Only */
+@media (hover: hover) and (pointer: fine) {
+  body.has-custom-cursor,
+  body.has-custom-cursor a,
+  body.has-custom-cursor button,
+  body.has-custom-cursor [role="button"],
+  body.has-custom-cursor .resume-button,
+  body.has-custom-cursor img,
+  body.has-custom-cursor select {
+    cursor: none !important;
+  }
+
+  /* Preserve native I-beam cursor for text selection, inputs and textareas */
+  body.has-custom-cursor input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
+  body.has-custom-cursor textarea,
+  body.has-custom-cursor [contenteditable="true"] {
+    cursor: text !important;
+  }
+}

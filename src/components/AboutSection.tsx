@@ -105,6 +105,8 @@ export default function AboutSection() {
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={{ scale: 1.02, rotate: 0.5 }}
                 className="relative group cursor-pointer"
+                data-cursor="image"
+                data-cursor-label="FOCUS"
               >
                 {/* Soft shadow cast on parchment */}
                 <div className="relative filter drop-shadow-[0_16px_28px_rgba(0,0,0,0.55)] group-hover:drop-shadow-[0_22px_36px_rgba(0,0,0,0.7)] transition-all duration-300">

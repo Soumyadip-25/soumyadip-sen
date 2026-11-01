@@ -10,6 +10,7 @@ import SkillsSection from "@/components/SkillsSection";
 import AchievementsSection from "@/components/AchievementsSection";
 import ContactSection from "@/components/ContactSection";
 import ResumeModal from "@/components/ResumeModal";
+import CustomCursor from "@/components/CustomCursor";
 
 const sectionIds = ["home", "about", "experience", "projects", "skills", "achievements", "contact"];
 
@@ -49,6 +50,9 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#070709] text-zinc-100 relative selection:bg-zinc-800 selection:text-white">
+      {/* Custom Vintage Analogue Camera Viewfinder Cursor */}
+      <CustomCursor activeSection={activeSection} />
+
       {/* Left Sidebar Navigation */}
       <Sidebar activeSection={activeSection} onSectionClick={handleSectionClick} />
 

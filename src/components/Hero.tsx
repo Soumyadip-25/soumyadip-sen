@@ -91,6 +91,8 @@ export default function Hero({ onResumeClick }: HeroProps) {
               animate={{ opacity: 1, y: 0, rotate: -3.5 }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               className="relative group cursor-pointer"
+              data-cursor="image"
+              data-cursor-label="FOCUS"
             >
               {/* Outer soft shadow onto the vintage desk */}
               <div className="relative rounded-sm transition-all duration-300 filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)] group-hover:drop-shadow-[0_28px_45px_rgba(0,0,0,0.95)]">

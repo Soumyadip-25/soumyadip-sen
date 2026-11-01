@@ -85,7 +85,9 @@ export default function ProjectsSection() {
         {projects.map((proj, idx) => (
           <div
             key={idx}
-            className="group relative flex flex-col justify-between p-6 rounded-xl bg-zinc-900/30 hover:bg-zinc-900/60 border border-white/5 hover:border-white/15 transition-all duration-300 backdrop-blur-sm"
+            data-cursor="project"
+            data-cursor-label="INSPECT"
+            className="group relative flex flex-col justify-between p-6 rounded-xl bg-zinc-900/30 hover:bg-zinc-900/60 border border-white/5 hover:border-white/15 transition-all duration-300 backdrop-blur-sm cursor-pointer"
           >
             <div>
               <div className="flex items-center justify-between mb-4">
@@ -98,6 +100,7 @@ export default function ProjectsSection() {
                       href={proj.github}
                       target="_blank"
                       rel="noreferrer"
+                      data-cursor-label="CODE ↗"
                       className="p-1.5 text-zinc-400 hover:text-white transition-colors"
                       title="GitHub"
                     >
@@ -109,6 +112,7 @@ export default function ProjectsSection() {
                   {proj.demo && (
                     <a
                       href={proj.demo}
+                      data-cursor-label="LIVE ↗"
                       className="p-1.5 text-zinc-400 hover:text-white transition-colors"
                       title="Live Demo"
                     >
