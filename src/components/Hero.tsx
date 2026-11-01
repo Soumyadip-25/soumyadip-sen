@@ -106,11 +106,11 @@ export default function Hero({ onResumeClick }: HeroProps) {
                     className="object-contain pointer-events-none select-none transition-transform duration-500 group-hover:scale-[1.01]"
                   />
 
-                  {/* '06 Vintage Typewriter Stamp in bottom right corner */}
+                  {/* '06 Vintage Typewriter Stamp - Enlarged font, high contrast & prominent placing */}
                   <div
-                    className="absolute right-7 bottom-6 sm:right-8 sm:bottom-7 font-typewriter text-zinc-800 text-sm sm:text-base font-bold tracking-widest select-none opacity-90 drop-shadow-[0_1px_1px_rgba(255,255,255,0.4)] pointer-events-none"
+                    className="absolute right-9 bottom-7 sm:right-11 sm:bottom-9 md:right-12 md:bottom-10 lg:right-14 lg:bottom-11 font-typewriter text-2xl sm:text-3xl md:text-4xl lg:text-[38px] font-black text-[#11100e] tracking-widest select-none opacity-95 drop-shadow-[0_1px_1px_rgba(255,255,255,0.7)] pointer-events-none"
                     style={{
-                      transform: "rotate(-2deg)",
+                      transform: "rotate(-2.5deg)",
                     }}
                   >
                     &apos;06
@@ -140,12 +140,12 @@ export default function Hero({ onResumeClick }: HeroProps) {
               />
             </motion.div>
 
-            {/* Vintage Typewriter Download Resume Button - Adjusted Alignment */}
+            {/* Vintage Typewriter Download Resume Button - Shifted right below signature */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="mt-6 sm:mt-8 lg:mt-9"
+              className="mt-6 sm:mt-8 lg:mt-9 self-center lg:self-start lg:ml-28 xl:ml-36"
             >
               <DownloadResumeButton />
             </motion.div>
