@@ -1,0 +1,59 @@
+.resume-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  padding: 11px 22px;
+  color: #171513;
+  background: #e3ded2;
+
+  font-size: 19px;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  cursor: pointer;
+
+  clip-path: polygon(
+    2% 3%, 98% 0%, 100% 8%,
+    99% 92%, 96% 100%, 3% 97%,
+    0% 90%, 1% 12%
+  );
+
+  box-shadow: 0 5px 12px #0008;
+  transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
+  user-select: none;
+}
+
+@media (max-width: 640px) {
+  .resume-button {
+    font-size: 16px;
+    padding: 9px 18px;
+    gap: 10px;
+  }
+}
+
+.resume-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image: url("/images/paper-grain.png");
+  background-size: cover;
+}
+
+.resume-button:hover {
+  transform: translateY(-3px) rotate(-0.5deg);
+  filter: brightness(1.08);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.65);
+}
+
+.resume-button:active {
+  transform: translateY(0px) scale(0.98);
+}
+
+.resume-button:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 5px;
+}

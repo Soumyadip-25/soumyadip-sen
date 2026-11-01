@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'Courier Prime', 'Courier New', Courier, monospace;
+    --font-typewriter: 'Special Elite', 'Courier Prime', 'Courier New', monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #08080a;
+    color: #e4e4e7;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Filmstrip & Noir Aesthetic Utilities */
+.font-typewriter {
+  font-family: var(--font-typewriter);
+}
+
+.font-vintage-mono {
+  font-family: var(--font-mono);
+}
+
+/* 35mm Filmstrip perforations */
+.filmstrip-sprocket {
+  width: 10px;
+  height: 14px;
+  background-color: #050507;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.9), 0 0 1px rgba(255,255,255,0.1);
+}
+
+/* Spotlight Beam Effect */
+.lamp-glow-cone {
+  background: radial-gradient(
+    circle at 85% 15%,
+    rgba(255, 250, 230, 0.22) 0%,
+    rgba(255, 240, 200, 0.10) 28%,
+    rgba(255, 240, 200, 0.03) 58%,
+    transparent 78%
+  );
+  pointer-events: none;
+}
+
+/* Automatic Dim & Light Pulse Every 2 Seconds */
+@keyframes lampBreathCycle {
+  0%, 100% {
+    opacity: 0.68;
+    filter: brightness(0.92);
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(1.15);
+  }
+}
+
+.animate-lamp-breath {
+  animation: lampBreathCycle 4s ease-in-out infinite;
+}
+
+@keyframes signatureAmbientPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(255, 250, 230, 0.35)) brightness(0.95);
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(255, 250, 230, 0.7)) brightness(1.15);
+  }
+}
+
+.animate-signature-pulse {
+  animation: signatureAmbientPulse 4s ease-in-out infinite;
+}
+
+/* Noise overlay */
+.bg-noise {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
