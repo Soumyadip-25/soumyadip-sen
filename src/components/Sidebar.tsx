@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import FlipClock from "./FlipClock";
 
 export interface NavItem {
   id: string;
@@ -90,8 +91,11 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden fixed inset-x-0 top-[61px] z-40 bg-[#0d0d10]/95 backdrop-blur-xl border-b border-white/10 p-6 flex flex-col gap-4 shadow-2xl"
+            className="md:hidden fixed inset-x-0 top-[61px] z-40 bg-[#0d0d10]/95 backdrop-blur-xl border-b border-white/10 p-6 flex flex-col gap-4 shadow-2xl max-h-[calc(100vh-61px)] overflow-y-auto"
           >
+            <div className="w-full flex justify-center pb-2">
+              <FlipClock />
+            </div>
             {navItems.map((item, idx) => {
               const isActive = activeSection === item.id;
               const isPast = idx < activeIndex;
@@ -126,21 +130,26 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
       </AnimatePresence>
 
       {/* Desktop Fixed Left Sidebar */}
-      <aside className="hidden md:flex fixed left-0 top-0 bottom-0 w-52 lg:w-56 z-40 flex-col justify-center py-12 px-8 bg-[#070709]/80 backdrop-blur-md border-r border-white/5 select-none">
+      <aside className="hidden md:flex fixed left-0 top-0 bottom-0 w-52 lg:w-56 z-40 flex-col justify-between pt-5 pb-8 px-2 bg-[#070709]/85 backdrop-blur-md border-r border-white/5 select-none">
         
+        {/* Top: Vintage Flip Clock mounted at top-left of portfolio */}
+        <div className="w-full flex justify-center pt-1 pb-1">
+          <FlipClock />
+        </div>
+
         {/* Navigation list with connecting glowing line */}
-        <nav className="relative flex flex-col gap-7 py-2">
+        <nav className="relative flex flex-col gap-6 py-2 px-6 my-auto">
           
           {/* Background Connecting Line Track (linking all sections from top to bottom) */}
           <div
             aria-hidden="true"
-            className="absolute left-[6px] top-[14px] bottom-[14px] w-[2px] bg-zinc-800/90 rounded-full pointer-events-none"
+            className="absolute left-[30px] top-[14px] bottom-[14px] w-[2px] bg-zinc-800/90 rounded-full pointer-events-none"
           />
 
           {/* Active Glowing Line that animates and lights up when scrolling */}
           <div
             aria-hidden="true"
-            className={`absolute left-[6px] top-[14px] w-[2px] rounded-full pointer-events-none transition-[height] duration-200 ease-out ${
+            className={`absolute left-[30px] top-[14px] w-[2px] rounded-full pointer-events-none transition-[height] duration-200 ease-out ${
               isScrolling
                 ? "bg-gradient-to-b from-white via-amber-200 to-white shadow-[0_0_12px_rgba(255,255,255,1),0_0_24px_rgba(255,245,210,0.8)]"
                 : "bg-gradient-to-b from-white via-zinc-200 to-amber-100 shadow-[0_0_8px_rgba(255,255,255,0.7),0_0_14px_rgba(255,240,200,0.4)]"
@@ -197,6 +206,9 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
             );
           })}
         </nav>
+
+        {/* Bottom subtle space */}
+        <div className="h-4 pointer-events-none" aria-hidden="true" />
       </aside>
     </>
   );
