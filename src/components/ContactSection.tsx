@@ -1,171 +1,174 @@
 "use client";
 
-import React, { useState } from "react";
-import { Mail, Phone, MapPin, Send, Check } from "lucide-react";
+import React from "react";
+import Image from "next/image";
+import { motion } from "motion/react";
 
 export default function ContactSection() {
-  const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: "", email: "", message: "" });
-    }, 4000);
-  };
-
   return (
     <section
       id="contact"
-      className="relative min-h-[80vh] w-full py-24 px-6 md:pl-56 md:pr-12 max-w-7xl mx-auto flex flex-col justify-center border-t border-white/5"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#070709] select-none md:pl-52 lg:pl-56"
     >
-      <div className="flex items-center gap-3 mb-8">
-        <span className="font-mono text-xs tracking-widest text-zinc-500 uppercase">
-          06 // Inquiries
-        </span>
-        <div className="h-[1px] w-12 bg-zinc-800" />
-      </div>
+      {/* 16:9 Precision Canvas - Locked to background image coordinates so elements never drift */}
+      <div className="relative w-full max-w-[1440px] aspect-[1024/576] max-h-[96vh] sm:max-h-[92vh] flex items-center justify-center my-auto">
+        
+        {/* Full-bleed Vintage Background Image: Dark wall, torn papers, postage stamp, and rotary telephone */}
+        <Image
+          src="/images/contact-bg.jpg"
+          alt="Vintage Rotary Telephone and Correspondence Dossier"
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, 1440px"
+          className="object-cover object-center pointer-events-none select-none filter brightness-[0.98] contrast-[1.03]"
+        />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        <div className="lg:col-span-5 space-y-6">
-          <h2 className="font-typewriter text-3xl md:text-4xl text-white tracking-wide">
-            Let&apos;s Connect
-          </h2>
-          <p className="text-zinc-400 text-sm leading-relaxed font-light">
-            I am currently open to freelance software engineering projects, full stack collaborations, and technology roles. Reach out directly or send a message below.
-          </p>
+        {/* Ambient subtle vignette overlay for depth */}
+        <div className="absolute inset-0 bg-radial-gradient pointer-events-none opacity-20" />
 
-          <div className="space-y-3.5 pt-2">
-            <a
-              href="mailto:sensoumyadip2006@gmail.com"
-              className="flex items-center gap-3.5 p-3.5 rounded-xl bg-zinc-900/40 hover:bg-zinc-900 border border-white/5 hover:border-white/10 text-zinc-300 hover:text-white transition-all text-xs sm:text-sm font-mono"
-            >
-              <Mail className="w-4 h-4 text-zinc-400 shrink-0" />
-              <span>sensoumyadip2006@gmail.com</span>
-            </a>
-
-            <a
-              href="tel:+917044685810"
-              className="flex items-center gap-3.5 p-3.5 rounded-xl bg-zinc-900/40 hover:bg-zinc-900 border border-white/5 hover:border-white/10 text-zinc-300 hover:text-white transition-all text-xs sm:text-sm font-mono"
-            >
-              <Phone className="w-4 h-4 text-zinc-400 shrink-0" />
-              <span>+91 7044685810</span>
-            </a>
-
-            <div className="flex items-center gap-3.5 p-3.5 rounded-xl bg-zinc-900/40 border border-white/5 text-zinc-400 text-xs sm:text-sm font-mono">
-              <MapPin className="w-4 h-4 text-zinc-400 shrink-0" />
-              <span>Barrackpore, Kolkata, West Bengal, India</span>
-            </div>
-
-            <div className="flex gap-3 pt-2">
-              <a
-                href="https://github.com/Soumyadip-25"
-                target="_blank"
-                rel="noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-zinc-900/40 hover:bg-zinc-900 border border-white/5 hover:border-white/10 text-zinc-300 hover:text-white transition-all text-xs font-mono"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                </svg>
-                <span>GitHub</span>
-              </a>
-              <a
-                href="https://linkedin.com/in/soumyadip-sen-0937b1311"
-                target="_blank"
-                rel="noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-zinc-900/40 hover:bg-zinc-900 border border-white/5 hover:border-white/10 text-zinc-300 hover:text-white transition-all text-xs font-mono"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                </svg>
-                <span>LinkedIn</span>
-              </a>
+        {/* TOP PAPER STRIP: "Let's Connect" Stamped Title */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="absolute"
+          style={{
+            top: "6.5%",
+            left: "17%",
+            width: "36.5%",
+            height: "10.5%",
+          }}
+        >
+          <div className="relative w-full h-full flex items-center justify-center">
+            {/* Dark Ink Stamped Title from User Provided Asset */}
+            <div className="relative w-[86%] h-[78%]">
+              <Image
+                src="/images/lets-connect-title.png"
+                alt="Let's Connect"
+                fill
+                priority
+                className="object-contain object-center pointer-events-none select-none filter contrast-[1.15]"
+              />
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="lg:col-span-7">
-          <form
-            onSubmit={handleSubmit}
-            className="p-6 md:p-8 rounded-2xl bg-zinc-900/30 border border-white/5 backdrop-blur-sm space-y-4"
+        {/* MAIN TORN PARCHMENT SHEET: Contact Info & Active Profile Links */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.15 }}
+          className="absolute flex flex-col justify-between"
+          style={{
+            top: "32%",
+            left: "19.5%",
+            width: "45.5%",
+            height: "51.5%",
+          }}
+        >
+          {/* Row 1: Gmail */}
+          <a
+            href="mailto:soumyadip25sen@gmail.com"
+            data-cursor="interactive"
+            data-cursor-label="EMAIL"
+            className="group/row flex items-center gap-2.5 sm:gap-3.5 md:gap-4.5 pb-2 sm:pb-3 md:pb-3.5 border-b border-[#24201a]/15 text-[#171513] hover:text-black transition-all duration-200 cursor-pointer"
+            title="Send an email to soumyadip25sen@gmail.com"
           >
-            <div>
-              <label className="block text-xs font-mono text-zinc-400 uppercase tracking-wider mb-2">
-                Your Name
-              </label>
-              <input
-                type="text"
-                required
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="Ada Lovelace"
-                className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 text-white placeholder-zinc-600 focus:outline-none focus:border-white/30 transition-colors text-sm"
-              />
+            {/* Postal Envelope Icon */}
+            <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 shrink-0 flex items-center justify-center group-hover/row:scale-110 transition-transform">
+              <svg viewBox="0 0 24 24" className="w-full h-full fill-[#161412]">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+              </svg>
             </div>
+            {/* Email Address Text */}
+            <span className="font-typewriter text-[clamp(10px,1.32vw,17px)] font-bold tracking-wide break-all group-hover/row:translate-x-1 transition-transform">
+              soumyadip25sen@gmail.com
+            </span>
+          </a>
 
-            <div>
-              <label className="block text-xs font-mono text-zinc-400 uppercase tracking-wider mb-2">
-                Email Address
-              </label>
-              <input
-                type="email"
-                required
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="ada@example.com"
-                className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 text-white placeholder-zinc-600 focus:outline-none focus:border-white/30 transition-colors text-sm"
-              />
+          {/* Row 2: LinkedIn */}
+          <a
+            href="https://www.linkedin.com/in/soumyadip-sen-0937b1311"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor="interactive"
+            data-cursor-label="LINKEDIN ↗"
+            className="group/row flex items-center gap-2.5 sm:gap-3.5 md:gap-4.5 pb-2 sm:pb-3 md:pb-3.5 border-b border-[#24201a]/15 text-[#171513] hover:text-black transition-all duration-200 cursor-pointer"
+            title="Open LinkedIn Profile"
+          >
+            {/* LinkedIn Badge Icon */}
+            <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 shrink-0 flex items-center justify-center group-hover/row:scale-110 transition-transform">
+              <svg viewBox="0 0 24 24" className="w-full h-full fill-[#161412]">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+              </svg>
             </div>
+            {/* LinkedIn URL Text */}
+            <span className="font-typewriter text-[clamp(10px,1.32vw,17px)] font-bold tracking-wide break-all group-hover/row:translate-x-1 transition-transform">
+              linkedin.com/in/soumyadip-sen-0937b1311
+            </span>
+          </a>
 
-            <div>
-              <label className="block text-xs font-mono text-zinc-400 uppercase tracking-wider mb-2">
-                Message
-              </label>
-              <textarea
-                rows={4}
-                required
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                placeholder="Share your thoughts or project vision..."
-                className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 text-white placeholder-zinc-600 focus:outline-none focus:border-white/30 transition-colors text-sm resize-none"
-              />
+          {/* Row 3: GitHub */}
+          <a
+            href="https://github.com/Soumyadip-25"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor="interactive"
+            data-cursor-label="GITHUB ↗"
+            className="group/row flex items-center gap-2.5 sm:gap-3.5 md:gap-4.5 pb-2 sm:pb-3 md:pb-3.5 border-b border-[#24201a]/15 text-[#171513] hover:text-black transition-all duration-200 cursor-pointer"
+            title="Open GitHub Profile"
+          >
+            {/* GitHub Octocat Icon */}
+            <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 shrink-0 flex items-center justify-center group-hover/row:scale-110 transition-transform">
+              <svg viewBox="0 0 24 24" className="w-full h-full fill-[#161412]">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+              </svg>
             </div>
+            {/* GitHub URL Text */}
+            <span className="font-typewriter text-[clamp(10px,1.32vw,17px)] font-bold tracking-wide break-all group-hover/row:translate-x-1 transition-transform">
+              github.com/Soumyadip-25
+            </span>
+          </a>
 
-            <button
-              type="submit"
-              disabled={submitted}
-              className={`w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl font-medium text-sm transition-all shadow-lg ${
-                submitted
-                  ? "bg-emerald-600 text-white"
-                  : "bg-white hover:bg-zinc-200 text-zinc-950 font-semibold"
-              }`}
-            >
-              {submitted ? (
-                <>
-                  <Check className="w-4 h-4" />
-                  <span>Message Sent Successfully</span>
-                </>
-              ) : (
-                <>
-                  <Send className="w-4 h-4" />
-                  <span>Dispatch Message</span>
-                </>
-              )}
-            </button>
-          </form>
-        </div>
-      </div>
+          {/* Row 4: Address / Location */}
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Kolkata,+West+Bengal,+India"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor="interactive"
+            data-cursor-label="LOCATION ↗"
+            className="group/row flex items-center gap-2.5 sm:gap-3.5 md:gap-4.5 pb-1 text-[#171513] hover:text-black transition-all duration-200 cursor-pointer"
+            title="View Kolkata, West Bengal, India on Google Maps"
+          >
+            {/* Location Pin Icon */}
+            <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 shrink-0 flex items-center justify-center group-hover/row:scale-110 transition-transform">
+              <svg viewBox="0 0 24 24" className="w-full h-full fill-[#161412]">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+              </svg>
+            </div>
+            {/* Location Address Text */}
+            <span className="font-typewriter text-[clamp(10px,1.32vw,17px)] font-bold tracking-wide break-all group-hover/row:translate-x-1 transition-transform">
+              Kolkata, West Bengal, India
+            </span>
+          </a>
+        </motion.div>
 
-      {/* Footer copyright */}
-      <div className="mt-24 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-zinc-500 gap-4">
-        <p>© {new Date().getFullYear()} Soumyadip Sen. All rights reserved.</p>
-        <p className="flex items-center gap-2">
-          <span>FILM FORMAT: 35MM NOIR</span>
-          <span className="w-1 h-1 rounded-full bg-zinc-600" />
-          <span>EST. 1996</span>
-        </p>
+        {/* Vintage Rotary Telephone Interactive Hotspot */}
+        <div
+          data-cursor="image"
+          data-cursor-label="DIAL '06"
+          className="absolute cursor-pointer rounded-full"
+          style={{
+            right: "2%",
+            bottom: "3%",
+            width: "35%",
+            height: "50%",
+          }}
+          title="Vintage Rotary Telephone"
+        />
+
       </div>
     </section>
   );
