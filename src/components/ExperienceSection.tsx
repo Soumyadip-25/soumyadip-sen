@@ -3,13 +3,14 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { ChevronDown } from "lucide-react";
+import { GraduationCap, Code2, ChevronDown } from "lucide-react";
 
 export interface ExperienceItem {
   id: string;
   role: string;
   period: string;
   description: string;
+  iconType: "tutor" | "developer";
 }
 
 const experiences: ExperienceItem[] = [
@@ -19,6 +20,7 @@ const experiences: ExperienceItem[] = [
     period: "2022– Present",
     description:
       "Providing personalized tutoring to CBSE students, focusing on simplifying concepts and building strong academic foundations through interactive learning.",
+    iconType: "tutor",
   },
   {
     id: "software-developer",
@@ -26,6 +28,7 @@ const experiences: ExperienceItem[] = [
     period: "Ongoing",
     description:
       "Designing and developing software applications while exploring modern technologies, building practical solutions, and continuously expanding my expertise in full-stack development and artificial intelligence.",
+    iconType: "developer",
   },
 ];
 
@@ -133,12 +136,14 @@ export default function ExperienceSection() {
           {/* Vertical Luminous Timeline Wire */}
           <div
             aria-hidden="true"
-            className="absolute left-[13px] top-[18px] bottom-[20px] w-[2px] bg-gradient-to-b from-white via-zinc-400 to-zinc-700 shadow-[0_0_8px_rgba(255,255,255,0.7)] rounded-full pointer-events-none"
+            className="absolute left-[20px] top-[18px] bottom-[22px] w-[2px] bg-gradient-to-b from-white via-zinc-400 to-zinc-700 shadow-[0_0_8px_rgba(255,255,255,0.7)] rounded-full pointer-events-none"
           />
 
           {/* Timeline Experience Entries */}
-          <div className="relative space-y-10 sm:space-y-12 pl-10 sm:pl-12 pb-6">
+          <div className="relative space-y-10 sm:space-y-12 pb-6">
             {experiences.map((exp, index) => {
+              const isTutor = exp.iconType === "tutor";
+
               return (
                 <motion.div
                   key={exp.id}
@@ -146,26 +151,22 @@ export default function ExperienceSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.15 }}
-                  className="relative group"
+                  className="relative group pl-14 sm:pl-16"
                 >
-                  {/* Custom Vintage Camera Optical Focusing Reticle Bullet */}
+                  {/* Vintage Mechanical Typewriter Keycap Bullet */}
                   <div
                     aria-hidden="true"
-                    className="absolute -left-[38px] sm:-left-[42px] top-[7px] w-7 h-7 flex items-center justify-center pointer-events-none group-hover:scale-115 transition-transform"
+                    className="absolute left-[21px] -translate-x-1/2 top-[4px] w-[36px] h-[36px] rounded-full p-[2px] bg-gradient-to-b from-zinc-200 via-zinc-400 to-zinc-800 shadow-[0_4px_12px_rgba(0,0,0,0.95),0_0_12px_rgba(255,255,255,0.2)] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:shadow-[0_4px_16px_rgba(255,255,255,0.4)] transition-all duration-300 pointer-events-none"
                   >
-                    <svg viewBox="0 0 28 28" width="28" height="28" className="drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]">
-                      {/* Outer Steel Lens Ring */}
-                      <circle cx="14" cy="14" r="11" fill="#121215" stroke="#71717a" strokeWidth="1.5" />
-                      {/* Aperture Calibration Dashes */}
-                      <circle cx="14" cy="14" r="7" fill="none" stroke="#a1a1aa" strokeWidth="1" strokeDasharray="2.5,2" opacity="0.8" />
-                      {/* 4 Precision Reticle Markings */}
-                      <line x1="14" y1="2" x2="14" y2="6.5" stroke="#e4e4e7" strokeWidth="1.5" strokeLinecap="round" />
-                      <line x1="14" y1="21.5" x2="14" y2="26" stroke="#e4e4e7" strokeWidth="1.5" strokeLinecap="round" />
-                      <line x1="2" y1="14" x2="6.5" y2="14" stroke="#e4e4e7" strokeWidth="1.5" strokeLinecap="round" />
-                      <line x1="21.5" y1="14" x2="26" y2="14" stroke="#e4e4e7" strokeWidth="1.5" strokeLinecap="round" />
-                      {/* Center Optical Focal Core */}
-                      <circle cx="14" cy="14" r="2.5" fill="#ffffff" />
-                    </svg>
+                    {/* Recessed Mechanical Black Key Well with Glass Curved Reflection */}
+                    <div className="relative w-full h-full rounded-full bg-gradient-to-br from-[#27272a] via-[#141416] to-[#09090b] border border-[#161619] flex items-center justify-center shadow-[inset_0_2px_4px_rgba(0,0,0,0.95),inset_0_-1px_2px_rgba(255,255,255,0.15)] overflow-hidden">
+                      <div className="absolute top-1 left-1.5 right-1.5 h-[8px] rounded-full bg-gradient-to-b from-white/25 to-transparent pointer-events-none" />
+                      {isTutor ? (
+                        <GraduationCap className="w-[17px] h-[17px] text-zinc-100 drop-shadow-[0_1px_2px_rgba(0,0,0,0.95)]" />
+                      ) : (
+                        <Code2 className="w-[17px] h-[17px] text-zinc-100 drop-shadow-[0_1px_2px_rgba(0,0,0,0.95)]" />
+                      )}
+                    </div>
                   </div>
 
                   {/* Header Row: Heading with Second Image Paper Scrap Behind + Timeline Date Moved to the Right */}
@@ -179,19 +180,19 @@ export default function ExperienceSection() {
                         priority
                         className="object-fill pointer-events-none select-none"
                       />
-                      <span className="relative z-10 font-typewriter font-bold text-[16.5px] sm:text-[18.5px] md:text-[20px] text-[#181613] tracking-wide select-none whitespace-nowrap -translate-y-[1px]">
+                      <span className="relative z-10 font-typewriter font-bold text-[17px] sm:text-[19px] md:text-[20px] text-[#181613] tracking-wide select-none whitespace-nowrap -translate-y-[1px]">
                         {exp.role}
                       </span>
                     </div>
 
                     {/* Timeline Date Moved to the Right of the Heading */}
-                    <div className="font-typewriter text-[14px] sm:text-[15.5px] md:text-[16.5px] text-zinc-300 tracking-wider pl-3 border-l-2 border-zinc-600 bg-white/[0.03] py-1 pr-3 rounded-r">
+                    <div className="font-typewriter text-[14.5px] sm:text-[15.5px] md:text-[16.5px] text-zinc-300 tracking-wider pl-3 border-l-2 border-zinc-600 bg-white/[0.03] py-1 pr-3 rounded-r">
                       {exp.period}
                     </div>
                   </div>
 
                   {/* Expanded Description Paragraph: Spread Out to the Right to Fill Space */}
-                  <p className="mt-3.5 text-zinc-200 font-typewriter text-[15px] sm:text-[16px] md:text-[17px] leading-[1.75] tracking-[0.25px] max-w-2xl lg:max-w-3xl text-shadow-sm">
+                  <p className="mt-3.5 text-zinc-200 font-typewriter text-[15.5px] sm:text-[16.5px] md:text-[17.5px] leading-[1.8] tracking-[0.25px] max-w-2xl lg:max-w-3xl text-shadow-sm">
                     {exp.description}
                   </p>
                 </motion.div>
