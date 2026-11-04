@@ -1,99 +1,217 @@
 "use client";
 
-import React from "react";
-import { Calendar } from "lucide-react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
+import Image from "next/image";
+import { motion } from "motion/react";
+import { ChevronDown } from "lucide-react";
 
-interface ExperienceItem {
-  period: string;
+export interface ExperienceItem {
+  id: string;
   role: string;
-  company: string;
-  description: string[];
-  tech: string[];
+  period: string;
+  description: string;
 }
 
 const experiences: ExperienceItem[] = [
   {
-    period: "Feb 2026 — Present",
-    role: "Freelance Full Stack Developer",
-    company: "Self-employed",
-    description: [
-      "Designed and developed responsive, client-facing web applications using HTML, CSS, JavaScript, and React.js.",
-      "Built and integrated back-end functionality with Node.js, Express.js, and MySQL/MongoDB to support dynamic, data-driven websites.",
-      "Collaborated directly with clients to gather requirements, scope projects, and deliver features on schedule.",
-      "Deployed and maintained production websites, resolving bugs and implementing performance improvements.",
-      "Managed end-to-end project delivery independently, using Git and GitHub for version control.",
-    ],
-    tech: ["React.js", "Node.js", "Express.js", "MySQL", "MongoDB", "JavaScript", "Git"],
+    id: "academic-tutor",
+    role: "Academic Tutor",
+    period: "2022– Present",
+    description:
+      "Providing personalized tutoring to CBSE students, focusing on simplifying concepts and building strong academic foundations through interactive learning.",
   },
   {
-    period: "2022 — Present",
-    role: "Freelance Tutor",
-    company: "Self-employed",
-    description: [
-      "Taught 20+ students Mathematics, Science, and other subjects up to Class 10, improving academic performance.",
-      "Developed structured lesson plans and assessments in PowerPoint and Word to support student learning outcomes.",
-      "Designed and delivered presentations and reports for training and marketing purposes.",
-      "Maintained academic records and parent communication through organized Excel tracking sheets.",
-      "Created and proofread educational content on technology and career guidance topics.",
-    ],
-    tech: ["Mentorship", "Curriculum Design", "STEM Education", "Communication"],
+    id: "software-developer",
+    role: "Software Developer",
+    period: "Ongoing",
+    description:
+      "Designing and developing software applications while exploring modern technologies, building practical solutions, and continuously expanding my expertise in full-stack development and artificial intelligence.",
   },
 ];
 
 export default function ExperienceSection() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const [canScrollMore, setCanScrollMore] = useState(false);
+
+  // Monitor internal scroll position to update scroll hint
+  const checkScrollStatus = useCallback(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const hasMore = el.scrollHeight - el.scrollTop - el.clientHeight > 15;
+    setCanScrollMore(hasMore);
+  }, []);
+
+  useEffect(() => {
+    checkScrollStatus();
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    el.addEventListener("scroll", checkScrollStatus, { passive: true });
+    window.addEventListener("resize", checkScrollStatus);
+
+    return () => {
+      el.removeEventListener("scroll", checkScrollStatus);
+      window.removeEventListener("resize", checkScrollStatus);
+    };
+  }, [checkScrollStatus]);
+
+  // Intelligent wheel listener: scrolls internal experiences first;
+  // once the bottom/top is reached, naturally lets page scroll continue to next/previous section.
+  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    const maxScroll = el.scrollHeight - el.clientHeight;
+    // If all experiences fit on screen without overflow, allow natural page scroll
+    if (maxScroll <= 6) return;
+
+    const isAtBottom = el.scrollTop >= maxScroll - 3;
+    const isAtTop = el.scrollTop <= 3;
+
+    if (e.deltaY > 0 && !isAtBottom) {
+      // User is scrolling down and more experiences remain: scroll internally
+      el.scrollTop += e.deltaY;
+      e.preventDefault();
+      checkScrollStatus();
+    } else if (e.deltaY < 0 && !isAtTop) {
+      // User is scrolling up and not yet at top: scroll internally
+      el.scrollTop += e.deltaY;
+      e.preventDefault();
+      checkScrollStatus();
+    }
+  };
+
   return (
     <section
       id="experience"
-      className="relative min-h-[80vh] w-full py-24 px-6 md:pl-56 md:pr-12 max-w-7xl mx-auto flex flex-col justify-center border-t border-white/5"
+      ref={sectionRef}
+      onWheel={handleWheel}
+      className="relative min-h-screen w-full flex items-center overflow-hidden bg-[#070709] select-none"
     >
-      <div className="flex items-center gap-3 mb-8">
-        <span className="font-mono text-xs tracking-widest text-zinc-500 uppercase">
-          02 // Journey
-        </span>
-        <div className="h-[1px] w-12 bg-zinc-800" />
+      {/* 1. Full-bleed Background: Vintage Slate Wall with Typewriter on the Right (No Gaps) */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/experience-bg.jpg"
+          alt="Vintage Typewriter Desk"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[right_center] md:object-[right_center] filter brightness-[0.96] contrast-[1.04]"
+        />
+
+        {/* Ambient Darkening Gradients for readability and seamless sidebar blend */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30 pointer-events-none" />
       </div>
 
-      <h2 className="font-typewriter text-3xl md:text-4xl text-white mb-10 tracking-wide">
-        Work Experience
-      </h2>
+      {/* 2. Main Content Composition: Shifted comfortably towards the right */}
+      <div className="relative z-10 w-full min-h-screen md:pl-64 lg:pl-72 xl:pl-80 flex flex-col justify-start px-6 sm:px-10 md:px-12 lg:px-14 pt-12 sm:pt-16 pb-14">
+        
+        {/* Torn Paper Scrap Header: "Experience" */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative w-56 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-8 sm:mb-10 -rotate-1 origin-left shrink-0 ml-1 sm:ml-2"
+        >
+          <Image
+            src="/images/experience-title.png"
+            alt="Experience"
+            fill
+            priority
+            className="object-contain object-left pointer-events-none select-none drop-shadow-[0_4px_14px_rgba(0,0,0,0.65)]"
+          />
+        </motion.div>
 
-      <div className="relative border-l border-zinc-800 ml-3 md:ml-4 space-y-10 pl-6 md:pl-8">
-        {experiences.map((exp, index) => (
-          <div key={index} className="relative group">
-            <div className="absolute -left-[31px] md:-left-[39px] top-1.5 w-3 h-3 rounded-full bg-zinc-900 border-2 border-zinc-600 group-hover:border-white group-hover:bg-white transition-all shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
+        {/* 3. Scrollable Timeline Container (Spread wider to the right to fill empty space) */}
+        <div
+          ref={scrollContainerRef}
+          className="relative w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl max-h-[calc(100vh-220px)] sm:max-h-[calc(100vh-200px)] overflow-y-auto pr-4 sm:pr-8 vintage-scrollbar"
+        >
+          {/* Vertical Luminous Timeline Wire */}
+          <div
+            aria-hidden="true"
+            className="absolute left-[13px] top-[18px] bottom-[20px] w-[2px] bg-gradient-to-b from-white via-zinc-400 to-zinc-700 shadow-[0_0_8px_rgba(255,255,255,0.7)] rounded-full pointer-events-none"
+          />
 
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-              <h3 className="text-lg font-semibold text-white tracking-tight">
-                {exp.role}{" "}
-                <span className="text-zinc-500 font-normal">@ {exp.company}</span>
-              </h3>
-              <div className="flex items-center gap-1.5 text-xs font-mono text-zinc-400">
-                <Calendar className="w-3.5 h-3.5 text-zinc-500" />
-                <span>{exp.period}</span>
-              </div>
-            </div>
-
-            <ul className="space-y-1.5 text-sm text-zinc-300 font-light mb-4">
-              {exp.description.map((desc, dIdx) => (
-                <li key={dIdx} className="flex items-start gap-2">
-                  <span className="text-zinc-600 select-none mt-1">▸</span>
-                  <span>{desc}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="flex flex-wrap gap-2">
-              {exp.tech.map((t, tIdx) => (
-                <span
-                  key={tIdx}
-                  className="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-zinc-900 border border-white/5 text-zinc-400"
+          {/* Timeline Experience Entries */}
+          <div className="relative space-y-10 sm:space-y-12 pl-10 sm:pl-12 pb-6">
+            {experiences.map((exp, index) => {
+              return (
+                <motion.div
+                  key={exp.id}
+                  initial={{ opacity: 0, x: -15 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.15 }}
+                  className="relative group"
                 >
-                  {t}
-                </span>
-              ))}
-            </div>
+                  {/* Custom Vintage Camera Optical Focusing Reticle Bullet */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute -left-[38px] sm:-left-[42px] top-[7px] w-7 h-7 flex items-center justify-center pointer-events-none group-hover:scale-115 transition-transform"
+                  >
+                    <svg viewBox="0 0 28 28" width="28" height="28" className="drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]">
+                      {/* Outer Steel Lens Ring */}
+                      <circle cx="14" cy="14" r="11" fill="#121215" stroke="#71717a" strokeWidth="1.5" />
+                      {/* Aperture Calibration Dashes */}
+                      <circle cx="14" cy="14" r="7" fill="none" stroke="#a1a1aa" strokeWidth="1" strokeDasharray="2.5,2" opacity="0.8" />
+                      {/* 4 Precision Reticle Markings */}
+                      <line x1="14" y1="2" x2="14" y2="6.5" stroke="#e4e4e7" strokeWidth="1.5" strokeLinecap="round" />
+                      <line x1="14" y1="21.5" x2="14" y2="26" stroke="#e4e4e7" strokeWidth="1.5" strokeLinecap="round" />
+                      <line x1="2" y1="14" x2="6.5" y2="14" stroke="#e4e4e7" strokeWidth="1.5" strokeLinecap="round" />
+                      <line x1="21.5" y1="14" x2="26" y2="14" stroke="#e4e4e7" strokeWidth="1.5" strokeLinecap="round" />
+                      {/* Center Optical Focal Core */}
+                      <circle cx="14" cy="14" r="2.5" fill="#ffffff" />
+                    </svg>
+                  </div>
+
+                  {/* Header Row: Heading with Second Image Paper Scrap Behind + Timeline Date Moved to the Right */}
+                  <div className="flex items-center gap-4 sm:gap-6 flex-wrap">
+                    {/* Role Heading on Torn Kraft Paper Scrap Banner (Image 2) */}
+                    <div className="relative inline-flex items-center justify-center px-5 sm:px-6 py-2 sm:py-2.5 filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.65)] shrink-0">
+                      <Image
+                        src="/images/heading-paper-bg.png"
+                        alt=""
+                        fill
+                        priority
+                        className="object-fill pointer-events-none select-none"
+                      />
+                      <span className="relative z-10 font-typewriter font-bold text-[16.5px] sm:text-[18.5px] md:text-[20px] text-[#181613] tracking-wide select-none whitespace-nowrap -translate-y-[1px]">
+                        {exp.role}
+                      </span>
+                    </div>
+
+                    {/* Timeline Date Moved to the Right of the Heading */}
+                    <div className="font-typewriter text-[14px] sm:text-[15.5px] md:text-[16.5px] text-zinc-300 tracking-wider pl-3 border-l-2 border-zinc-600 bg-white/[0.03] py-1 pr-3 rounded-r">
+                      {exp.period}
+                    </div>
+                  </div>
+
+                  {/* Expanded Description Paragraph: Spread Out to the Right to Fill Space */}
+                  <p className="mt-3.5 text-zinc-200 font-typewriter text-[15px] sm:text-[16px] md:text-[17px] leading-[1.75] tracking-[0.25px] max-w-2xl lg:max-w-3xl text-shadow-sm">
+                    {exp.description}
+                  </p>
+                </motion.div>
+              );
+            })}
           </div>
-        ))}
+        </div>
+
+        {/* Scroll Indicator Hint (Displays automatically if there are more experiences below) */}
+        {canScrollMore && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="flex items-center gap-2 mt-4 ml-12 text-zinc-400 font-typewriter text-xs tracking-wider animate-bounce"
+          >
+            <span>Scroll for more experiences</span>
+            <ChevronDown className="w-3.5 h-3.5" />
+          </motion.div>
+        )}
       </div>
     </section>
   );

@@ -99,3 +99,39 @@
     cursor: text !important;
   }
 }
+
+/* Torn Paper Badge for Experience Titles */
+.torn-paper-badge {
+  display: inline-block;
+  background: #ede6d8;
+  color: #121214;
+  font-family: var(--font-typewriter);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
+  clip-path: polygon(
+    0% 4%, 2% 0%, 5% 3%, 8% 1%, 12% 4%, 15% 1%, 20% 3%, 25% 0%, 30% 4%,
+    35% 1%, 40% 3%, 45% 0%, 50% 3%, 55% 1%, 60% 4%, 65% 1%, 70% 3%, 75% 0%,
+    80% 4%, 85% 1%, 90% 3%, 95% 1%, 98% 3%, 100% 0%,
+    99% 25%, 100% 50%, 99% 75%, 100% 100%,
+    98% 97%, 95% 99%, 90% 97%, 85% 100%, 80% 97%, 75% 99%, 70% 96%, 65% 100%,
+    60% 97%, 55% 99%, 50% 97%, 45% 100%, 40% 96%, 35% 99%, 30% 97%, 25% 100%,
+    20% 96%, 15% 99%, 12% 96%, 8% 100%, 5% 97%, 2% 100%, 0% 96%,
+    1% 75%, 0% 50%, 1% 25%
+  );
+}
+
+/* Vintage Minimal Scrollbar */
+.vintage-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.vintage-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+}
+.vintage-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+}
+.vintage-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
