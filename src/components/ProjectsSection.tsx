@@ -3,15 +3,26 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useMotionValue } from "motion/react";
+import { motion } from "motion/react";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { projects } from "@/data/projects";
 
 export default function ProjectsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const total = projects.length;
-  const lastScrollTime = useRef<number>(0);
+  const sectionRef = useRef<HTMLElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const lastScrollTime = useRef<number>(0);
+
+  // Auto-scroll & Hover state refs
+  const [isSectionInView, setIsSectionInView] = useState(false);
+  const isHovered = useRef<boolean>(false); // Completely stops automatic scrolling when hovering over any card
+  const isUserInteracting = useRef<boolean>(false);
+  const isDragging = useRef<boolean>(false);
+
+  // Press-and-hold refs for arrow buttons
+  const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const holdIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Smooth circular navigation
   const handlePrev = useCallback(() => {
@@ -27,17 +38,99 @@ export default function ProjectsSection() {
     setCurrentIndex(index);
   };
 
+  // 1. Detect when user scrolls down to the Project Section
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsSectionInView(entry.isIntersecting);
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // 2. Slow Ambient Auto-Scroll (3.8s cadence):
+  // Completely stops whenever someone hovers over ANY of the cards
+  useEffect(() => {
+    if (!isSectionInView) return;
+
+    let timerId: NodeJS.Timeout;
+
+    const runLoop = () => {
+      // Only advance if:
+      // 1. Not manually holding a button or dragging
+      // 2. NOT hovering over any of the cards
+      if (!isUserInteracting.current && !isDragging.current && !isHovered.current) {
+        handleNext();
+      }
+      timerId = setTimeout(runLoop, 3800);
+    };
+
+    timerId = setTimeout(runLoop, 3800);
+
+    return () => clearTimeout(timerId);
+  }, [isSectionInView, handleNext]);
+
+  // 4. Arrow buttons: Click or Press-and-Hold
+  const stopHolding = useCallback(() => {
+    isUserInteracting.current = false;
+    if (holdTimeoutRef.current) {
+      clearTimeout(holdTimeoutRef.current);
+      holdTimeoutRef.current = null;
+    }
+    if (holdIntervalRef.current) {
+      clearInterval(holdIntervalRef.current);
+      holdIntervalRef.current = null;
+    }
+  }, []);
+
+  const startHolding = useCallback(
+    (action: "prev" | "next") => {
+      stopHolding();
+      isUserInteracting.current = true;
+
+      // Immediate action on click
+      if (action === "next") handleNext();
+      else handlePrev();
+
+      // If held down past 260ms, keep moving continuously
+      holdTimeoutRef.current = setTimeout(() => {
+        holdIntervalRef.current = setInterval(() => {
+          if (action === "next") handleNext();
+          else handlePrev();
+        }, 280);
+      }, 260);
+    },
+    [handleNext, handlePrev, stopHolding]
+  );
+
+  // Global release listener
+  useEffect(() => {
+    const handleGlobalRelease = () => stopHolding();
+    window.addEventListener("mouseup", handleGlobalRelease);
+    window.addEventListener("touchend", handleGlobalRelease);
+    return () => {
+      stopHolding();
+      window.removeEventListener("mouseup", handleGlobalRelease);
+      window.removeEventListener("touchend", handleGlobalRelease);
+    };
+  }, [stopHolding]);
+
   // Buttery-smooth wheel listener for sideways scrolling like water
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
     const now = Date.now();
-    // Throttle slightly to create a smooth, rhythmic glide without chaotic skipping
-    if (now - lastScrollTime.current < 280) return;
+    if (now - lastScrollTime.current < 250) return;
 
-    if (Math.abs(e.deltaX) > 20) {
+    if (Math.abs(e.deltaX) > 18) {
       lastScrollTime.current = now;
       if (e.deltaX > 0) handleNext();
       else handlePrev();
-    } else if (e.shiftKey && Math.abs(e.deltaY) > 20) {
+    } else if (e.shiftKey && Math.abs(e.deltaY) > 18) {
       lastScrollTime.current = now;
       if (e.deltaY > 0) handleNext();
       else handlePrev();
@@ -58,11 +151,12 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
+      ref={sectionRef}
       onWheel={handleWheel}
-      className="relative min-h-screen w-full flex items-center overflow-hidden bg-[#0a0a0c] select-none py-14 sm:py-20"
+      className="relative h-screen max-h-screen w-full flex items-center overflow-hidden bg-[#0a0a0c] select-none"
     >
-      {/* 1. Full-bleed Background: User's Vintage 35mm Filmstrip Background (Clearly Visible) */}
-      <div className="absolute inset-0 z-0">
+      {/* 1. Full-bleed Background: User's Vintage 35mm Filmstrip Background (Fully Visible) */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <Image
           src="/images/projects-bg.jpg"
           alt="Vintage Projects Film Reel Background"
@@ -72,48 +166,59 @@ export default function ProjectsSection() {
           className="object-cover object-center filter brightness-[1.0] contrast-[1.08]"
         />
 
-        {/* Minimal delicate edge gradient only to blend with the sidebar, leaving the filmstrip corners crisp & visible */}
-        <div className="absolute inset-y-0 left-0 w-48 sm:w-64 bg-gradient-to-r from-black/60 to-transparent pointer-events-none" />
+        {/* Minimal delicate edge gradient only to blend with the sidebar */}
+        <div className="absolute inset-y-0 left-0 w-48 sm:w-64 bg-gradient-to-r from-black/60 to-transparent" />
       </div>
 
-      {/* 2. Main Content Composition: Shifted comfortably towards the right with broad expansive breadth */}
-      <div className="relative z-10 w-full min-h-screen md:pl-64 lg:pl-72 xl:pl-80 flex flex-col justify-between px-4 sm:px-8 md:px-12 lg:px-16 pt-10 pb-8">
+      {/* 2. Single-Screen Container: Guaranteed to fit Heading, Cards, and Dots in 100vh */}
+      <div className="relative z-10 w-full h-full md:pl-56 lg:pl-60 flex flex-col justify-between px-4 sm:px-6 md:px-8 lg:px-12 py-5 sm:py-7">
         
-        {/* Top Header Row: Torn Paper Scrap Header "Projects" */}
+        {/* Top Header Row: Torn Paper Scrap Header "Projects" (Enlarged & Shifted Right) */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="relative w-56 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] -rotate-1 origin-left shrink-0 ml-1 sm:ml-2"
+          transition={{ duration: 0.5 }}
+          className="relative w-56 sm:w-64 md:w-72 lg:w-80 xl:w-88 aspect-[1024/341] -rotate-1 origin-left shrink-0 ml-3 sm:ml-6 md:ml-10 lg:ml-14 mt-1"
         >
           <Image
             src="/images/projects-title.png"
             alt="Projects"
             fill
             priority
-            className="object-contain object-left pointer-events-none select-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)]"
+            className="object-contain object-left pointer-events-none select-none drop-shadow-[0_6px_18px_rgba(0,0,0,0.9)]"
           />
         </motion.div>
 
-        {/* 3. Broad Panoramic 3D Carousel Stage */}
+        {/* 3. Broad Panoramic 3D Carousel Stage: Automatically pauses when hovering over any card */}
         <div
           ref={containerRef}
-          className="relative w-full max-w-7xl mx-auto my-auto py-4 sm:py-6 flex items-center justify-center"
+          onMouseEnter={() => {
+            isHovered.current = true;
+          }}
+          onMouseLeave={() => {
+            isHovered.current = false;
+          }}
+          className="relative w-full max-w-full xl:max-w-[1360px] mx-auto my-auto flex items-center justify-center py-2"
         >
-          {/* Navigation Arrow: Left (Floating white circular button with drop shadow) */}
+          {/* Navigation Arrow: Left (Click or Press-and-Hold) */}
           <button
-            onClick={handlePrev}
-            aria-label="Previous project"
+            onPointerDown={(e) => {
+              e.stopPropagation();
+              startHolding("prev");
+            }}
+            onPointerUp={stopHolding}
+            onPointerLeave={stopHolding}
+            aria-label="Previous project (Click or Hold)"
             data-cursor="interactive"
-            data-cursor-label="PREV"
-            className="absolute left-1 sm:left-4 md:left-8 lg:left-12 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white text-zinc-950 flex items-center justify-center shadow-[0_6px_20px_rgba(0,0,0,0.95),0_0_15px_rgba(255,255,255,0.4)] hover:scale-115 active:scale-95 transition-all duration-200 cursor-pointer group"
+            data-cursor-label="HOLD ◄"
+            className="absolute left-1 sm:left-3 md:left-5 lg:left-7 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white text-zinc-950 flex items-center justify-center shadow-[0_6px_20px_rgba(0,0,0,0.95),0_0_15px_rgba(255,255,255,0.4)] hover:scale-115 active:scale-95 transition-all duration-200 cursor-pointer group select-none"
           >
-            <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8 stroke-[2.4] group-hover:-translate-x-0.5 transition-transform" />
+            <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2.4] group-hover:-translate-x-0.5 transition-transform" />
           </button>
 
           {/* Cards 3D Stage: All cards continuously mounted with smooth spring motion physics */}
-          <div className="relative w-full h-[430px] sm:h-[480px] md:h-[530px] lg:h-[560px] flex items-center justify-center perspective-[1200px] overflow-visible">
+          <div className="relative w-full h-[320px] sm:h-[370px] md:h-[420px] lg:h-[460px] flex items-center justify-center perspective-[1200px] overflow-visible">
             {projects.map((project, index) => {
               // Calculate relative circular offset: [-3, -2, -1, 0, 1, 2, 3]
               let offset = (index - currentIndex) % total;
@@ -123,26 +228,25 @@ export default function ProjectsSection() {
               const isCenter = offset === 0;
               const isVisible = Math.abs(offset) <= 2;
 
-              // Fluid horizontal spread and 3D depth variables
-              // On desktop: offset 1 is +380px, offset 2 is +680px, etc.
+              // Proportional horizontal spread
               const xPos =
                 offset === 0
                   ? 0
                   : offset === 1
-                  ? "70%"
+                  ? "82%"
                   : offset === -1
-                  ? "-70%"
+                  ? "-82%"
                   : offset === 2
-                  ? "135%"
+                  ? "160%"
                   : offset === -2
-                  ? "-135%"
+                  ? "-160%"
                   : offset > 0
-                  ? "200%"
-                  : "-200%";
+                  ? "230%"
+                  : "-230%";
 
               const scale = isCenter ? 1 : Math.abs(offset) === 1 ? 0.82 : 0.65;
-              const rotateY = offset === 0 ? 0 : offset > 0 ? -18 : 18;
-              const opacity = isCenter ? 1 : Math.abs(offset) === 1 ? 0.6 : Math.abs(offset) === 2 ? 0.22 : 0;
+              const rotateY = offset === 0 ? 0 : offset > 0 ? -15 : 15;
+              const opacity = isCenter ? 1 : Math.abs(offset) === 1 ? 0.65 : Math.abs(offset) === 2 ? 0.2 : 0;
               const zIndex = isCenter ? 35 : Math.abs(offset) === 1 ? 20 : 10;
               const brightness = isCenter ? 1.0 : Math.abs(offset) === 1 ? 0.72 : 0.45;
 
@@ -150,12 +254,22 @@ export default function ProjectsSection() {
                 <motion.div
                   key={project.id}
                   onClick={() => handleCardClick(index)}
+                  onMouseEnter={() => {
+                    isHovered.current = true;
+                  }}
+                  onMouseLeave={() => {
+                    isHovered.current = false;
+                  }}
                   drag={isCenter ? "x" : false}
                   dragConstraints={{ left: 0, right: 0 }}
                   dragElastic={0.25}
+                  onDragStart={() => {
+                    isDragging.current = true;
+                  }}
                   onDragEnd={(e, { offset: dragOffset, velocity }) => {
-                    if (dragOffset.x < -35 || velocity.x < -200) handleNext();
-                    else if (dragOffset.x > 35 || velocity.x > 200) handlePrev();
+                    isDragging.current = false;
+                    if (dragOffset.x < -30 || velocity.x < -180) handleNext();
+                    else if (dragOffset.x > 30 || velocity.x > 180) handlePrev();
                   }}
                   animate={{
                     x: xPos,
@@ -174,9 +288,9 @@ export default function ProjectsSection() {
                   style={{
                     transformStyle: "preserve-3d",
                   }}
-                  className={`absolute w-[290px] sm:w-[370px] md:w-[440px] lg:w-[480px] aspect-square rounded-2xl overflow-hidden border-2 transition-colors duration-300 ${
+                  className={`absolute w-[260px] sm:w-[310px] md:w-[360px] lg:w-[400px] xl:w-[420px] aspect-square rounded-2xl overflow-hidden border-2 transition-colors duration-300 ${
                     isCenter
-                      ? "border-zinc-400/80 shadow-[0_20px_50px_rgba(0,0,0,0.95),0_0_24px_rgba(255,255,255,0.12)] cursor-grab active:cursor-grabbing bg-zinc-950"
+                      ? "border-zinc-400/80 shadow-[0_18px_45px_rgba(0,0,0,0.95),0_0_24px_rgba(255,255,255,0.12)] cursor-grab active:cursor-grabbing bg-zinc-950"
                       : "border-zinc-700/60 shadow-[0_10px_35px_rgba(0,0,0,0.9)] cursor-pointer bg-zinc-950/80 hover:border-zinc-500"
                   } ${!isVisible ? "pointer-events-none" : "pointer-events-auto"}`}
                 >
@@ -186,7 +300,7 @@ export default function ProjectsSection() {
                     alt={project.title}
                     fill
                     priority={isCenter}
-                    sizes="(max-width: 768px) 360px, 480px"
+                    sizes="(max-width: 768px) 320px, 440px"
                     className="object-cover select-none pointer-events-none"
                   />
 
@@ -199,15 +313,15 @@ export default function ProjectsSection() {
 
                   {/* Bottom Info Bar with Live Arrow Visiting Button */}
                   <div
-                    className={`absolute bottom-0 inset-x-0 p-5 sm:p-6 flex items-end justify-between gap-4 transition-all duration-300 ${
+                    className={`absolute bottom-0 inset-x-0 p-4 sm:p-5 flex items-end justify-between gap-3 transition-all duration-300 ${
                       isCenter ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3 pointer-events-none"
                     }`}
                   >
                     <div className="flex-1 min-w-0 pr-2">
-                      <h3 className="font-typewriter font-bold text-base sm:text-lg md:text-xl text-white tracking-wide truncate">
+                      <h3 className="font-typewriter font-bold text-sm sm:text-base md:text-lg text-white tracking-wide truncate">
                         {project.title.split("–")[0].trim()}
                       </h3>
-                      <p className="font-typewriter text-zinc-300 text-xs sm:text-sm mt-1 leading-relaxed line-clamp-2">
+                      <p className="font-typewriter text-zinc-300 text-xs sm:text-xs md:text-sm mt-0.5 leading-relaxed line-clamp-2">
                         {project.description}
                       </p>
                     </div>
@@ -215,12 +329,13 @@ export default function ProjectsSection() {
                     {/* Circular Arrow Button: Navigates to Detailed Project Page */}
                     <Link
                       href={`/projects/${project.slug}`}
+                      onClick={(e) => e.stopPropagation()}
                       data-cursor="project"
                       data-cursor-label="VISIT ↗"
                       title={`View details for ${project.title}`}
-                      className="shrink-0 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/80 hover:bg-white text-white hover:text-black border border-white/50 hover:border-white shadow-[0_4px_16px_rgba(0,0,0,0.95),0_0_12px_rgba(255,255,255,0.3)] flex items-center justify-center transition-all duration-300 group/btn"
+                      className="shrink-0 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-black/80 hover:bg-white text-white hover:text-black border border-white/50 hover:border-white shadow-[0_4px_16px_rgba(0,0,0,0.95),0_0_12px_rgba(255,255,255,0.3)] flex items-center justify-center transition-all duration-300 group/btn pointer-events-auto"
                     >
-                      <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover/btn:translate-x-0.5 transition-transform" />
+                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover/btn:translate-x-0.5 transition-transform" />
                     </Link>
                   </div>
                 </motion.div>
@@ -228,20 +343,25 @@ export default function ProjectsSection() {
             })}
           </div>
 
-          {/* Navigation Arrow: Right (Floating white circular button with drop shadow) */}
+          {/* Navigation Arrow: Right (Click or Press-and-Hold) */}
           <button
-            onClick={handleNext}
-            aria-label="Next project"
+            onPointerDown={(e) => {
+              e.stopPropagation();
+              startHolding("next");
+            }}
+            onPointerUp={stopHolding}
+            onPointerLeave={stopHolding}
+            aria-label="Next project (Click or Hold)"
             data-cursor="interactive"
-            data-cursor-label="NEXT"
-            className="absolute right-1 sm:right-4 md:right-8 lg:right-12 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white text-zinc-950 flex items-center justify-center shadow-[0_6px_20px_rgba(0,0,0,0.95),0_0_15px_rgba(255,255,255,0.4)] hover:scale-115 active:scale-95 transition-all duration-200 cursor-pointer group"
+            data-cursor-label="HOLD ►"
+            className="absolute right-1 sm:right-3 md:right-5 lg:right-7 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white text-zinc-950 flex items-center justify-center shadow-[0_6px_20px_rgba(0,0,0,0.95),0_0_15px_rgba(255,255,255,0.4)] hover:scale-115 active:scale-95 transition-all duration-200 cursor-pointer group select-none"
           >
-            <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 stroke-[2.4] group-hover:translate-x-0.5 transition-transform" />
+            <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2.4] group-hover:translate-x-0.5 transition-transform" />
           </button>
         </div>
 
-        {/* 4. Carousel Pagination Indicator Dots for All 6 Cards */}
-        <div className="flex items-center justify-center gap-3 mt-2 sm:mt-4">
+        {/* 4. Carousel Pagination Indicator Dots */}
+        <div className="flex items-center justify-center gap-2.5 sm:gap-3 py-1">
           {projects.map((proj, idx) => {
             const isActive = idx === currentIndex;
             return (
@@ -251,8 +371,8 @@ export default function ProjectsSection() {
                 aria-label={`Go to project ${idx + 1}: ${proj.title}`}
                 className={`transition-all duration-300 rounded-full cursor-pointer ${
                   isActive
-                    ? "w-3.5 h-3.5 bg-white shadow-[0_0_12px_rgba(255,255,255,0.95)] scale-115"
-                    : "w-2.5 h-2.5 bg-transparent border border-zinc-500/80 hover:border-zinc-300 hover:scale-110"
+                    ? "w-3 h-3 bg-white shadow-[0_0_10px_rgba(255,255,255,0.95)] scale-110"
+                    : "w-2 h-2 bg-transparent border border-zinc-500/80 hover:border-zinc-300 hover:scale-110"
                 }`}
               />
             );
