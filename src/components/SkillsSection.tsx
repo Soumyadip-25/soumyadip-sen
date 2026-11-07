@@ -133,15 +133,15 @@ export default function SkillsSection() {
           />
 
           {/* 2. Top-Left Heading: "Skills & Technologies" sticker + typewriter lettering */}
-          {/* Sized and placed in the open dark wall area above the plant with organic vintage tilt and crisp shadow */}
+          {/* Positioned in the open dark wall area above the plant with organic vintage tilt and crisp shadow */}
           <motion.div
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             style={{
-              left: "4.0%",
+              left: "6.8%",
               top: "2.2%",
-              width: "25.5%",
+              width: "25.0%",
             }}
             className="absolute aspect-[1024/341] z-30 pointer-events-none -rotate-[2.5deg] origin-center drop-shadow-[0_4px_18px_rgba(0,0,0,0.95)]"
           >
@@ -164,6 +164,7 @@ export default function SkillsSection() {
               <Link
                 key={topic.id}
                 href={`/skills/${topic.slug}`}
+                data-cursor-label="VISIT"
                 onMouseEnter={() => setHoveredTopicId(topic.id)}
                 onMouseLeave={() => setHoveredTopicId(null)}
                 style={{
@@ -177,7 +178,7 @@ export default function SkillsSection() {
                     ? "bg-emerald-950/40 border border-emerald-400/80 shadow-[0_0_16px_rgba(16,185,129,0.4),inset_0_0_20px_rgba(16,185,129,0.25)]"
                     : "bg-black/20 border border-white/[0.08] hover:border-emerald-500/40 shadow-[inset_0_0_15px_rgba(0,0,0,0.7)]"
                 }`}
-                title={`Topic ${topic.number}: ${topic.title} (Click to open)`}
+                title={`Module ${topic.number}: ${topic.title} (Click to visit)`}
                 aria-label={`View ${topic.title} details`}
               >
                 {/* CRT Scanline Texture Layer */}
@@ -204,18 +205,18 @@ export default function SkillsSection() {
                   className="absolute inset-0 bg-radial from-transparent via-transparent to-black/70 pointer-events-none rounded-[inherit]"
                 />
 
-                {/* Top Readout: Channel Number & Live Status Dot */}
+                {/* Top Readout: Module Number & Live Status Dot */}
                 <div className="relative z-10 w-full flex items-center justify-between px-2 pt-1">
                   <span
-                    style={{ fontSize: `${Math.round(11.5 * typographyScale)}px` }}
-                    className={`font-mono font-bold tracking-wider transition-colors ${
+                    style={{ fontSize: `${Math.round(10.5 * typographyScale)}px` }}
+                    className={`font-mono font-bold tracking-tight transition-colors ${
                       isHovered ? "text-emerald-300" : "text-emerald-400"
                     }`}
                   >
-                    CH // {topic.number}
+                    MODULE // {topic.number}
                   </span>
 
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1.5 shrink-0">
                     <span
                       style={{ fontSize: `${Math.round(9.5 * typographyScale)}px` }}
                       className={`font-mono font-medium transition-colors ${
@@ -280,7 +281,7 @@ export default function SkillsSection() {
                         : "text-zinc-500 opacity-0 translate-y-0.5"
                     }`}
                   >
-                    <span>[ OPEN ]</span>
+                    <span>[ VISIT ]</span>
                     <ArrowRight
                       style={{
                         width: `${Math.round(10.5 * typographyScale)}px`,
@@ -295,28 +296,29 @@ export default function SkillsSection() {
           })}
         </div>
 
-        {/* 4. MOBILE HELPER BAR: Quick Channel Switcher for Screens < 640px */}
+        {/* 4. MOBILE HELPER BAR: Quick Module Switcher for Screens < 640px */}
         {isMobile && (
           <div className="mt-3 w-full max-w-sm flex flex-col items-center gap-2 px-2 z-30">
-            {/* Active Channel Card */}
+            {/* Active Module Card */}
             <Link
               href={`/skills/${activeMobileTopic.slug}`}
+              data-cursor-label="VISIT"
               className="w-full p-3 rounded-lg bg-zinc-950/90 border border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.25)] flex items-center justify-between group"
             >
               <div className="flex items-center gap-2.5 min-w-0">
-                <span className="font-mono text-sm font-bold text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded">
-                  {activeMobileTopic.number}
+                <span className="font-mono text-xs sm:text-sm font-bold text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded">
+                  MODULE // {activeMobileTopic.number}
                 </span>
                 <span className="font-typewriter text-sm font-bold text-white truncate">
                   {activeMobileTopic.title}
                 </span>
               </div>
               <span className="font-mono text-xs font-semibold text-emerald-400 group-hover:translate-x-0.5 transition-transform flex items-center gap-1 shrink-0">
-                Open <ArrowRight className="w-3.5 h-3.5" />
+                Visit <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </Link>
 
-            {/* Numeric Channel Switcher Buttons */}
+            {/* Numeric Module Switcher Buttons */}
             <div className="flex items-center gap-1.5 bg-black/80 px-3 py-1.5 rounded-full border border-zinc-800">
               <button
                 onClick={(e) => {
@@ -326,7 +328,7 @@ export default function SkillsSection() {
                   );
                 }}
                 className="p-1 text-zinc-400 hover:text-white"
-                aria-label="Previous channel"
+                aria-label="Previous module"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -356,7 +358,7 @@ export default function SkillsSection() {
                   );
                 }}
                 className="p-1 text-zinc-400 hover:text-white"
-                aria-label="Next channel"
+                aria-label="Next module"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>

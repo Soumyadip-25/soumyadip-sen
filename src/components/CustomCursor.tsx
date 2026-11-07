@@ -17,10 +17,10 @@ const CALIBRATION_TICKS = Array.from({ length: 24 }).map((_, i) => {
   const isMajor = deg % 45 === 0;
   return {
     deg,
-    rInner: isCardinal ? 18.2 : isMajor ? 19.0 : 19.6,
-    rOuter: isCardinal ? 22.8 : isMajor ? 21.8 : 21.2,
-    strokeWidth: isCardinal ? 1.1 : isMajor ? 0.85 : 0.65,
-    opacity: isCardinal ? 0.9 : isMajor ? 0.6 : 0.35,
+    rInner: isCardinal ? 18.0 : isMajor ? 18.8 : 19.5,
+    rOuter: isCardinal ? 23.0 : isMajor ? 22.0 : 21.4,
+    strokeWidth: isCardinal ? 1.25 : isMajor ? 0.95 : 0.75,
+    opacity: isCardinal ? 0.95 : isMajor ? 0.65 : 0.4,
   };
 });
 
@@ -103,7 +103,7 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
         if (insideLink && insideLink !== projectTarget) {
           const customLabel = insideLink.getAttribute("data-cursor-label");
           setMode("interactive");
-          setLabel(customLabel || "OPEN ↗");
+          setLabel(customLabel || "VISIT ↗");
           return;
         }
 
@@ -141,11 +141,11 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
           } else if (href?.startsWith("mailto:") || text.includes("contact") || text.includes("email")) {
             setLabel("CONTACT");
           } else if (href?.startsWith("http") && !href.includes(window.location.host)) {
-            setLabel("OPEN ↗");
+            setLabel("VISIT ↗");
           } else if (text.includes("view") || text.includes("preview")) {
             setLabel("VIEW");
           } else {
-            setLabel("OPEN");
+            setLabel("VISIT");
           }
         }
         return;
@@ -224,8 +224,8 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
         >
           {/* Main SVG Geometry: Dual-layer lens rings, corner brackets, aperture blades */}
           <svg
-            width="58"
-            height="58"
+            width="42"
+            height="42"
             viewBox="-29 -29 58 58"
             className="overflow-visible"
             style={{
@@ -256,7 +256,7 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
                 r="20.5"
                 fill="none"
                 stroke="#eee8dd"
-                strokeWidth="0.8"
+                strokeWidth="0.9"
                 strokeOpacity={isInteractionMode || isProjectMode ? 0.75 : 0.45}
               />
 
@@ -285,7 +285,7 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
                 x="0"
                 y="-23"
                 textAnchor="middle"
-                fontSize="4"
+                fontSize="4.2"
                 fontFamily="var(--font-mono)"
                 fill="#eee8dd"
                 fillOpacity="0.75"
@@ -298,7 +298,7 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
                 x="0"
                 y="26"
                 textAnchor="middle"
-                fontSize="3.5"
+                fontSize="3.6"
                 fontFamily="var(--font-mono)"
                 fill="#eee8dd"
                 fillOpacity="0.55"
@@ -316,7 +316,7 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
               r="14"
               fill="none"
               stroke="#eee8dd"
-              strokeWidth="0.75"
+              strokeWidth="0.85"
               strokeOpacity={isProjectMode ? 0.8 : 0.55}
               strokeDasharray={isProjectMode ? "none" : "2.5 2"}
               className="transition-all duration-300"
@@ -327,7 +327,7 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
               animate={{ scale: bracketsScale }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
               stroke="#f0ece1"
-              strokeWidth="1.3"
+              strokeWidth="1.4"
               strokeLinecap="square"
               fill="none"
             >
@@ -383,7 +383,7 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
             </motion.g>
 
             {/* LAYER 5: FINE CENTRAL FOCUSING RETICLE */}
-            <g stroke="#f0ece1" strokeWidth="0.8" strokeLinecap="round">
+            <g stroke="#f0ece1" strokeWidth="0.9" strokeLinecap="round">
               {/* Rangefinder Split-Image Horizontal Alignment Line */}
               <line
                 x1="-4"
@@ -398,19 +398,19 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
             </g>
           </svg>
 
-          {/* Contextual Analogue Badge (INSPECT, FOCUS, OPEN, DOWNLOAD) */}
+          {/* Contextual Analogue Badge (INSPECT, FOCUS, VISIT, DOWNLOAD) */}
           <AnimatePresence>
             {label && mode !== "default" && mode !== "hidden" && (
               <motion.div
-                initial={{ opacity: 0, x: -6, y: -2, scale: 0.88 }}
+                initial={{ opacity: 0, x: -5, y: -2, scale: 0.88 }}
                 animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-                exit={{ opacity: 0, x: -4, scale: 0.85 }}
+                exit={{ opacity: 0, x: -3, scale: 0.85 }}
                 transition={{ duration: 0.16, ease: "easeOut" }}
-                className="absolute left-[32px] top-[-14px] whitespace-nowrap pointer-events-none"
+                className="absolute left-[24px] top-[-12px] whitespace-nowrap pointer-events-none"
               >
                 <div className="flex items-center gap-1.5 px-2 py-0.5 bg-[#0e0d0c]/90 text-[#f0ece1] border border-[#f0ece1]/35 rounded-[2px] shadow-[0_2px_8px_rgba(0,0,0,0.85)] backdrop-blur-xs">
                   <span className="w-1 h-1 rounded-full bg-[#f0ece1] animate-pulse inline-block" />
-                  <span className="font-mono text-[9px] font-bold tracking-widest uppercase">
+                  <span className="font-mono text-[8.5px] font-bold tracking-widest uppercase">
                     {label}
                   </span>
                 </div>
@@ -431,7 +431,7 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
         className="absolute top-0 left-0 pointer-events-none flex items-center justify-center"
       >
         <div
-          className="w-1.5 h-1.5 rounded-full bg-[#f0ece1] transition-transform duration-100"
+          className="w-1 h-1 rounded-full bg-[#f0ece1] transition-transform duration-100"
           style={{
             boxShadow: "0 0 2px 1px rgba(0, 0, 0, 0.95)",
             transform: isClicked ? "scale(1.5)" : isProjectMode ? "scale(1.3)" : "scale(1)",

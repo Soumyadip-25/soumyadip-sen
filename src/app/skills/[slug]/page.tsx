@@ -93,16 +93,16 @@ export default async function SkillDetailPage({ params }: PageProps) {
             <span>← Back to Skills Section</span>
           </Link>
 
-          {/* CRT Channel Readout */}
+          {/* Module Readout */}
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2.5 px-3.5 py-1.5 rounded bg-emerald-950/40 border border-emerald-500/30">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_#34d399]" />
               <span className="font-mono text-sm sm:text-base font-bold text-emerald-300 tracking-widest">
-                CRT CH // {topic.number}
+                MODULE // {topic.number}
               </span>
             </div>
 
-            {/* Quick Prev / Next Channel switcher */}
+            {/* Quick Prev / Next Module switcher */}
             <div className="flex items-center gap-1 border-l border-zinc-800 pl-3">
               <Link
                 href={`/skills/${prevTopic.slug}`}
@@ -239,15 +239,16 @@ export default async function SkillDetailPage({ params }: PageProps) {
         {/* Circular Bottom Navigation to other topics */}
         <div className="pt-10 border-t border-zinc-800">
           <div className="flex items-center justify-between text-sm font-mono text-zinc-400 mb-5 uppercase tracking-wider font-semibold">
-            <span>← Previous Channel</span>
-            <span>All Channels (01–06)</span>
-            <span>Next Channel →</span>
+            <span>← Previous Module</span>
+            <span>All Modules (01–06)</span>
+            <span>Next Module →</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {/* Prev Channel Card */}
+            {/* Prev Module Card */}
             <Link
               href={`/skills/${prevTopic.slug}`}
+              data-cursor-label="VISIT"
               className="p-5 rounded-xl bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition-all flex items-center gap-4 group"
             >
               <div className="p-3 rounded-lg bg-zinc-800 text-zinc-300 group-hover:text-emerald-400 group-hover:bg-emerald-950/50 transition-colors">
@@ -255,7 +256,7 @@ export default async function SkillDetailPage({ params }: PageProps) {
               </div>
               <div className="min-w-0">
                 <span className="font-mono text-xs sm:text-sm font-bold text-zinc-400 block">
-                  CH // {prevTopic.number}
+                  MODULE // {prevTopic.number}
                 </span>
                 <span className="font-typewriter text-base sm:text-lg font-bold text-zinc-100 group-hover:text-white truncate block">
                   {prevTopic.title}
@@ -263,14 +264,15 @@ export default async function SkillDetailPage({ params }: PageProps) {
               </div>
             </Link>
 
-            {/* Next Channel Card */}
+            {/* Next Module Card */}
             <Link
               href={`/skills/${nextTopic.slug}`}
+              data-cursor-label="VISIT"
               className="p-5 rounded-xl bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition-all flex items-center justify-between group"
             >
               <div className="min-w-0 text-left">
                 <span className="font-mono text-xs sm:text-sm font-bold text-zinc-400 block">
-                  CH // {nextTopic.number}
+                  MODULE // {nextTopic.number}
                 </span>
                 <span className="font-typewriter text-base sm:text-lg font-bold text-zinc-100 group-hover:text-white truncate block">
                   {nextTopic.title}
