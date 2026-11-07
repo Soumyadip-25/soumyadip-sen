@@ -38,10 +38,10 @@ export const skillTopics: SkillTopic[] = [
     ],
     tools: ["GCC / G++", "Python 3.12", "Node.js", "JDK", "TypeScript Compiler"],
     rect: {
-      leftPct: 26.37,
-      topPct: 19.1,
-      widthPct: 16.11,
-      heightPct: 21.18,
+      leftPct: 27.05,
+      topPct: 19.44,
+      widthPct: 15.82,
+      heightPct: 20.83,
     },
   },
   {
@@ -65,10 +65,10 @@ export const skillTopics: SkillTopic[] = [
     ],
     tools: ["Next.js 15/16", "Vite", "Postman", "Framer Motion", "Shadcn/UI"],
     rect: {
-      leftPct: 49.22,
-      topPct: 19.1,
-      widthPct: 16.11,
-      heightPct: 21.18,
+      leftPct: 49.71,
+      topPct: 19.44,
+      widthPct: 15.82,
+      heightPct: 20.83,
     },
   },
   {
@@ -91,10 +91,10 @@ export const skillTopics: SkillTopic[] = [
     ],
     tools: ["Docker", "Firebase Console", "Vercel", "Supabase", "GCP Cloud Console"],
     rect: {
-      leftPct: 72.46,
-      topPct: 19.1,
-      widthPct: 16.11,
-      heightPct: 21.18,
+      leftPct: 72.56,
+      topPct: 19.44,
+      widthPct: 15.82,
+      heightPct: 20.83,
     },
   },
   {
@@ -117,10 +117,10 @@ export const skillTopics: SkillTopic[] = [
     ],
     tools: ["Jupyter Notebooks", "LangChain", "OpenAI / Gemini APIs", "Hugging Face"],
     rect: {
-      leftPct: 26.37,
-      topPct: 53.47,
-      widthPct: 16.11,
-      heightPct: 21.18,
+      leftPct: 27.05,
+      topPct: 52.43,
+      widthPct: 15.82,
+      heightPct: 20.83,
     },
   },
   {
@@ -143,10 +143,10 @@ export const skillTopics: SkillTopic[] = [
     ],
     tools: ["Arduino IDE", "PlatformIO", "VS Code", "Git CLI", "Twilio API"],
     rect: {
-      leftPct: 49.22,
-      topPct: 53.47,
-      widthPct: 16.11,
-      heightPct: 21.18,
+      leftPct: 49.71,
+      topPct: 52.43,
+      widthPct: 15.82,
+      heightPct: 20.83,
     },
   },
   {
@@ -169,10 +169,10 @@ export const skillTopics: SkillTopic[] = [
     ],
     tools: ["LeetCode", "System Design Patterns", "UML", "Academic Research Tools"],
     rect: {
-      leftPct: 72.46,
-      topPct: 53.47,
-      widthPct: 16.11,
-      heightPct: 21.18,
+      leftPct: 72.56,
+      topPct: 52.43,
+      widthPct: 15.82,
+      heightPct: 20.83,
     },
   },
 ];

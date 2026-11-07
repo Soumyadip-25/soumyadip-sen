@@ -171,10 +171,10 @@ export default function SkillsSection() {
                   width: `${topic.rect.widthPct}%`,
                   height: `${topic.rect.heightPct}%`,
                 }}
-                className={`group absolute pointer-events-auto flex flex-col justify-between items-center p-2 sm:p-2.5 md:p-3 rounded-[10px] sm:rounded-[12px] md:rounded-[14px] overflow-hidden transition-all duration-300 cursor-pointer ${
+                className={`group absolute pointer-events-auto flex flex-col justify-between items-center px-1.5 py-1 rounded-[14px] overflow-hidden transition-all duration-300 cursor-pointer ${
                   isHovered
-                    ? "bg-emerald-950/40 border border-emerald-400/80 shadow-[0_0_28px_rgba(16,185,129,0.45),inset_0_0_20px_rgba(16,185,129,0.3)] scale-[1.02]"
-                    : "bg-black/35 border border-white/10 hover:border-emerald-500/40 shadow-[inset_0_0_15px_rgba(0,0,0,0.8)]"
+                    ? "bg-emerald-950/40 border border-emerald-400/80 shadow-[0_0_16px_rgba(16,185,129,0.4),inset_0_0_20px_rgba(16,185,129,0.25)]"
+                    : "bg-black/20 border border-white/[0.08] hover:border-emerald-500/40 shadow-[inset_0_0_15px_rgba(0,0,0,0.7)]"
                 }`}
                 title={`Topic ${topic.number}: ${topic.title} (Click to open)`}
                 aria-label={`View ${topic.title} details`}
@@ -183,7 +183,7 @@ export default function SkillsSection() {
                 <div
                   aria-hidden="true"
                   className={`absolute inset-0 pointer-events-none transition-opacity duration-300 ${
-                    isHovered ? "opacity-35" : "opacity-25"
+                    isHovered ? "opacity-35" : "opacity-20"
                   }`}
                   style={{
                     backgroundImage:
@@ -194,41 +194,39 @@ export default function SkillsSection() {
                 {/* CRT Glass Curved Reflection Glare */}
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/15 pointer-events-none opacity-40 rounded-[inherit]"
+                  className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none opacity-30 rounded-[inherit]"
                 />
 
                 {/* CRT Glass Vignette (Bulging CRT Edge Falloff) */}
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0 bg-radial from-transparent via-transparent to-black/75 pointer-events-none rounded-[inherit]"
+                  className="absolute inset-0 bg-radial from-transparent via-transparent to-black/70 pointer-events-none rounded-[inherit]"
                 />
 
                 {/* Top Readout: Channel Number & Live Status Dot */}
-                <div className="relative z-10 w-full flex items-center justify-between px-0.5">
+                <div className="relative z-10 w-full flex items-center justify-between px-1 pt-0.5">
                   <span
-                    style={{ fontSize: `${Math.round(10 * typographyScale)}px` }}
-                    className={`font-mono font-bold tracking-wider px-1.5 py-0.5 rounded transition-all ${
-                      isHovered
-                        ? "bg-emerald-900/90 text-emerald-300 border border-emerald-400/50 shadow-[0_0_8px_rgba(52,211,153,0.6)]"
-                        : "bg-zinc-900/80 text-zinc-400 border border-white/5"
+                    style={{ fontSize: `${Math.round(9 * typographyScale)}px` }}
+                    className={`font-mono font-bold tracking-wider transition-colors ${
+                      isHovered ? "text-emerald-300" : "text-emerald-400/75"
                     }`}
                   >
                     CH // {topic.number}
                   </span>
 
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1">
                     <span
-                      style={{ fontSize: `${Math.round(9 * typographyScale)}px` }}
+                      style={{ fontSize: `${Math.round(8 * typographyScale)}px` }}
                       className={`font-mono transition-colors ${
                         isHovered ? "text-emerald-300" : "text-zinc-500"
                       }`}
                     >
-                      {isHovered ? "SIGNAL ON" : "60Hz"}
+                      {isHovered ? "LIVE" : "60Hz"}
                     </span>
                     <span
                       className={`w-1.5 h-1.5 rounded-full transition-all ${
                         isHovered
-                          ? "bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse"
+                          ? "bg-emerald-400 shadow-[0_0_6px_#34d399] animate-pulse"
                           : "bg-zinc-600"
                       }`}
                     />
@@ -241,14 +239,14 @@ export default function SkillsSection() {
                   <div
                     className={`transition-all duration-300 transform ${
                       isHovered
-                        ? "text-emerald-300 scale-110 drop-shadow-[0_0_12px_rgba(52,211,153,0.9)]"
+                        ? "text-emerald-300 scale-105 drop-shadow-[0_0_12px_rgba(52,211,153,0.9)]"
                         : "text-zinc-200 drop-shadow-[0_0_6px_rgba(255,255,255,0.6)]"
                     }`}
                   >
                     <Icon
                       style={{
-                        width: `${Math.round(26 * typographyScale)}px`,
-                        height: `${Math.round(26 * typographyScale)}px`,
+                        width: `${Math.round(24 * typographyScale)}px`,
+                        height: `${Math.round(24 * typographyScale)}px`,
                       }}
                       strokeWidth={2}
                     />
@@ -257,13 +255,13 @@ export default function SkillsSection() {
                   {/* Topic Title in Typewriter Font */}
                   <h3
                     style={{
-                      fontSize: `${Math.round(12 * typographyScale)}px`,
+                      fontSize: `${Math.round(11 * typographyScale)}px`,
                       lineHeight: 1.25,
-                      marginTop: `${Math.round(5 * typographyScale)}px`,
+                      marginTop: `${Math.round(3.5 * typographyScale)}px`,
                     }}
                     className={`font-typewriter font-bold tracking-tight transition-colors duration-200 ${
                       isHovered
-                        ? "text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+                        ? "text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.85)]"
                         : "text-zinc-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
                     }`}
                   >
@@ -272,20 +270,20 @@ export default function SkillsSection() {
                 </div>
 
                 {/* Bottom Bar: Access / Click Prompt */}
-                <div className="relative z-10 w-full flex items-center justify-center pt-0.5">
+                <div className="relative z-10 w-full flex items-center justify-center pb-0.5">
                   <div
-                    style={{ fontSize: `${Math.round(9 * typographyScale)}px` }}
-                    className={`inline-flex items-center gap-1 font-mono tracking-wider transition-all duration-200 px-2 py-0.5 rounded-full ${
+                    style={{ fontSize: `${Math.round(8.5 * typographyScale)}px` }}
+                    className={`inline-flex items-center gap-1 font-mono tracking-widest transition-all duration-200 ${
                       isHovered
-                        ? "text-emerald-300 bg-emerald-950/80 border border-emerald-500/40"
-                        : "text-zinc-400/80 opacity-0 group-hover:opacity-100"
+                        ? "text-emerald-300 opacity-100 translate-y-0"
+                        : "text-zinc-500 opacity-0 translate-y-0.5"
                     }`}
                   >
-                    <span>ACCESS</span>
+                    <span>[ OPEN ]</span>
                     <ArrowRight
                       style={{
-                        width: `${Math.round(10 * typographyScale)}px`,
-                        height: `${Math.round(10 * typographyScale)}px`,
+                        width: `${Math.round(9 * typographyScale)}px`,
+                        height: `${Math.round(9 * typographyScale)}px`,
                       }}
                       className="group-hover:translate-x-0.5 transition-transform"
                     />
