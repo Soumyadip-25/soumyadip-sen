@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { motion, useMotionValue, useSpring, AnimatePresence } from "motion/react";
+import { usePathname } from "next/navigation";
 
 type CursorMode = "default" | "project" | "image" | "interactive" | "hidden";
 
@@ -45,14 +46,38 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
+  const pathname = usePathname();
+  const prevPathnameRef = useRef<string | null>(pathname);
   const prevSectionRef = useRef<string | undefined>(activeSection);
 
-  // Short focus-pull effect when scrolling between sections
+  // Short focus-pull effect when scrolling between sections or changing routes
   const triggerFocusPull = useCallback(() => {
     setIsFocusPulling(true);
     const timer = setTimeout(() => setIsFocusPulling(false), 360);
     return () => clearTimeout(timer);
   }, []);
+
+  // Trigger focus pull on route transitions
+  useEffect(() => {
+    if (prevPathnameRef.current !== null && prevPathnameRef.current !== pathname) {
+      triggerFocusPull();
+      setMode("default");
+      setLabel("");
+    }
+    prevPathnameRef.current = pathname;
+  }, [pathname, triggerFocusPull]);
+
+  // Listen to custom sectionchange event across pages
+  useEffect(() => {
+    const handleSectionChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{ section: string }>;
+      if (customEvent.detail?.section) {
+        triggerFocusPull();
+      }
+    };
+    window.addEventListener("sectionchange", handleSectionChange);
+    return () => window.removeEventListener("sectionchange", handleSectionChange);
+  }, [triggerFocusPull]);
 
   useEffect(() => {
     if (prevSectionRef.current && activeSection && prevSectionRef.current !== activeSection) {
@@ -224,8 +249,8 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
         >
           {/* Main SVG Geometry: Dual-layer lens rings, corner brackets, aperture blades */}
           <svg
-            width="34"
-            height="34"
+            width="42"
+            height="42"
             viewBox="-29 -29 58 58"
             className="overflow-visible"
             style={{
@@ -406,7 +431,7 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
                 animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -3, scale: 0.85 }}
                 transition={{ duration: 0.16, ease: "easeOut" }}
-                className="absolute left-[24px] top-[-12px] whitespace-nowrap pointer-events-none"
+                className="absolute left-[26px] top-[-13px] whitespace-nowrap pointer-events-none"
               >
                 <div className="flex items-center gap-1.5 px-2 py-0.5 bg-[#0e0d0c]/90 text-[#f0ece1] border border-[#f0ece1]/35 rounded-[2px] shadow-[0_2px_8px_rgba(0,0,0,0.85)] backdrop-blur-xs">
                   <span className="w-1 h-1 rounded-full bg-[#f0ece1] animate-pulse inline-block" />
@@ -431,7 +456,7 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
         className="absolute top-0 left-0 pointer-events-none flex items-center justify-center"
       >
         <div
-          className="w-1 h-1 rounded-full bg-[#f0ece1] transition-transform duration-100"
+          className="w-1.5 h-1.5 rounded-full bg-[#f0ece1] transition-transform duration-100"
           style={{
             boxShadow: "0 0 2px 1px rgba(0, 0, 0, 0.95)",
             transform: isClicked ? "scale(1.5)" : isProjectMode ? "scale(1.3)" : "scale(1)",

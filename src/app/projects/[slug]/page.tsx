@@ -56,7 +56,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link
             href="/#projects"
-            className="group inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-zinc-900/80 border border-zinc-700/80 text-zinc-300 hover:text-white hover:border-zinc-400 hover:bg-zinc-800 transition-all text-sm font-typewriter"
+            data-cursor-label="RETURN"
+            className="group inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-zinc-900/80 border border-zinc-700/80 text-zinc-300 hover:text-white hover:border-zinc-400 hover:bg-zinc-800 transition-all text-sm font-typewriter cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             <span>Back to Projects</span>
@@ -99,7 +100,11 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           
           {/* Left Column: Authentic Vintage Card Poster (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="relative rounded-2xl overflow-hidden border-2 border-zinc-700/80 shadow-[0_12px_40px_rgba(0,0,0,0.95),0_0_24px_rgba(255,255,255,0.08)] bg-zinc-950 group">
+            <div
+              data-cursor="image"
+              data-cursor-label="FOCUS"
+              className="relative rounded-2xl overflow-hidden border-2 border-zinc-700/80 shadow-[0_12px_40px_rgba(0,0,0,0.95),0_0_24px_rgba(255,255,255,0.08)] bg-zinc-950 group cursor-pointer"
+            >
               <div className="relative aspect-square w-full">
                 <Image
                   src={project.image}
@@ -151,7 +156,9 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                     href={project.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-100 text-zinc-950 font-bold hover:bg-white hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] transition-all"
+                    data-cursor="interactive"
+                    data-cursor-label="GITHUB ↗"
+                    className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-100 text-zinc-950 font-bold hover:bg-white hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] transition-all cursor-pointer"
                   >
                     <span>View Repository on GitHub</span>
                     <ExternalLink className="w-4 h-4" />
@@ -234,7 +241,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         <div className="mt-16 sm:mt-20 pt-8 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4 font-typewriter">
           <Link
             href={`/projects/${prevProject.slug}`}
-            className="group flex items-center gap-3 px-5 py-3 rounded-xl bg-zinc-900/80 border border-zinc-700/80 text-zinc-200 hover:text-white hover:border-zinc-500 hover:bg-zinc-800 transition-all text-sm w-full sm:w-auto"
+            data-cursor-label="PREV"
+            className="group flex items-center gap-3 px-5 py-3 rounded-xl bg-zinc-900/80 border border-zinc-700/80 text-zinc-200 hover:text-white hover:border-zinc-500 hover:bg-zinc-800 transition-all text-sm w-full sm:w-auto cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             <div className="text-left">
@@ -247,14 +255,16 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
           <Link
             href="/#projects"
-            className="text-xs text-zinc-400 hover:text-white underline underline-offset-4 transition-colors"
+            data-cursor-label="RETURN"
+            className="text-xs text-zinc-400 hover:text-white underline underline-offset-4 transition-colors cursor-pointer"
           >
             Return to Main Gallery
           </Link>
 
           <Link
             href={`/projects/${nextProject.slug}`}
-            className="group flex items-center justify-end gap-3 px-5 py-3 rounded-xl bg-zinc-900/80 border border-zinc-700/80 text-zinc-200 hover:text-white hover:border-zinc-500 hover:bg-zinc-800 transition-all text-sm w-full sm:w-auto text-right"
+            data-cursor-label="NEXT"
+            className="group flex items-center justify-end gap-3 px-5 py-3 rounded-xl bg-zinc-900/80 border border-zinc-700/80 text-zinc-200 hover:text-white hover:border-zinc-500 hover:bg-zinc-800 transition-all text-sm w-full sm:w-auto text-right cursor-pointer"
           >
             <div>
               <div className="text-[10px] uppercase text-zinc-400">Next Project</div>

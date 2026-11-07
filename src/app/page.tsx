@@ -10,7 +10,6 @@ import SkillsSection from "@/components/SkillsSection";
 import AchievementsSection from "@/components/AchievementsSection";
 import ContactSection from "@/components/ContactSection";
 import ResumeModal from "@/components/ResumeModal";
-import CustomCursor from "@/components/CustomCursor";
 
 const sectionIds = ["home", "about", "experience", "projects", "skills", "achievements", "contact"];
 
@@ -29,7 +28,15 @@ export default function Home() {
           const top = el.offsetTop;
           const height = el.offsetHeight;
           if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(id);
+            setActiveSection((prev) => {
+              if (prev !== id) {
+                window.dispatchEvent(
+                  new CustomEvent("sectionchange", { detail: { section: id } })
+                );
+                return id;
+              }
+              return prev;
+            });
             break;
           }
         }
@@ -45,14 +52,14 @@ export default function Home() {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
       setActiveSection(id);
+      window.dispatchEvent(
+        new CustomEvent("sectionchange", { detail: { section: id } })
+      );
     }
   };
 
   return (
     <main className="min-h-screen bg-[#070709] text-zinc-100 relative selection:bg-zinc-800 selection:text-white">
-      {/* Custom Vintage Analogue Camera Viewfinder Cursor */}
-      <CustomCursor activeSection={activeSection} />
-
       {/* Left Sidebar Navigation */}
       <Sidebar activeSection={activeSection} onSectionClick={handleSectionClick} />
 

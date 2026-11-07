@@ -21,62 +21,41 @@ export default function SkillPaperCard({
   const filledBars =
     level === "Advanced" ? 5 : level === "Proficient" ? 4 : 3;
 
-  // Dynamic font sizing based on character length so text NEVER truncates and fits seamlessly
-  const getNameFontClass = (len: number, isCompact: boolean) => {
-    if (isCompact) {
-      if (len >= 20) return "text-[11px] sm:text-[12px] leading-[1.15]";
-      if (len >= 14) return "text-[12px] sm:text-[13px] leading-tight";
-      return "text-[13px] sm:text-[14.5px] leading-tight";
-    } else {
-      if (len >= 22) return "text-[11.5px] sm:text-[13px] leading-[1.15]";
-      if (len >= 16) return "text-[13px] sm:text-[14.5px] leading-tight";
-      return "text-[14px] sm:text-[16px] leading-tight";
-    }
+  // Unified, calibrated font sizing across all pages: no giant text, no tiny text
+  const getNameFontClass = (len: number) => {
+    if (len >= 22) return "text-[11.5px] sm:text-[12px] leading-tight";
+    if (len >= 16) return "text-[12.5px] sm:text-[13px] leading-tight";
+    return "text-[13px] sm:text-[14px] leading-tight";
   };
 
-  const getCategoryFontClass = (len: number, isCompact: boolean) => {
-    if (isCompact) {
-      if (len >= 20) return "text-[8.5px] sm:text-[9.5px] leading-tight";
-      return "text-[9.5px] sm:text-[10.5px] leading-tight";
-    } else {
-      if (len >= 20) return "text-[9.5px] sm:text-[10.5px] leading-tight";
-      return "text-[10.5px] sm:text-[11.5px] leading-tight";
-    }
+  const getCategoryFontClass = (len: number) => {
+    if (len >= 18) return "text-[8.5px] sm:text-[9px] leading-tight";
+    return "text-[9.5px] sm:text-[10px] leading-tight";
   };
 
-  const nameFontClass = getNameFontClass(name.length, compact);
-  const categoryFontClass = category ? getCategoryFontClass(category.length, compact) : "";
+  const nameFontClass = getNameFontClass(name.length);
+  const categoryFontClass = category ? getCategoryFontClass(category.length) : "";
 
   return (
     <div
-      className={`relative aspect-[3/1] drop-shadow-[0_4px_10px_rgba(0,0,0,0.65)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.85)] hover:-translate-y-1 transition-all duration-200 cursor-default select-none group ${
-        compact
-          ? "w-full max-w-[245px] sm:max-w-[275px]"
-          : "w-[215px] sm:w-[250px] md:w-[280px] shrink-0"
-      }`}
+      className="relative aspect-[3.1/1] w-full max-w-[225px] sm:max-w-[235px] drop-shadow-[0_4px_10px_rgba(0,0,0,0.65)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.85)] hover:-translate-y-1 transition-all duration-200 cursor-default select-none group"
       title={`${name} • ${category || level}`}
     >
-      {/* 1. Authentic Deckled Paper Background (Image 1 - Increased Length, Slim Breadth) */}
+      {/* 1. Authentic Deckled Paper Background */}
       <Image
         src="/images/skill-card-paper.png"
         alt=""
         fill
-        sizes={compact ? "280px" : "300px"}
+        sizes="240px"
         className="object-fill pointer-events-none select-none filter contrast-105"
       />
 
       {/* 2. Overlaid Card Content inside Deckled Margin */}
-      <div
-        className={`absolute inset-0 flex flex-col justify-between ${
-          compact ? "p-1.5 sm:p-2" : "p-2 sm:p-2.5"
-        }`}
-      >
+      <div className="absolute inset-0 flex flex-col justify-between p-1.5 sm:p-2">
         {/* 4 Crisp High-Visibility Vector Corner Brackets in Solid Ink */}
         {/* Top-Left Corner */}
         <svg
-          className={`absolute pointer-events-none text-zinc-950/90 select-none ${
-            compact ? "top-2 left-2.5 w-2.5 h-2.5" : "top-2.5 left-3 w-3 h-3"
-          }`}
+          className="absolute pointer-events-none text-zinc-950/90 select-none top-2 left-2.5 w-2.5 h-2.5"
           viewBox="0 0 10 10"
           fill="none"
         >
@@ -85,9 +64,7 @@ export default function SkillPaperCard({
 
         {/* Top-Right Corner */}
         <svg
-          className={`absolute pointer-events-none text-zinc-950/90 select-none ${
-            compact ? "top-2 right-2.5 w-2.5 h-2.5" : "top-2.5 right-3 w-3 h-3"
-          }`}
+          className="absolute pointer-events-none text-zinc-950/90 select-none top-2 right-2.5 w-2.5 h-2.5"
           viewBox="0 0 10 10"
           fill="none"
         >
@@ -96,9 +73,7 @@ export default function SkillPaperCard({
 
         {/* Bottom-Left Corner */}
         <svg
-          className={`absolute pointer-events-none text-zinc-950/90 select-none ${
-            compact ? "bottom-2 left-2.5 w-2.5 h-2.5" : "bottom-2.5 left-3 w-3 h-3"
-          }`}
+          className="absolute pointer-events-none text-zinc-950/90 select-none bottom-2 left-2.5 w-2.5 h-2.5"
           viewBox="0 0 10 10"
           fill="none"
         >
@@ -107,27 +82,19 @@ export default function SkillPaperCard({
 
         {/* Bottom-Right Corner */}
         <svg
-          className={`absolute pointer-events-none text-zinc-950/90 select-none ${
-            compact ? "bottom-2 right-2.5 w-2.5 h-2.5" : "bottom-2.5 right-3 w-3 h-3"
-          }`}
+          className="absolute pointer-events-none text-zinc-950/90 select-none bottom-2 right-2.5 w-2.5 h-2.5"
           viewBox="0 0 10 10"
           fill="none"
         >
           <path d="M1 9H9V1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
         </svg>
 
-        {/* Card Body: Tech Logo + Titles (Vertically centered and filling horizontal length) */}
+        {/* Card Body: Tech Logo + Titles (Spacious width, zero overflow) */}
         <div className="flex-1 flex items-center gap-2 sm:gap-2.5 pl-2.5 sm:pl-3 pr-2 pt-0.5 min-w-0">
-          <div
-            className={`rounded flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform ${
-              compact ? "w-6 h-6 sm:w-6.5 sm:h-6.5" : "w-6.5 h-6.5 sm:w-7 sm:h-7"
-            }`}
-          >
+          <div className="w-6 h-6 sm:w-6.5 sm:h-6.5 rounded flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
             <TechIcon
               name={name}
-              className={`filter drop-shadow-[0_1px_1px_rgba(0,0,0,0.25)] ${
-                compact ? "w-5 h-5 sm:w-5.5 sm:h-5.5" : "w-5.5 h-5.5 sm:w-6 sm:h-6"
-              }`}
+              className="w-5 h-5 sm:w-5.5 sm:h-5.5 filter drop-shadow-[0_1px_1px_rgba(0,0,0,0.25)]"
             />
           </div>
 
@@ -148,17 +115,13 @@ export default function SkillPaperCard({
         </div>
 
         {/* Bottom Signal Meter (Offset from bottom-right bracket to prevent overlap) */}
-        <div
-          className={`flex items-center justify-end gap-0.5 sm:gap-1 ${
-            compact ? "pr-6 pb-1" : "pr-7 pb-1.5"
-          }`}
-        >
+        <div className="flex items-center justify-end gap-0.5 sm:gap-1 pr-5 pb-1">
           {Array.from({ length: 5 }).map((_, i) => (
             <span
               key={i}
-              className={`-skew-x-12 rounded-xs ${
-                compact ? "w-2 sm:w-2.5 h-1" : "w-2.5 sm:w-3 h-1"
-              } ${i < filledBars ? "bg-zinc-900" : "bg-zinc-500/30"}`}
+              className={`-skew-x-12 rounded-xs w-2 sm:w-2.5 h-1 ${
+                i < filledBars ? "bg-zinc-900" : "bg-zinc-500/30"
+              }`}
             />
           ))}
         </div>
