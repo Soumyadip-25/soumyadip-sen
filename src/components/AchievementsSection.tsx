@@ -2,84 +2,99 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import {
-  Trophy,
-  Award,
   ShieldCheck,
-  CheckCircle2,
+  ChevronUp,
+  ChevronDown,
   Sparkles,
-  ExternalLink,
+  Award,
+  BookOpen,
+  CheckCircle2,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
 
-interface Certification {
-  name: string;
-  issuer: string;
+interface Achievement {
+  id: string;
+  number: string;
+  title: string;
   category: string;
+  description: string;
+  subBullets: string[];
+  tag: string;
 }
 
-const certifications: Certification[] = [
+const achievements: Achievement[] = [
   {
-    name: "Career Essentials in Generative AI",
-    issuer: "Microsoft & LinkedIn",
-    category: "Artificial Intelligence",
-  },
-  {
-    name: "Build Your Generative AI Productivity Skills",
-    issuer: "Microsoft & LinkedIn",
-    category: "Productivity & AI",
-  },
-  {
-    name: "Data Science and Analytics",
-    issuer: "HP LIFE",
-    category: "Data Science",
-  },
-  {
-    name: "Digital Business Skills",
-    issuer: "HP LIFE",
-    category: "Business Strategy",
-  },
-  {
-    name: "Generative AI Tools",
-    issuer: "NASSCOM",
-    category: "Emerging Tech",
-  },
-];
-
-const milestones = [
-  {
-    id: "freelance",
-    title: "End-to-End Freelance Production Delivery",
-    tagline: "Client Project Architecture & Lifecycle",
+    id: "sih-2026",
+    number: "01",
+    title: "Smart India Hackathon 2026 — Internal Selection",
+    category: "National Competition",
     description:
-      "Independently delivered multiple freelance full-stack web applications from client requirements discovery through full deployment, cloud setup, and performance tuning.",
-    icon: Trophy,
-    theme: "amber",
+      "Selected through the university's internal hackathon for Smart India Hackathon 2026, showcasing innovative problem-solving and technical skills.",
+    subBullets: [
+      "Selected through the university's internal hackathon for Smart India Hackathon 2026.",
+      "Showcased innovative problem-solving and technical skills under rigorous competitive evaluation.",
+    ],
+    tag: "INTERNAL SELECTION",
   },
   {
-    id: "mentorship",
-    title: "STEM Mentorship & Education",
-    tagline: "Academic Coaching & Pedagogy",
+    id: "nasscom-cert",
+    number: "02",
+    title: "NASSCOM Certification",
+    category: "Industry Credential",
     description:
-      "Mentored 20+ students in Mathematics and Science as a freelance tutor, engineering structured curriculum roadmaps and measurable assessment frameworks.",
-    icon: Award,
-    theme: "emerald",
+      "Earned a NASSCOM certification, strengthening my industry-relevant technical knowledge and professional skills.",
+    subBullets: [
+      "Earned a NASSCOM certification.",
+      "Strengthened industry-relevant technical knowledge and professional skills.",
+    ],
+    tag: "INDUSTRY ACCREDITED",
+  },
+  {
+    id: "hp-life-certs",
+    number: "03",
+    title: "HP LIFE — Professional Certifications",
+    category: "Professional Certifications",
+    description:
+      "Completed certifications in Cybersecurity Awareness, Digital Business Skills, and Data Science & Analytics through HP LIFE.",
+    subBullets: [
+      "Cybersecurity Awareness — HP LIFE Certification",
+      "Digital Business Skills — HP LIFE Certification",
+      "Data Science & Analytics — HP LIFE Certification",
+    ],
+    tag: "TRIPLE CERTIFIED",
+  },
+  {
+    id: "stem-mentorship",
+    number: "04",
+    title: "Student Mentorship & Academic Guidance",
+    category: "Academic Coaching",
+    description:
+      "Mentored CBSE students in Science and Computer Science, helping them strengthen their understanding and academic performance.",
+    subBullets: [
+      "Mentored CBSE students in Science and Computer Science.",
+      "Helped students strengthen their conceptual understanding and overall academic performance.",
+    ],
+    tag: "ACADEMIC GUIDANCE",
   },
 ];
 
 export default function AchievementsSection() {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
   const [stageBounds, setStageBounds] = useState({
     width: 1024,
     height: 576,
     scale: 1,
   });
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  const [activeMobileTab, setActiveMobileTab] = useState<"milestones" | "certs">("milestones");
-  const [activeMobileIdx, setActiveMobileIdx] = useState<number>(0);
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [activeIdx, setActiveIdx] = useState<number>(0);
+  const [canScrollUp, setCanScrollUp] = useState<boolean>(false);
+  const [canScrollDown, setCanScrollDown] = useState<boolean>(true);
 
   // Compute uniform scale so 100% of the 1024x576 background image is fully visible with ZERO cropping
   const updateLayout = useCallback(() => {
@@ -120,6 +135,47 @@ export default function AchievementsSection() {
       window.removeEventListener("resize", updateLayout);
     };
   }, [updateLayout]);
+
+  // Update scroll indicators and active item on scroll
+  const handleScroll = useCallback(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    setCanScrollUp(scrollTop > 10);
+    setCanScrollDown(scrollTop + clientHeight < scrollHeight - 10);
+
+    // Determine which item is currently near top of the scroll viewport
+    const containerTop = el.getBoundingClientRect().top;
+    let closestIdx = 0;
+    let minDistance = Infinity;
+
+    itemRefs.current.forEach((item, idx) => {
+      if (!item) return;
+      const rect = item.getBoundingClientRect();
+      const distance = Math.abs(rect.top - containerTop);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIdx = idx;
+      }
+    });
+
+    setActiveIdx(closestIdx);
+  }, []);
+
+  const scrollToIndex = (idx: number) => {
+    const target = itemRefs.current[idx];
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const scrollByDelta = (direction: "up" | "down") => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const delta = direction === "down" ? 180 : -180;
+    el.scrollBy({ top: delta, behavior: "smooth" });
+  };
 
   const typographyScale = Math.min(Math.max(stageBounds.scale, 0.72), 1.35);
 
@@ -191,15 +247,15 @@ export default function AchievementsSection() {
             />
           </motion.div>
 
-          {/* 3. Top-Right Archival Status Bar (x: 34.5% to 81.5%, y: 3.5% to 18%) */}
+          {/* 3. Top-Right Archival Status Bar (x: 34.5% to 81.5%, y: 2.5% to 12.5%) */}
           <div
             style={{
               left: "34.5%",
-              top: "3.5%",
+              top: "2.5%",
               width: "47.0%",
-              height: "14%",
+              height: "10.0%",
             }}
-            className="absolute z-20 flex items-center justify-between px-3.5 py-1 rounded-lg bg-zinc-950/60 border border-white/10 backdrop-blur-sm shadow-[inset_0_0_15px_rgba(0,0,0,0.8)]"
+            className="absolute z-20 flex items-center justify-between px-3.5 py-1 rounded-lg bg-zinc-950/70 border border-white/10 backdrop-blur-sm shadow-[inset_0_0_15px_rgba(0,0,0,0.8)]"
           >
             <div className="flex items-center gap-3">
               <span
@@ -210,409 +266,304 @@ export default function AchievementsSection() {
               </span>
               <div className="hidden sm:block h-3.5 w-[1px] bg-zinc-700" />
               <span
-                style={{ fontSize: `${Math.round(10.5 * typographyScale)}px` }}
+                style={{ fontSize: `${Math.round(10 * typographyScale)}px` }}
                 className="hidden sm:inline font-mono text-zinc-300 tracking-wide"
               >
-                OFFICIAL MILESTONES & ACCREDITATIONS
+                OFFICIAL RECORD & CERTIFICATIONS
               </span>
             </div>
 
-            <div className="flex items-center gap-2 px-2.5 py-1 rounded bg-emerald-950/40 border border-emerald-500/30">
+            <div className="flex items-center gap-2 px-2.5 py-0.5 rounded bg-emerald-950/40 border border-emerald-500/30">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
               <span
                 style={{ fontSize: `${Math.round(9.5 * typographyScale)}px` }}
                 className="font-mono font-bold text-emerald-300 tracking-wider"
               >
-                RECORD VERIFIED
+                VERIFIED (04)
               </span>
             </div>
           </div>
 
-          {/* 4. Upper-Mid Zone: Two Featured Milestones (x: 4.0% to 81.5%, y: 20% to 51%) */}
+          {/* 4. Center-Right Vintage Parchment Document (x: 27.5% to 81.5%, y: 14.5% to 95.5%) */}
+          {/* Leaves Camera at bottom-left and Trophy on right 100% UNTOUCHED and VISIBLE */}
           <div
             style={{
-              left: "4.0%",
-              top: "20.0%",
-              width: "77.5%",
-              height: "30.5%",
+              left: "27.5%",
+              top: "14.5%",
+              width: "54.0%",
+              height: "81.0%",
             }}
-            className="absolute z-20 grid grid-cols-2 gap-3"
+            className="absolute z-20 rounded-xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.85)] filter drop-shadow-[0_8px_24px_rgba(0,0,0,0.9)]"
           >
-            {milestones.map((m) => {
-              const Icon = m.icon;
-              const isAmber = m.theme === "amber";
-              const isHovered = hoveredCard === m.id;
+            {/* Background Image: The authentic vintage aged paper with tape and paperclip */}
+            <div className="absolute inset-0 z-0">
+              <Image
+                src="/images/achievements-document.jpg"
+                alt="Vintage Document"
+                fill
+                priority
+                sizes="(max-width: 1200px) 700px, 900px"
+                className="object-fill select-none pointer-events-none filter contrast-[1.04] brightness-[1.01]"
+              />
+            </div>
 
-              return (
-                <div
-                  key={m.id}
-                  onMouseEnter={() => setHoveredCard(m.id)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                  className={`group relative flex flex-col justify-between p-3 sm:p-3.5 rounded-xl transition-all duration-300 overflow-hidden ${
-                    isHovered
-                      ? isAmber
-                        ? "bg-zinc-950/85 border border-amber-500/50 shadow-[0_0_20px_rgba(245,158,11,0.2),inset_0_0_20px_rgba(245,158,11,0.1)]"
-                        : "bg-zinc-950/85 border border-emerald-500/50 shadow-[0_0_20px_rgba(16,185,129,0.2),inset_0_0_20px_rgba(16,185,129,0.1)]"
-                      : "bg-zinc-950/65 border border-white/10 shadow-[inset_0_0_15px_rgba(0,0,0,0.85)]"
-                  }`}
-                >
-                  {/* Subtle top indicator bar */}
-                  <div className="flex items-center justify-between pb-1">
-                    <div className="flex items-center gap-2">
-                      <div
-                        className={`p-1.5 rounded-lg border transition-colors ${
-                          isAmber
-                            ? "bg-amber-500/10 border-amber-500/30 text-amber-300 group-hover:bg-amber-500/20"
-                            : "bg-emerald-500/10 border-emerald-500/30 text-emerald-300 group-hover:bg-emerald-500/20"
-                        }`}
-                      >
-                        <Icon
-                          style={{
-                            width: `${Math.round(18 * typographyScale)}px`,
-                            height: `${Math.round(18 * typographyScale)}px`,
-                          }}
-                        />
-                      </div>
-                      <span
-                        style={{ fontSize: `${Math.round(9.5 * typographyScale)}px` }}
-                        className="font-mono text-zinc-400 uppercase tracking-widest"
-                      >
-                        {m.tagline}
-                      </span>
-                    </div>
+            {/* Content Container (Layered inside the parchment borders safe from tapes & clip) */}
+            <div className="relative z-10 w-full h-full flex flex-col justify-between pt-[5.5%] pb-[5.5%] px-[7.5%]">
+              
+              {/* Document Header Row: Stamped Classification + Scroll Controls */}
+              <div className="flex items-center justify-between pb-2 border-b border-[#2c261e]/25 shrink-0">
+                <div className="flex items-center gap-2 pl-2">
+                  <span
+                    style={{ fontSize: `${Math.round(10.5 * typographyScale)}px` }}
+                    className="font-typewriter text-[#1c1917] font-bold tracking-wider uppercase"
+                  >
+                    DOSSIER // OFFICIAL ACHIEVEMENTS
+                  </span>
+                  <span
+                    style={{ fontSize: `${Math.round(9 * typographyScale)}px` }}
+                    className="font-mono px-1.5 py-0.5 rounded bg-[#1c1917]/10 text-[#292524] font-semibold"
+                  >
+                    AC-2026
+                  </span>
+                </div>
 
-                    <span
-                      style={{ fontSize: `${Math.round(9 * typographyScale)}px` }}
-                      className={`font-mono px-1.5 py-0.5 rounded border transition-colors ${
-                        isAmber
-                          ? "bg-amber-950/40 border-amber-500/30 text-amber-400"
-                          : "bg-emerald-950/40 border-emerald-500/30 text-emerald-400"
+                {/* Scroll Hint & Quick Arrow Controls */}
+                <div className="flex items-center gap-1.5 pr-2">
+                  <span
+                    style={{ fontSize: `${Math.round(9 * typographyScale)}px` }}
+                    className="hidden sm:inline font-mono text-[#44403c] font-medium tracking-tight mr-1"
+                  >
+                    [ SCROLL (01–04) ↓ ]
+                  </span>
+                  <button
+                    onClick={() => scrollByDelta("up")}
+                    disabled={!canScrollUp}
+                    title="Scroll Up"
+                    className={`p-1 rounded transition-colors ${
+                      canScrollUp
+                        ? "bg-[#1c1917]/15 hover:bg-[#1c1917]/25 text-[#1c1917] cursor-pointer"
+                        : "opacity-30 text-[#44403c] cursor-not-allowed"
+                    }`}
+                  >
+                    <ChevronUp
+                      style={{
+                        width: `${Math.round(14 * typographyScale)}px`,
+                        height: `${Math.round(14 * typographyScale)}px`,
+                      }}
+                    />
+                  </button>
+                  <button
+                    onClick={() => scrollByDelta("down")}
+                    disabled={!canScrollDown}
+                    title="Scroll Down"
+                    className={`p-1 rounded transition-colors ${
+                      canScrollDown
+                        ? "bg-[#1c1917]/15 hover:bg-[#1c1917]/25 text-[#1c1917] cursor-pointer"
+                        : "opacity-30 text-[#44403c] cursor-not-allowed"
+                    }`}
+                  >
+                    <ChevronDown
+                      style={{
+                        width: `${Math.round(14 * typographyScale)}px`,
+                        height: `${Math.round(14 * typographyScale)}px`,
+                      }}
+                    />
+                  </button>
+                </div>
+              </div>
+
+              {/* Scrollable Viewport: Vertical list of the 4 bulleted achievements */}
+              <div
+                ref={scrollContainerRef}
+                onScroll={handleScroll}
+                className="relative my-2 w-full flex-1 overflow-y-auto paper-scrollbar pr-2 sm:pr-3 space-y-3.5 sm:space-y-4 scroll-smooth"
+              >
+                {achievements.map((item, idx) => {
+                  const isActive = activeIdx === idx;
+
+                  return (
+                    <div
+                      key={item.id}
+                      ref={(el) => {
+                        itemRefs.current[idx] = el;
+                      }}
+                      className={`group relative p-2.5 sm:p-3 rounded-lg transition-all duration-300 ${
+                        isActive
+                          ? "bg-[#1c1917]/[0.07] shadow-[inset_0_0_10px_rgba(44,38,30,0.12)] border-l-2 border-[#1c1917]"
+                          : "bg-transparent hover:bg-[#1c1917]/[0.04] border-l-2 border-transparent"
                       }`}
                     >
-                      ★ FEATURED
-                    </span>
-                  </div>
+                      {/* Top Bar: Number + Bullet + Category Badge */}
+                      <div className="flex items-center justify-between gap-2 pb-1">
+                        <div className="flex items-center gap-2">
+                          {/* Typewriter Bullet Keycap */}
+                          <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#1c1917] text-[#ded3c5] font-mono font-bold text-[10px] shadow-[0_1px_3px_rgba(0,0,0,0.3)] shrink-0">
+                            {item.number}
+                          </span>
+                          <span
+                            style={{ fontSize: `${Math.round(9.5 * typographyScale)}px` }}
+                            className="font-mono text-[#57534e] uppercase font-bold tracking-wider"
+                          >
+                            {item.category}
+                          </span>
+                        </div>
 
-                  {/* Title */}
-                  <h3
+                        <span
+                          style={{ fontSize: `${Math.round(8.5 * typographyScale)}px` }}
+                          className="font-mono px-2 py-0.5 rounded border border-[#1c1917]/20 bg-[#1c1917]/5 text-[#1c1917] font-semibold uppercase tracking-wider"
+                        >
+                          {item.tag}
+                        </span>
+                      </div>
+
+                      {/* Main Title with Bullet */}
+                      <h3
+                        style={{
+                          fontSize: `${Math.round(13.5 * typographyScale)}px`,
+                          lineHeight: 1.3,
+                        }}
+                        className="font-typewriter font-bold text-[#1c1917] tracking-tight my-1 group-hover:text-black flex items-start gap-1.5"
+                      >
+                        <span className="text-[#1c1917] text-base leading-none select-none mt-0.5">•</span>
+                        <span>{item.title}</span>
+                      </h3>
+
+                      {/* Description with Primary Bullet */}
+                      <p
+                        style={{
+                          fontSize: `${Math.round(11 * typographyScale)}px`,
+                          lineHeight: 1.45,
+                        }}
+                        className="font-mono text-[#292524] font-medium mt-1 pl-4 relative"
+                      >
+                        <span className="absolute left-1 top-0 text-[#1c1917] text-sm leading-none">•</span>
+                        {item.description}
+                      </p>
+
+                      {/* Sub-Bullets for Granular Details */}
+                      {item.subBullets && item.subBullets.length > 0 && (
+                        <div className="mt-2 pl-4 space-y-1 pt-1 border-t border-[#2c261e]/15">
+                          {item.subBullets.map((bullet, bIdx) => (
+                            <div
+                              key={bIdx}
+                              style={{
+                                fontSize: `${Math.round(9.8 * typographyScale)}px`,
+                                lineHeight: 1.4,
+                              }}
+                              className="font-mono text-[#44403c] flex items-start gap-2"
+                            >
+                              <span className="text-[#78350f] text-xs leading-none select-none mt-1">▸</span>
+                              <span>{bullet}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Document Footer: Interactive Pagination Dots + Authentication Seal */}
+              <div className="flex items-center justify-between pt-1.5 border-t border-[#2c261e]/25 shrink-0 px-2">
+                {/* 4 Interactive Achievement Number Selectors */}
+                <div className="flex items-center gap-1 sm:gap-1.5">
+                  <span
+                    style={{ fontSize: `${Math.round(8.5 * typographyScale)}px` }}
+                    className="font-mono text-[#57534e] mr-1 uppercase"
+                  >
+                    ENTRY:
+                  </span>
+                  {achievements.map((item, idx) => (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollToIndex(idx)}
+                      style={{ fontSize: `${Math.round(9 * typographyScale)}px` }}
+                      className={`px-2 py-0.5 rounded font-mono font-bold transition-all ${
+                        activeIdx === idx
+                          ? "bg-[#1c1917] text-[#ded3c5] shadow-[0_1px_4px_rgba(0,0,0,0.35)] scale-105"
+                          : "bg-[#1c1917]/10 text-[#44403c] hover:bg-[#1c1917]/20"
+                      }`}
+                    >
+                      {item.number}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Vintage Ink Verification Stamp */}
+                <div className="flex items-center gap-1.5 px-2 py-0.5 rounded border border-[#78350f]/30 bg-[#78350f]/10">
+                  <ShieldCheck
                     style={{
-                      fontSize: `${Math.round(13.5 * typographyScale)}px`,
-                      lineHeight: 1.25,
+                      width: `${Math.round(11 * typographyScale)}px`,
+                      height: `${Math.round(11 * typographyScale)}px`,
                     }}
-                    className="font-typewriter font-bold text-white tracking-tight my-1 group-hover:text-amber-200 transition-colors"
-                  >
-                    {m.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p
-                    style={{
-                      fontSize: `${Math.round(10.2 * typographyScale)}px`,
-                      lineHeight: 1.35,
-                    }}
-                    className="font-mono text-zinc-300 font-light line-clamp-3"
-                  >
-                    {m.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* 5. Lower Zone: Official Certifications Plaque (x: 29.5% to 81.5%, y: 53.0% to 95.0%) */}
-          {/* Leaves the Camera at x: 0..28% and Trophy at x: 82..100% 100% UNTOUCHED & VISIBLE */}
-          <div
-            style={{
-              left: "29.5%",
-              top: "53.0%",
-              width: "52.0%",
-              height: "42.0%",
-            }}
-            className="absolute z-20 flex flex-col justify-between p-3 rounded-xl bg-zinc-950/70 border border-white/10 backdrop-blur-md shadow-[inset_0_0_20px_rgba(0,0,0,0.9)]"
-          >
-            {/* Header */}
-            <div className="flex items-center justify-between pb-1.5 border-b border-zinc-800/80">
-              <div className="flex items-center gap-2">
-                <ShieldCheck
-                  style={{
-                    width: `${Math.round(14 * typographyScale)}px`,
-                    height: `${Math.round(14 * typographyScale)}px`,
-                  }}
-                  className="text-emerald-400"
-                />
-                <h4
-                  style={{ fontSize: `${Math.round(11 * typographyScale)}px` }}
-                  className="font-typewriter text-zinc-200 font-bold uppercase tracking-wider"
-                >
-                  Official Certifications & Licenses
-                </h4>
-              </div>
-              <span
-                style={{ fontSize: `${Math.round(9 * typographyScale)}px` }}
-                className="font-mono text-zinc-400"
-              >
-                [ 05 VERIFIED ]
-              </span>
-            </div>
-
-            {/* 2-Column Grid for the 5 Certifications + 1 Accreditation Stamp */}
-            <div className="grid grid-cols-2 gap-2 my-auto">
-              {/* Card 1 */}
-              <div className="p-2 rounded-lg bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800/80 hover:border-emerald-500/40 transition-all group flex items-start gap-2">
-                <CheckCircle2
-                  style={{
-                    width: `${Math.round(13 * typographyScale)}px`,
-                    height: `${Math.round(13 * typographyScale)}px`,
-                  }}
-                  className="text-emerald-400 shrink-0 mt-0.5"
-                />
-                <div className="min-w-0">
-                  <h5
-                    style={{ fontSize: `${Math.round(10.5 * typographyScale)}px`, lineHeight: 1.25 }}
-                    className="font-mono font-semibold text-zinc-100 group-hover:text-emerald-300 transition-colors truncate"
-                  >
-                    Career Essentials in Gen AI
-                  </h5>
-                  <span
-                    style={{ fontSize: `${Math.round(8.5 * typographyScale)}px` }}
-                    className="font-mono text-zinc-400 block"
-                  >
-                    Microsoft & LinkedIn
-                  </span>
-                </div>
-              </div>
-
-              {/* Card 2 */}
-              <div className="p-2 rounded-lg bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800/80 hover:border-emerald-500/40 transition-all group flex items-start gap-2">
-                <CheckCircle2
-                  style={{
-                    width: `${Math.round(13 * typographyScale)}px`,
-                    height: `${Math.round(13 * typographyScale)}px`,
-                  }}
-                  className="text-emerald-400 shrink-0 mt-0.5"
-                />
-                <div className="min-w-0">
-                  <h5
-                    style={{ fontSize: `${Math.round(10.5 * typographyScale)}px`, lineHeight: 1.25 }}
-                    className="font-mono font-semibold text-zinc-100 group-hover:text-emerald-300 transition-colors truncate"
-                  >
-                    Gen AI Productivity Skills
-                  </h5>
-                  <span
-                    style={{ fontSize: `${Math.round(8.5 * typographyScale)}px` }}
-                    className="font-mono text-zinc-400 block"
-                  >
-                    Microsoft & LinkedIn
-                  </span>
-                </div>
-              </div>
-
-              {/* Card 3 */}
-              <div className="p-2 rounded-lg bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800/80 hover:border-emerald-500/40 transition-all group flex items-start gap-2">
-                <CheckCircle2
-                  style={{
-                    width: `${Math.round(13 * typographyScale)}px`,
-                    height: `${Math.round(13 * typographyScale)}px`,
-                  }}
-                  className="text-emerald-400 shrink-0 mt-0.5"
-                />
-                <div className="min-w-0">
-                  <h5
-                    style={{ fontSize: `${Math.round(10.5 * typographyScale)}px`, lineHeight: 1.25 }}
-                    className="font-mono font-semibold text-zinc-100 group-hover:text-emerald-300 transition-colors truncate"
-                  >
-                    Data Science & Analytics
-                  </h5>
-                  <span
-                    style={{ fontSize: `${Math.round(8.5 * typographyScale)}px` }}
-                    className="font-mono text-zinc-400 block"
-                  >
-                    HP LIFE
-                  </span>
-                </div>
-              </div>
-
-              {/* Card 4 */}
-              <div className="p-2 rounded-lg bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800/80 hover:border-emerald-500/40 transition-all group flex items-start gap-2">
-                <CheckCircle2
-                  style={{
-                    width: `${Math.round(13 * typographyScale)}px`,
-                    height: `${Math.round(13 * typographyScale)}px`,
-                  }}
-                  className="text-emerald-400 shrink-0 mt-0.5"
-                />
-                <div className="min-w-0">
-                  <h5
-                    style={{ fontSize: `${Math.round(10.5 * typographyScale)}px`, lineHeight: 1.25 }}
-                    className="font-mono font-semibold text-zinc-100 group-hover:text-emerald-300 transition-colors truncate"
-                  >
-                    Digital Business Skills
-                  </h5>
-                  <span
-                    style={{ fontSize: `${Math.round(8.5 * typographyScale)}px` }}
-                    className="font-mono text-zinc-400 block"
-                  >
-                    HP LIFE
-                  </span>
-                </div>
-              </div>
-
-              {/* Card 5 */}
-              <div className="p-2 rounded-lg bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800/80 hover:border-emerald-500/40 transition-all group flex items-start gap-2">
-                <CheckCircle2
-                  style={{
-                    width: `${Math.round(13 * typographyScale)}px`,
-                    height: `${Math.round(13 * typographyScale)}px`,
-                  }}
-                  className="text-emerald-400 shrink-0 mt-0.5"
-                />
-                <div className="min-w-0">
-                  <h5
-                    style={{ fontSize: `${Math.round(10.5 * typographyScale)}px`, lineHeight: 1.25 }}
-                    className="font-mono font-semibold text-zinc-100 group-hover:text-emerald-300 transition-colors truncate"
-                  >
-                    Generative AI Tools
-                  </h5>
-                  <span
-                    style={{ fontSize: `${Math.round(8.5 * typographyScale)}px` }}
-                    className="font-mono text-zinc-400 block"
-                  >
-                    NASSCOM
-                  </span>
-                </div>
-              </div>
-
-              {/* Card 6: Authentication Seal Pill */}
-              <div className="p-2 rounded-lg bg-amber-950/25 border border-amber-500/30 flex items-center justify-between px-2.5">
-                <div className="flex items-center gap-1.5">
-                  <Sparkles
-                    style={{
-                      width: `${Math.round(12 * typographyScale)}px`,
-                      height: `${Math.round(12 * typographyScale)}px`,
-                    }}
-                    className="text-amber-400 shrink-0"
+                    className="text-[#78350f]"
                   />
                   <span
-                    style={{ fontSize: `${Math.round(9.5 * typographyScale)}px` }}
-                    className="font-mono font-semibold text-amber-200"
+                    style={{ fontSize: `${Math.round(8.5 * typographyScale)}px` }}
+                    className="font-typewriter font-bold text-[#78350f] tracking-wider uppercase"
                   >
-                    Verified Credentials
+                    AUTHENTICATED
                   </span>
                 </div>
-                <span
-                  style={{ fontSize: `${Math.round(8.5 * typographyScale)}px` }}
-                  className="font-mono text-amber-400/90"
-                >
-                  AUTHENTICATED
-                </span>
               </div>
+
             </div>
           </div>
         </div>
 
-        {/* 6. MOBILE HELPER: Tabbed switcher for small mobile devices (< 768px) */}
+        {/* 5. MOBILE HELPER: Tabbed / Carousel View for Small Screens (< 768px) */}
         {isMobile && (
           <div className="mt-3 w-full max-w-sm flex flex-col items-center gap-2 px-2 z-30">
-            {/* Tab Selector */}
-            <div className="flex items-center gap-2 bg-black/85 p-1 rounded-full border border-zinc-800">
-              <button
-                onClick={() => {
-                  setActiveMobileTab("milestones");
-                  setActiveMobileIdx(0);
-                }}
-                className={`px-3 py-1 rounded-full font-mono text-xs transition-all ${
-                  activeMobileTab === "milestones"
-                    ? "bg-amber-500 text-black font-bold shadow-[0_0_10px_#f59e0b]"
-                    : "text-zinc-400 hover:text-white"
-                }`}
-              >
-                Milestones (02)
-              </button>
-              <button
-                onClick={() => {
-                  setActiveMobileTab("certs");
-                  setActiveMobileIdx(0);
-                }}
-                className={`px-3 py-1 rounded-full font-mono text-xs transition-all ${
-                  activeMobileTab === "certs"
-                    ? "bg-emerald-500 text-black font-bold shadow-[0_0_10px_#10b981]"
-                    : "text-zinc-400 hover:text-white"
-                }`}
-              >
-                Certifications (05)
-              </button>
+            {/* Mobile Header & Step Buttons */}
+            <div className="w-full flex items-center justify-between bg-zinc-950/90 px-3 py-1.5 rounded-full border border-zinc-800">
+              <span className="font-mono text-xs text-amber-400 font-bold">
+                ACHIEVEMENT 0{activeIdx + 1} / 04
+              </span>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => {
+                    const next = (activeIdx - 1 + achievements.length) % achievements.length;
+                    setActiveIdx(next);
+                    scrollToIndex(next);
+                  }}
+                  className="p-1 text-zinc-400 hover:text-white"
+                  aria-label="Previous Achievement"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => {
+                    const next = (activeIdx + 1) % achievements.length;
+                    setActiveIdx(next);
+                    scrollToIndex(next);
+                  }}
+                  className="p-1 text-zinc-400 hover:text-white"
+                  aria-label="Next Achievement"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
 
             {/* Mobile Card Content */}
-            {activeMobileTab === "milestones" ? (
-              <div className="w-full p-3 rounded-xl bg-zinc-950/90 border border-amber-500/40 shadow-[0_0_20px_rgba(245,158,11,0.2)] flex flex-col gap-1">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs text-amber-400 font-bold">
-                    MILESTONE 0{activeMobileIdx + 1} / 02
-                  </span>
-                  <div className="flex items-center gap-1">
-                    <button
-                      onClick={() =>
-                        setActiveMobileIdx(
-                          (prev) => (prev - 1 + milestones.length) % milestones.length
-                        )
-                      }
-                      className="p-1 text-zinc-400 hover:text-white"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() =>
-                        setActiveMobileIdx((prev) => (prev + 1) % milestones.length)
-                      }
-                      className="p-1 text-zinc-400 hover:text-white"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-                <h4 className="font-typewriter text-sm font-bold text-white">
-                  {milestones[activeMobileIdx].title}
-                </h4>
-                <p className="font-mono text-xs text-zinc-400 leading-relaxed mt-1">
-                  {milestones[activeMobileIdx].description}
-                </p>
-              </div>
-            ) : (
-              <div className="w-full p-3 rounded-xl bg-zinc-950/90 border border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.2)] flex flex-col gap-1">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs text-emerald-400 font-bold">
-                    CERTIFICATION 0{activeMobileIdx + 1} / 05
-                  </span>
-                  <div className="flex items-center gap-1">
-                    <button
-                      onClick={() =>
-                        setActiveMobileIdx(
-                          (prev) => (prev - 1 + certifications.length) % certifications.length
-                        )
-                      }
-                      className="p-1 text-zinc-400 hover:text-white"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() =>
-                        setActiveMobileIdx((prev) => (prev + 1) % certifications.length)
-                      }
-                      className="p-1 text-zinc-400 hover:text-white"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-                <h4 className="font-typewriter text-sm font-bold text-white">
-                  {certifications[activeMobileIdx].name}
-                </h4>
-                <span className="font-mono text-xs text-emerald-300">
-                  {certifications[activeMobileIdx].issuer}
+            <div className="w-full p-3.5 rounded-xl bg-zinc-950/95 border border-amber-500/40 shadow-[0_0_20px_rgba(245,158,11,0.2)] flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[11px] text-zinc-400 font-semibold uppercase">
+                  {achievements[activeIdx].category}
+                </span>
+                <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold">
+                  {achievements[activeIdx].tag}
                 </span>
               </div>
-            )}
+              <h4 className="font-typewriter text-sm font-bold text-white flex items-start gap-1.5">
+                <span className="text-amber-400">•</span>
+                <span>{achievements[activeIdx].title}</span>
+              </h4>
+              <p className="font-mono text-xs text-zinc-300 leading-relaxed pl-3 relative">
+                <span className="absolute left-0 text-amber-400">•</span>
+                {achievements[activeIdx].description}
+              </p>
+            </div>
           </div>
         )}
       </div>

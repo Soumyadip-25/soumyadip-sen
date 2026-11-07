@@ -135,3 +135,20 @@
   background: rgba(255, 255, 255, 0.45);
 }
 
+/* Antique Parchment Paper Scrollbar */
+.paper-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.paper-scrollbar::-webkit-scrollbar-track {
+  background: rgba(44, 38, 30, 0.08);
+  border-radius: 4px;
+}
+.paper-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(60, 50, 40, 0.35);
+  border-radius: 4px;
+}
+.paper-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(40, 32, 24, 0.65);
+}
+
+
