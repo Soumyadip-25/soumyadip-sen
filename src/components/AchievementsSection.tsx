@@ -169,34 +169,34 @@ export default function AchievementsSection() {
             className="absolute inset-0 bg-radial from-transparent via-transparent to-black/40 pointer-events-none"
           />
 
-          {/* 2. Top-Left Stamped Heading: "Achievements" on Ripped Cardboard Paper */}
+          {/* 2. Top-Left Heading: "Achievements" sticker + retro script lettering (shifted right & tilted) */}
           <motion.div
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             style={{
-              left: "4.0%",
-              top: "2.5%",
-              width: "27.5%",
+              left: "6.5%",
+              top: "2.0%",
+              width: "26.0%",
             }}
-            className="absolute aspect-[1024/341] z-30 pointer-events-none -rotate-[2deg] origin-center drop-shadow-[0_8px_24px_rgba(0,0,0,0.95)]"
+            className="absolute aspect-[1024/341] z-30 pointer-events-none -rotate-[3.5deg] origin-center drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]"
           >
             <Image
-              src="/images/achievements-title-cardboard.png"
+              src="/images/achievements-title.png"
               alt="Achievements"
               fill
               priority
-              sizes="380px"
-              className="object-contain object-left pointer-events-none select-none filter contrast-105"
+              sizes="360px"
+              className="object-contain object-left pointer-events-none select-none filter contrast-125 brightness-105"
             />
           </motion.div>
 
-          {/* 3. Top-Right Archival Status Bar (x: 34% to 81%, y: 3.5% to 18%) */}
+          {/* 3. Top-Right Archival Status Bar (x: 34.5% to 81.5%, y: 3.5% to 18%) */}
           <div
             style={{
-              left: "33.5%",
+              left: "34.5%",
               top: "3.5%",
-              width: "48%",
+              width: "47.0%",
               height: "14%",
             }}
             className="absolute z-20 flex items-center justify-between px-3.5 py-1 rounded-lg bg-zinc-950/60 border border-white/10 backdrop-blur-sm shadow-[inset_0_0_15px_rgba(0,0,0,0.8)]"
