@@ -1,14 +1,26 @@
+export interface SkillItem {
+  name: string;
+  category?: string;
+  level?: string;
+  highlight?: boolean;
+}
+
 export interface SkillTopic {
   id: string;
   slug: string;
   number: string;
+  shortTitle: string;
   title: string;
   subtitle: string;
   description: string;
   iconName: "Code2" | "Layers" | "Database" | "Brain" | "Cpu" | "ShieldCheck";
-  skills: { name: string; level?: string; category?: string }[];
+  skills: SkillItem[];
+  subsections?: {
+    title: string;
+    skills: SkillItem[];
+  }[];
   tools: string[];
-  // Bounding box percentages inside the 1024x576 CRT image
+  // 16:9 stage coordinate percentages for physical CRT monitor placement
   rect: {
     leftPct: number;
     topPct: number;
@@ -22,19 +34,20 @@ export const skillTopics: SkillTopic[] = [
     id: "programming-languages",
     slug: "programming-languages",
     number: "01",
+    shortTitle: "Programming",
     title: "Programming Languages",
-    subtitle: "Core Syntax, Object-Oriented & Systems Programming",
+    subtitle: "Languages I use to build, script and bring ideas to life.",
     description:
       "Core foundations across high-performance, object-oriented, scripting, and declarative query languages used to build scalable systems, machine learning pipelines, and low-level firmware.",
     iconName: "Code2",
     skills: [
-      { name: "Python", level: "Advanced", category: "AI / Data / Backend" },
-      { name: "C++", level: "Proficient", category: "Systems / DSA" },
-      { name: "JavaScript (ES6+)", level: "Advanced", category: "Web / Frontend" },
-      { name: "TypeScript", level: "Proficient", category: "Type-Safe Full Stack" },
-      { name: "Java", level: "Proficient", category: "OOP / Applications" },
-      { name: "C", level: "Intermediate", category: "Embedded / Low-Level" },
-      { name: "SQL", level: "Advanced", category: "Relational Queries" },
+      { name: "Python", category: "AI / Data / Backend", level: "Advanced" },
+      { name: "Java", category: "OOP / Applications", level: "Proficient" },
+      { name: "JavaScript", category: "Web / Interactive", level: "Advanced" },
+      { name: "TypeScript", category: "Type-Safe Full Stack", level: "Proficient" },
+      { name: "C", category: "Embedded / Low-Level", level: "Intermediate" },
+      { name: "C++", category: "Systems / Performance", level: "Proficient" },
+      { name: "SQL", category: "Relational Queries", level: "Advanced" },
     ],
     tools: ["GCC / G++", "Python 3.12", "Node.js", "JDK", "TypeScript Compiler"],
     rect: {
@@ -48,22 +61,51 @@ export const skillTopics: SkillTopic[] = [
     id: "full-stack-development",
     slug: "full-stack-development",
     number: "02",
+    shortTitle: "Development",
     title: "Full Stack Development",
-    subtitle: "Modern Web Frameworks, Responsive UI & Server Architectures",
+    subtitle: "Frameworks and libraries that help me build faster and better.",
     description:
-      "End-to-end web engineering from reactive client interfaces with fluid micro-interactions to high-concurrency microservices, RESTful endpoints, and real-time WebSockets.",
+      "End-to-end web engineering from reactive client interfaces with fluid micro-interactions to high-concurrency microservices, RESTful endpoints, and secure API gateways.",
     iconName: "Layers",
     skills: [
-      { name: "React.js", level: "Advanced", category: "Frontend" },
-      { name: "Next.js (App Router)", level: "Advanced", category: "Full Stack SSR" },
-      { name: "Tailwind CSS", level: "Advanced", category: "Styling / UI" },
-      { name: "Node.js & Express", level: "Advanced", category: "Backend Runtime" },
-      { name: "FastAPI", level: "Proficient", category: "High-Speed Python APIs" },
-      { name: "HTML5 & CSS3", level: "Advanced", category: "Semantic Web" },
-      { name: "REST APIs", level: "Advanced", category: "API Design" },
-      { name: "WebSockets / WebRTC", level: "Proficient", category: "Real-Time Telemetry" },
+      { name: "HTML5", category: "Frontend", level: "Advanced" },
+      { name: "CSS3", category: "Frontend", level: "Advanced" },
+      { name: "React.js", category: "Frontend", level: "Advanced" },
+      { name: "Next.js", category: "Frontend", level: "Advanced" },
+      { name: "Vite", category: "Frontend", level: "Proficient" },
+      { name: "Tailwind CSS", category: "Frontend", level: "Advanced" },
+      { name: "Node.js", category: "Backend", level: "Advanced" },
+      { name: "Express.js", category: "Backend", level: "Advanced" },
+      { name: "REST APIs", category: "Backend", level: "Advanced" },
+      { name: "JWT", category: "Backend", level: "Proficient" },
+      { name: "Authentication", category: "Backend", level: "Advanced" },
+      { name: "API Integration", category: "Backend", level: "Advanced" },
     ],
-    tools: ["Next.js 15/16", "Vite", "Postman", "Framer Motion", "Shadcn/UI"],
+    subsections: [
+      {
+        title: "Frontend Development",
+        skills: [
+          { name: "HTML5", category: "Structure" },
+          { name: "CSS3", category: "Styling" },
+          { name: "React.js", category: "Component UI" },
+          { name: "Next.js", category: "Full-Stack SSR" },
+          { name: "Vite", category: "Build Tool" },
+          { name: "Tailwind CSS", category: "Utility CSS" },
+        ],
+      },
+      {
+        title: "Backend Development",
+        skills: [
+          { name: "Node.js", category: "Runtime" },
+          { name: "Express.js", category: "Microservices" },
+          { name: "REST APIs", category: "API Design" },
+          { name: "JWT", category: "Token Security" },
+          { name: "Authentication", category: "Identity & Access" },
+          { name: "API Integration", category: "3rd-Party Endpoints" },
+        ],
+      },
+    ],
+    tools: ["Next.js 16", "Vite", "Postman", "Tailwind CLI", "Framer Motion"],
     rect: {
       leftPct: 50.0,
       topPct: 20.19,
@@ -75,21 +117,21 @@ export const skillTopics: SkillTopic[] = [
     id: "databases-cloud",
     slug: "databases-cloud",
     number: "03",
+    shortTitle: "Databases",
     title: "Databases & Cloud",
-    subtitle: "Data Storage, Vector Databases & Scalable Cloud Deployments",
+    subtitle: "Tools for data storage, management and cloud infrastructure.",
     description:
-      "Relational, document-oriented, vector databases, and cloud infrastructure engineered for resilient telemetry, indexing, transactional integrity, and serverless compute.",
+      "Relational, document-oriented, vector databases, and cloud infrastructure engineered for resilient telemetry, high-throughput indexing, transactional integrity, and serverless compute.",
     iconName: "Database",
     skills: [
-      { name: "PostgreSQL", level: "Advanced", category: "RDBMS" },
-      { name: "MongoDB", level: "Proficient", category: "NoSQL Document Store" },
-      { name: "MySQL", level: "Proficient", category: "Relational DB" },
-      { name: "Firebase / Firestore", level: "Advanced", category: "Real-time DB / Auth" },
-      { name: "ChromaDB / pgvector", level: "Proficient", category: "Vector Embeddings" },
-      { name: "DuckDB", level: "Proficient", category: "In-Process OLAP" },
-      { name: "Google Cloud Platform (GCP)", level: "Intermediate", category: "Cloud Hosting & AI" },
+      { name: "PostgreSQL", category: "Relational DB", level: "Advanced" },
+      { name: "MySQL", category: "Relational DB", level: "Proficient" },
+      { name: "MongoDB", category: "NoSQL Document", level: "Proficient" },
+      { name: "Supabase", category: "Backend-as-a-Service", level: "Advanced" },
+      { name: "Firebase", category: "Real-time DB / Auth", level: "Advanced" },
+      { name: "pgvector", category: "Vector Store", level: "Proficient" },
     ],
-    tools: ["Docker", "Firebase Console", "Vercel", "Supabase", "GCP Cloud Console"],
+    tools: ["PostgreSQL CLI", "Supabase Studio", "Firebase Console", "Docker", "DBeaver"],
     rect: {
       leftPct: 73.0,
       topPct: 20.19,
@@ -98,24 +140,25 @@ export const skillTopics: SkillTopic[] = [
     },
   },
   {
-    id: "ai-ml-data-analysis",
-    slug: "ai-ml-data-analysis",
+    id: "ai-ml-data-analytics",
+    slug: "ai-ml-data-analytics",
     number: "04",
-    title: "AI, ML & Data Analysis",
-    subtitle: "RAG Systems, Predictive Models & Quantitative Analytics",
+    shortTitle: "AI & ML",
+    title: "AI / ML & Data Analytics",
+    subtitle: "Technologies that help me build intelligent systems and find insights in data.",
     description:
-      "Applied machine learning, natural language intelligence, vector embeddings retrieval (RAG), exploratory data analytics, and predictive modeling for real-world decision systems.",
+      "Applied machine learning, natural language intelligence, vector retrieval pipelines (RAG), predictive modeling, synthetic datasets, and prompt engineering for real-world decision systems.",
     iconName: "Brain",
     skills: [
-      { name: "Machine Learning", level: "Proficient", category: "Supervised & Unsupervised" },
-      { name: "RAG & LLM Integration", level: "Advanced", category: "Generative AI" },
-      { name: "Prompt Engineering", level: "Advanced", category: "AI Orchestration" },
-      { name: "Pandas & NumPy", level: "Advanced", category: "Data Manipulation" },
-      { name: "Scikit-Learn", level: "Proficient", category: "Classical ML" },
-      { name: "Data Visualization", level: "Advanced", category: "Seaborn / Matplotlib / Recharts" },
-      { name: "Statistical Hypothesis Testing", level: "Proficient", category: "Quantitative Methods" },
+      { name: "Machine Learning", category: "Supervised & Unsupervised", level: "Proficient" },
+      { name: "NLP", category: "Language Processing", level: "Proficient" },
+      { name: "LLMs", category: "Foundation Models", level: "Advanced" },
+      { name: "RAG", category: "Retrieval-Augmented Gen", level: "Advanced" },
+      { name: "Predictive Analytics", category: "Quantitative Forecasting", level: "Proficient" },
+      { name: "Synthetic Data Generation", category: "Data Augmentation", level: "Proficient" },
+      { name: "Prompt Engineering", category: "AI Orchestration", level: "Advanced" },
     ],
-    tools: ["Jupyter Notebooks", "LangChain", "OpenAI / Gemini APIs", "Hugging Face"],
+    tools: ["Jupyter Notebooks", "LangChain", "OpenAI / Gemini APIs", "Hugging Face", "ChromaDB"],
     rect: {
       leftPct: 27.25,
       topPct: 52.5,
@@ -127,21 +170,24 @@ export const skillTopics: SkillTopic[] = [
     id: "tools-platforms-iot",
     slug: "tools-platforms-iot",
     number: "05",
-    title: "Tools, Platforms & IoT",
-    subtitle: "Microcontrollers, Sensor Telemetry & Developer Toolchains",
+    shortTitle: "Tools",
+    title: "Tools / Platforms & IoT",
+    subtitle: "Development environments, version control, platforms and analytical tools.",
     description:
       "Physical computing with microcontroller firmware, sensor interfacing, hardware communication protocols, and developer workflows for rapid prototyping and automated deployment.",
     iconName: "Cpu",
     skills: [
-      { name: "ESP32 & Arduino", level: "Advanced", category: "Embedded Firmware" },
-      { name: "AD8232 & MAX30102", level: "Proficient", category: "Biometric Sensors" },
-      { name: "I2C / SPI / UART", level: "Proficient", category: "Hardware Protocols" },
-      { name: "Git & GitHub", level: "Advanced", category: "Version Control" },
-      { name: "Linux / Bash", level: "Proficient", category: "Terminal & Shell Scripting" },
-      { name: "ThingSpeak & MQTT", level: "Proficient", category: "IoT Cloud Telemetry" },
-      { name: "Postman", level: "Advanced", category: "API Testing & Debugging" },
+      { name: "Git", category: "Version Control", level: "Advanced" },
+      { name: "GitHub", category: "Collaboration & CI/CD", level: "Advanced" },
+      { name: "Docker", category: "Containerization", level: "Proficient" },
+      { name: "Postman", category: "API Testing", level: "Advanced" },
+      { name: "VS Code", category: "IDE & Tooling", level: "Advanced" },
+      { name: "Figma", category: "UI/UX Prototyping", level: "Proficient" },
+      { name: "Canva", category: "Design & Presentation", level: "Proficient" },
+      { name: "NumPy", category: "Numerical Arrays", level: "Advanced" },
+      { name: "Pandas", category: "Data Wrangling", level: "Advanced" },
     ],
-    tools: ["Arduino IDE", "PlatformIO", "VS Code", "Git CLI", "Twilio API"],
+    tools: ["Git CLI", "GitHub Actions", "Docker Desktop", "VS Code", "Postman"],
     rect: {
       leftPct: 50.5,
       topPct: 52.4,
@@ -153,21 +199,21 @@ export const skillTopics: SkillTopic[] = [
     id: "core-competencies",
     slug: "core-competencies",
     number: "06",
+    shortTitle: "Core",
     title: "Core Competencies",
-    subtitle: "System Design, Algorithms, Problem Solving & Research Rigor",
+    subtitle: "Foundational analytical methodologies, privacy standards and engineering principles.",
     description:
-      "Theoretical computer science fundamentals, algorithmic problem solving, clean code architecture, data privacy, and mathematical rigor underpinning reliable software.",
+      "Theoretical computer science fundamentals, statistical evaluation, data visualization, differential privacy safeguards, and ethical AI architectures underpinning reliable systems.",
     iconName: "ShieldCheck",
     skills: [
-      { name: "Data Structures & Algorithms", level: "Advanced", category: "CS Core" },
-      { name: "Object-Oriented Programming (OOP)", level: "Advanced", category: "Architecture" },
-      { name: "Database Management Systems (DBMS)", level: "Advanced", category: "Data Systems" },
-      { name: "Operating Systems Principles", level: "Proficient", category: "Process & Concurrency" },
-      { name: "Computer Networks", level: "Proficient", category: "TCP/IP & Web Architecture" },
-      { name: "Differential Privacy & Responsible AI", level: "Proficient", category: "Data Ethics" },
-      { name: "Technical Research & Documentation", level: "Advanced", category: "Dissemination" },
+      { name: "Statistics", category: "Inference & Probability", level: "Advanced" },
+      { name: "Data Processing", category: "ETL & Pipelines", level: "Advanced" },
+      { name: "Data Visualisation", category: "Visual Analytics", level: "Advanced" },
+      { name: "Model Evaluation", category: "Metrics & Validation", level: "Proficient" },
+      { name: "Differential Privacy", category: "Data Protection & Privacy", level: "Proficient" },
+      { name: "Responsible AI", category: "Ethics & Fairness", level: "Proficient" },
     ],
-    tools: ["LeetCode", "System Design Patterns", "UML", "Academic Research Tools"],
+    tools: ["Statistical Testing", "Matplotlib / Seaborn", "Differential Privacy Frameworks", "Evaluation Metrics"],
     rect: {
       leftPct: 73.55,
       topPct: 52.5,
@@ -178,6 +224,8 @@ export const skillTopics: SkillTopic[] = [
 ];
 
 export function getSkillTopicBySlug(slug: string): SkillTopic | undefined {
-  return skillTopics.find((t) => t.slug === slug);
+  if (slug === "ai-ml-data-analysis" || slug === "ai-ml-data-analytics") {
+    return skillTopics.find((t) => t.id === "ai-ml-data-analytics");
+  }
+  return skillTopics.find((t) => t.slug === slug || t.id === slug);
 }
-

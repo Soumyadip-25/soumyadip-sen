@@ -224,8 +224,8 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
         >
           {/* Main SVG Geometry: Dual-layer lens rings, corner brackets, aperture blades */}
           <svg
-            width="42"
-            height="42"
+            width="34"
+            height="34"
             viewBox="-29 -29 58 58"
             className="overflow-visible"
             style={{
