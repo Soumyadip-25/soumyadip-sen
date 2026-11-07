@@ -132,26 +132,26 @@ export default function SkillsSection() {
             className="absolute inset-0 bg-radial from-transparent via-transparent to-black/50 pointer-events-none"
           />
 
-          {/* 2. Top-Left Stamped Heading: "Skills & Technologies" on Ripped Cardboard Paper */}
-          {/* Sized and placed in the open dark wall area above the plant with organic vintage tilt and 3D shadow */}
+          {/* 2. Top-Left Heading: "Skills & Technologies" sticker + typewriter lettering */}
+          {/* Sized and placed in the open dark wall area above the plant with organic vintage tilt and crisp shadow */}
           <motion.div
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             style={{
               left: "4.0%",
-              top: "2.0%",
-              width: "27%",
+              top: "2.2%",
+              width: "25.5%",
             }}
-            className="absolute aspect-[1024/341] z-30 pointer-events-none -rotate-[2.5deg] origin-center drop-shadow-[0_8px_24px_rgba(0,0,0,0.95)]"
+            className="absolute aspect-[1024/341] z-30 pointer-events-none -rotate-[2.5deg] origin-center drop-shadow-[0_4px_18px_rgba(0,0,0,0.95)]"
           >
             <Image
-              src="/images/skills-heading-cardboard.png"
+              src="/images/skills-title.png"
               alt="Skills & Technologies"
               fill
               priority
-              sizes="380px"
-              className="object-contain object-left pointer-events-none select-none filter contrast-105"
+              sizes="360px"
+              className="object-contain object-left pointer-events-none select-none filter contrast-125 brightness-105"
             />
           </motion.div>
 
