@@ -152,7 +152,7 @@ export default function AchievementsSection() {
   const scrollByDelta = (direction: "up" | "down") => {
     const el = scrollContainerRef.current;
     if (!el) return;
-    const delta = direction === "down" ? 120 : -120;
+    const delta = direction === "down" ? 140 : -140;
     el.scrollBy({ top: delta, behavior: "smooth" });
   };
 
@@ -226,15 +226,15 @@ export default function AchievementsSection() {
             />
           </motion.div>
 
-          {/* 3. WIDE HORIZONTAL RECTANGLE DOCUMENT (16:9 Aspect Ratio) */}
-          {/* Sits comfortably in middle space: left: 26.5%, top: 16.0%, width: 55.0%, height: 55.0% (317px in 1024x576) */}
+          {/* 3. WIDE HORIZONTAL RECTANGLE DOCUMENT (Started more to the left and larger) */}
+          {/* Position: left: 18.5%, top: 13.0%, width: 63.0%, height: 63.0% (363px in 1024x576) */}
           {/* Leaves Camera at bottom-left and Trophy on right 100% UNTOUCHED and INTACT */}
           <div
             style={{
-              left: "26.5%",
-              top: "16.0%",
-              width: "55.0%",
-              height: "55.0%",
+              left: "18.5%",
+              top: "13.0%",
+              width: "63.0%",
+              height: "63.0%",
             }}
             className="absolute z-20 rounded-xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.85)] filter drop-shadow-[0_8px_24px_rgba(0,0,0,0.9)]"
           >
@@ -257,7 +257,7 @@ export default function AchievementsSection() {
               <div
                 ref={scrollContainerRef}
                 onScroll={handleScroll}
-                className="relative w-full flex-1 overflow-y-auto paper-scrollbar pr-2 sm:pr-3 space-y-2 scroll-smooth"
+                className="relative w-full flex-1 overflow-y-auto paper-scrollbar pr-2 sm:pr-3 space-y-2.5 sm:space-y-3 scroll-smooth"
               >
                 {achievements.map((item, idx) => {
                   const isActive = activeIdx === idx;
@@ -268,20 +268,20 @@ export default function AchievementsSection() {
                       ref={(el) => {
                         itemRefs.current[idx] = el;
                       }}
-                      className={`group relative p-2 sm:p-2.5 rounded-lg transition-all duration-200 ${
+                      className={`group relative p-2.5 sm:p-3 rounded-lg transition-all duration-200 ${
                         isActive
                           ? "bg-[#1c1917]/[0.05] border-l-2 border-[#1c1917]"
                           : "bg-transparent hover:bg-[#1c1917]/[0.03] border-l-2 border-transparent"
                       }`}
                     >
-                      {/* Title row spreading horizontally from left to right */}
+                      {/* Title row with increased font size spreading horizontally from left to right */}
                       <div className="flex items-center justify-between gap-3">
                         <h3
                           style={{
-                            fontSize: `${Math.round(13 * typographyScale)}px`,
-                            lineHeight: 1.3,
+                            fontSize: `${Math.round(15 * typographyScale)}px`,
+                            lineHeight: 1.35,
                           }}
-                          className="font-typewriter font-bold text-[#1c1917] tracking-tight flex items-start gap-1.5"
+                          className="font-typewriter font-bold text-[#1c1917] tracking-tight flex items-start gap-2"
                         >
                           <span className="text-[#1c1917] select-none leading-none mt-0.5">•</span>
                           <span className="font-mono text-[#1c1917] select-none">{item.number}.</span>
@@ -290,21 +290,21 @@ export default function AchievementsSection() {
 
                         {item.tag && (
                           <span
-                            style={{ fontSize: `${Math.round(8 * typographyScale)}px` }}
-                            className="hidden sm:inline-block font-mono px-2 py-0.5 rounded border border-[#1c1917]/20 bg-[#1c1917]/5 text-[#1c1917] font-semibold uppercase tracking-wider shrink-0"
+                            style={{ fontSize: `${Math.round(9.5 * typographyScale)}px` }}
+                            className="hidden sm:inline-block font-mono px-2.5 py-0.5 rounded border border-[#1c1917]/20 bg-[#1c1917]/5 text-[#1c1917] font-bold uppercase tracking-wider shrink-0"
                           >
                             {item.tag}
                           </span>
                         )}
                       </div>
 
-                      {/* Description line spreading horizontally from left to right */}
+                      {/* Description line with increased font size spreading horizontally from left to right */}
                       <p
                         style={{
-                          fontSize: `${Math.round(10.5 * typographyScale)}px`,
-                          lineHeight: 1.45,
+                          fontSize: `${Math.round(12 * typographyScale)}px`,
+                          lineHeight: 1.55,
                         }}
-                        className="font-mono text-[#38332b] font-medium mt-1 pl-4 relative"
+                        className="font-mono text-[#38332b] font-medium mt-1.5 pl-4 relative"
                       >
                         <span className="absolute left-1 top-0 text-[#1c1917] text-sm leading-none">•</span>
                         {item.description}
@@ -312,22 +312,22 @@ export default function AchievementsSection() {
 
                       {/* Subtle ruled ink line divider between items */}
                       {idx < achievements.length - 1 && (
-                        <div className="w-full h-[1px] bg-[#1c1917]/15 mt-2" />
+                        <div className="w-full h-[1px] bg-[#1c1917]/15 mt-2.5" />
                       )}
                     </div>
                   );
                 })}
               </div>
 
-              {/* Bottom Footer: Quick Number Pills + Top-to-Bottom Scroll Arrows */}
+              {/* Bottom Footer: Quick Number Pills + Top-to-Bottom Scroll Arrows (NO "SCROLL TOP TO BOTTOM" TEXT) */}
               <div className="flex items-center justify-between pt-1.5 border-t border-[#1c1917]/15 shrink-0 px-2 mt-auto">
                 <div className="flex items-center gap-1 sm:gap-1.5">
                   {achievements.map((item, idx) => (
                     <button
                       key={item.id}
                       onClick={() => scrollToIndex(idx)}
-                      style={{ fontSize: `${Math.round(8.5 * typographyScale)}px` }}
-                      className={`px-2 py-0.5 rounded font-mono font-bold transition-all cursor-pointer ${
+                      style={{ fontSize: `${Math.round(9.5 * typographyScale)}px` }}
+                      className={`px-2.5 py-0.5 rounded font-mono font-bold transition-all cursor-pointer ${
                         activeIdx === idx
                           ? "bg-[#1c1917] text-[#ded3c5] shadow-[0_1px_3px_rgba(0,0,0,0.3)]"
                           : "bg-[#1c1917]/10 text-[#44403c] hover:bg-[#1c1917]/20"
@@ -338,18 +338,12 @@ export default function AchievementsSection() {
                   ))}
                 </div>
 
-                <div className="flex items-center gap-1.5">
-                  <span
-                    style={{ fontSize: `${Math.round(8.5 * typographyScale)}px` }}
-                    className="hidden sm:inline font-mono text-[#57534e] mr-1"
-                  >
-                    [ SCROLL TOP TO BOTTOM ↓ ]
-                  </span>
+                <div className="flex items-center gap-1">
                   <button
                     onClick={() => scrollByDelta("up")}
                     disabled={!canScrollUp}
                     title="Scroll Up"
-                    className={`p-1 rounded transition-colors ${
+                    className={`p-1.5 rounded transition-colors ${
                       canScrollUp
                         ? "bg-[#1c1917]/15 hover:bg-[#1c1917]/25 text-[#1c1917] cursor-pointer"
                         : "opacity-25 text-[#44403c] cursor-not-allowed"
@@ -357,8 +351,8 @@ export default function AchievementsSection() {
                   >
                     <ChevronUp
                       style={{
-                        width: `${Math.round(13 * typographyScale)}px`,
-                        height: `${Math.round(13 * typographyScale)}px`,
+                        width: `${Math.round(14 * typographyScale)}px`,
+                        height: `${Math.round(14 * typographyScale)}px`,
                       }}
                     />
                   </button>
@@ -366,7 +360,7 @@ export default function AchievementsSection() {
                     onClick={() => scrollByDelta("down")}
                     disabled={!canScrollDown}
                     title="Scroll Down"
-                    className={`p-1 rounded transition-colors ${
+                    className={`p-1.5 rounded transition-colors ${
                       canScrollDown
                         ? "bg-[#1c1917]/15 hover:bg-[#1c1917]/25 text-[#1c1917] cursor-pointer"
                         : "opacity-25 text-[#44403c] cursor-not-allowed"
@@ -374,8 +368,8 @@ export default function AchievementsSection() {
                   >
                     <ChevronDown
                       style={{
-                        width: `${Math.round(13 * typographyScale)}px`,
-                        height: `${Math.round(13 * typographyScale)}px`,
+                        width: `${Math.round(14 * typographyScale)}px`,
+                        height: `${Math.round(14 * typographyScale)}px`,
                       }}
                     />
                   </button>
