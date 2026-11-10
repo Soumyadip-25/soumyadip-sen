@@ -20,14 +20,31 @@ export default function Home() {
   // Scroll spy to update active sidebar navigation indicator
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 250;
+      // 1. If at or near bottom of document, activate the last section ("contact")
+      const scrollBottom = window.innerHeight + window.scrollY;
+      const docHeight = document.documentElement.scrollHeight;
+      if (scrollBottom >= docHeight - 80) {
+        const lastId = sectionIds[sectionIds.length - 1];
+        setActiveSection((prev) => {
+          if (prev !== lastId) {
+            window.dispatchEvent(
+              new CustomEvent("sectionchange", { detail: { section: lastId } })
+            );
+            return lastId;
+          }
+          return prev;
+        });
+        return;
+      }
 
-      for (const id of sectionIds) {
+      // 2. Otherwise determine active section based on viewport focal line
+      const focalLine = window.innerHeight * 0.4;
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const id = sectionIds[i];
         const el = document.getElementById(id);
         if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= focalLine && rect.bottom > focalLine) {
             setActiveSection((prev) => {
               if (prev !== id) {
                 window.dispatchEvent(
@@ -44,6 +61,7 @@ export default function Home() {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

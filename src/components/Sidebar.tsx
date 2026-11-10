@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import FlipClock from "./FlipClock";
@@ -27,39 +27,68 @@ interface SidebarProps {
 
 export default function Sidebar({ activeSection, onSectionClick }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [isScrolling, setIsScrolling] = useState(false);
+  const activeIndex = Math.max(
+    0,
+    navItems.findIndex((item) => item.id === activeSection)
+  );
 
-  // Track window scroll progress for real-time glowing line fill
+  const navRef = useRef<HTMLElement>(null);
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  // Pixel-accurate coordinates for track and active filled line
+  const [lineCoords, setLineCoords] = useState<{
+    trackTop: number;
+    trackHeight: number;
+    activeHeight: number;
+  }>({
+    trackTop: 20,
+    trackHeight: 288,
+    activeHeight: 0,
+  });
+
+  const updateLinePositions = useCallback(() => {
+    if (!navRef.current) return;
+    const navRect = navRef.current.getBoundingClientRect();
+    const firstEl = itemRefs.current[0];
+    const lastEl = itemRefs.current[navItems.length - 1];
+    if (!firstEl || !lastEl) return;
+
+    const firstRect = firstEl.getBoundingClientRect();
+    const lastRect = lastEl.getBoundingClientRect();
+
+    // Center Y of first dot relative to nav
+    const startY = firstRect.top + firstRect.height / 2 - navRect.top;
+    // Center Y of last dot relative to nav
+    const endY = lastRect.top + lastRect.height / 2 - navRect.top;
+    const trackHeight = Math.max(endY - startY, 0);
+
+    // Center Y of active dot relative to nav
+    const activeEl = itemRefs.current[activeIndex];
+    let activeHeight = 0;
+    if (activeEl) {
+      const activeRect = activeEl.getBoundingClientRect();
+      const activeY = activeRect.top + activeRect.height / 2 - navRect.top;
+      activeHeight = Math.max(Math.min(activeY - startY, trackHeight), 0);
+    }
+
+    setLineCoords({
+      trackTop: startY,
+      trackHeight,
+      activeHeight,
+    });
+  }, [activeIndex]);
+
   useEffect(() => {
-    let scrollTimeout: NodeJS.Timeout;
+    updateLinePositions();
+    window.addEventListener("resize", updateLinePositions);
+    return () => window.removeEventListener("resize", updateLinePositions);
+  }, [updateLinePositions]);
 
-    const handleScroll = () => {
-      setIsScrolling(true);
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        setIsScrolling(false);
-      }, 350);
-
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalScroll > 0) {
-        const progress = Math.min(Math.max(window.scrollY / totalScroll, 0), 1);
-        setScrollProgress(progress);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearTimeout(scrollTimeout);
-    };
-  }, []);
-
-  const activeIndex = navItems.findIndex((item) => item.id === activeSection);
-  const activePercent = activeIndex >= 0 ? (activeIndex / (navItems.length - 1)) * 100 : 0;
-  // Blend scroll progress and section index for smooth glowing line height
-  const lineHeightPercent = Math.max(scrollProgress * 100, activePercent);
+  // Recalculate after mount and when activeIndex changes
+  useEffect(() => {
+    const timer = setTimeout(updateLinePositions, 50);
+    return () => clearTimeout(timer);
+  }, [updateLinePositions, activeIndex]);
 
   return (
     <>
@@ -121,7 +150,12 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
                         : "border border-zinc-500"
                     }`}
                   />
-                  <span className="text-base tracking-wide">{item.label}</span>
+                  <span className="relative flex flex-col items-start text-base tracking-wide">
+                    <span>{item.label}</span>
+                    {isActive && (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-white rounded-full shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+                    )}
+                  </span>
                 </button>
               );
             })}
@@ -138,35 +172,27 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
         </div>
 
         {/* Navigation list with connecting glowing line */}
-        <nav className="relative flex flex-col gap-6 py-2 px-6 my-auto">
+        <nav ref={navRef} className="relative flex flex-col gap-6 py-2 px-6 my-auto">
           
-          {/* Background Connecting Line Track (linking all sections from top to bottom) */}
+          {/* Background Connecting Line Track (stops exactly at the first and last dots) */}
           <div
             aria-hidden="true"
-            className="absolute left-[30px] top-[14px] bottom-[14px] w-[2px] bg-zinc-800/90 rounded-full pointer-events-none"
+            className="absolute left-[30px] w-[2px] bg-zinc-800/90 rounded-full pointer-events-none"
+            style={{
+              top: `${lineCoords.trackTop}px`,
+              height: `${lineCoords.trackHeight}px`,
+            }}
           />
 
-          {/* Active Glowing Line that animates and lights up when scrolling */}
+          {/* Active Highlighted Line: fills from the first dot directly to the active dot with 0 overshoot */}
           <div
             aria-hidden="true"
-            className={`absolute left-[30px] top-[14px] w-[2px] rounded-full pointer-events-none transition-[height] duration-200 ease-out ${
-              isScrolling
-                ? "bg-gradient-to-b from-white via-amber-200 to-white shadow-[0_0_12px_rgba(255,255,255,1),0_0_24px_rgba(255,245,210,0.8)]"
-                : "bg-gradient-to-b from-white via-zinc-200 to-amber-100 shadow-[0_0_8px_rgba(255,255,255,0.7),0_0_14px_rgba(255,240,200,0.4)]"
-            }`}
+            className="absolute left-[30px] w-[2px] rounded-full pointer-events-none bg-gradient-to-b from-white via-zinc-200 to-amber-100 shadow-[0_0_8px_rgba(255,255,255,0.8),0_0_14px_rgba(255,240,200,0.5)] transition-[height] duration-300 ease-out"
             style={{
-              height: `${lineHeightPercent}%`,
+              top: `${lineCoords.trackTop}px`,
+              height: `${lineCoords.activeHeight}px`,
             }}
-          >
-            {/* Luminous Bead that travels at the tip of the glowing line */}
-            <span
-              className={`absolute -bottom-1 -left-[3px] w-2 h-2 rounded-full bg-white transition-transform ${
-                isScrolling
-                  ? "scale-125 shadow-[0_0_10px_#ffffff,0_0_20px_#fff3cc]"
-                  : "scale-100 shadow-[0_0_6px_#ffffff]"
-              }`}
-            />
-          </div>
+          />
 
           {/* Nav Items */}
           {navItems.map((item, idx) => {
@@ -176,6 +202,9 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
             return (
               <button
                 key={item.id}
+                ref={(el) => {
+                  itemRefs.current[idx] = el;
+                }}
                 onClick={() => onSectionClick(item.id)}
                 className={`group relative flex items-center gap-4 text-left transition-all cursor-pointer ${
                   isActive
@@ -185,22 +214,42 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
                     : "text-zinc-500 hover:text-zinc-300 font-normal"
                 }`}
               >
-                {/* Status Dot with Glow */}
+                {/* Status Dot with Glow (Exact position on the line) */}
                 <span className="relative z-10 flex items-center justify-center w-3.5 h-3.5 shrink-0 bg-[#070709] rounded-full">
                   {isActive ? (
                     <>
-                      <span className="w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_12px_rgba(255,255,255,1),0_0_20px_rgba(255,255,255,0.6)]" />
-                      <span className="absolute w-4 h-4 rounded-full border border-white/40 animate-ping opacity-45" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_12px_rgba(255,255,255,1),0_0_20px_rgba(255,255,255,0.7)]" />
+                      <span className="absolute w-4 h-4 rounded-full border border-white/50 animate-ping opacity-40 pointer-events-none" />
                     </>
                   ) : isPast ? (
-                    <span className="w-2.5 h-2.5 rounded-full bg-zinc-300 shadow-[0_0_6px_rgba(255,255,255,0.5)] group-hover:bg-white group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-zinc-300 shadow-[0_0_5px_rgba(255,255,255,0.4)] group-hover:bg-white group-hover:shadow-[0_0_8px_rgba(255,255,255,0.7)] transition-all" />
                   ) : (
                     <span className="w-2.5 h-2.5 rounded-full border border-zinc-600 bg-[#070709] group-hover:border-zinc-400 transition-colors" />
                   )}
                 </span>
 
-                <span className="text-[15.5px] lg:text-[16px] tracking-wide transition-transform group-hover:translate-x-1">
-                  {item.label}
+                {/* Section Label + Active Glowing Underline */}
+                <span className="relative flex flex-col items-start min-w-0">
+                  <span
+                    className={`text-[15.5px] lg:text-[16px] tracking-wide transition-colors group-hover:translate-x-1 duration-200 ${
+                      isActive
+                        ? "text-white font-bold"
+                        : isPast
+                        ? "text-zinc-300 hover:text-white"
+                        : "text-zinc-500 hover:text-zinc-300"
+                    }`}
+                  >
+                    {item.label}
+                  </span>
+
+                  {/* Highlight Underline for Active Section */}
+                  {isActive && (
+                    <motion.span
+                      layoutId="sidebar-active-underline"
+                      className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-white via-zinc-200 to-amber-200/90 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.9),0_0_14px_rgba(255,245,210,0.6)]"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
                 </span>
               </button>
             );
