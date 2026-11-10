@@ -56,7 +56,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link
             href="/#projects"
-            data-cursor-label="RETURN"
+            data-cursor="interactive"
+            data-cursor-label="RETURN // PROJECTS"
             className="group inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-zinc-900/80 border border-zinc-700/80 text-zinc-300 hover:text-white hover:border-zinc-400 hover:bg-zinc-800 transition-all text-sm font-typewriter cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
@@ -77,7 +78,11 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         
         {/* Project Header Banner with Torn Paper Scrap */}
         <div className="mb-10 sm:mb-14">
-          <div className="inline-block relative px-6 py-2.5 mb-4 filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)]">
+          <div
+            className="inline-block relative px-6 py-2.5 mb-4 filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)] cursor-pointer"
+            data-cursor="interactive"
+            data-cursor-label={`${project.title.split("–")[0].trim().toUpperCase()} // ARCHIVE`}
+          >
             <Image
               src="/images/heading-paper-bg.png"
               alt=""
@@ -102,7 +107,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           <div className="lg:col-span-5 space-y-6">
             <div
               data-cursor="image"
-              data-cursor-label="FOCUS"
+              data-cursor-label={`${project.title.split("–")[0].trim().toUpperCase()} // POSTER`}
               className="relative rounded-2xl overflow-hidden border-2 border-zinc-700/80 shadow-[0_12px_40px_rgba(0,0,0,0.95),0_0_24px_rgba(255,255,255,0.08)] bg-zinc-950 group cursor-pointer"
             >
               <div className="relative aspect-square w-full">
@@ -241,7 +246,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         <div className="mt-16 sm:mt-20 pt-8 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4 font-typewriter">
           <Link
             href={`/projects/${prevProject.slug}`}
-            data-cursor-label="PREV"
+            data-cursor="interactive"
+            data-cursor-label={`PREV // ${prevProject.title.split("–")[0].trim().toUpperCase()}`}
             className="group flex items-center gap-3 px-5 py-3 rounded-xl bg-zinc-900/80 border border-zinc-700/80 text-zinc-200 hover:text-white hover:border-zinc-500 hover:bg-zinc-800 transition-all text-sm w-full sm:w-auto cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
@@ -255,7 +261,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
           <Link
             href="/#projects"
-            data-cursor-label="RETURN"
+            data-cursor="interactive"
+            data-cursor-label="RETURN // PROJECTS"
             className="text-xs text-zinc-400 hover:text-white underline underline-offset-4 transition-colors cursor-pointer"
           >
             Return to Main Gallery
@@ -263,7 +270,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
           <Link
             href={`/projects/${nextProject.slug}`}
-            data-cursor-label="NEXT"
+            data-cursor="interactive"
+            data-cursor-label={`NEXT // ${nextProject.title.split("–")[0].trim().toUpperCase()}`}
             className="group flex items-center justify-end gap-3 px-5 py-3 rounded-xl bg-zinc-900/80 border border-zinc-700/80 text-zinc-200 hover:text-white hover:border-zinc-500 hover:bg-zinc-800 transition-all text-sm w-full sm:w-auto text-right cursor-pointer"
           >
             <div>

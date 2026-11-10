@@ -206,6 +206,8 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
                   itemRefs.current[idx] = el;
                 }}
                 onClick={() => onSectionClick(item.id)}
+                data-cursor="interactive"
+                data-cursor-label={`NAV // ${item.label.toUpperCase()}`}
                 className={`group relative flex items-center gap-4 text-left transition-all cursor-pointer ${
                   isActive
                     ? "text-zinc-100 font-medium"

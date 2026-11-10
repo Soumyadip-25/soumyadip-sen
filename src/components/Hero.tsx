@@ -92,7 +92,7 @@ export default function Hero({ onResumeClick }: HeroProps) {
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               className="relative group cursor-pointer"
               data-cursor="image"
-              data-cursor-label="FOCUS"
+              data-cursor-label="ME"
             >
               {/* Outer soft shadow onto the vintage desk */}
               <div className="relative rounded-sm transition-all duration-300 filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)] group-hover:drop-shadow-[0_28px_45px_rgba(0,0,0,0.95)]">
@@ -130,7 +130,9 @@ export default function Hero({ onResumeClick }: HeroProps) {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-[480px] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[700px] xl:max-w-[740px] aspect-[1024/341] animate-signature-pulse"
+              className="relative w-full max-w-[480px] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[700px] xl:max-w-[740px] aspect-[1024/341] animate-signature-pulse cursor-pointer"
+              data-cursor="interactive"
+              data-cursor-label="SOUMYADIP // SIGNATURE"
             >
               <Image
                 src="/images/signature.png"

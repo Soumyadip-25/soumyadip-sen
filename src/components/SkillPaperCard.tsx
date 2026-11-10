@@ -40,6 +40,8 @@ export default function SkillPaperCard({
     <div
       className="relative aspect-[3.1/1] w-full max-w-[225px] sm:max-w-[235px] drop-shadow-[0_4px_10px_rgba(0,0,0,0.65)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.85)] hover:-translate-y-1 transition-all duration-200 cursor-default select-none group"
       title={`${name} • ${category || level}`}
+      data-cursor="interactive"
+      data-cursor-label={`${name.toUpperCase()} // ${level.toUpperCase()}`}
     >
       {/* 1. Authentic Deckled Paper Background */}
       <Image

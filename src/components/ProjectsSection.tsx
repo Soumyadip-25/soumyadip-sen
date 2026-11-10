@@ -179,7 +179,9 @@ export default function ProjectsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative w-56 sm:w-64 md:w-72 lg:w-80 xl:w-88 aspect-[1024/341] -rotate-1 origin-left shrink-0 ml-3 sm:ml-6 md:ml-10 lg:ml-14 mt-1"
+          className="relative w-56 sm:w-64 md:w-72 lg:w-80 xl:w-88 aspect-[1024/341] -rotate-1 origin-left shrink-0 ml-3 sm:ml-6 md:ml-10 lg:ml-14 mt-1 cursor-pointer"
+          data-cursor="interactive"
+          data-cursor-label="PROJECTS // GALLERY"
         >
           <Image
             src="/images/projects-title.png"
@@ -288,6 +290,8 @@ export default function ProjectsSection() {
                   style={{
                     transformStyle: "preserve-3d",
                   }}
+                  data-cursor="project"
+                  data-cursor-label={`${project.title.split("–")[0].trim().toUpperCase()} // EXPLORE`}
                   className={`absolute w-[260px] sm:w-[310px] md:w-[360px] lg:w-[400px] xl:w-[420px] aspect-square rounded-2xl overflow-hidden border-2 transition-colors duration-300 ${
                     isCenter
                       ? "border-zinc-400/80 shadow-[0_18px_45px_rgba(0,0,0,0.95),0_0_24px_rgba(255,255,255,0.12)] cursor-grab active:cursor-grabbing bg-zinc-950"
@@ -330,8 +334,8 @@ export default function ProjectsSection() {
                     <Link
                       href={`/projects/${project.slug}`}
                       onClick={(e) => e.stopPropagation()}
-                      data-cursor="project"
-                      data-cursor-label="VISIT ↗"
+                      data-cursor="interactive"
+                      data-cursor-label="PROJECT // VIEW"
                       title={`View details for ${project.title}`}
                       className="shrink-0 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-black/80 hover:bg-white text-white hover:text-black border border-white/50 hover:border-white shadow-[0_4px_16px_rgba(0,0,0,0.95),0_0_12px_rgba(255,255,255,0.3)] flex items-center justify-center transition-all duration-300 group/btn pointer-events-auto"
                     >

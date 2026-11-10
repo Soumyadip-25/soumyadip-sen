@@ -143,7 +143,9 @@ export default function SkillsSection() {
               top: "2.2%",
               width: "25.0%",
             }}
-            className="absolute aspect-[1024/341] z-30 pointer-events-none -rotate-[2.5deg] origin-center drop-shadow-[0_4px_18px_rgba(0,0,0,0.95)]"
+            className="absolute aspect-[1024/341] z-30 pointer-events-auto cursor-pointer -rotate-[2.5deg] origin-center drop-shadow-[0_4px_18px_rgba(0,0,0,0.95)]"
+            data-cursor="interactive"
+            data-cursor-label="SKILLS // CONSOLE"
           >
             <Image
               src="/images/skills-title.png"
@@ -164,7 +166,8 @@ export default function SkillsSection() {
               <Link
                 key={topic.id}
                 href={`/skills/${topic.slug}`}
-                data-cursor-label="VISIT"
+                data-cursor="interactive"
+                data-cursor-label={`MOD ${topic.number} // ${topic.shortTitle.toUpperCase()}`}
                 onMouseEnter={() => setHoveredTopicId(topic.id)}
                 onMouseLeave={() => setHoveredTopicId(null)}
                 style={{

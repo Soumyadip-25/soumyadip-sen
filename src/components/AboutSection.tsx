@@ -41,7 +41,9 @@ export default function AboutSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="relative w-56 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-3 sm:mb-4"
+                className="relative w-56 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-3 sm:mb-4 cursor-pointer"
+                data-cursor="interactive"
+                data-cursor-label="ABOUT ME // DOSSIER"
               >
                 <Image
                   src="/images/about-me-title.png"
@@ -49,7 +51,7 @@ export default function AboutSection() {
                   fill
                   priority
                   sizes="(max-width: 640px) 224px, (max-width: 768px) 288px, 320px"
-                  className="object-contain object-left"
+                  className="object-contain object-left pointer-events-none select-none"
                 />
               </motion.div>
 
@@ -73,7 +75,11 @@ export default function AboutSection() {
                 className="mt-6 sm:mt-7 space-y-3.5 font-typewriter text-[#181614] max-w-xl"
               >
                 {/* College & Degree */}
-                <div className="flex items-start gap-3">
+                <div
+                  className="flex items-start gap-3 cursor-pointer group/edu"
+                  data-cursor="interactive"
+                  data-cursor-label="ADAMAS // CSE '28"
+                >
                   <GraduationCap className="w-5 h-5 text-[#181614] shrink-0 mt-0.5 stroke-[2.2]" />
                   <div className="space-y-0.5">
                     <div className="text-base sm:text-lg font-bold tracking-tight text-[#12100e]">
@@ -86,7 +92,11 @@ export default function AboutSection() {
                 </div>
 
                 {/* Address / Location */}
-                <div className="flex items-center gap-3 pt-0.5">
+                <div
+                  className="flex items-center gap-3 pt-0.5 cursor-pointer group/loc"
+                  data-cursor="interactive"
+                  data-cursor-label="KOLKATA // INDIA"
+                >
                   <MapPin className="w-5 h-5 text-[#181614] shrink-0 stroke-[2.2]" />
                   <span className="text-sm sm:text-[15px] font-semibold text-[#181614]">
                     Barrackpore, Kolkata, West Bengal, India
@@ -106,7 +116,7 @@ export default function AboutSection() {
                 whileHover={{ scale: 1.02, rotate: 0.5 }}
                 className="relative group cursor-pointer"
                 data-cursor="image"
-                data-cursor-label="FOCUS"
+                data-cursor-label="ME"
               >
                 {/* Soft shadow cast on parchment */}
                 <div className="relative filter drop-shadow-[0_16px_28px_rgba(0,0,0,0.55)] group-hover:drop-shadow-[0_22px_36px_rgba(0,0,0,0.7)] transition-all duration-300">

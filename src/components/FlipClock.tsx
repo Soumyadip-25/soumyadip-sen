@@ -70,7 +70,12 @@ export default function FlipClock() {
   }, []);
 
   return (
-    <div className={styles.clockScene} aria-label="Kolkata Analog Flip Clock">
+    <div
+      className={styles.clockScene}
+      aria-label="Kolkata Analog Flip Clock"
+      data-cursor="interactive"
+      data-cursor-label="VINTAGE CLOCK // 24H"
+    >
       <div className={styles.clock}>
         {/* Top metal details */}
         <div className={styles.topControls}>

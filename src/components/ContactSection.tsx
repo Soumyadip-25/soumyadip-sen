@@ -32,7 +32,9 @@ export default function ContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="absolute"
+          className="absolute cursor-pointer"
+          data-cursor="interactive"
+          data-cursor-label="CONTACT // CONNECT"
           style={{
             top: "4.0%",
             left: "17%",
@@ -157,8 +159,8 @@ export default function ContactSection() {
 
         {/* Vintage Rotary Telephone Interactive Hotspot */}
         <div
-          data-cursor="image"
-          data-cursor-label="DIAL '06"
+          data-cursor="interactive"
+          data-cursor-label="ROTARY PHONE // CALL"
           className="absolute cursor-pointer rounded-full"
           style={{
             right: "2%",

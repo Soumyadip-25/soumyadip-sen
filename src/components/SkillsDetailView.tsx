@@ -151,7 +151,8 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
           {/* Back to Skills Console: Authentic Taped Torn-Paper Memo */}
           <Link
             href="/#skills"
-            data-cursor-label="RETURN"
+            data-cursor="interactive"
+            data-cursor-label="RETURN // CRT CONSOLE"
             className="group relative w-44 sm:w-50 md:w-54 aspect-[1007/212] drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 hover:rotate-0 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg] shrink-0"
             title="Return to CRT Monitors Console"
           >
@@ -190,7 +191,8 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
                 <button
                   key={topic.id}
                   onClick={() => navigateToTopic(topic.slug, idx > currentIndex ? 1 : -1)}
-                  data-cursor-label="VISIT"
+                  data-cursor="interactive"
+                  data-cursor-label={`SWITCH // MOD ${topic.number}`}
                   className={`px-3 sm:px-3.5 py-1 rounded-full text-xs sm:text-[13px] transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
                     isActive
                       ? "bg-[#ede8db] text-zinc-950 font-typewriter font-bold shadow-md -rotate-[0.5deg]"
@@ -234,7 +236,11 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
             >
               
               {/* 1. TORN PAPER HEADING BANNER (Harmonious middle ground typography) */}
-              <div className="relative w-full max-w-[420px] sm:max-w-[460px] md:max-w-[500px] aspect-[1024/290] z-10 drop-shadow-[0_6px_16px_rgba(0,0,0,0.85)] -rotate-[0.5deg] select-none shrink-0">
+              <div
+                className="relative w-full max-w-[420px] sm:max-w-[460px] md:max-w-[500px] aspect-[1024/290] z-10 drop-shadow-[0_6px_16px_rgba(0,0,0,0.85)] -rotate-[0.5deg] select-none shrink-0 cursor-pointer"
+                data-cursor="interactive"
+                data-cursor-label={`MODULE ${currentTopic.number} // ${currentTopic.title.toUpperCase()}`}
+              >
                 
                 {/* Torn Paper PNG Background */}
                 <Image

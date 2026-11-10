@@ -117,7 +117,9 @@ export default function ExperienceSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative w-56 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-8 sm:mb-10 -rotate-1 origin-left shrink-0 ml-1 sm:ml-2"
+          className="relative w-56 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-8 sm:mb-10 -rotate-1 origin-left shrink-0 ml-1 sm:ml-2 cursor-pointer"
+          data-cursor="interactive"
+          data-cursor-label="EXPERIENCE // TIMELINE"
         >
           <Image
             src="/images/experience-title.png"
@@ -172,7 +174,11 @@ export default function ExperienceSection() {
                   {/* Header Row: Heading with Second Image Paper Scrap Behind + Timeline Date Moved to the Right */}
                   <div className="flex items-center gap-4 sm:gap-6 flex-wrap">
                     {/* Role Heading on Torn Kraft Paper Scrap Banner (Image 2) */}
-                    <div className="relative inline-flex items-center justify-center px-5 sm:px-6 py-2 sm:py-2.5 filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.65)] shrink-0">
+                    <div
+                      className="relative inline-flex items-center justify-center px-5 sm:px-6 py-2 sm:py-2.5 filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.65)] shrink-0 cursor-pointer"
+                      data-cursor="interactive"
+                      data-cursor-label={`${exp.role.toUpperCase()} // ${exp.period}`}
+                    >
                       <Image
                         src="/images/heading-paper-bg.png"
                         alt=""

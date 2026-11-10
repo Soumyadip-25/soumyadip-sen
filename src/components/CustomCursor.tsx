@@ -118,12 +118,23 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
         return;
       }
 
+      // 0. EXPLICIT CUSTOM CURSOR LABEL (highest priority: profile, signature, headings, cards, badges)
+      const labeledTarget = target.closest("[data-cursor-label]") as HTMLElement | null;
+      if (labeledTarget) {
+        const customLabel = labeledTarget.getAttribute("data-cursor-label");
+        if (customLabel) {
+          const customMode = (labeledTarget.getAttribute("data-cursor") as CursorMode) || "interactive";
+          setMode(customMode);
+          setLabel(customLabel);
+          return;
+        }
+      }
+
       // 1. PROJECT HOVER: triggers wide aperture expansion and displays "INSPECT"
       const projectTarget = target.closest(
-        "[data-cursor='project'], #projects .group, [data-cursor-label='PROJECT']"
+        "[data-cursor='project'], #projects .group"
       ) as HTMLElement | null;
       if (projectTarget) {
-        // If hovering specific interactive link inside project (like GitHub or Live Demo)
         const insideLink = target.closest("a, button") as HTMLElement | null;
         if (insideLink && insideLink !== projectTarget) {
           const customLabel = insideLink.getAttribute("data-cursor-label");
@@ -137,17 +148,29 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
         return;
       }
 
-      // 2. IMAGE / POLAROID HOVER: brackets frame the image and display "FOCUS"
+      // 2. IMAGE / POLAROID HOVER: brackets frame the image and display custom label or "FOCUS"
       const imageTarget = target.closest(
-        "img, [data-cursor='image'], .polaroid-container, [data-cursor-label='FOCUS 35mm'], [data-cursor-label^='FOCUS']"
+        "img, [data-cursor='image'], .polaroid-container"
       ) as HTMLElement | null;
       if (imageTarget) {
+        const imgLabel = imageTarget.getAttribute("data-cursor-label");
         setMode("image");
-        setLabel("FOCUS");
+        setLabel(imgLabel || "FOCUS");
         return;
       }
 
-      // 3. INTERACTIVE BUTTONS / LINKS: subtle contextual interaction state
+      // 3. HEADING HOVER: contextual information about the section/title
+      const headingTarget = target.closest("h1, h2, h3, [role='heading']") as HTMLElement | null;
+      if (headingTarget) {
+        const text = headingTarget.textContent?.trim().replace(/\s+/g, " ");
+        if (text && text.length > 0 && text.length <= 40) {
+          setMode("interactive");
+          setLabel(text.toUpperCase());
+          return;
+        }
+      }
+
+      // 4. INTERACTIVE BUTTONS / LINKS: subtle contextual interaction state
       const interactiveTarget = target.closest(
         "a, button, [role='button'], .resume-button, [data-cursor='interactive']"
       ) as HTMLElement | null;
@@ -176,7 +199,7 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
         return;
       }
 
-      // 4. DEFAULT: compact viewfinder with subtle calibration-ring rotation
+      // 5. DEFAULT: compact viewfinder with subtle calibration-ring rotation
       setMode("default");
       setLabel("");
     };
@@ -431,11 +454,11 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
                 animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -3, scale: 0.85 }}
                 transition={{ duration: 0.16, ease: "easeOut" }}
-                className="absolute left-[26px] top-[-13px] whitespace-nowrap pointer-events-none"
+                className="absolute left-[26px] top-[-14px] whitespace-nowrap pointer-events-none"
               >
-                <div className="flex items-center gap-1.5 px-2 py-0.5 bg-[#0e0d0c]/90 text-[#f0ece1] border border-[#f0ece1]/35 rounded-[2px] shadow-[0_2px_8px_rgba(0,0,0,0.85)] backdrop-blur-xs">
-                  <span className="w-1 h-1 rounded-full bg-[#f0ece1] animate-pulse inline-block" />
-                  <span className="font-mono text-[8.5px] font-bold tracking-widest uppercase">
+                <div className="flex items-center gap-2 px-2.5 py-1 bg-[#141416]/95 text-[#f4efe4] border border-white/20 rounded-[3px] shadow-[0_4px_14px_rgba(0,0,0,0.9)] backdrop-blur-md max-w-[340px]">
+                  <span className="w-2 h-2 rounded-full bg-white animate-pulse inline-block shrink-0 shadow-[0_0_6px_rgba(255,255,255,0.8)]" />
+                  <span className="font-mono text-[10px] font-bold tracking-widest uppercase truncate leading-none">
                     {label}
                   </span>
                 </div>

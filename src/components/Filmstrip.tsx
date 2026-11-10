@@ -9,7 +9,9 @@ export default function Filmstrip() {
   return (
     <div
       aria-hidden="true"
-      className="hidden lg:flex flex-col items-center justify-between w-8 h-[520px] bg-[#0c0c0e]/90 border-y border-zinc-800 rounded-sm shadow-2xl py-3 px-1 select-none opacity-85 hover:opacity-100 transition-opacity"
+      data-cursor="image"
+      data-cursor-label="35MM FILMSTRIP"
+      className="hidden lg:flex flex-col items-center justify-between w-8 h-[520px] bg-[#0c0c0e]/90 border-y border-zinc-800 rounded-sm shadow-2xl py-3 px-1 select-none opacity-85 hover:opacity-100 transition-opacity cursor-pointer"
     >
       {holes.map((_, i) => (
         <div key={i} className="flex flex-col items-center gap-1">

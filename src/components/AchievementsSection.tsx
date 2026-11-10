@@ -214,7 +214,9 @@ export default function AchievementsSection() {
               top: "2.0%",
               width: "25.0%",
             }}
-            className="absolute aspect-[1024/341] z-30 pointer-events-none -rotate-[3.5deg] origin-center drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]"
+            className="absolute aspect-[1024/341] z-30 pointer-events-auto cursor-pointer -rotate-[3.5deg] origin-center drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]"
+            data-cursor="interactive"
+            data-cursor-label="ACHIEVEMENTS // HONORS"
           >
             <Image
               src="/images/achievements-title.png"
@@ -268,7 +270,9 @@ export default function AchievementsSection() {
                       ref={(el) => {
                         itemRefs.current[idx] = el;
                       }}
-                      className={`group relative p-2.5 sm:p-3 rounded-lg transition-all duration-200 ${
+                      data-cursor="interactive"
+                      data-cursor-label={`HONOR // ${item.tag || "ACHIEVEMENT"}`}
+                      className={`group relative p-2.5 sm:p-3 rounded-lg transition-all duration-200 cursor-pointer ${
                         isActive
                           ? "bg-[#1c1917]/[0.05] border-l-2 border-[#1c1917]"
                           : "bg-transparent hover:bg-[#1c1917]/[0.03] border-l-2 border-transparent"
