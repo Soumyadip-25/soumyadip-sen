@@ -37,13 +37,14 @@ interface ProjectDetailViewProps {
   initialSlug?: string;
 }
 
-function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
+function TechIcon({ name, iconKey, className }: { name: string; iconKey?: string; className?: string }) {
+  const iconClass = className || "w-[22px] h-[22px] sm:w-[25px] sm:h-[25px] md:w-[27px] md:h-[27px]";
   const key = (iconKey || name).toLowerCase();
 
   // 1. React 19 (Official React Atom)
   if (key.includes("react")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="-11.5 -10.23174 23 20.46348" fill="none">
+  return (
+      <svg className={iconClass} viewBox="-11.5 -10.23174 23 20.46348" fill="none">
         <circle cx="0" cy="0" r="2.05" fill="#61DAFB" />
         <g stroke="#61DAFB" strokeWidth="1">
           <ellipse rx="11" ry="4.2" />
@@ -56,8 +57,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 2. TypeScript (Official TS Blue Square)
   if (key.includes("typescript") || key === "ts") {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <rect width="24" height="24" rx="4" fill="#3178C6" />
         <path d="M4.5 8.5h6M7.5 8.5v9.5" stroke="white" strokeWidth="2.2" strokeLinecap="round" />
         <path d="M13 16.2c.8.9 2 1.3 3.3.9 1.2-.4 1.4-1.6.4-2.3l-1.8-.7c-1.6-.7-1.7-2.4-.2-3.3 1.3-.8 2.8-.5 3.5.3" stroke="white" strokeWidth="2.2" strokeLinecap="round" />
@@ -67,8 +68,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 3. Node.js (Official Node Green Hexagon)
   if (key.includes("node")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <path d="M12 2.5l8.5 4.9v9.8L12 22.1 3.5 17.2V7.4L12 2.5z" fill="#339933" />
         <path d="M12 5.5l6 3.5v7l-6 3.5-6-3.5v-7l6-3.5z" fill="#026E00" />
         <text x="12" y="14" fill="#ffffff" fontSize="6" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">NODE</text>
@@ -78,8 +79,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 4. PostgreSQL (Official PostgreSQL Elephant Slonik Silhouette)
   if (key.includes("postgres")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <path d="M12 2.5C7.5 2.5 4.5 5 4.5 9.5c0 2.8.8 5.2 2.5 7V21l3.5-1.5v-2.2c.5.2 1 .3 1.5.3s1-.1 1.5-.3V19.5L17 21v-4.5c1.7-1.8 2.5-4.2 2.5-7 0-4.5-3-7-7.5-7z" fill="#336791" />
         <circle cx="9.5" cy="9.5" r="1.3" fill="#ffffff" />
         <circle cx="14.5" cy="9.5" r="1.3" fill="#ffffff" />
@@ -90,8 +91,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 5. pgvector (Official pgvector Vector Database Embedding)
   if (key.includes("pgvector") || key.includes("vector")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <rect x="2" y="2" width="20" height="20" rx="4" fill="#1e293b" stroke="#0ea5e9" strokeWidth="1.5" />
         <path d="M6 12l3-3M6 12l3 3M18 12l-3-3M18 12l3 3" stroke="#38bdf8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         <circle cx="12" cy="12" r="2.5" fill="#38bdf8" />
@@ -103,8 +104,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 6. LangChain (Official LangChain Parrot / Emblem)
   if (key.includes("langchain")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <path d="M5 19c2-4 5-6 10-6v-2c-3 0-5.5-1.5-7-4 3-1 6-1 8 1 1 1 1.5 2.5 1.5 4.5 0 3-1.5 5.5-4 7-2 1.2-4.5 1.5-8.5-.5z" fill="#10B981" />
         <circle cx="15.5" cy="6.5" r="1.3" fill="#1E293B" />
         <path d="M17 7l3.2 1.5-3.2 1.5" fill="#F59E0B" />
@@ -115,8 +116,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 7. Groq API (Official Groq Red-Orange LPU 'g' Logo)
   if (key.includes("groq")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <rect width="24" height="24" rx="5" fill="#F05A28" />
         <text x="12" y="16.5" fill="white" fontSize="13" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">g</text>
       </svg>
@@ -125,8 +126,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 8. ESP32 (Microcontroller Chip matching exact reference)
   if (key.includes("esp32") || key.includes("esp")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="#00dc82" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="#00dc82" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="5" y="5" width="14" height="14" rx="2" />
         <rect x="8.5" y="8.5" width="7" height="7" rx="1" />
         <path d="M8 2v3M12 2v3M16 2v3M8 19v3M12 19v3M16 19v3M2 8h3M2 12h3M2 16h3M19 8h3M19 12h3M19 16h3" />
@@ -136,8 +137,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 9. Embedded C/C++ (Official C++ Hexagonal Blue Emblem)
   if (key.includes("c++") || key.includes("cpp") || key.includes("embedded c") || key.includes("c/c++")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <path d="M12 2l8.5 4.9v9.8L12 21.6 3.5 16.7V6.9L12 2z" fill="#00599C" stroke="#659AD2" strokeWidth="1.2" />
         <text x="12" y="15" fill="white" fontSize="8" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">C++</text>
       </svg>
@@ -146,8 +147,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 10. AD8232 (AD8232 Single-Lead Heart Rate Monitor ECG Waveform)
   if (key.includes("ad8232") || key.includes("ecg")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="#f43f5e" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 12h4l2-4 3 9 3-13 3 11 2-3h3" />
       </svg>
     );
@@ -155,8 +156,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 11. MAX30102 (MAX30102 Optical Pulse Oximeter & SpO2 Biometric Sensor)
   if (key.includes("max30102") || key.includes("spo2")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#ef4444" fillOpacity="0.25" stroke="#ef4444" strokeWidth="1.8" />
         <path d="M7 12h2.5l1.5-3 2 6 1.5-3H17" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
@@ -165,8 +166,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 12. I2C (Inter-Integrated Circuit Serial Bus SDA/SCL Protocol)
   if (key.includes("i2c")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" strokeWidth="2" strokeLinecap="round">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="#fbbf24" strokeWidth="2" strokeLinecap="round">
         <path d="M3 7h18M3 17h18" />
         <circle cx="7" cy="7" r="2.5" fill="#fbbf24" />
         <circle cx="17" cy="17" r="2.5" fill="#fbbf24" />
@@ -177,8 +178,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 13. Firebase (Official Google Firebase Tri-Color Flame)
   if (key.includes("firebase")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <path d="M4.5 17.5L7 3.5l4 7.5L4.5 17.5z" fill="#FFA000" />
         <path d="M12.5 7L10 11.5l3.5 6L16 2.5 12.5 7z" fill="#F57C00" />
         <path d="M4.5 17.5l7 4 8-4-3-15-4 15-8-15z" fill="#FFCA28" />
@@ -188,8 +189,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 14. MQTT (Official MQTT Telemetry Radio Transmission Broadcast)
   if (key.includes("mqtt")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="2.2" strokeLinecap="round">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="2.2" strokeLinecap="round">
         <path d="M4 11a12 12 0 0 1 16 0" />
         <path d="M7 14a8 8 0 0 1 10 0" />
         <path d="M10 17a4 4 0 0 1 4 0" />
@@ -200,8 +201,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 15. Python (Official Python Blue & Yellow Interlocking Serpents)
   if (key.includes("python")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <path d="M11.9 2c-3.1 0-5 .7-5 2.5V7h5v1H5.4C3.5 8 2 9.7 2 12s1.7 4 3.7 4h1.7v-2.3c0-2.3 2-4.2 4.3-4.2h5V7c0-2.8-2.6-5-4.8-5zm-2.4 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" fill="#38BDF8" />
         <path d="M12.1 22c3.1 0 5-.7 5-2.5V17h-5v-1h6.6c1.9 0 3.4-1.7 3.4-4s-1.7-4-3.7-4h-1.7v2.3c0 2.3-2 4.2-4.3 4.2h-5V17c0 2.8 2.6 5 4.8 5zm2.4-2a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" fill="#FACC15" />
       </svg>
@@ -210,8 +211,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 16. FastAPI (Official FastAPI Teal Circle with White Bolt)
   if (key.includes("fastapi")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="12" r="10" fill="#009688" />
         <path d="M13 3L6 14h5l-2 7 8-11h-5l1-7z" fill="white" />
       </svg>
@@ -220,8 +221,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 17. Scikit-learn (Official Scikit-learn Dual Circular Distribution Nodes)
   if (key.includes("scikit")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <path d="M12 3C7 3 3 7 3 12s4 9 9 9 9-4 9-9-4-9-9-9z" fill="#1e293b" stroke="#3499cd" strokeWidth="1.5" />
         <circle cx="8" cy="12" r="3.5" fill="#f89939" />
         <circle cx="16" cy="12" r="3.5" fill="#3499cd" />
@@ -232,8 +233,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 18. Sentence Transformers (Official Transformer Multi-Layer Bi-Directional Attention)
   if (key.includes("transformer")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <rect x="3" y="4" width="18" height="5" rx="1.5" fill="#4f46e5" fillOpacity="0.4" stroke="#6366f1" strokeWidth="1.5" />
         <rect x="3" y="15" width="18" height="5" rx="1.5" fill="#4f46e5" fillOpacity="0.4" stroke="#6366f1" strokeWidth="1.5" />
         <path d="M7 9v6M12 9v6M17 9v6M7 9l5 6M12 9l5 6M12 9l-5 6M17 9l-5 6" stroke="#818cf8" strokeWidth="1.2" strokeLinecap="round" />
@@ -243,8 +244,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 19. Hugging Face (Official Hugging Face Emoji Mascot 🤗)
   if (key.includes("hugging")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="12" r="9.5" fill="#FFD21E" />
         <ellipse cx="8.5" cy="10" rx="1.2" ry="1.6" fill="#3D1C00" />
         <ellipse cx="15.5" cy="10" rx="1.2" ry="1.6" fill="#3D1C00" />
@@ -257,8 +258,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 20. LLM API (Official Generative Intelligence Neural Bloom)
   if (key.includes("llm") || key.includes("ai")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="#c084fc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="#c084fc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
         <circle cx="12" cy="12" r="3" fill="#a855f7" />
       </svg>
@@ -267,8 +268,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 21. Next.js (Official Next.js Stylized 'N' Emblem)
   if (key.includes("next")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="12" r="11" fill="black" stroke="#52525b" strokeWidth="1" />
         <path d="M16.5 17.5L8.5 7h-1v10h1.8v-7.2l7.2 9.4c.3-.5.7-1.1 1-1.7z" fill="white" />
         <path d="M15.5 7h1.8v10h-1.8z" fill="white" />
@@ -278,8 +279,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 22. Prisma ORM (Official Prisma Isometric Cyan Prism Pyramid)
   if (key.includes("prisma")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <path d="M3.5 19.5L12 2l8.5 17.5-8.5 2.5-8.5-2.5z" fill="#163C53" stroke="#22D3EE" strokeWidth="1.5" />
         <path d="M12 2v20M12 22l8.5-2.5L12 2" fill="#0EA5E9" fillOpacity="0.4" stroke="#22D3EE" strokeWidth="1.2" />
       </svg>
@@ -288,8 +289,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 23. WebRTC (Official WebRTC Intersecting Dual Nodes)
   if (key.includes("webrtc")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <path d="M6 12a6 6 0 0 1 6-6c2.5 0 4.6 1.5 5.5 3.7L15 11a3.5 3.5 0 0 0-3-2 3.5 3.5 0 0 0-3.5 3.5 3.5 3.5 0 0 0 3.5 3.5c1.3 0 2.4-.7 3-1.8l2.5 1.3C16.5 18 14.4 19.5 12 19.5a7.5 7.5 0 0 1-6-7.5z" fill="#3B82F6" />
         <circle cx="17.5" cy="12" r="3.5" fill="#F97316" />
       </svg>
@@ -298,8 +299,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 24. Socket.IO (Official Socket.IO Electric Green Plug Crest)
   if (key.includes("socket")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="12" r="10" fill="#010101" stroke="#27272a" strokeWidth="1.5" />
         <circle cx="12" cy="12" r="6" stroke="#ffffff" strokeWidth="1.5" fill="#18181b" />
         <circle cx="12" cy="12" r="2.8" fill="#00E599" />
@@ -309,8 +310,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 25. MPU6050 (Exact Motion Waveform from Reference)
   if (key.includes("mpu6050")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="#fb7185" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="#fb7185" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 13c3 0 3-8 6-8s3 14 6 14 3-6 6-6" />
       </svg>
     );
@@ -318,8 +319,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 26. Sensor Fusion (Gimbal Coordinates & Integrated Filter)
   if (key.includes("sensorfusion") || key.includes("fusion")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="8" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="3 3" />
         <path d="M12 4v16M4 12h16" />
         <circle cx="12" cy="12" r="3" fill="#f59e0b" />
@@ -329,8 +330,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 27. Kalman Filter (Gaussian Distribution Optimal Estimator Curve)
   if (key.includes("kalman") || key.includes("filter")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <path d="M2 18c4 0 6-1 8-7 1.5-4.5 2.5-4.5 4 0 2 6 4 7 8 7" stroke="#38bdf8" strokeWidth="2.2" strokeLinecap="round" />
         <line x1="12" y1="5" x2="12" y2="19" stroke="#60a5fa" strokeWidth="1.5" strokeDasharray="2 2" />
         <circle cx="12" cy="6.5" r="2" fill="#38bdf8" />
@@ -340,8 +341,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 28. Bluetooth Low Energy (Official Nordic Bindrune Emblem)
   if (key.includes("ble") || key.includes("bluetooth")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <rect width="24" height="24" rx="5" fill="#0082FC" fillOpacity="0.2" stroke="#0082FC" strokeWidth="1.5" />
         <path d="M7 7.5l10 9-5 4.5V3l5 4.5-10 9" stroke="#0082FC" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
@@ -350,8 +351,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 29. Recharts (Official Recharts Multi-Bar & Metric Trendline)
   if (key.includes("recharts") || key.includes("bar-chart")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <rect x="3" y="12" width="4" height="8" rx="1" fill="#22c55e" />
         <rect x="10" y="7" width="4" height="13" rx="1" fill="#3b82f6" />
         <rect x="17" y="3" width="4" height="17" rx="1" fill="#ef4444" />
@@ -362,8 +363,8 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // 30. Supabase (Official Supabase Emerald Lightning Bolt)
   if (key.includes("supabase")) {
-    return (
-      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+  return (
+      <svg className={iconClass} viewBox="0 0 24 24" fill="none">
         <path d="M12.9 2.1c-.5-.7-1.6-.4-1.7.5L9.6 12H3.8c-.8 0-1.3.8-.9 1.5l8.2 11.2c.5.7 1.6.4 1.7-.5L14.4 15h5.8c.8 0 1.3-.8.9-1.5L12.9 2.1z" fill="#3ECF8E" />
       </svg>
     );
@@ -371,16 +372,16 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
 
   // Fallbacks
   if (key.includes("cloud")) {
-    return <Cloud className="w-5 h-5 sm:w-6 sm:h-6 text-sky-400" />;
+    return <Cloud className={`${iconClass} text-sky-400`} />;
   }
   if (key.includes("database")) {
-    return <Database className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />;
+    return <Database className={`${iconClass} text-amber-400`} />;
   }
   if (key.includes("phone")) {
-    return <PhoneCall className="w-5 h-5 sm:w-6 sm:h-6 text-red-400" />;
+    return <PhoneCall className={`${iconClass} text-red-400`} />;
   }
 
-  return <Code2 className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-300" />;
+  return <Code2 className={`${iconClass} text-zinc-300`} />;
 }
 
 export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProps) {
@@ -402,33 +403,38 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
   const nextProject = projects[nextIndex];
 
   // Uniform typography constants shared across all 6 project pages as requested
-  const titleFontClass = "text-[13px] sm:text-[14.5px] md:text-[16px] lg:text-[17.5px] xl:text-[18.5px]";
-  const sectionBadgeFontClass = "font-typewriter font-bold text-[11px] sm:text-[12px] md:text-[12.5px] text-[#14120f] uppercase tracking-wider select-none";
+  const titleFontClass = "text-[14px] sm:text-[15.5px] md:text-[17px] lg:text-[19px] xl:text-[20.5px] 2xl:text-[21.5px]";
+  const sectionBadgeFontClass = "font-typewriter font-bold text-[12px] sm:text-[13px] md:text-[13.5px] lg:text-[14px] text-[#14120f] uppercase tracking-wider select-none";
   const descriptionFontClass = "font-typewriter text-zinc-200 text-[13px] sm:text-[13.5px] md:text-[14px] lg:text-[14.5px] xl:text-[15.5px] leading-relaxed tracking-[0.015em]";
-  const highlightFontClass = "font-typewriter text-zinc-200 text-[10.5px] sm:text-[11.5px] md:text-[12px] lg:text-[12.5px] leading-none whitespace-nowrap tracking-tight";
+  const highlightFontClass = "font-typewriter text-zinc-200 text-[13px] sm:text-[13.5px] md:text-[14px] lg:text-[14.5px] xl:text-[15.5px] leading-none whitespace-nowrap tracking-tight";
 
-  // Dynamic banner width tailored to title length with uniform font size, so bg image wraps the centered heading
+  // Check if current project has live online demo or github repo (Hardware projects have no online demo/repo)
+  const hasOnlineLinks =
+    Boolean(currentProject.demo || currentProject.github) &&
+    currentProject.slug !== "heartery" &&
+    currentProject.slug !== "fallguard";
+
+  // Dynamic banner width tailored to title length with slightly larger uniform font size, so bg image wraps the centered heading
   const titleLen = currentProject.title.length;
-  let bannerWidthClass = "w-full max-w-[470px] sm:max-w-[530px] md:max-w-[590px] lg:max-w-[640px] xl:max-w-[670px]";
+  let bannerWidthClass = "w-full max-w-[495px] sm:max-w-[565px] md:max-w-[630px] lg:max-w-[685px] xl:max-w-[725px]";
 
   if (titleLen <= 34) {
     // e.g. "Dhruva - Polar Knowledge System" (31 chars)
-    bannerWidthClass = "w-full max-w-[340px] sm:max-w-[380px] md:max-w-[420px] lg:max-w-[450px] xl:max-w-[470px]";
+    bannerWidthClass = "w-full max-w-[360px] sm:max-w-[405px] md:max-w-[450px] lg:max-w-[485px] xl:max-w-[515px]";
   } else if (titleLen <= 40) {
     // e.g. "FallGuard - Smart Fall Detection System" (39 chars)
-    bannerWidthClass = "w-full max-w-[390px] sm:max-w-[440px] md:max-w-[490px] lg:max-w-[530px] xl:max-w-[555px]";
+    bannerWidthClass = "w-full max-w-[415px] sm:max-w-[470px] md:max-w-[525px] lg:max-w-[570px] xl:max-w-[605px]";
   } else if (titleLen <= 44) {
     // e.g. "Anvit - Online Doctor Consultation Platform" (43 chars)
-    bannerWidthClass = "w-full max-w-[420px] sm:max-w-[475px] md:max-w-[530px] lg:max-w-[570px] xl:max-w-[600px]";
+    bannerWidthClass = "w-full max-w-[445px] sm:max-w-[505px] md:max-w-[565px] lg:max-w-[615px] xl:max-w-[650px]";
   } else if (titleLen <= 47) {
     // e.g. "Samridd..." (46 chars), "Heartery..." (47 chars)
-    bannerWidthClass = "w-full max-w-[450px] sm:max-w-[510px] md:max-w-[570px] lg:max-w-[615px] xl:max-w-[645px]";
+    bannerWidthClass = "w-full max-w-[475px] sm:max-w-[540px] md:max-w-[600px] lg:max-w-[655px] xl:max-w-[695px]";
   } else {
     // e.g. "PathVista - AI-Powered Career & Education Advisor" (49 chars)
-    bannerWidthClass = "w-full max-w-[470px] sm:max-w-[530px] md:max-w-[590px] lg:max-w-[640px] xl:max-w-[670px]";
+    bannerWidthClass = "w-full max-w-[495px] sm:max-w-[565px] md:max-w-[630px] lg:max-w-[685px] xl:max-w-[725px]";
   }
 
-  // Navigate to a specific project with direction-aware animation and URL update
   const navigateToProject = useCallback(
     (targetSlug: string, newDirection: number = 1) => {
       setDirection(newDirection);
@@ -459,7 +465,7 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+return () => window.removeEventListener("keydown", handleKeyDown);
   }, [goToPrev, goToNext, router]);
 
   // Sync state if user navigates back/forward via browser history
@@ -473,7 +479,7 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
     };
 
     window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
+return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
   // Animation variants for smooth page transitions between project dossiers
@@ -503,8 +509,7 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
       },
     }),
   };
-
-  return (
+return (
     <div className="relative w-screen h-screen overflow-hidden bg-[#070709] text-zinc-100 select-none flex flex-col justify-between font-mono">
       
       {/* ========================================================= */}
@@ -622,7 +627,7 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
             initial="enter"
             animate="center"
             exit="exit"
-            className="w-full h-full max-h-[calc(100vh-115px)] flex flex-col md:flex-row items-center justify-center md:justify-between xl:justify-center gap-6 md:gap-8 lg:gap-10 xl:gap-14 max-w-[1620px] 2xl:max-w-[1780px] mx-auto px-2"
+            className="w-full h-full max-h-[calc(100vh-115px)] flex flex-col md:flex-row items-center justify-center md:justify-between xl:justify-center gap-6 md:gap-8 lg:gap-10 xl:gap-14 max-w-[1660px] 2xl:max-w-[1840px] mx-auto px-2"
           >
             
             {/* ----------------------------------------------------- */}
@@ -666,7 +671,7 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
 
               {/* 4. Overview Dossier Notepad: Fully Formatted Specification Details */}
               <div
-                className="absolute z-25 flex flex-col justify-between"
+                className={`absolute z-25 flex flex-col ${hasOnlineLinks ? "justify-between" : "justify-start gap-2.5 sm:gap-3.5"}`}
                 style={{
                   left: "10.5%",
                   right: "10.5%",
@@ -674,25 +679,25 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
                   bottom: "4.8%",
                 }}
               >
-                {/* Header: Overview Title Stamped on Authentic Torn Paper Strip */}
-                <div className="flex items-center justify-start pb-0.5">
-                  <div className="relative w-36 sm:w-40 md:w-44 aspect-[950/210] flex items-center justify-center filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] -rotate-[0.5deg]">
+                {/* Header: Overview Title Stamped on Authentic Torn Paper Strip (Slightly larger, nudged down & shifted slightly left) */}
+                <div className="flex items-center justify-start pb-0.5 pt-1 sm:pt-1.5">
+                  <div className="relative w-[150px] sm:w-[168px] md:w-[184px] aspect-[950/210] flex items-center justify-center filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] -rotate-[0.5deg] -translate-x-1.5 sm:-translate-x-2">
                     <Image
                       src="/images/overview-paper-strip.png"
                       alt="Overview banner"
                       fill
                       priority
-                      sizes="180px"
+                      sizes="200px"
                       className="object-fill select-none pointer-events-none"
                     />
-                    <span className="relative z-10 font-typewriter font-bold text-xs sm:text-sm text-[#14120f] uppercase tracking-widest pl-1">
+                    <span className="relative z-10 font-typewriter font-bold text-[13px] sm:text-[14.5px] md:text-[15px] text-[#14120f] uppercase tracking-widest translate-y-[1px]">
                       Overview
                     </span>
                   </div>
                 </div>
 
                 {/* Information Rows: Project Type, Development Type, Role, Live Demo, Repository */}
-                <div className="space-y-1.5 sm:space-y-2 font-mono text-[11px] sm:text-[12px] text-[#1e1b18] py-0.5">
+                <div className={`${hasOnlineLinks ? "space-y-1.5 sm:space-y-2" : "space-y-2.5 sm:space-y-3"} font-mono text-[11px] sm:text-[12px] text-[#1e1b18] py-0.5`}>
                   
                   {/* 1. Project Type */}
                   <div className="flex items-center justify-between pb-1 border-b border-[#1e1b18]/20">
@@ -724,41 +729,45 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
                     </span>
                   </div>
 
-                  {/* 4. Live Demo (Matching exact vibe of rows 1-3) */}
-                  <a
-                    href={currentProject.demo || currentProject.github || "#"}
-                    target="_blank"
-                    rel="noreferrer"
-                    data-cursor="interactive"
-                    data-cursor-label="LIVE DEMO ↗"
-                    className="flex items-center justify-between pb-1 border-b border-[#1e1b18]/20 group/row cursor-pointer transition-colors hover:border-[#1e1b18]/70"
-                    title="Open Live Demo"
-                  >
-                    <span className="text-[#3c362f] group-hover/row:text-[#14120f] flex items-center gap-1.5 font-bold shrink-0 transition-colors">
-                      <ExternalLink className="w-3.5 h-3.5 text-[#3c362f] group-hover/row:text-[#14120f] transition-colors" /> Live Demo:
-                    </span>
-                    <span className="font-typewriter font-bold text-[#14120f] text-right pl-2 leading-tight flex items-center gap-1 group-hover/row:underline underline-offset-2">
-                      <span>[ VISIT ↗ ]</span>
-                    </span>
-                  </a>
+                  {/* 4. Live Demo (Only shown when project has demo link and is not hardware) */}
+                  {hasOnlineLinks && currentProject.demo && (
+                    <a
+                      href={currentProject.demo}
+                      target="_blank"
+                      rel="noreferrer"
+                      data-cursor="interactive"
+                      data-cursor-label="LIVE DEMO ↗"
+                      className="flex items-center justify-between pb-1 border-b border-[#1e1b18]/20 group/row cursor-pointer transition-colors hover:border-[#1e1b18]/70"
+                      title="Open Live Demo"
+                    >
+                      <span className="text-[#3c362f] group-hover/row:text-[#14120f] flex items-center gap-1.5 font-bold shrink-0 transition-colors">
+                        <ExternalLink className="w-3.5 h-3.5 text-[#3c362f] group-hover/row:text-[#14120f] transition-colors" /> Live Demo:
+                      </span>
+                      <span className="font-typewriter font-bold text-[#14120f] text-right pl-2 leading-tight flex items-center gap-1 group-hover/row:underline underline-offset-2">
+                        <span>[ VISIT ↗ ]</span>
+                      </span>
+                    </a>
+                  )}
 
-                  {/* 5. Repository (Matching exact vibe of rows 1-3) */}
-                  <a
-                    href={currentProject.github || "https://github.com/Soumyadip-25"}
-                    target="_blank"
-                    rel="noreferrer"
-                    data-cursor="interactive"
-                    data-cursor-label="GITHUB REPO ↗"
-                    className="flex items-center justify-between pb-1 border-b border-[#1e1b18]/20 group/row cursor-pointer transition-colors hover:border-[#1e1b18]/70"
-                    title="Open GitHub Repository"
-                  >
-                    <span className="text-[#3c362f] group-hover/row:text-[#14120f] flex items-center gap-1.5 font-bold shrink-0 transition-colors">
-                      <FolderGit2 className="w-3.5 h-3.5 text-[#3c362f] group-hover/row:text-[#14120f] transition-colors" /> Repository:
-                    </span>
-                    <span className="font-typewriter font-bold text-[#14120f] text-right pl-2 leading-tight flex items-center gap-1 group-hover/row:underline underline-offset-2">
-                      <span>[ REPO ↗ ]</span>
-                    </span>
-                  </a>
+                  {/* 5. Repository (Only shown when project has repo link and is not hardware) */}
+                  {hasOnlineLinks && currentProject.github && (
+                    <a
+                      href={currentProject.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      data-cursor="interactive"
+                      data-cursor-label="GITHUB REPO ↗"
+                      className="flex items-center justify-between pb-1 border-b border-[#1e1b18]/20 group/row cursor-pointer transition-colors hover:border-[#1e1b18]/70"
+                      title="Open GitHub Repository"
+                    >
+                      <span className="text-[#3c362f] group-hover/row:text-[#14120f] flex items-center gap-1.5 font-bold shrink-0 transition-colors">
+                        <FolderGit2 className="w-3.5 h-3.5 text-[#3c362f] group-hover/row:text-[#14120f] transition-colors" /> Repository:
+                      </span>
+                      <span className="font-typewriter font-bold text-[#14120f] text-right pl-2 leading-tight flex items-center gap-1 group-hover/row:underline underline-offset-2">
+                        <span>[ REPO ↗ ]</span>
+                      </span>
+                    </a>
+                  )}
 
                 </div>
               </div>
@@ -768,7 +777,7 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
             {/* ----------------------------------------------------- */}
             {/* RIGHT COLUMN: Inspired by Reference Mockup             */}
             {/* ----------------------------------------------------- */}
-            <div className="w-full md:w-auto md:min-w-[580px] lg:min-w-[720px] xl:min-w-[820px] 2xl:min-w-[900px] flex flex-col justify-center space-y-2.5 sm:space-y-3 md:space-y-3.5 lg:space-y-4 shrink-0">
+            <div className="w-full md:w-auto md:min-w-[620px] lg:min-w-[760px] xl:min-w-[880px] 2xl:min-w-[960px] flex flex-col justify-center space-y-2.5 sm:space-y-3 md:space-y-3.5 lg:space-y-4 shrink-0">
               
               {/* 1. Project Title on Authentic Pinned Torn Paper Strip (Tailored to title length) */}
               <div className="relative inline-block w-full max-w-full">
@@ -783,11 +792,11 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
                     alt="Pinned Project Title banner"
                     fill
                     priority
-                    sizes="(max-width: 768px) 100vw, 720px"
+                    sizes="(max-width: 768px) 100vw, 750px"
                     className="object-fill pointer-events-none select-none"
                   />
                   {/* Stamped Typewriter Title Text (Centered in the exact middle of the paper banner) */}
-                  <div className="relative z-10 w-full h-full px-6 sm:px-8 md:px-10 flex items-center justify-center">
+                  <div className="relative z-10 w-full h-full px-5 sm:px-6 md:px-8 flex items-center justify-center">
                     <h1
                       className={`font-typewriter font-bold text-[#14120f] tracking-tight select-none whitespace-nowrap text-center ${titleFontClass}`}
                     >
@@ -798,7 +807,7 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
               </div>
 
               {/* 2. Indented Description Quote Block with Left Vertical Line (Extended rightward) */}
-              <div className="border-l-2 border-zinc-500/80 pl-3.5 sm:pl-4 py-0.5 w-full max-w-[620px] lg:max-w-[720px] xl:max-w-[820px] 2xl:max-w-[890px]">
+              <div className="border-l-2 border-zinc-500/80 pl-3.5 sm:pl-4 py-0.5 w-full max-w-[640px] lg:max-w-[760px] xl:max-w-[880px] 2xl:max-w-[950px]">
                 <p className={descriptionFontClass}>
                   {currentProject.description}
                 </p>
@@ -808,7 +817,7 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
               <div className="space-y-1.5 sm:space-y-2">
                 {/* Torn Paper Header Badge */}
                 <div className="relative inline-block w-fit">
-                  <div className="relative px-3 py-0.5 sm:px-3.5 sm:py-1 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] -rotate-[0.5deg]">
+                  <div className="relative px-3.5 py-0.5 sm:px-4 sm:py-1 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] -rotate-[0.5deg]">
                     <Image
                       src="/images/overview-paper-strip.png"
                       alt="Technologies Used"
@@ -830,7 +839,7 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
                       key={idx}
                       data-cursor="interactive"
                       data-cursor-label={tech.name.toUpperCase()}
-                      className="relative w-[52px] h-[52px] sm:w-[58px] sm:h-[58px] md:w-[64px] md:h-[64px] lg:w-[70px] lg:h-[70px] aspect-square flex flex-col items-center justify-center p-1 group/tile cursor-default filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.7)] hover:scale-105 transition-transform duration-200"
+                      className="relative w-[54px] h-[54px] sm:w-[60px] sm:h-[60px] md:w-[66px] md:h-[66px] lg:w-[72px] lg:h-[72px] aspect-square flex flex-col items-center justify-center p-1 group/tile cursor-default filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.7)] hover:scale-105 transition-transform duration-200"
                       title={tech.name}
                     >
                       {/* Authentic Distressed Worn Slate Card Image */}
@@ -845,7 +854,7 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
                       {/* Icon & Label Centered Inside Card (Only logo and name) */}
                       <div className="relative z-10 flex flex-col items-center justify-center w-full px-0.5 -mt-0.5">
                         <TechIcon name={tech.name} iconKey={tech.icon} />
-                        <span className="font-typewriter font-bold text-[7px] sm:text-[7.5px] md:text-[8px] lg:text-[8.5px] text-zinc-200 group-hover/tile:text-white mt-0.5 text-center leading-[1.05] line-clamp-2 w-full break-words">
+                        <span className="font-typewriter font-bold text-[7.5px] sm:text-[8px] md:text-[8.5px] lg:text-[9.2px] text-zinc-200 group-hover/tile:text-white mt-0.5 text-center leading-[1.05] line-clamp-2 w-full break-words">
                           {tech.name}
                         </span>
                       </div>
@@ -858,7 +867,7 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
               <div className="space-y-1.5 sm:space-y-2">
                 {/* Torn Paper Header Badge */}
                 <div className="relative inline-block w-fit">
-                  <div className="relative px-3 py-0.5 sm:px-3.5 sm:py-1 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] -rotate-[0.5deg]">
+                  <div className="relative px-3.5 py-0.5 sm:px-4 sm:py-1 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] -rotate-[0.5deg]">
                     <Image
                       src="/images/overview-paper-strip.png"
                       alt="Key Features"
@@ -877,7 +886,7 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
                 <ul className="space-y-1 sm:space-y-1.5 md:space-y-2 w-full">
                   {currentProject.highlights.map((item, idx) => (
                     <li key={idx} className="flex items-center gap-2 sm:gap-2.5 whitespace-nowrap">
-                      <span className="inline-flex items-center justify-center w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-[3px] border border-zinc-400 bg-zinc-900/90 text-white text-[9px] sm:text-[10px] font-bold shrink-0 shadow-sm">
+                      <span className="inline-flex items-center justify-center w-4 h-4 sm:w-4.5 sm:h-4.5 rounded-[3px] border border-zinc-400 bg-zinc-900/90 text-white text-[10px] sm:text-[11px] font-bold shrink-0 shadow-sm">
                         ✓
                       </span>
                       <span className={highlightFontClass}>{item}</span>

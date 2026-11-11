@@ -109,38 +109,35 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
   };
 
   return (
-    <div className="relative w-screen min-h-screen md:h-screen md:overflow-hidden overflow-y-auto bg-[#070709] text-zinc-100 select-none flex items-center justify-center font-mono py-1 md:py-0">
+    <div className="relative w-screen min-h-screen md:h-screen md:overflow-hidden overflow-y-auto bg-[#070709] text-zinc-100 select-none flex flex-col justify-between font-mono">
       
       {/* ========================================================= */}
-      {/* THE DESK STAGE CONTAINER: Locked to 1024/495 on Desktop   */}
-      {/* Guarantees 100% of background image is visible with 0 crop*/}
+      {/* FULL-SCREEN FULL-BLEED BACKGROUND IMAGE                    */}
+      {/* 100% fits screen with ZERO spaces on left, right, or edges */}
       {/* ========================================================= */}
-      <div className="relative w-full min-h-screen md:min-h-0 md:aspect-[1024/495] md:max-h-screen md:max-w-[calc(100vh*(1024/495))] flex flex-col justify-between p-2 sm:p-3 md:p-3.5 lg:p-4.5 mx-auto overflow-hidden">
-
-        {/* 1. Common Background Image Across All Sections - 100% Uncropped Native Desk */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <Image
-            src="/images/skills-detail-bg.jpg"
-            alt="Vintage dark desk workstation background"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover md:object-fill object-center select-none pointer-events-none filter contrast-105 brightness-95"
-          />
-        </div>
-
-        {/* Retro Scanline Texture Overlay */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 z-1 pointer-events-none opacity-15"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.3) 2px, rgba(0, 0, 0, 0.3) 4px)",
-          }}
+      <div className="absolute inset-0 z-0 pointer-events-none w-full h-full">
+        <Image
+          src="/images/skills-detail-bg.jpg"
+          alt="Vintage dark desk workstation background"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover md:object-fill object-center select-none pointer-events-none filter contrast-105 brightness-95"
         />
+      </div>
 
-        {/* 2. Main Workstation Stage UI Content */}
-        <div className="relative z-10 w-full h-full flex flex-col justify-between flex-1">
+      {/* Retro Scanline Texture Overlay */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-1 pointer-events-none opacity-15"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.3) 2px, rgba(0, 0, 0, 0.3) 4px)",
+        }}
+      />
+
+      {/* Main Workstation Stage UI Content */}
+      <div className="relative z-10 w-full h-full flex flex-col justify-between flex-1 min-h-0 p-2 sm:p-3 md:p-3.5 lg:p-4.5 max-w-[1720px] mx-auto">
           
           {/* ========================================================= */}
           {/* TOP STATUS BAR: Back Button + Module Switcher + Status Pill */}
@@ -468,7 +465,5 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
       </div>
 
     </div>
-
-  </div>
   );
 }

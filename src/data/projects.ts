@@ -10,7 +10,7 @@ export interface ProjectData {
   subtitle: string;
   category: string;
   projectType: "Web Application" | "Mobile Application" | "IoT System" | string;
-  developmentType: "Individual Project" | "Team Project" | string;
+  developmentType: "Individual Project" | "Group Project" | "Team Project" | string;
   description: string;
   longDescription: string;
   image: string;
@@ -32,7 +32,7 @@ export const projects: ProjectData[] = [
     subtitle: "Polar Science Outreach & AI Dissemination Portal",
     category: "AI / Full-Stack / Research Technology",
     projectType: "Web Application",
-    developmentType: "Team Project",
+    developmentType: "Group Project",
     description:
       "DHRUVA is an integrated digital knowledge platform designed to bring India's polar research resources into a unified ecosystem. It leverages AI-powered document processing, intelligent retrieval, and multi-LLM integration to make scientific information easier to discover and understand. The platform bridges the gap between complex research documentation and accessible scientific knowledge.",
     longDescription:
@@ -57,7 +57,7 @@ export const projects: ProjectData[] = [
       "Generates research summaries and educational resources in multiple languages.",
       "Connects research repositories with maps, quizzes, and multimedia resources."
     ],
-    github: "https://github.com/Soumyadip-25",
+    github: "https://github.com/dhruva-2026/Dhruva",
     demo: "https://github.com/Soumyadip-25",
     metrics: [
       { label: "Search Latency", value: "< 240ms" },
@@ -72,7 +72,7 @@ export const projects: ProjectData[] = [
     subtitle: "IoT Cardiac Telemetry & Arrhythmia Detection",
     category: "IoT / Embedded Systems / Healthcare",
     projectType: "IoT System",
-    developmentType: "Individual Project",
+    developmentType: "Group Project",
     description:
       "HEARTTERY is an IoT-driven healthcare monitoring system that combines biomedical sensors with real-time data acquisition to track essential cardiac parameters. It captures ECG signals, monitors heart rate, and measures blood oxygen saturation through an ESP32-based architecture. The system provides a connected approach to continuous health observation and remote monitoring.",
     longDescription:
@@ -97,8 +97,6 @@ export const projects: ProjectData[] = [
       "Transmits sensor readings to connected cloud-based monitoring infrastructure.",
       "Presents recorded cardiac measurements through organized monitoring dashboards."
     ],
-    github: "https://github.com/Soumyadip-25",
-    demo: "https://github.com/Soumyadip-25",
     metrics: [
       { label: "ECG Accuracy", value: "97.5%" },
       { label: "Sample Rate", value: "250 Hz" },
@@ -177,7 +175,7 @@ export const projects: ProjectData[] = [
       "Supports secure messaging, audio calls, and real-time notifications.",
       "Organizes patient histories, prescriptions, and consultation documentation."
     ],
-    github: "https://github.com/Soumyadip-25",
+    github: "https://github.com/Soumyadip-25/anvit-healthcare",
     demo: "https://github.com/Soumyadip-25",
     metrics: [
       { label: "Stream Latency", value: "< 140ms" },
@@ -192,7 +190,7 @@ export const projects: ProjectData[] = [
     subtitle: "Wearable IoT Safety & Emergency Caregiver Telemetry",
     category: "IoT / Embedded Systems / Elderly Care",
     projectType: "IoT System",
-    developmentType: "Individual Project",
+    developmentType: "Group Project",
     description:
       "FALLGUARD is an IoT-based elderly safety solution designed to identify potential fall incidents through motion-sensing technology. Using accelerometer and gyroscope data, the system analyzes sudden movement patterns and detects suspected falls. It triggers emergency notifications to designated caregivers, supporting faster awareness and assistance.",
     longDescription:
@@ -217,8 +215,6 @@ export const projects: ProjectData[] = [
       "Notifies designated caregivers immediately following suspected fall detection.",
       "Maintains connected monitoring and records detected incidents for caregivers."
     ],
-    github: "https://github.com/Soumyadip-25",
-    demo: "https://github.com/Soumyadip-25",
     metrics: [
       { label: "Detection Rate", value: "98.2%" },
       { label: "Response Time", value: "< 2s" },
