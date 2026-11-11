@@ -401,27 +401,31 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
   const prevProject = projects[prevIndex];
   const nextProject = projects[nextIndex];
 
-  // Dynamic banner width and font size tailored to title length so background image wraps the heading tightly
+  // Uniform typography constants shared across all 6 project pages as requested
+  const titleFontClass = "text-[13px] sm:text-[14.5px] md:text-[16px] lg:text-[17.5px] xl:text-[18.5px]";
+  const sectionBadgeFontClass = "font-typewriter font-bold text-[11px] sm:text-[12px] md:text-[12.5px] text-[#14120f] uppercase tracking-wider select-none";
+  const descriptionFontClass = "font-typewriter text-zinc-200 text-[13px] sm:text-[13.5px] md:text-[14px] lg:text-[14.5px] xl:text-[15.5px] leading-relaxed tracking-[0.015em]";
+  const highlightFontClass = "font-typewriter text-zinc-200 text-[10.5px] sm:text-[11.5px] md:text-[12px] lg:text-[12.5px] leading-none whitespace-nowrap tracking-tight";
+
+  // Dynamic banner width tailored to title length with uniform font size, so bg image wraps the centered heading
   const titleLen = currentProject.title.length;
-  let bannerWidthClass = "w-full max-w-[450px] sm:max-w-[500px] md:max-w-[545px] lg:max-w-[580px] xl:max-w-[595px]";
-  let titleFontClass = "text-[11.5px] sm:text-[13px] md:text-[14px] lg:text-[15.5px] xl:text-[16.5px]";
+  let bannerWidthClass = "w-full max-w-[470px] sm:max-w-[530px] md:max-w-[590px] lg:max-w-[640px] xl:max-w-[670px]";
 
   if (titleLen <= 34) {
     // e.g. "Dhruva - Polar Knowledge System" (31 chars)
-    bannerWidthClass = "w-full max-w-[340px] sm:max-w-[380px] md:max-w-[420px] lg:max-w-[455px] xl:max-w-[475px]";
-    titleFontClass = "text-[14.5px] sm:text-[16.5px] md:text-[18.5px] lg:text-[20.5px] xl:text-[22px]";
-  } else if (titleLen <= 41) {
+    bannerWidthClass = "w-full max-w-[340px] sm:max-w-[380px] md:max-w-[420px] lg:max-w-[450px] xl:max-w-[470px]";
+  } else if (titleLen <= 40) {
     // e.g. "FallGuard - Smart Fall Detection System" (39 chars)
-    bannerWidthClass = "w-full max-w-[380px] sm:max-w-[430px] md:max-w-[475px] lg:max-w-[510px] xl:max-w-[530px]";
-    titleFontClass = "text-[13px] sm:text-[14.5px] md:text-[16.5px] lg:text-[18px] xl:text-[19px]";
-  } else if (titleLen <= 45) {
+    bannerWidthClass = "w-full max-w-[390px] sm:max-w-[440px] md:max-w-[490px] lg:max-w-[530px] xl:max-w-[555px]";
+  } else if (titleLen <= 44) {
     // e.g. "Anvit - Online Doctor Consultation Platform" (43 chars)
-    bannerWidthClass = "w-full max-w-[410px] sm:max-w-[460px] md:max-w-[505px] lg:max-w-[545px] xl:max-w-[565px]";
-    titleFontClass = "text-[12.5px] sm:text-[14px] md:text-[15.5px] lg:text-[17px] xl:text-[17.5px]";
+    bannerWidthClass = "w-full max-w-[420px] sm:max-w-[475px] md:max-w-[530px] lg:max-w-[570px] xl:max-w-[600px]";
+  } else if (titleLen <= 47) {
+    // e.g. "Samridd..." (46 chars), "Heartery..." (47 chars)
+    bannerWidthClass = "w-full max-w-[450px] sm:max-w-[510px] md:max-w-[570px] lg:max-w-[615px] xl:max-w-[645px]";
   } else {
-    // e.g. "Heartery...", "Samridd...", "PathVista..." (46-49 chars)
-    bannerWidthClass = "w-full max-w-[440px] sm:max-w-[490px] md:max-w-[540px] lg:max-w-[580px] xl:max-w-[600px]";
-    titleFontClass = "text-[11.5px] sm:text-[13px] md:text-[14px] lg:text-[15.5px] xl:text-[16.5px]";
+    // e.g. "PathVista - AI-Powered Career & Education Advisor" (49 chars)
+    bannerWidthClass = "w-full max-w-[470px] sm:max-w-[530px] md:max-w-[590px] lg:max-w-[640px] xl:max-w-[670px]";
   }
 
   // Navigate to a specific project with direction-aware animation and URL update
@@ -534,12 +538,12 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
       {/* ========================================================= */}
       <header className="w-full flex items-center justify-between gap-3 shrink-0 select-none pt-2 sm:pt-2.5 pb-1 px-4 sm:px-8 md:px-12 lg:px-16 relative z-30">
         
-        {/* Back to Projects Gallery: Authentic Taped Torn-Paper Memo */}
+        {/* Back to Projects Gallery: Authentic Taped Torn-Paper Memo (Slightly enlarged & nudged downward) */}
         <Link
           href="/#projects"
           data-cursor="interactive"
           data-cursor-label="RETURN // PROJECTS"
-          className="group relative w-40 sm:w-46 md:w-52 aspect-[1007/212] drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 hover:rotate-0 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg] shrink-0"
+          className="group relative w-[172px] sm:w-[196px] md:w-[220px] lg:w-[236px] aspect-[1007/212] drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:translate-y-0.5 hover:rotate-0 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg] shrink-0 translate-y-1 sm:translate-y-1.5"
           title="Return to Projects Gallery"
         >
           {/* Authentic Ripped Paper Strip with Scotch Tape */}
@@ -548,18 +552,18 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
             alt="Return to Projects memo"
             fill
             priority
-            sizes="230px"
+            sizes="250px"
             className="object-fill pointer-events-none select-none filter contrast-105"
           />
 
           {/* Overlaid Stamped Typewriter Memo Lettering */}
-          <div className="absolute inset-0 flex items-center pl-6 sm:pl-7 md:pl-8 pr-2.5 pointer-events-none gap-2">
-            <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5] shrink-0" />
+          <div className="absolute inset-0 flex items-center pl-6.5 sm:pl-7.5 md:pl-8.5 pr-2.5 pointer-events-none gap-2">
+            <ArrowLeft className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5] shrink-0" />
             <div className="flex flex-col text-left justify-center min-w-0">
-              <span className="font-mono text-[7px] sm:text-[7.5px] md:text-[8px] font-bold tracking-widest text-zinc-800/80 uppercase leading-none">
+              <span className="font-mono text-[7.5px] sm:text-[8px] md:text-[8.5px] font-bold tracking-widest text-zinc-800/80 uppercase leading-none">
                 [ ESC ] // GALLERY
               </span>
-              <span className="font-typewriter font-bold text-[10.5px] sm:text-[11.5px] md:text-[12px] text-[#14120f] tracking-tight leading-tight mt-0.5 whitespace-nowrap group-hover:text-black transition-colors">
+              <span className="font-typewriter font-bold text-[11.5px] sm:text-[12.5px] md:text-[13px] lg:text-[13.5px] text-[#14120f] tracking-tight leading-tight mt-0.5 whitespace-nowrap group-hover:text-black transition-colors">
                 Back to Projects
               </span>
             </div>
@@ -609,7 +613,7 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
       {/* ========================================================= */}
       {/* 2. CENTER STAGE: 2-Column Responsive Single-Screen Dossier */}
       {/* ========================================================= */}
-      <main className="flex-1 flex items-center justify-center min-h-0 py-1 sm:py-2 px-4 sm:px-8 md:px-12 lg:px-16 relative z-10 overflow-hidden">
+      <main className="flex-1 flex items-center justify-center min-h-0 py-1 sm:py-2 px-3 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative z-10 overflow-hidden">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentProject.id}
@@ -618,7 +622,7 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
             initial="enter"
             animate="center"
             exit="exit"
-            className="w-full h-full max-h-[calc(100vh-115px)] flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-12 xl:gap-16 max-w-[1360px] mx-auto px-2"
+            className="w-full h-full max-h-[calc(100vh-115px)] flex flex-col md:flex-row items-center justify-center md:justify-between xl:justify-center gap-6 md:gap-8 lg:gap-10 xl:gap-14 max-w-[1620px] 2xl:max-w-[1780px] mx-auto px-2"
           >
             
             {/* ----------------------------------------------------- */}
@@ -764,7 +768,7 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
             {/* ----------------------------------------------------- */}
             {/* RIGHT COLUMN: Inspired by Reference Mockup             */}
             {/* ----------------------------------------------------- */}
-            <div className="w-full md:w-[500px] lg:w-[580px] xl:w-[660px] 2xl:w-[710px] flex flex-col justify-center space-y-2.5 sm:space-y-3 md:space-y-3.5 lg:space-y-4 shrink-0 min-w-0">
+            <div className="w-full md:w-auto md:min-w-[580px] lg:min-w-[720px] xl:min-w-[820px] 2xl:min-w-[900px] flex flex-col justify-center space-y-2.5 sm:space-y-3 md:space-y-3.5 lg:space-y-4 shrink-0">
               
               {/* 1. Project Title on Authentic Pinned Torn Paper Strip (Tailored to title length) */}
               <div className="relative inline-block w-full max-w-full">
@@ -779,13 +783,13 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
                     alt="Pinned Project Title banner"
                     fill
                     priority
-                    sizes="(max-width: 768px) 100vw, 650px"
+                    sizes="(max-width: 768px) 100vw, 720px"
                     className="object-fill pointer-events-none select-none"
                   />
-                  {/* Stamped Typewriter Title Text (Prominent, bold, cleanly filling printable area) */}
-                  <div className="relative z-10 w-full h-full pl-3.5 sm:pl-4 md:pl-5 pr-8 sm:pr-10 md:pr-12 flex items-center">
+                  {/* Stamped Typewriter Title Text (Centered in the exact middle of the paper banner) */}
+                  <div className="relative z-10 w-full h-full px-6 sm:px-8 md:px-10 flex items-center justify-center">
                     <h1
-                      className={`font-typewriter font-bold text-[#14120f] tracking-tight select-none whitespace-nowrap ${titleFontClass}`}
+                      className={`font-typewriter font-bold text-[#14120f] tracking-tight select-none whitespace-nowrap text-center ${titleFontClass}`}
                     >
                       {currentProject.title}
                     </h1>
@@ -793,9 +797,9 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
                 </div>
               </div>
 
-              {/* 2. Indented Description Quote Block with Left Vertical Line */}
-              <div className="border-l-2 border-zinc-500/80 pl-3.5 sm:pl-4 py-0.5 w-full max-w-[560px] lg:max-w-[640px] xl:max-w-[690px]">
-                <p className="font-typewriter text-zinc-200 text-[13px] sm:text-[13.5px] md:text-[14px] lg:text-[14.5px] xl:text-[15.5px] leading-relaxed tracking-[0.015em]">
+              {/* 2. Indented Description Quote Block with Left Vertical Line (Extended rightward) */}
+              <div className="border-l-2 border-zinc-500/80 pl-3.5 sm:pl-4 py-0.5 w-full max-w-[620px] lg:max-w-[720px] xl:max-w-[820px] 2xl:max-w-[890px]">
+                <p className={descriptionFontClass}>
                   {currentProject.description}
                 </p>
               </div>
@@ -813,7 +817,7 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
                       sizes="180px"
                       className="object-fill select-none pointer-events-none"
                     />
-                    <span className="relative z-10 font-typewriter font-bold text-xs sm:text-[12.5px] text-[#14120f] uppercase tracking-wider">
+                    <span className={`relative z-10 ${sectionBadgeFontClass}`}>
                       Technologies Used
                     </span>
                   </div>
@@ -863,20 +867,20 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
                       sizes="180px"
                       className="object-fill select-none pointer-events-none"
                     />
-                    <span className="relative z-10 font-typewriter font-bold text-xs sm:text-[12.5px] text-[#14120f] uppercase tracking-wider">
+                    <span className={`relative z-10 ${sectionBadgeFontClass}`}>
                       Key Features
                     </span>
                   </div>
                 </div>
 
-                {/* Vertical Checklist with Retro Checkboxes */}
-                <ul className="space-y-1 sm:space-y-1.5 md:space-y-2 font-typewriter text-[11px] sm:text-xs md:text-[12.5px] text-zinc-200">
+                {/* Vertical Checklist with Retro Checkboxes (Each point strictly on a single line, extending rightward) */}
+                <ul className="space-y-1 sm:space-y-1.5 md:space-y-2 w-full">
                   {currentProject.highlights.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2 sm:gap-2.5">
-                      <span className="inline-flex items-center justify-center w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-[3px] border border-zinc-400 bg-zinc-900/90 text-white text-[9px] sm:text-[10px] font-bold shrink-0 mt-0.5 shadow-sm">
+                    <li key={idx} className="flex items-center gap-2 sm:gap-2.5 whitespace-nowrap">
+                      <span className="inline-flex items-center justify-center w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-[3px] border border-zinc-400 bg-zinc-900/90 text-white text-[9px] sm:text-[10px] font-bold shrink-0 shadow-sm">
                         ✓
                       </span>
-                      <span className="leading-snug text-zinc-200">{item}</span>
+                      <span className={highlightFontClass}>{item}</span>
                     </li>
                   ))}
                 </ul>
