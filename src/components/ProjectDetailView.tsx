@@ -25,6 +25,11 @@ import {
   Radio,
   Code2,
   Server,
+  Zap,
+  Boxes,
+  Compass,
+  Sliders,
+  Binary,
 } from "lucide-react";
 import { projects, getProjectBySlug, ProjectData } from "@/data/projects";
 
@@ -35,9 +40,10 @@ interface ProjectDetailViewProps {
 function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
   const key = (iconKey || name).toLowerCase();
 
+  // 1. React 19
   if (key.includes("react")) {
     return (
-      <svg className="w-7 h-7 sm:w-8 sm:h-8" viewBox="-11.5 -10.23174 23 20.46348" fill="none">
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="-11.5 -10.23174 23 20.46348" fill="none">
         <circle cx="0" cy="0" r="2.05" fill="#61DAFB" />
         <g stroke="#61DAFB" strokeWidth="1">
           <ellipse rx="11" ry="4.2" />
@@ -48,9 +54,22 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
     );
   }
 
+  // 2. TypeScript
+  if (key.includes("typescript") || key.includes("ts")) {
+    return (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+        <rect width="24" height="24" rx="4" fill="#3178C6" />
+        <text x="12" y="16.5" fill="white" fontSize="11" fontWeight="bold" textAnchor="middle" fontFamily="monospace">
+          TS
+        </text>
+      </svg>
+    );
+  }
+
+  // 3. Node.js
   if (key.includes("node")) {
     return (
-      <svg className="w-7 h-7 sm:w-8 sm:h-8" viewBox="0 0 32 32" fill="none">
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 32 32" fill="none">
         <path
           d="M16 2L3 9.5v15L16 32l13-7.5v-15L16 2z"
           stroke="#68A063"
@@ -72,9 +91,10 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
     );
   }
 
+  // 4. PostgreSQL
   if (key.includes("postgres")) {
     return (
-      <svg className="w-7 h-7 sm:w-8 sm:h-8" viewBox="0 0 32 32" fill="none">
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 32 32" fill="none">
         <path
           d="M16 4C10 4 6 8 6 14c0 5 3 9 7 11v3h6v-3c4-2 7-6 7-11 0-6-4-10-10-10z"
           stroke="#5a9bd4"
@@ -88,103 +108,232 @@ function TechIcon({ name, iconKey }: { name: string; iconKey?: string }) {
     );
   }
 
-  if (key.includes("groq") || key.includes("llm") || key.includes("ai")) {
+  // 5. pgvector
+  if (key.includes("pgvector") || key.includes("vector")) {
     return (
-      <svg className="w-7 h-7 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="1.8">
-        <path d="M12 2a10 10 0 0 1 10 10c0 4.418-2.865 8.166-6.839 9.49" strokeLinecap="round" />
-        <path d="M12 6a6 6 0 0 1 6 6c0 2.651-1.719 4.9-4.103 5.694" strokeLinecap="round" />
-        <circle cx="12" cy="12" r="2" fill="#f59e0b" />
-        <path d="M4 12a8 8 0 0 1 8-8" strokeLinecap="round" strokeDasharray="2 2" />
-        <path d="M2 12a10 10 0 0 0 10 10" strokeLinecap="round" />
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+        <ellipse cx="12" cy="5" rx="8" ry="3" stroke="#06b6d4" strokeWidth="1.8" />
+        <path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" stroke="#06b6d4" strokeWidth="1.8" />
+        <path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" stroke="#06b6d4" strokeWidth="1.8" />
+        <path d="M10 11l4 2.5-4 2.5" stroke="#22d3ee" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     );
   }
 
-  if (key.includes("docker")) {
+  // 6. LangChain
+  if (key.includes("langchain")) {
     return (
-      <svg className="w-7 h-7 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none">
-        <path
-          d="M2 13.5c1 .5 3 .5 5 0 2-1 4-1 6 0 2 1 4 1 6 0 1-.5 2-.5 3 0-1 4-4 6.5-10 6.5S3 17.5 2 13.5z"
-          fill="#1d4ed8"
-          stroke="#60a5fa"
-          strokeWidth="1.2"
-        />
-        <rect x="5" y="10" width="2" height="2" fill="#60a5fa" rx="0.3" />
-        <rect x="8" y="10" width="2" height="2" fill="#60a5fa" rx="0.3" />
-        <rect x="11" y="10" width="2" height="2" fill="#60a5fa" rx="0.3" />
-        <rect x="8" y="7" width="2" height="2" fill="#60a5fa" rx="0.3" />
-        <rect x="11" y="7" width="2" height="2" fill="#60a5fa" rx="0.3" />
-        <rect x="14" y="10" width="2" height="2" fill="#60a5fa" rx="0.3" />
-        <circle cx="18.5" cy="12" r="0.8" fill="white" />
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
       </svg>
     );
   }
 
+  // 7. Groq API
+  if (key.includes("groq")) {
+    return (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="18" height="18" rx="4" stroke="#f97316" strokeWidth="2" fill="#431407" />
+        <path d="M7 12h10M12 7v10" stroke="#fb923c" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="12" cy="12" r="3" fill="#f97316" />
+      </svg>
+    );
+  }
+
+  // 8. ESP32
+  if (key.includes("esp") || key.includes("cpu")) {
+    return <Cpu className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400" />;
+  }
+
+  // 9. Embedded C/C++
+  if (key.includes("c++") || key.includes("cpp") || key.includes("embedded c") || key.includes("c/c++")) {
+    return (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2l8.5 4.9v9.8L12 21.6 3.5 16.7V6.9L12 2z" fill="#00599C" stroke="#659AD2" strokeWidth="1.2" />
+        <text x="12" y="15" fill="white" fontSize="8.5" fontWeight="bold" textAnchor="middle" fontFamily="monospace">C++</text>
+      </svg>
+    );
+  }
+
+  // 10. AD8232 (ECG)
+  if (key.includes("ad8232") || key.includes("ecg") || key.includes("activity")) {
+    return <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-rose-400" />;
+  }
+
+  // 11. MAX30102 (Pulse & SpO2)
+  if (key.includes("max30102") || key.includes("heart") || key.includes("spo2")) {
+    return <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-red-500 fill-red-500/20" />;
+  }
+
+  // 12. I2C Bus
+  if (key.includes("i2c")) {
+    return (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" strokeWidth="2" strokeLinecap="round">
+        <path d="M4 7h16M4 17h16" />
+        <circle cx="8" cy="7" r="2" fill="#fbbf24" />
+        <circle cx="16" cy="17" r="2" fill="#fbbf24" />
+        <path d="M8 9v6M16 9v6" strokeDasharray="2 2" />
+      </svg>
+    );
+  }
+
+  // 13. Firebase
+  if (key.includes("firebase")) {
+    return (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+        <path d="M4.5 17.5L7 3.5l4 7.5L4.5 17.5z" fill="#FFA000" />
+        <path d="M12.5 7L10 11.5l3.5 6L16 2.5 12.5 7z" fill="#F57C00" />
+        <path d="M4.5 17.5l7 4 8-4-3-15-4 15-8-15z" fill="#FFCA28" />
+      </svg>
+    );
+  }
+
+  // 14. MQTT
+  if (key.includes("mqtt")) {
+    return (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5 12.55a11 11 0 0 1 14.08 0" />
+        <path d="M1.42 9a16 16 0 0 1 21.16 0" />
+        <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+        <circle cx="12" cy="20" r="1.5" fill="#ef4444" />
+      </svg>
+    );
+  }
+
+  // 15. Python
+  if (key.includes("python")) {
+    return (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+        <path d="M11.9 2c-3.1 0-5 .7-5 2.5V7h5v1H5.4C3.5 8 2 9.7 2 12s1.7 4 3.7 4h1.7v-2.3c0-2.3 2-4.2 4.3-4.2h5V7c0-2.8-2.6-5-4.8-5zm-2.4 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" fill="#38BDF8" />
+        <path d="M12.1 22c3.1 0 5-.7 5-2.5V17h-5v-1h6.6c1.9 0 3.4-1.7 3.4-4s-1.7-4-3.7-4h-1.7v2.3c0 2.3-2 4.2-4.3 4.2h-5V17c0 2.8 2.6 5 4.8 5zm2.4-2a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" fill="#FACC15" />
+      </svg>
+    );
+  }
+
+  // 16. FastAPI
+  if (key.includes("fastapi")) {
+    return <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-teal-400 fill-teal-400/30" />;
+  }
+
+  // 17. Scikit-learn
+  if (key.includes("scikit")) {
+    return <Boxes className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />;
+  }
+
+  // 18. Sentence Transformers
+  if (key.includes("transformer")) {
+    return <Layers className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-400" />;
+  }
+
+  // 19. Hugging Face
+  if (key.includes("hugging")) {
+    return (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" fill="#FBBF24" />
+        <circle cx="8.5" cy="10" r="1.5" fill="#78350F" />
+        <circle cx="15.5" cy="10" r="1.5" fill="#78350F" />
+        <path d="M8 14.5c1.2 1.8 2.8 2.5 4 2.5s2.8-.7 4-2.5" stroke="#78350F" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  // 20. LLM API / AI
+  if (key.includes("llm") || key.includes("ai")) {
+    return <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />;
+  }
+
+  // 21. Next.js
   if (key.includes("next")) {
     return (
-      <svg className="w-7 h-7 sm:w-8 sm:h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.663 17.15L9.8 6.5h2.2l5.7 8.2v-8.2h1.9v10.65h-1.937zM6.5 6.5h2v11h-2v-11z" />
       </svg>
     );
   }
 
-  if (key.includes("typescript")) {
+  // 22. Prisma ORM
+  if (key.includes("prisma")) {
     return (
-      <svg className="w-7 h-7 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none">
-        <rect width="24" height="24" rx="4" fill="#3178C6" />
-        <text x="12" y="16.5" fill="white" fontSize="11" fontWeight="bold" textAnchor="middle" fontFamily="monospace">
-          TS
-        </text>
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+        <path d="M4 19.5L12 2.5l8 17H4z" stroke="#22d3ee" strokeWidth="1.8" fill="#083344" />
+        <path d="M12 2.5L14.5 19.5" stroke="#22d3ee" strokeWidth="1.2" />
       </svg>
     );
   }
 
-  if (key.includes("mongo")) {
+  // 23. WebRTC
+  if (key.includes("webrtc") || key.includes("video")) {
+    return <Video className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" />;
+  }
+
+  // 24. Socket.IO
+  if (key.includes("socket")) {
     return (
-      <svg className="w-7 h-7 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none">
-        <path
-          d="M12 2C12 2 7 7 7 13c0 3.5 2.5 6.5 5 7.5 2.5-1 5-4 5-7.5 0-6-5-11-5-11z"
-          fill="#13aa52"
-          stroke="#40c463"
-          strokeWidth="1.2"
-        />
-        <path d="M12 2v19" stroke="#fff" strokeWidth="1" strokeLinecap="round" />
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="9.5" stroke="#e4e4e7" strokeWidth="1.5" fill="#18181b" />
+        <path d="M12 6.5v11M6.5 12h11" stroke="#a1a1aa" strokeWidth="1.2" strokeLinecap="round" />
+        <circle cx="12" cy="12" r="2.8" fill="#22c55e" />
       </svg>
     );
   }
 
-  if (key.includes("esp") || key.includes("cpu")) {
-    return <Cpu className="w-7 h-7 sm:w-8 sm:h-8 text-emerald-400" />;
+  // 25. MPU6050
+  if (key.includes("mpu6050")) {
+    return <Compass className="w-5 h-5 sm:w-6 sm:h-6 text-teal-400" />;
   }
-  if (key.includes("ecg") || key.includes("activity")) {
-    return <Activity className="w-7 h-7 sm:w-8 sm:h-8 text-rose-400" />;
+
+  // 26. Sensor Fusion
+  if (key.includes("sensorfusion") || key.includes("fusion")) {
+    return <Sliders className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />;
   }
-  if (key.includes("heart")) {
-    return <Heart className="w-7 h-7 sm:w-8 sm:h-8 text-red-400" />;
+
+  // 27. Kalman Filter
+  if (key.includes("kalman") || key.includes("filter")) {
+    return <Binary className="w-5 h-5 sm:w-6 sm:h-6 text-sky-400" />;
   }
-  if (key.includes("cloud") || key.includes("thingspeak")) {
-    return <Cloud className="w-7 h-7 sm:w-8 sm:h-8 text-sky-400" />;
+
+  // 28. Bluetooth Low Energy (BLE)
+  if (key.includes("ble") || key.includes("bluetooth")) {
+    return (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M6.5 7.5l11 9-5.5 5V2.5l5.5 5-11 9" />
+      </svg>
+    );
   }
-  if (key.includes("firebase") || key.includes("database")) {
-    return <Database className="w-7 h-7 sm:w-8 sm:h-8 text-amber-400" />;
-  }
+
+  // 29. Recharts
   if (key.includes("recharts") || key.includes("bar-chart")) {
-    return <BarChart3 className="w-7 h-7 sm:w-8 sm:h-8 text-teal-400" />;
+    return <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 text-teal-400" />;
   }
-  if (key.includes("twilio") || key.includes("phone")) {
-    return <PhoneCall className="w-7 h-7 sm:w-8 sm:h-8 text-red-400" />;
+
+  // 30. Supabase
+  if (key.includes("supabase")) {
+    return (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
+        <path d="M13 2.5L3.5 13.5h7L9.5 21.5 19.5 10.5h-7L13 2.5z" fill="#3ECF8E" />
+      </svg>
+    );
   }
-  if (key.includes("video") || key.includes("webrtc")) {
-    return <Video className="w-7 h-7 sm:w-8 sm:h-8 text-indigo-400" />;
+
+  // Fallbacks
+  if (key.includes("cloud")) {
+    return <Cloud className="w-5 h-5 sm:w-6 sm:h-6 text-sky-400" />;
   }
-  if (key.includes("radio") || key.includes("socket")) {
-    return <Radio className="w-7 h-7 sm:w-8 sm:h-8 text-purple-400" />;
+  if (key.includes("database")) {
+    return <Database className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />;
+  }
+  if (key.includes("phone")) {
+    return <PhoneCall className="w-5 h-5 sm:w-6 sm:h-6 text-red-400" />;
+  }
+  if (key.includes("radio")) {
+    return <Radio className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />;
   }
   if (key.includes("server") || key.includes("express")) {
-    return <Server className="w-7 h-7 sm:w-8 sm:h-8 text-zinc-300" />;
+    return <Server className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-300" />;
   }
 
-  return <Code2 className="w-7 h-7 sm:w-8 sm:h-8 text-zinc-300" />;
+  return <Code2 className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-300" />;
 }
 
 export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProps) {
@@ -350,27 +499,28 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
         {/* Quick Project Switcher Track */}
         <nav
           aria-label="Project Quick Switcher"
-          className="flex items-center bg-black/85 backdrop-blur-md px-1.5 py-1 rounded-full border border-zinc-800 shadow-md overflow-x-auto max-w-full"
+          className="flex items-center bg-black/85 backdrop-blur-md px-1.5 py-1 rounded-full border border-zinc-800 shadow-md overflow-x-auto max-w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
           {projects.map((p, idx) => {
             const isActive = p.slug === currentProject.slug;
+            const shortName = p.title.split(/[-–—]/)[0].trim();
             return (
               <button
                 key={p.id}
                 onClick={() => navigateToProject(p.slug, idx > currentIndex ? 1 : -1)}
                 data-cursor="interactive"
-                data-cursor-label={`PROJECT // ${p.title.split("–")[0].trim().toUpperCase()}`}
-                className={`px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full text-[11px] sm:text-xs transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
+                data-cursor-label={`PROJECT // ${shortName.toUpperCase()}`}
+                className={`px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[11px] sm:text-xs transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
                   isActive
                     ? "bg-[#ede8db] text-zinc-950 font-typewriter font-bold shadow-md -rotate-[0.5deg]"
                     : "text-zinc-400 hover:text-white font-mono font-medium hover:bg-zinc-800/80"
                 }`}
-                title={`Switch to ${p.title}`}
+                title={`Switch to ${shortName}`}
               >
                 <span className={isActive ? "text-zinc-900 font-bold" : "text-emerald-400"}>
                   0{idx + 1}
                 </span>
-                <span>{p.title.split("–")[0].trim()}</span>
+                <span>{shortName}</span>
               </button>
             );
           })}
@@ -398,13 +548,13 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
             initial="enter"
             animate="center"
             exit="exit"
-            className="w-full h-full max-h-[calc(100vh-125px)] flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 lg:gap-10 xl:gap-14 max-w-[1680px] mx-auto"
+            className="w-full h-full max-h-[calc(100vh-115px)] flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-12 xl:gap-16 max-w-[1360px] mx-auto px-2"
           >
             
             {/* ----------------------------------------------------- */}
             {/* LEFT COLUMN: Authentic Binder-Clipped Dossier Frame    */}
             {/* ----------------------------------------------------- */}
-            <div className="w-full md:w-auto h-full max-h-[580px] sm:max-h-[610px] md:max-h-[640px] lg:max-h-[680px] xl:max-h-[720px] aspect-[682/1024] relative flex items-center justify-center shrink-0 mx-auto md:mx-0 filter drop-shadow-[0_18px_42px_rgba(0,0,0,0.95)]">
+            <div className="w-full md:w-auto h-full max-h-[560px] sm:max-h-[590px] md:max-h-[620px] lg:max-h-[660px] xl:max-h-[700px] aspect-[682/1024] relative flex items-center justify-center shrink-0 filter drop-shadow-[0_18px_42px_rgba(0,0,0,0.95)]">
               
               {/* 1. Project Card Positioned Beneath Cutout Window */}
               <div
@@ -472,76 +622,64 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
                   
                   {/* Project Type */}
                   <div className="flex items-center justify-between pb-1 border-b border-[#1e1b18]/20">
-                    <span className="text-[#3c362f] flex items-center gap-1.5 font-bold">
+                    <span className="text-[#3c362f] flex items-center gap-1.5 font-bold shrink-0">
                       <Layers className="w-3.5 h-3.5 text-[#3c362f]" /> Project Type:
                     </span>
-                    <span className="font-typewriter font-bold text-[#14120f] text-right">
+                    <span className="font-typewriter font-bold text-[#14120f] text-right pl-2 leading-tight">
                       {currentProject.projectType || "Web Application"}
                     </span>
                   </div>
 
                   {/* Development Type */}
                   <div className="flex items-center justify-between pb-1 border-b border-[#1e1b18]/20">
-                    <span className="text-[#3c362f] flex items-center gap-1.5 font-bold">
+                    <span className="text-[#3c362f] flex items-center gap-1.5 font-bold shrink-0">
                       <Users className="w-3.5 h-3.5 text-[#3c362f]" /> Development Type:
                     </span>
-                    <span className="font-typewriter font-bold text-[#14120f] text-right">
+                    <span className="font-typewriter font-bold text-[#14120f] text-right pl-2 leading-tight">
                       {currentProject.developmentType || "Individual Project"}
                     </span>
                   </div>
 
-                  {/* Role */}
+                  {/* Role (Full Role name with ZERO truncation or ellipsis) */}
                   <div className="flex items-center justify-between pb-1 border-b border-[#1e1b18]/20">
-                    <span className="text-[#3c362f] flex items-center gap-1.5 font-bold">
+                    <span className="text-[#3c362f] flex items-center gap-1.5 font-bold shrink-0">
                       <User className="w-3.5 h-3.5 text-[#3c362f]" /> Role:
                     </span>
-                    <span className="font-typewriter font-bold text-[#14120f] truncate max-w-[190px] text-right">
+                    <span className="font-typewriter font-bold text-[#14120f] text-right text-[10px] sm:text-[11px] leading-tight pl-2">
                       {currentProject.role}
                     </span>
                   </div>
 
                 </div>
 
-                {/* Direct Action Links: Live Demo & GitHub Repository */}
-                <div className="space-y-1.5 pt-0.5">
-                  {/* Live Demo: Direct access to the deployed application */}
+                {/* Dossier Access: Live Demo Action Slip (Just Live Demo heading and the option to visit, vibe-matching) */}
+                <div className="pt-2 sm:pt-2.5">
                   <a
                     href={currentProject.demo || currentProject.github || "#"}
                     target="_blank"
                     rel="noreferrer"
                     data-cursor="interactive"
-                    data-cursor-label="LIVE DEMO ↗"
-                    className="w-full inline-flex items-center justify-between py-1.5 sm:py-2 px-3 rounded-lg bg-[#27231f] hover:bg-black text-[#f4efe6] font-typewriter font-bold shadow-sm hover:shadow-md transition-all cursor-pointer text-[10.5px] sm:text-[11.5px] group/demo"
-                    title="Direct access to the deployed application"
+                    data-cursor-label="VISIT // DEMO ↗"
+                    className="group/link block px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-[4px] border border-[#2b241c]/35 hover:border-[#14120f] bg-[#ede6d8]/85 hover:bg-[#f5efe3] shadow-[0_2px_6px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.45)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.25)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none filter contrast-105"
+                    title="Visit Live Demo"
                   >
-                    <span className="flex items-center gap-1.5 shrink-0">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_#34d399]" />
-                      <span>Live Demo:</span>
-                    </span>
-                    <span className="text-[9.5px] sm:text-[10px] md:text-[10.5px] text-zinc-300 flex items-center gap-1 font-mono text-right truncate pl-2">
-                      <span className="truncate">Direct access to the deployed application</span>
-                      <ExternalLink className="w-3 h-3 group-hover/demo:translate-x-0.5 transition-transform shrink-0" />
-                    </span>
-                  </a>
+                    <div className="flex items-center justify-between text-[#14120f]">
+                      {/* Stamped Typewriter Heading */}
+                      <div className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#14120f]/70 group-hover/link:bg-[#14120f] transition-colors" />
+                        <span className="font-typewriter font-bold text-xs sm:text-[13px] tracking-wider text-[#14120f] uppercase">
+                          Live Demo
+                        </span>
+                      </div>
 
-                  {/* GitHub Repository: Source code and project documentation */}
-                  <a
-                    href={currentProject.github || "https://github.com/Soumyadip-25"}
-                    target="_blank"
-                    rel="noreferrer"
-                    data-cursor="interactive"
-                    data-cursor-label="GITHUB REPO ↗"
-                    className="w-full inline-flex items-center justify-between py-1.5 sm:py-2 px-3 rounded-lg bg-[#14120f] hover:bg-black text-[#ede8db] font-typewriter font-bold shadow-sm hover:shadow-md transition-all cursor-pointer text-[10.5px] sm:text-[11.5px] group/git"
-                    title="Source code and project documentation"
-                  >
-                    <span className="flex items-center gap-1.5 shrink-0">
-                      <FolderGit2 className="w-3.5 h-3.5" />
-                      <span>GitHub Repository:</span>
-                    </span>
-                    <span className="text-[9.5px] sm:text-[10px] md:text-[10.5px] text-zinc-300 flex items-center gap-1 font-mono text-right truncate pl-2">
-                      <span className="truncate">Source code and project documentation</span>
-                      <ExternalLink className="w-3 h-3 group-hover/git:translate-x-0.5 transition-transform shrink-0" />
-                    </span>
+                      {/* Vintage Inked Visit Option Stamp */}
+                      <div className="flex items-center gap-1.5 px-2.5 py-0.5 sm:py-1 rounded-[3px] border border-[#14120f]/60 bg-[#14120f]/[0.06] group-hover/link:bg-[#14120f] group-hover/link:border-[#14120f] transition-all duration-200 shadow-sm">
+                        <span className="font-typewriter font-bold text-[10.5px] sm:text-[11px] tracking-widest text-[#14120f] group-hover/link:text-[#ede6d8] transition-colors">
+                          VISIT
+                        </span>
+                        <ExternalLink className="w-3 h-3 text-[#14120f] group-hover/link:text-[#ede6d8] group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform stroke-[2.5]" />
+                      </div>
+                    </div>
                   </a>
                 </div>
               </div>
@@ -551,49 +689,53 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
             {/* ----------------------------------------------------- */}
             {/* RIGHT COLUMN: Inspired by Reference Mockup             */}
             {/* ----------------------------------------------------- */}
-            <div className="flex-1 flex flex-col justify-center space-y-3 sm:space-y-4 md:space-y-4.5 min-w-0 max-w-2xl">
+            <div className="w-full md:w-[480px] lg:w-[540px] xl:w-[600px] flex flex-col justify-center space-y-2.5 sm:space-y-3 md:space-y-3.5 lg:space-y-4 shrink-0 min-w-0">
               
-              {/* 1. Project Title on Pinned Torn Paper Strip */}
-              <div className="relative inline-block w-fit max-w-full">
+              {/* 1. Project Title on Authentic Pinned Torn Paper Strip */}
+              <div className="relative inline-block w-full max-w-full">
                 <div
-                  className="relative px-5 sm:px-7 py-2 sm:py-2.5 filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] -rotate-[0.5deg]"
+                  className="relative w-full max-w-[480px] sm:max-w-[530px] md:max-w-[570px] lg:max-w-[600px] aspect-[1000/175] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)] -rotate-[0.5deg]"
                   data-cursor="interactive"
-                  data-cursor-label={`${currentProject.title.split("–")[0].split("-")[0].trim().toUpperCase()} // ARCHIVE`}
+                  data-cursor-label={`${currentProject.title.split(/[-–—]/)[0].trim().toUpperCase()} // ARCHIVE`}
                 >
+                  {/* Exact Pinned Paper Strip Image Adjusted to Natural Length and Breadth */}
                   <Image
-                    src="/images/heading-paper-bg.png"
-                    alt=""
+                    src="/images/project-title-pinned-v2.png"
+                    alt="Pinned Project Title banner"
                     fill
                     priority
-                    sizes="540px"
+                    sizes="(max-width: 768px) 100vw, 650px"
                     className="object-fill pointer-events-none select-none"
                   />
-                  <h1 className="relative z-10 font-typewriter font-bold text-base sm:text-lg md:text-xl lg:text-2xl text-[#14120f] tracking-wide select-none">
-                    {currentProject.title}
-                  </h1>
-                </div>
-
-                {/* Realistic Metallic Pushpin Clamped on Top-Right Corner */}
-                <div
-                  aria-hidden="true"
-                  className="absolute -top-1.5 -right-1.5 z-20 w-4.5 h-4.5 rounded-full bg-gradient-to-br from-zinc-100 via-zinc-400 to-zinc-700 shadow-[2px_3px_6px_rgba(0,0,0,0.9)] border border-zinc-400 flex items-center justify-center pointer-events-none"
-                >
-                  <div className="w-1.5 h-1.5 rounded-full bg-zinc-200 shadow-inner" />
+                  {/* Stamped Typewriter Title Text (Zero ellipsis, fully displayed) */}
+                  <div className="relative z-10 w-full pl-4 sm:pl-5 md:pl-6 pr-10 sm:pr-12 md:pr-14 flex items-center">
+                    <h1
+                      className={`font-typewriter font-bold text-[#14120f] tracking-tight sm:tracking-normal select-none whitespace-nowrap ${
+                        currentProject.title.length > 44
+                          ? "text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[13.5px]"
+                          : currentProject.title.length > 36
+                          ? "text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] xl:text-[14.5px]"
+                          : "text-[12px] sm:text-[13px] md:text-[14.5px] lg:text-[15.5px] xl:text-[16px]"
+                      }`}
+                    >
+                      {currentProject.title}
+                    </h1>
+                  </div>
                 </div>
               </div>
 
               {/* 2. Indented Description Quote Block with Left Vertical Line */}
-              <div className="border-l-2 border-zinc-500/80 pl-4 py-0.5">
-                <p className="font-typewriter text-zinc-200 text-xs sm:text-[13px] md:text-sm leading-relaxed">
+              <div className="border-l-2 border-zinc-500/80 pl-3.5 py-0.5">
+                <p className="font-typewriter text-zinc-200 text-xs sm:text-[12.5px] md:text-[13px] lg:text-[13.5px] leading-relaxed">
                   {currentProject.description}
                 </p>
               </div>
 
               {/* 3. Technologies Used Section */}
-              <div className="space-y-2">
+              <div className="space-y-1.5 sm:space-y-2">
                 {/* Torn Paper Header Badge */}
                 <div className="relative inline-block w-fit">
-                  <div className="relative px-3.5 py-1 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] -rotate-[0.5deg]">
+                  <div className="relative px-3 py-0.5 sm:px-3.5 sm:py-1 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] -rotate-[0.5deg]">
                     <Image
                       src="/images/overview-paper-strip.png"
                       alt="Technologies Used"
@@ -602,36 +744,48 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
                       sizes="180px"
                       className="object-fill select-none pointer-events-none"
                     />
-                    <span className="relative z-10 font-typewriter font-bold text-xs sm:text-[13px] text-[#14120f] uppercase tracking-wider">
+                    <span className="relative z-10 font-typewriter font-bold text-xs sm:text-[12.5px] text-[#14120f] uppercase tracking-wider">
                       Technologies Used
                     </span>
                   </div>
                 </div>
 
-                {/* Horizontal Row of Dark Rounded Square Icon Cards */}
-                <div className="flex items-center gap-2.5 sm:gap-3.5 flex-wrap">
-                  {(currentProject.technologies || currentProject.tags.slice(0, 5).map(t => ({ name: t, icon: t.toLowerCase() }))).map((tech, idx) => (
+                {/* Horizontal Row of Vintage Worn Slate Tech Cards (Only technology logo and name) */}
+                <div className="flex items-center gap-1.5 sm:gap-2 md:gap-2.5 flex-wrap">
+                  {(currentProject.technologies || currentProject.tags.map(t => ({ name: t, icon: t.toLowerCase() }))).map((tech, idx) => (
                     <div
                       key={idx}
                       data-cursor="interactive"
                       data-cursor-label={tech.name.toUpperCase()}
-                      className="w-16 h-16 sm:w-19 sm:h-19 md:w-21 md:h-21 rounded-xl bg-[#14120f]/90 hover:bg-[#201c18] border border-zinc-700/80 hover:border-zinc-500 shadow-[0_4px_12px_rgba(0,0,0,0.7)] flex flex-col items-center justify-center p-2 transition-all duration-200 group/tile cursor-default"
+                      className="relative w-[52px] h-[52px] sm:w-[58px] sm:h-[58px] md:w-[64px] md:h-[64px] lg:w-[70px] lg:h-[70px] aspect-square flex flex-col items-center justify-center p-1 group/tile cursor-default filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.7)] hover:scale-105 transition-transform duration-200"
                       title={tech.name}
                     >
-                      <TechIcon name={tech.name} iconKey={tech.icon} />
-                      <span className="font-typewriter font-bold text-[9px] sm:text-[10px] md:text-[10.5px] text-zinc-300 group-hover/tile:text-white mt-1.5 text-center leading-tight truncate max-w-full px-0.5">
-                        {tech.name}
-                      </span>
+                      {/* Authentic Distressed Worn Slate Card Image */}
+                      <Image
+                        src="/images/project-tech-tile.png"
+                        alt=""
+                        fill
+                        sizes="75px"
+                        className="object-contain pointer-events-none select-none"
+                      />
+
+                      {/* Icon & Label Centered Inside Card (Only logo and name) */}
+                      <div className="relative z-10 flex flex-col items-center justify-center w-full px-0.5 -mt-0.5">
+                        <TechIcon name={tech.name} iconKey={tech.icon} />
+                        <span className="font-typewriter font-bold text-[7px] sm:text-[7.5px] md:text-[8px] lg:text-[8.5px] text-zinc-200 group-hover/tile:text-white mt-0.5 text-center leading-[1.05] line-clamp-2 w-full break-words">
+                          {tech.name}
+                        </span>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* 4. Key Features Section */}
-              <div className="space-y-2">
+              <div className="space-y-1.5 sm:space-y-2">
                 {/* Torn Paper Header Badge */}
                 <div className="relative inline-block w-fit">
-                  <div className="relative px-3.5 py-1 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] -rotate-[0.5deg]">
+                  <div className="relative px-3 py-0.5 sm:px-3.5 sm:py-1 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] -rotate-[0.5deg]">
                     <Image
                       src="/images/overview-paper-strip.png"
                       alt="Key Features"
@@ -640,17 +794,17 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
                       sizes="180px"
                       className="object-fill select-none pointer-events-none"
                     />
-                    <span className="relative z-10 font-typewriter font-bold text-xs sm:text-[13px] text-[#14120f] uppercase tracking-wider">
+                    <span className="relative z-10 font-typewriter font-bold text-xs sm:text-[12.5px] text-[#14120f] uppercase tracking-wider">
                       Key Features
                     </span>
                   </div>
                 </div>
 
                 {/* Vertical Checklist with Retro Checkboxes */}
-                <ul className="space-y-1.5 sm:space-y-2 font-typewriter text-xs sm:text-[13px] text-zinc-200">
+                <ul className="space-y-1 sm:space-y-1.5 md:space-y-2 font-typewriter text-[11px] sm:text-xs md:text-[12.5px] text-zinc-200">
                   {currentProject.highlights.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5">
-                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-[3px] border border-zinc-400 bg-zinc-900/90 text-white text-[10px] font-bold shrink-0 mt-0.5 shadow-sm">
+                    <li key={idx} className="flex items-start gap-2 sm:gap-2.5">
+                      <span className="inline-flex items-center justify-center w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-[3px] border border-zinc-400 bg-zinc-900/90 text-white text-[9px] sm:text-[10px] font-bold shrink-0 mt-0.5 shadow-sm">
                         ✓
                       </span>
                       <span className="leading-snug text-zinc-200">{item}</span>
@@ -667,31 +821,18 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
 
       {/* ========================================================= */}
       {/* 3. BOTTOM CONTROLS & NAVIGATION BAR                       */}
-      {/* Inset from corners to preserve mountains & rock accents   */}
+      {/* Both transition buttons grouped together on bottom right   */}
       {/* ========================================================= */}
-      <footer className="w-full flex items-center justify-between px-6 sm:px-12 md:px-16 lg:px-20 py-2 sm:py-2.5 relative z-30 select-none">
+      <footer className="w-full flex items-center justify-between px-6 sm:px-10 md:px-14 lg:px-16 py-2 sm:py-2.5 relative z-30 select-none">
         
-        {/* Previous Project Button */}
-        <button
-          onClick={goToPrev}
-          data-cursor="interactive"
-          data-cursor-label={`PREV // ${prevProject.title.split("–")[0].trim().toUpperCase()}`}
-          className="group flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/80 hover:bg-zinc-800 border border-zinc-700 hover:border-zinc-400 text-zinc-300 hover:text-white transition-all text-xs font-typewriter cursor-pointer shadow-md"
-          title={`Previous: ${prevProject.title}`}
-        >
-          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
-          <span className="hidden sm:inline">Prev:</span>
-          <span className="font-bold">{prevProject.title.split("–")[0].trim()}</span>
-        </button>
-
         {/* Pagination Indicator Dots */}
-        <div className="flex items-center gap-2 bg-black/80 px-3 py-1 rounded-full border border-zinc-800">
+        <div className="flex items-center gap-2 bg-black/80 backdrop-blur-sm px-3.5 py-1.5 rounded-full border border-zinc-800/80 shadow-md">
           {projects.map((p, idx) => (
             <button
               key={p.id}
               onClick={() => navigateToProject(p.slug, idx > currentIndex ? 1 : -1)}
               data-cursor="interactive"
-              data-cursor-label={`GOTO // ${p.title.split("–")[0].trim().toUpperCase()}`}
+              data-cursor-label={`GOTO // ${p.title.split(/[-–—]/)[0].trim().toUpperCase()}`}
               className={`transition-all rounded-full cursor-pointer ${
                 idx === currentIndex
                   ? "w-6 h-2 bg-emerald-400 shadow-[0_0_8px_#34d399]"
@@ -702,18 +843,56 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
           ))}
         </div>
 
-        {/* Next Project Button */}
-        <button
-          onClick={goToNext}
-          data-cursor="interactive"
-          data-cursor-label={`NEXT // ${nextProject.title.split("–")[0].trim().toUpperCase()}`}
-          className="group flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/80 hover:bg-zinc-800 border border-zinc-700 hover:border-zinc-400 text-zinc-300 hover:text-white transition-all text-xs font-typewriter cursor-pointer shadow-md"
-          title={`Next: ${nextProject.title}`}
-        >
-          <span className="hidden sm:inline">Next:</span>
-          <span className="font-bold">{nextProject.title.split("–")[0].trim()}</span>
-          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-        </button>
+        {/* Transition Buttons: Both Grouped on Bottom-Right on Torn Paper Strips */}
+        <div className="flex items-center gap-2.5 sm:gap-3.5">
+          {/* Previous Project Button */}
+          <button
+            onClick={goToPrev}
+            data-cursor="interactive"
+            data-cursor-label={`PREV // ${prevProject.title.split(/[-–—]/)[0].trim().toUpperCase()}`}
+            className="group relative w-36 sm:w-44 md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg]"
+            title={`Previous: ${prevProject.title}`}
+          >
+            <Image
+              src="/images/transition-button-paper.png"
+              alt="Previous project"
+              fill
+              priority
+              sizes="220px"
+              className="object-fill pointer-events-none select-none group-hover:brightness-105 transition-all"
+            />
+            <div className="relative z-10 flex items-center gap-2 px-3.5 sm:px-4">
+              <ArrowLeft className="w-4 h-4 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5]" />
+              <span className="font-typewriter font-bold text-[11px] sm:text-[12px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight whitespace-nowrap">
+                Prev: {prevProject.title.split(/[-–—]/)[0].trim()}
+              </span>
+            </div>
+          </button>
+
+          {/* Next Project Button */}
+          <button
+            onClick={goToNext}
+            data-cursor="interactive"
+            data-cursor-label={`NEXT // ${nextProject.title.split(/[-–—]/)[0].trim().toUpperCase()}`}
+            className="group relative w-36 sm:w-44 md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none rotate-[0.5deg]"
+            title={`Next: ${nextProject.title}`}
+          >
+            <Image
+              src="/images/transition-button-paper.png"
+              alt="Next project"
+              fill
+              priority
+              sizes="220px"
+              className="object-fill pointer-events-none select-none group-hover:brightness-105 transition-all"
+            />
+            <div className="relative z-10 flex items-center gap-2 px-3.5 sm:px-4">
+              <span className="font-typewriter font-bold text-[11px] sm:text-[12px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight whitespace-nowrap">
+                Next: {nextProject.title.split(/[-–—]/)[0].trim()}
+              </span>
+              <ArrowRight className="w-4 h-4 text-[#14120f] group-hover:translate-x-1 transition-transform stroke-[2.5]" />
+            </div>
+          </button>
+        </div>
 
       </footer>
 
