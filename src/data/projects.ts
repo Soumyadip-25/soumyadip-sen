@@ -251,11 +251,11 @@ export const projects: ProjectData[] = [
     timeline: "2023",
     role: "Full Stack Developer",
     highlights: [
-      "Interactive financial dashboard visualizing Cash Flow, Expense, and Budget graphs.",
-      "Customizable budget alerts notifying users when approaching categorical limits.",
-      "Compound interest savings goal planner tracking financial milestones.",
-      "Personal financial records secured with bank-grade AES-256 encryption.",
-      "Automated transaction categorization and budget trend analysis."
+      "Consolidates income, expenses, savings, and account balances into one interface.",
+      "Organizes financial transactions into meaningful spending categories automatically.",
+      "Tracks spending limits and monitors monthly budget utilization.",
+      "Visualizes spending patterns, income distribution, and financial trends.",
+      "Tracks savings milestones and measures progress toward financial targets."
     ],
     github: "https://github.com/Soumyadip-25",
     demo: "https://github.com/Soumyadip-25",
