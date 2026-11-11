@@ -150,7 +150,7 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
             href="/#skills"
             data-cursor="interactive"
             data-cursor-label="RETURN // CRT CONSOLE"
-            className="group relative w-44 sm:w-50 md:w-54 aspect-[1007/212] drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 hover:rotate-0 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg] shrink-0"
+            className="group relative w-[180px] sm:w-[204px] md:w-[226px] lg:w-[242px] aspect-[1007/212] drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 hover:rotate-0 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg] shrink-0"
             title="Return to CRT Monitors Console"
           >
             {/* Authentic Ripped Paper Strip with Scotch Tape */}
@@ -159,18 +159,18 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
               alt="Return to Skills Console memo"
               fill
               priority
-              sizes="230px"
+              sizes="250px"
               className="object-fill pointer-events-none select-none filter contrast-105"
             />
 
             {/* Overlaid Stamped Typewriter Memo Lettering */}
             <div className="absolute inset-0 flex items-center pl-7 sm:pl-8 md:pl-8.5 pr-2.5 pointer-events-none gap-2">
-              <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5] shrink-0" />
+              <ArrowLeft className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5] shrink-0" />
               <div className="flex flex-col text-left justify-center min-w-0">
-                <span className="font-mono text-[7px] sm:text-[7.5px] md:text-[8px] font-bold tracking-widest text-zinc-800/80 uppercase leading-none">
+                <span className="font-mono text-[7.5px] sm:text-[8px] md:text-[8.5px] font-bold tracking-widest text-zinc-800/80 uppercase leading-none">
                   [ ESC ] // CONSOLE
                 </span>
-                <span className="font-typewriter font-bold text-[11px] sm:text-[12px] md:text-[12.5px] text-[#14120f] tracking-tight leading-tight mt-0.5 whitespace-nowrap group-hover:text-black transition-colors">
+                <span className="font-typewriter font-bold text-[11.5px] sm:text-[12.5px] md:text-[13px] lg:text-[13.5px] text-[#14120f] tracking-tight leading-tight mt-0.5 whitespace-nowrap group-hover:text-black transition-colors">
                   Back to Skills Console
                 </span>
               </div>
@@ -197,7 +197,7 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
                   }`}
                   title={`Switch to ${topic.title}`}
                 >
-                  <span className={isActive ? "text-zinc-900 font-bold" : "text-emerald-400"}>
+                  <span className={isActive ? "text-zinc-900 font-bold" : "text-amber-400"}>
                     {topic.number}
                   </span>
                   <span>{topic.shortTitle || topic.title}</span>
@@ -208,8 +208,8 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
 
           {/* Live Status Pill */}
           <div className="hidden sm:flex items-center gap-2 bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-zinc-800 text-xs sm:text-[12.5px] font-mono shadow-md">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
-            <span className="text-emerald-300 font-bold tracking-wider">
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#fbbf24]" />
+            <span className="text-amber-300 font-bold tracking-wider">
               MODULE // {currentTopic.number} ACTIVE
             </span>
           </div>
@@ -295,7 +295,7 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
                     >
                       {/* Section Heading Badge */}
                       <div className="flex items-center gap-2 mb-1.5">
-                        <span className="font-mono text-[10.5px] sm:text-[11.5px] font-bold text-emerald-300 uppercase tracking-wider bg-emerald-950/85 border border-emerald-500/60 px-3.5 py-0.5 rounded-full shadow-xs">
+                        <span className="font-mono text-[10.5px] sm:text-[11.5px] font-bold text-amber-300 uppercase tracking-wider bg-amber-950/85 border border-amber-500/60 px-3.5 py-0.5 rounded-full shadow-xs">
                           {sub.title}
                         </span>
                       </div>
@@ -381,38 +381,13 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
         </main>
 
         {/* ========================================================= */}
-        {/* BOTTOM NAVIGATION BAR: Torn Paper Transition Buttons */}
-        {/* Padded on desktop so buttons comfortably frame camera & cup */}
+        {/* BOTTOM NAVIGATION BAR: Centered Dots + Right Transition Buttons */}
+        {/* Leaves bottom-left camera area completely clear and open  */}
         {/* ========================================================= */}
-        <footer className="w-full flex items-center justify-between gap-3 shrink-0 pb-1 sm:pb-1.5 px-3 sm:px-6 md:px-12 lg:px-20 select-none">
+        <footer className="w-full relative flex items-center shrink-0 pb-1 sm:pb-1.5 px-3 sm:px-6 md:px-8 lg:px-12 select-none z-30">
           
-          {/* Previous Module Button (using transition-button-paper.png) */}
-          <button
-            onClick={goToPrev}
-            data-cursor-label="VISIT"
-            className="relative w-40 sm:w-48 md:w-52 aspect-[3/1] drop-shadow-[0_6px_14px_rgba(0,0,0,0.7)] hover:drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none group"
-            title={`Visit previous module: ${prevTopic.title}`}
-          >
-            <Image
-              src="/images/transition-button-paper.png"
-              alt=""
-              fill
-              sizes="225px"
-              className="object-contain pointer-events-none"
-            />
-            <div className="absolute inset-0 flex flex-col justify-center items-center px-3.5 text-center pointer-events-none">
-              <span className="font-mono text-[9.5px] sm:text-[10.5px] md:text-[11px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1.5">
-                <ArrowLeft className="w-3.5 h-3.5 text-zinc-950 group-hover:-translate-x-1 transition-transform stroke-[2.5]" />
-                <span>VISIT PREVIOUS</span>
-              </span>
-              <span className="font-typewriter text-xs sm:text-[13px] md:text-sm font-bold text-zinc-950 tracking-tight mt-0.5 sm:mt-1 truncate max-w-[155px] sm:max-w-[180px]">
-                {prevTopic.title}
-              </span>
-            </div>
-          </button>
-
-          {/* Center Track Dots */}
-          <div className="flex items-center gap-2 bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-zinc-800 font-mono text-xs sm:text-[13px] text-zinc-400 shadow-md">
+          {/* Center Track Dots: Centered in the bottom middle of the page */}
+          <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-zinc-800 font-mono text-xs sm:text-[13px] text-zinc-400 shadow-md z-10">
             <span>[</span>
             <div className="flex items-center gap-1.5">
               {skillTopics.map((t, idx) => (
@@ -422,7 +397,7 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
                   data-cursor-label={`MOD ${t.number}`}
                   className={`w-2.5 h-2.5 rounded-full transition-all cursor-pointer ${
                     t.slug === currentTopic.slug
-                      ? "bg-zinc-100 scale-125 shadow-[0_0_6px_rgba(255,255,255,0.8)]"
+                      ? "bg-amber-400 scale-125 shadow-[0_0_8px_rgba(251,191,36,0.95)]"
                       : "border border-zinc-500 bg-transparent hover:border-zinc-300"
                   }`}
                   aria-label={`Jump to ${t.title}`}
@@ -435,30 +410,60 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
             </span>
           </div>
 
-          {/* Next Module Button (using transition-button-paper.png) */}
-          <button
-            onClick={goToNext}
-            data-cursor-label="VISIT"
-            className="relative w-40 sm:w-48 md:w-52 aspect-[3/1] drop-shadow-[0_6px_14px_rgba(0,0,0,0.7)] hover:drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none group text-right"
-            title={`Visit next module: ${nextTopic.title}`}
-          >
-            <Image
-              src="/images/transition-button-paper.png"
-              alt=""
-              fill
-              sizes="225px"
-              className="object-contain pointer-events-none"
-            />
-            <div className="absolute inset-0 flex flex-col justify-center items-center px-3.5 text-center pointer-events-none">
-              <span className="font-mono text-[9.5px] sm:text-[10.5px] md:text-[11px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1.5">
-                <span>VISIT NEXT</span>
-                <ArrowRight className="w-3.5 h-3.5 text-zinc-950 group-hover:translate-x-1 transition-transform stroke-[2.5]" />
-              </span>
-              <span className="font-typewriter text-xs sm:text-[13px] md:text-sm font-bold text-zinc-950 tracking-tight mt-0.5 sm:mt-1 truncate max-w-[155px] sm:max-w-[180px]">
-                {nextTopic.title}
-              </span>
-            </div>
-          </button>
+          {/* Transition Buttons: Both Grouped on the Right Side */}
+          <div className="flex items-center gap-2.5 sm:gap-3.5 ml-auto z-20">
+            
+            {/* Previous Module Button */}
+            <button
+              onClick={goToPrev}
+              data-cursor-label="VISIT"
+              className="group relative w-38 sm:w-44 md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg]"
+              title={`Visit previous module: ${prevTopic.title}`}
+            >
+              <Image
+                src="/images/transition-button-paper.png"
+                alt=""
+                fill
+                sizes="220px"
+                className="object-fill pointer-events-none select-none group-hover:brightness-105 transition-all"
+              />
+              <div className="absolute inset-0 flex flex-col justify-center items-center px-3.5 text-center pointer-events-none">
+                <span className="font-mono text-[9px] sm:text-[9.5px] md:text-[10px] lg:text-[10.5px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1.5">
+                  <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5]" />
+                  <span>VISIT PREVIOUS</span>
+                </span>
+                <span className="font-typewriter font-bold text-[11.5px] sm:text-[12px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight mt-0.5 truncate max-w-[140px] sm:max-w-[165px]">
+                  {prevTopic.shortTitle || prevTopic.title}
+                </span>
+              </div>
+            </button>
+
+            {/* Next Module Button */}
+            <button
+              onClick={goToNext}
+              data-cursor-label="VISIT"
+              className="group relative w-38 sm:w-44 md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none rotate-[0.5deg]"
+              title={`Visit next module: ${nextTopic.title}`}
+            >
+              <Image
+                src="/images/transition-button-paper.png"
+                alt=""
+                fill
+                sizes="220px"
+                className="object-fill pointer-events-none select-none group-hover:brightness-105 transition-all"
+              />
+              <div className="absolute inset-0 flex flex-col justify-center items-center px-3.5 text-center pointer-events-none">
+                <span className="font-mono text-[9px] sm:text-[9.5px] md:text-[10px] lg:text-[10.5px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1.5">
+                  <span>VISIT NEXT</span>
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#14120f] group-hover:translate-x-1 transition-transform stroke-[2.5]" />
+                </span>
+                <span className="font-typewriter font-bold text-[11.5px] sm:text-[12px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight mt-0.5 truncate max-w-[140px] sm:max-w-[165px]">
+                  {nextTopic.shortTitle || nextTopic.title}
+                </span>
+              </div>
+            </button>
+
+          </div>
 
         </footer>
 

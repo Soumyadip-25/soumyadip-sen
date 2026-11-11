@@ -314,17 +314,14 @@ export default function ProjectsSection() {
 
                   {/* Bottom Info Bar with Live Arrow Visiting Button */}
                   <div
-                    className={`absolute bottom-0 inset-x-0 p-4 sm:p-5 flex items-end justify-between gap-3 transition-all duration-300 ${
+                    className={`absolute bottom-0 inset-x-0 p-3.5 sm:p-4.5 md:p-5 flex items-center justify-between gap-3.5 transition-all duration-300 ${
                       isCenter ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3 pointer-events-none"
                     }`}
                   >
-                    <div className="flex-1 min-w-0 pr-2">
-                      <h3 className="font-typewriter font-bold text-base sm:text-lg md:text-xl lg:text-2xl text-white tracking-wide truncate">
-                        {project.title.split("–")[0].trim()}
+                    <div className="flex-1 min-w-0 pr-1">
+                      <h3 className="font-typewriter font-bold text-sm sm:text-base md:text-lg lg:text-xl text-white tracking-wide leading-snug drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+                        {project.title}
                       </h3>
-                      <p className="font-typewriter text-zinc-300 text-xs sm:text-sm md:text-[14.5px] mt-1 leading-relaxed line-clamp-2">
-                        {project.description}
-                      </p>
                     </div>
 
                     {/* Circular Arrow Button: Navigates to Detailed Project Page */}
@@ -334,9 +331,9 @@ export default function ProjectsSection() {
                       data-cursor="interactive"
                       data-cursor-label="PROJECT // VIEW"
                       title={`View details for ${project.title}`}
-                      className="shrink-0 w-11 h-11 sm:w-12 sm:h-12 md:w-13 md:h-13 rounded-full bg-black/80 hover:bg-white text-white hover:text-black border border-white/50 hover:border-white shadow-[0_4px_16px_rgba(0,0,0,0.95),0_0_12px_rgba(255,255,255,0.3)] flex items-center justify-center transition-all duration-300 group/btn pointer-events-auto"
+                      className="shrink-0 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-black/85 hover:bg-white text-white hover:text-black border border-white/60 hover:border-white shadow-[0_4px_16px_rgba(0,0,0,0.95),0_0_12px_rgba(255,255,255,0.3)] flex items-center justify-center transition-all duration-300 group/btn pointer-events-auto"
                     >
-                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 group-hover/btn:translate-x-0.5 transition-transform" />
+                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-5.5 md:h-5.5 group-hover/btn:translate-x-0.5 transition-transform" />
                     </Link>
                   </div>
                 </motion.div>
@@ -372,7 +369,7 @@ export default function ProjectsSection() {
                 aria-label={`Go to project ${idx + 1}: ${proj.title}`}
                 className={`transition-all duration-300 rounded-full cursor-pointer ${
                   isActive
-                    ? "w-3 h-3 bg-white shadow-[0_0_10px_rgba(255,255,255,0.95)] scale-110"
+                    ? "w-3 h-3 bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.95)] scale-110"
                     : "w-2 h-2 bg-transparent border border-zinc-500/80 hover:border-zinc-300 hover:scale-110"
                 }`}
               />

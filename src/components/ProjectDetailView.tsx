@@ -548,7 +548,7 @@ return (
           href="/#projects"
           data-cursor="interactive"
           data-cursor-label="RETURN // PROJECTS"
-          className="group relative w-[172px] sm:w-[196px] md:w-[220px] lg:w-[236px] aspect-[1007/212] drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:translate-y-0.5 hover:rotate-0 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg] shrink-0 translate-y-1 sm:translate-y-1.5"
+          className="group relative w-[180px] sm:w-[204px] md:w-[226px] lg:w-[242px] aspect-[1007/212] drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:translate-y-0.5 hover:rotate-0 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg] shrink-0 translate-y-1 sm:translate-y-1.5"
           title="Return to Projects Gallery"
         >
           {/* Authentic Ripped Paper Strip with Scotch Tape */}
@@ -562,7 +562,7 @@ return (
           />
 
           {/* Overlaid Stamped Typewriter Memo Lettering */}
-          <div className="absolute inset-0 flex items-center pl-6.5 sm:pl-7.5 md:pl-8.5 pr-2.5 pointer-events-none gap-2">
+          <div className="absolute inset-0 flex items-center pl-7 sm:pl-8 md:pl-8.5 pr-2.5 pointer-events-none gap-2">
             <ArrowLeft className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5] shrink-0" />
             <div className="flex flex-col text-left justify-center min-w-0">
               <span className="font-mono text-[7.5px] sm:text-[8px] md:text-[8.5px] font-bold tracking-widest text-zinc-800/80 uppercase leading-none">
@@ -596,7 +596,7 @@ return (
                 }`}
                 title={`Switch to ${shortName}`}
               >
-                <span className={isActive ? "text-zinc-900 font-bold" : "text-emerald-400"}>
+                <span className={isActive ? "text-zinc-900 font-bold" : "text-amber-400"}>
                   0{idx + 1}
                 </span>
                 <span>{shortName}</span>
@@ -607,8 +607,8 @@ return (
 
         {/* Live Dossier Status Indicator (Inset from top-right to preserve compass rose) */}
         <div className="hidden lg:flex items-center gap-2 bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-zinc-800 text-xs font-mono shadow-md mr-14 xl:mr-20">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
-          <span className="text-emerald-300 font-bold tracking-wider">
+          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#fbbf24]" />
+          <span className="text-amber-300 font-bold tracking-wider">
             DOSSIER // 0{currentIndex + 1} OF 0{projects.length}
           </span>
         </div>
@@ -715,7 +715,7 @@ return (
                       <Users className="w-3.5 h-3.5 text-[#3c362f]" /> Development Type:
                     </span>
                     <span className="font-typewriter font-bold text-[#14120f] text-right pl-2 leading-tight">
-                      {currentProject.developmentType || "Individual Project"}
+                      {currentProject.developmentType || "Individual"}
                     </span>
                   </div>
 
@@ -917,7 +917,7 @@ return (
               data-cursor-label={`GOTO // ${p.title.split(/[-–—]/)[0].trim().toUpperCase()}`}
               className={`transition-all rounded-full cursor-pointer ${
                 idx === currentIndex
-                  ? "w-6 h-2 bg-emerald-400 shadow-[0_0_8px_#34d399]"
+                  ? "w-6 h-2 bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.95)]"
                   : "w-2 h-2 bg-zinc-600 hover:bg-zinc-400"
               }`}
               aria-label={`Jump to project ${p.title}`}
@@ -932,7 +932,7 @@ return (
             onClick={goToPrev}
             data-cursor="interactive"
             data-cursor-label={`PREV // ${prevProject.title.split(/[-–—]/)[0].trim().toUpperCase()}`}
-            className="group relative w-36 sm:w-44 md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg]"
+            className="group relative w-38 sm:w-44 md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg]"
             title={`Previous: ${prevProject.title}`}
           >
             <Image
@@ -943,10 +943,13 @@ return (
               sizes="220px"
               className="object-fill pointer-events-none select-none group-hover:brightness-105 transition-all"
             />
-            <div className="relative z-10 flex items-center gap-2 px-3.5 sm:px-4">
-              <ArrowLeft className="w-4 h-4 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5]" />
-              <span className="font-typewriter font-bold text-[11px] sm:text-[12px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight whitespace-nowrap">
-                Prev: {prevProject.title.split(/[-–—]/)[0].trim()}
+            <div className="absolute inset-0 flex flex-col justify-center items-center px-3.5 text-center pointer-events-none">
+              <span className="font-mono text-[9px] sm:text-[9.5px] md:text-[10px] lg:text-[10.5px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1.5">
+                <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5]" />
+                <span>VISIT PREVIOUS</span>
+              </span>
+              <span className="font-typewriter font-bold text-[11.5px] sm:text-[12px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight mt-0.5 truncate max-w-[140px] sm:max-w-[165px]">
+                {prevProject.title.split(/[-–—]/)[0].trim()}
               </span>
             </div>
           </button>
@@ -956,7 +959,7 @@ return (
             onClick={goToNext}
             data-cursor="interactive"
             data-cursor-label={`NEXT // ${nextProject.title.split(/[-–—]/)[0].trim().toUpperCase()}`}
-            className="group relative w-36 sm:w-44 md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none rotate-[0.5deg]"
+            className="group relative w-38 sm:w-44 md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none rotate-[0.5deg]"
             title={`Next: ${nextProject.title}`}
           >
             <Image
@@ -967,11 +970,14 @@ return (
               sizes="220px"
               className="object-fill pointer-events-none select-none group-hover:brightness-105 transition-all"
             />
-            <div className="relative z-10 flex items-center gap-2 px-3.5 sm:px-4">
-              <span className="font-typewriter font-bold text-[11px] sm:text-[12px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight whitespace-nowrap">
-                Next: {nextProject.title.split(/[-–—]/)[0].trim()}
+            <div className="absolute inset-0 flex flex-col justify-center items-center px-3.5 text-center pointer-events-none">
+              <span className="font-mono text-[9px] sm:text-[9.5px] md:text-[10px] lg:text-[10.5px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1.5">
+                <span>VISIT NEXT</span>
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#14120f] group-hover:translate-x-1 transition-transform stroke-[2.5]" />
               </span>
-              <ArrowRight className="w-4 h-4 text-[#14120f] group-hover:translate-x-1 transition-transform stroke-[2.5]" />
+              <span className="font-typewriter font-bold text-[11.5px] sm:text-[12px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight mt-0.5 truncate max-w-[140px] sm:max-w-[165px]">
+                {nextProject.title.split(/[-–—]/)[0].trim()}
+              </span>
             </div>
           </button>
         </div>

@@ -70,15 +70,15 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
             {/* Summary Highlights */}
             <div className="space-y-4 py-3 border-y border-white/5 my-5 text-sm text-zinc-300">
               <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
                 <span>Specialized in Modern Web Architecture, Next.js, React & TypeScript</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
                 <span>Full-Stack & Cloud Engineering with Google Cloud Platform, Python, Node.js</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
                 <span>Creative UI/UX, High-performance interactive animations & design systems</span>
               </div>
             </div>

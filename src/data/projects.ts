@@ -10,7 +10,7 @@ export interface ProjectData {
   subtitle: string;
   category: string;
   projectType: "Web Application" | "Mobile Application" | "IoT System" | string;
-  developmentType: "Individual Project" | "Group Project" | "Team Project" | string;
+  developmentType: "Individual" | "Team" | string;
   description: string;
   longDescription: string;
   image: string;
@@ -28,11 +28,11 @@ export const projects: ProjectData[] = [
   {
     id: "dhruva",
     slug: "dhruva",
-    title: "Dhruva - Polar Knowledge System",
+    title: "Dhruva - Polar Knowledge Outreach Portal",
     subtitle: "Polar Science Outreach & AI Dissemination Portal",
     category: "AI / Full-Stack / Research Technology",
     projectType: "Web Application",
-    developmentType: "Group Project",
+    developmentType: "Team",
     description:
       "DHRUVA is an integrated digital knowledge platform designed to bring India's polar research resources into a unified ecosystem. It leverages AI-powered document processing, intelligent retrieval, and multi-LLM integration to make scientific information easier to discover and understand. The platform bridges the gap between complex research documentation and accessible scientific knowledge.",
     longDescription:
@@ -72,7 +72,7 @@ export const projects: ProjectData[] = [
     subtitle: "IoT Cardiac Telemetry & Arrhythmia Detection",
     category: "IoT / Embedded Systems / Healthcare",
     projectType: "IoT System",
-    developmentType: "Group Project",
+    developmentType: "Team",
     description:
       "HEARTTERY is an IoT-driven healthcare monitoring system that combines biomedical sensors with real-time data acquisition to track essential cardiac parameters. It captures ECG signals, monitors heart rate, and measures blood oxygen saturation through an ESP32-based architecture. The system provides a connected approach to continuous health observation and remote monitoring.",
     longDescription:
@@ -110,7 +110,7 @@ export const projects: ProjectData[] = [
     subtitle: "Aptitude Mapping, Curriculum Pathways & Scholarship Discovery",
     category: "AI / Machine Learning / EdTech",
     projectType: "Web Application",
-    developmentType: "Individual Project",
+    developmentType: "Individual",
     description:
       "PATHVISTA is an intelligent guidance platform designed to help individuals navigate academic and professional opportunities with greater clarity. By evaluating personal interests, skills, and career aspirations, it delivers tailored career recommendations, educational pathways, and learning roadmaps. It aims to make career exploration more personalized, structured, and accessible.",
     longDescription:
@@ -150,7 +150,7 @@ export const projects: ProjectData[] = [
     subtitle: "Telemedicine Platform & Real-Time Clinical Consultations",
     category: "HealthTech / Full-Stack Development",
     projectType: "Web Application",
-    developmentType: "Team Project",
+    developmentType: "Individual",
     description:
       "ANVIT is a digital healthcare platform that connects patients with healthcare professionals through a unified online consultation experience. It simplifies doctor discovery, appointment scheduling, and remote medical interactions through video, audio, and real-time chat. The platform aims to make healthcare consultation more accessible, convenient, and connected.",
     longDescription:
@@ -190,7 +190,7 @@ export const projects: ProjectData[] = [
     subtitle: "Wearable IoT Safety & Emergency Caregiver Telemetry",
     category: "IoT / Embedded Systems / Elderly Care",
     projectType: "IoT System",
-    developmentType: "Group Project",
+    developmentType: "Team",
     description:
       "FALLGUARD is an IoT-based elderly safety solution designed to identify potential fall incidents through motion-sensing technology. Using accelerometer and gyroscope data, the system analyzes sudden movement patterns and detects suspected falls. It triggers emergency notifications to designated caregivers, supporting faster awareness and assistance.",
     longDescription:
@@ -228,7 +228,7 @@ export const projects: ProjectData[] = [
     subtitle: "Intelligent Expense Tracking, Budget Forecasting & Goal Planning",
     category: "FinTech / Full-Stack / Data Analytics",
     projectType: "Web Application",
-    developmentType: "Individual Project",
+    developmentType: "Individual",
     description:
       "SAMRIDD is a comprehensive financial management platform designed to give individuals greater visibility and control over their personal finances. It brings income tracking, expense management, budgeting, and savings goals together within a unified dashboard. Through interactive financial analytics and spending insights, it helps users understand their financial habits and make more informed monetary decisions.",
     longDescription:
