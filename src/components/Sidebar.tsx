@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Play, Pause } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import FlipClock from "./FlipClock";
+import { useAudio } from "@/context/AudioContext";
 
 export interface NavItem {
   id: string;
@@ -28,6 +29,7 @@ interface SidebarProps {
 
 export default function Sidebar({ activeSection, onSectionClick }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { isPlaying, togglePlay } = useAudio();
   const activeIndex = Math.max(
     0,
     navItems.findIndex((item) => item.id === activeSection)
@@ -104,13 +106,34 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
           </span>
         </button>
 
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="p-2 text-zinc-300 hover:text-white rounded-lg bg-zinc-900/60 border border-white/10 cursor-pointer"
-          aria-label="Toggle Navigation"
-        >
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        <div className="flex items-center gap-2.5">
+          {/* Mobile Audio Toggle Button (Muted/off by default per user specification) */}
+          <button
+            onClick={togglePlay}
+            data-cursor="interactive"
+            data-cursor-label={isPlaying ? "PAUSE AUDIO" : "PLAY AUDIO"}
+            aria-label={isPlaying ? "Pause Background Music" : "Play Background Music"}
+            className={`p-2 rounded-lg border transition-all cursor-pointer flex items-center justify-center ${
+              isPlaying
+                ? "bg-zinc-900 border-white/30 text-white shadow-[0_0_12px_rgba(255,255,255,0.2)]"
+                : "bg-zinc-900/60 border-white/10 text-zinc-400 hover:text-white"
+            }`}
+          >
+            {isPlaying ? (
+              <Pause className="w-3.5 h-3.5 fill-current" />
+            ) : (
+              <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+            )}
+          </button>
+
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="p-2 text-zinc-300 hover:text-white rounded-lg bg-zinc-900/60 border border-white/10 cursor-pointer"
+            aria-label="Toggle Navigation"
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Slide-out Menu */}
@@ -125,6 +148,52 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
           >
             <div className="w-full flex justify-center pb-2">
               <FlipClock />
+            </div>
+
+            {/* Mobile Menu Audio Player Button */}
+            <div className="w-full pt-1 pb-1 flex justify-center">
+              <button
+                onClick={togglePlay}
+                className={`flex items-center justify-center gap-3 px-5 py-2.5 rounded-full border transition-all cursor-pointer ${
+                  isPlaying
+                    ? "bg-zinc-900/90 border-white/30 text-white shadow-[0_0_15px_rgba(255,255,255,0.15)]"
+                    : "bg-zinc-950/70 border-white/10 text-zinc-400 hover:text-white"
+                }`}
+              >
+                <div
+                  className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-colors ${
+                    isPlaying ? "text-white" : "text-zinc-400"
+                  }`}
+                >
+                  {isPlaying ? (
+                    <Pause className="w-3.5 h-3.5 fill-current" />
+                  ) : (
+                    <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                  )}
+                </div>
+                <div className="flex items-end gap-[2px] h-3.5 shrink-0 py-0.5">
+                  <span
+                    className={`w-[2px] rounded-full transition-all duration-300 ${
+                      isPlaying ? "bg-white animate-music-bar-1" : "bg-zinc-600 h-1"
+                    }`}
+                  />
+                  <span
+                    className={`w-[2px] rounded-full transition-all duration-300 ${
+                      isPlaying ? "bg-white animate-music-bar-2" : "bg-zinc-600 h-1"
+                    }`}
+                  />
+                  <span
+                    className={`w-[2px] rounded-full transition-all duration-300 ${
+                      isPlaying ? "bg-white animate-music-bar-3" : "bg-zinc-600 h-1"
+                    }`}
+                  />
+                  <span
+                    className={`w-[2px] rounded-full transition-all duration-300 ${
+                      isPlaying ? "bg-white animate-music-bar-4" : "bg-zinc-600 h-1"
+                    }`}
+                  />
+                </div>
+              </button>
             </div>
             {navItems.map((item, idx) => {
               const isActive = activeSection === item.id;
@@ -259,8 +328,67 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
           })}
         </nav>
 
-        {/* Bottom subtle space */}
-        <div className="h-4 pointer-events-none" aria-hidden="true" />
+        {/* Bottom: Small Floating Play/Pause Button (Minimalist Monochrome White) */}
+        <div className="w-full px-3 pt-2 pb-1 flex items-center justify-center shrink-0">
+          <button
+            onClick={togglePlay}
+            data-cursor="interactive"
+            data-cursor-label={isPlaying ? "PAUSE AUDIO" : "PLAY AUDIO"}
+            aria-label={isPlaying ? "Pause Background Music" : "Play Background Music"}
+            className={`group/bgm relative flex items-center justify-center gap-3 px-4 py-2.5 rounded-full border transition-all duration-300 cursor-pointer select-none ${
+              isPlaying
+                ? "bg-zinc-900/90 border-white/30 text-white shadow-[0_4px_16px_rgba(0,0,0,0.9),0_0_12px_rgba(255,255,255,0.18)] hover:border-white/50"
+                : "bg-zinc-950/60 border-white/10 text-zinc-400 hover:text-white hover:border-white/25 hover:bg-zinc-900/80 shadow-[0_4px_16px_rgba(0,0,0,0.6)]"
+            }`}
+          >
+            {/* Play/Pause Icon */}
+            <div
+              className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-colors ${
+                isPlaying
+                  ? "text-white"
+                  : "text-zinc-400 group-hover/bgm:text-white"
+              }`}
+            >
+              {isPlaying ? (
+                <Pause className="w-3.5 h-3.5 fill-current" />
+              ) : (
+                <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+              )}
+            </div>
+
+            {/* 4 Dancing Equalizer Bars (Pure White) */}
+            <div className="flex items-end gap-[2px] h-3.5 shrink-0 py-0.5">
+              <span
+                className={`w-[2px] rounded-full transition-all duration-300 ${
+                  isPlaying
+                    ? "bg-white animate-music-bar-1 shadow-[0_0_4px_rgba(255,255,255,0.6)]"
+                    : "bg-zinc-700 h-1"
+                }`}
+              />
+              <span
+                className={`w-[2px] rounded-full transition-all duration-300 ${
+                  isPlaying
+                    ? "bg-white animate-music-bar-2 shadow-[0_0_4px_rgba(255,255,255,0.6)]"
+                    : "bg-zinc-700 h-1"
+                }`}
+              />
+              <span
+                className={`w-[2px] rounded-full transition-all duration-300 ${
+                  isPlaying
+                    ? "bg-white animate-music-bar-3 shadow-[0_0_4px_rgba(255,255,255,0.6)]"
+                    : "bg-zinc-700 h-1"
+                }`}
+              />
+              <span
+                className={`w-[2px] rounded-full transition-all duration-300 ${
+                  isPlaying
+                    ? "bg-white animate-music-bar-4 shadow-[0_0_4px_rgba(255,255,255,0.6)]"
+                    : "bg-zinc-700 h-1"
+                }`}
+              />
+            </div>
+          </button>
+        </div>
       </aside>
     </>
   );
