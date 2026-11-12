@@ -8,10 +8,11 @@ import ExperienceSection from "@/components/ExperienceSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import SkillsSection from "@/components/SkillsSection";
 import AchievementsSection from "@/components/AchievementsSection";
+import ImpactSection from "@/components/ImpactSection";
 import ContactSection from "@/components/ContactSection";
 import ResumeModal from "@/components/ResumeModal";
 
-const sectionIds = ["home", "about", "experience", "projects", "skills", "achievements", "contact"];
+const sectionIds = ["home", "about", "experience", "projects", "skills", "achievements", "impact", "contact"];
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
@@ -89,6 +90,7 @@ export default function Home() {
         <ProjectsSection />
         <SkillsSection />
         <AchievementsSection />
+        <ImpactSection />
         <ContactSection />
       </div>
 
