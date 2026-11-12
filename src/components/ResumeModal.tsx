@@ -42,7 +42,7 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
             className="relative w-full max-w-xl bg-[#101014] border border-white/10 rounded-2xl shadow-2xl p-6 md:p-8 z-10 overflow-hidden"
           >
             {/* Top vintage stamp ribbon */}
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-400/40 via-zinc-400/60 to-amber-400/40" />
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-white/30 via-zinc-400/50 to-white/30" />
 
             {/* Close Button */}
             <button
@@ -70,15 +70,15 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
             {/* Summary Highlights */}
             <div className="space-y-4 py-3 border-y border-white/5 my-5 text-sm text-zinc-300">
               <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-white shrink-0" />
                 <span>Specialized in Modern Web Architecture, Next.js, React & TypeScript</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-white shrink-0" />
                 <span>Full-Stack & Cloud Engineering with Google Cloud Platform, Python, Node.js</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-white shrink-0" />
                 <span>Creative UI/UX, High-performance interactive animations & design systems</span>
               </div>
             </div>

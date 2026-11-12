@@ -197,7 +197,7 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
                   }`}
                   title={`Switch to ${topic.title}`}
                 >
-                  <span className={isActive ? "text-zinc-900 font-bold" : "text-amber-400"}>
+                  <span className={isActive ? "text-zinc-900 font-bold" : "text-zinc-100 font-bold"}>
                     {topic.number}
                   </span>
                   <span>{topic.shortTitle || topic.title}</span>
@@ -208,8 +208,8 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
 
           {/* Live Status Pill */}
           <div className="hidden sm:flex items-center gap-2 bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-zinc-800 text-xs sm:text-[12.5px] font-mono shadow-md">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#fbbf24]" />
-            <span className="text-amber-300 font-bold tracking-wider">
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.9)]" />
+            <span className="text-zinc-100 font-bold tracking-wider">
               MODULE // {currentTopic.number} ACTIVE
             </span>
           </div>
@@ -295,7 +295,7 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
                     >
                       {/* Section Heading Badge */}
                       <div className="flex items-center gap-2 mb-1.5">
-                        <span className="font-mono text-[10.5px] sm:text-[11.5px] font-bold text-amber-300 uppercase tracking-wider bg-amber-950/85 border border-amber-500/60 px-3.5 py-0.5 rounded-full shadow-xs">
+                        <span className="font-mono text-[10.5px] sm:text-[11.5px] font-bold text-zinc-100 uppercase tracking-wider bg-zinc-900/90 border border-zinc-700/80 px-3.5 py-0.5 rounded-full shadow-xs">
                           {sub.title}
                         </span>
                       </div>
@@ -397,7 +397,7 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
                   data-cursor-label={`MOD ${t.number}`}
                   className={`w-2.5 h-2.5 rounded-full transition-all cursor-pointer ${
                     t.slug === currentTopic.slug
-                      ? "bg-amber-400 scale-125 shadow-[0_0_8px_rgba(251,191,36,0.95)]"
+                      ? "bg-white scale-125 shadow-[0_0_8px_rgba(255,255,255,0.95)]"
                       : "border border-zinc-500 bg-transparent hover:border-zinc-300"
                   }`}
                   aria-label={`Jump to ${t.title}`}

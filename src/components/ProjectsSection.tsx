@@ -369,7 +369,7 @@ export default function ProjectsSection() {
                 aria-label={`Go to project ${idx + 1}: ${proj.title}`}
                 className={`transition-all duration-300 rounded-full cursor-pointer ${
                   isActive
-                    ? "w-3 h-3 bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.95)] scale-110"
+                    ? "w-3 h-3 bg-white shadow-[0_0_10px_rgba(255,255,255,0.95)] scale-110"
                     : "w-2 h-2 bg-transparent border border-zinc-500/80 hover:border-zinc-300 hover:scale-110"
                 }`}
               />

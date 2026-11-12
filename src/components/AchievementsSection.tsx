@@ -389,7 +389,7 @@ export default function AchievementsSection() {
           <div className="mt-3 w-full max-w-sm flex flex-col items-center gap-2 px-2 z-30">
             {/* Mobile Header & Step Buttons */}
             <div className="w-full flex items-center justify-between bg-zinc-950/90 px-3 py-1.5 rounded-full border border-zinc-800">
-              <span className="font-mono text-xs text-amber-400 font-bold">
+              <span className="font-mono text-xs text-white font-bold">
                 ACHIEVEMENT 0{activeIdx + 1} / 05
               </span>
               <div className="flex items-center gap-1">
@@ -419,19 +419,19 @@ export default function AchievementsSection() {
             </div>
 
             {/* Mobile Card Content */}
-            <div className="w-full p-3.5 rounded-xl bg-zinc-950/95 border border-amber-500/40 shadow-[0_0_20px_rgba(245,158,11,0.2)] flex flex-col gap-2">
+            <div className="w-full p-3.5 rounded-xl bg-zinc-950/95 border border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.1)] flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold">
+                <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-white/10 text-white border border-white/25 font-bold">
                   {achievements[activeIdx].tag}
                 </span>
               </div>
               <h4 className="font-typewriter text-sm font-bold text-white flex items-start gap-1.5">
-                <span className="text-amber-400">•</span>
+                <span className="text-white">•</span>
                 <span>{achievements[activeIdx].number}.</span>
                 <span>{achievements[activeIdx].title}</span>
               </h4>
               <p className="font-mono text-xs text-zinc-300 leading-relaxed pl-3 relative">
-                <span className="absolute left-0 text-amber-400">•</span>
+                <span className="absolute left-0 text-white">•</span>
                 {achievements[activeIdx].description}
               </p>
             </div>

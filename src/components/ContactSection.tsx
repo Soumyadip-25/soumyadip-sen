@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
+import { ArrowUpRight } from "lucide-react";
 
 export default function ContactSection() {
   return (
@@ -85,8 +86,11 @@ export default function ContactSection() {
               </svg>
             </div>
             {/* Email Text */}
-            <span className="font-typewriter text-[clamp(14px,1.9vw,24px)] font-bold tracking-wide whitespace-nowrap group-hover/row:translate-x-1.5 transition-transform text-[#12100e] hover:text-black">
-              Email
+            <span className="font-typewriter text-[clamp(14px,1.9vw,24px)] font-bold tracking-wide whitespace-nowrap group-hover/row:translate-x-1.5 transition-transform text-[#12100e] hover:text-black inline-flex items-center gap-1.5 sm:gap-2">
+              <span>Email</span>
+              <span className="inline-flex items-center font-typewriter text-[0.85em] font-bold text-[#14120f]/80 group-hover/row:text-black transition-colors">
+                [<ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5 stroke-[2.5] inline-block mx-0.5 group-hover/row:translate-x-0.5 group-hover/row:-translate-y-0.5 transition-transform" />]
+              </span>
             </span>
           </a>
 
@@ -107,8 +111,11 @@ export default function ContactSection() {
               </svg>
             </div>
             {/* LinkedIn Text */}
-            <span className="font-typewriter text-[clamp(14px,1.9vw,24px)] font-bold tracking-wide whitespace-nowrap group-hover/row:translate-x-1.5 transition-transform text-[#12100e] hover:text-black">
-              LinkedIn
+            <span className="font-typewriter text-[clamp(14px,1.9vw,24px)] font-bold tracking-wide whitespace-nowrap group-hover/row:translate-x-1.5 transition-transform text-[#12100e] hover:text-black inline-flex items-center gap-1.5 sm:gap-2">
+              <span>LinkedIn</span>
+              <span className="inline-flex items-center font-typewriter text-[0.85em] font-bold text-[#14120f]/80 group-hover/row:text-black transition-colors">
+                [<ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5 stroke-[2.5] inline-block mx-0.5 group-hover/row:translate-x-0.5 group-hover/row:-translate-y-0.5 transition-transform" />]
+              </span>
             </span>
           </a>
 
@@ -129,32 +136,29 @@ export default function ContactSection() {
               </svg>
             </div>
             {/* GitHub Text */}
-            <span className="font-typewriter text-[clamp(14px,1.9vw,24px)] font-bold tracking-wide whitespace-nowrap group-hover/row:translate-x-1.5 transition-transform text-[#12100e] hover:text-black">
-              GitHub
+            <span className="font-typewriter text-[clamp(14px,1.9vw,24px)] font-bold tracking-wide whitespace-nowrap group-hover/row:translate-x-1.5 transition-transform text-[#12100e] hover:text-black inline-flex items-center gap-1.5 sm:gap-2">
+              <span>GitHub</span>
+              <span className="inline-flex items-center font-typewriter text-[0.85em] font-bold text-[#14120f]/80 group-hover/row:text-black transition-colors">
+                [<ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5 stroke-[2.5] inline-block mx-0.5 group-hover/row:translate-x-0.5 group-hover/row:-translate-y-0.5 transition-transform" />]
+              </span>
             </span>
           </a>
 
           {/* Row 4: Address / Location */}
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=Kolkata,+West+Bengal,+India"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cursor="interactive"
-            data-cursor-label="LOCATION ↗"
-            className="group/row flex items-center gap-3 sm:gap-4 md:gap-4.5 pb-1 text-[#12100e] hover:text-black transition-all duration-200 cursor-pointer outline-none focus:outline-none focus-visible:outline-none"
-            title="View Kolkata, West Bengal, India on Google Maps"
+          <div
+            className="flex items-center gap-3 sm:gap-4 md:gap-4.5 pb-1 text-[#12100e]"
           >
             {/* Location Pin Icon */}
-            <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 shrink-0 flex items-center justify-center group-hover/row:scale-110 transition-transform">
+            <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 shrink-0 flex items-center justify-center">
               <svg viewBox="0 0 24 24" className="w-full h-full fill-[#12100e]">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/>
               </svg>
             </div>
             {/* Location Address Text */}
-            <span className="font-typewriter text-[clamp(13px,1.75vw,22px)] font-bold tracking-wide whitespace-nowrap group-hover/row:translate-x-1.5 transition-transform text-[#12100e] hover:text-black">
+            <span className="font-typewriter text-[clamp(13px,1.75vw,22px)] font-bold tracking-wide whitespace-nowrap text-[#12100e]">
               Kolkata, West Bengal, India
             </span>
-          </a>
+          </div>
         </motion.div>
 
         {/* Vintage Rotary Telephone Interactive Hotspot */}

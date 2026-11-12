@@ -34,7 +34,7 @@ export default function DustParticles() {
       {particles.map((p) => (
         <span
           key={p.id}
-          className="absolute rounded-full bg-amber-100/70 blur-[0.3px]"
+          className="absolute rounded-full bg-white/70 blur-[0.3px]"
           style={{
             left: `${p.x}%`,
             top: `${p.y}%`,

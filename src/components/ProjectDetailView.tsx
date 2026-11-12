@@ -375,7 +375,7 @@ function TechIcon({ name, iconKey, className }: { name: string; iconKey?: string
     return <Cloud className={`${iconClass} text-sky-400`} />;
   }
   if (key.includes("database")) {
-    return <Database className={`${iconClass} text-amber-400`} />;
+    return <Database className={`${iconClass} text-zinc-100`} />;
   }
   if (key.includes("phone")) {
     return <PhoneCall className={`${iconClass} text-red-400`} />;
@@ -596,7 +596,7 @@ return (
                 }`}
                 title={`Switch to ${shortName}`}
               >
-                <span className={isActive ? "text-zinc-900 font-bold" : "text-amber-400"}>
+                <span className={isActive ? "text-zinc-900 font-bold" : "text-zinc-100 font-bold"}>
                   0{idx + 1}
                 </span>
                 <span>{shortName}</span>
@@ -607,8 +607,8 @@ return (
 
         {/* Live Dossier Status Indicator (Inset from top-right to preserve compass rose) */}
         <div className="hidden lg:flex items-center gap-2 bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-zinc-800 text-xs font-mono shadow-md mr-14 xl:mr-20">
-          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#fbbf24]" />
-          <span className="text-amber-300 font-bold tracking-wider">
+          <span className="w-2 h-2 rounded-full bg-white animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.9)]" />
+          <span className="text-zinc-100 font-bold tracking-wider">
             DOSSIER // 0{currentIndex + 1} OF 0{projects.length}
           </span>
         </div>
@@ -917,7 +917,7 @@ return (
               data-cursor-label={`GOTO // ${p.title.split(/[-–—]/)[0].trim().toUpperCase()}`}
               className={`transition-all rounded-full cursor-pointer ${
                 idx === currentIndex
-                  ? "w-6 h-2 bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.95)]"
+                  ? "w-6 h-2 bg-white shadow-[0_0_10px_rgba(255,255,255,0.95)]"
                   : "w-2 h-2 bg-zinc-600 hover:bg-zinc-400"
               }`}
               aria-label={`Jump to project ${p.title}`}

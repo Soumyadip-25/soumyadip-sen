@@ -187,7 +187,7 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
           {/* Active Highlighted Line: fills from the first dot directly to the active dot with 0 overshoot */}
           <div
             aria-hidden="true"
-            className="absolute left-[30px] w-[2px] rounded-full pointer-events-none bg-gradient-to-b from-white via-zinc-200 to-amber-100 shadow-[0_0_8px_rgba(255,255,255,0.8),0_0_14px_rgba(255,240,200,0.5)] transition-[height] duration-300 ease-out"
+            className="absolute left-[30px] w-[2px] rounded-full pointer-events-none bg-gradient-to-b from-white via-zinc-200 to-zinc-300 shadow-[0_0_8px_rgba(255,255,255,0.8),0_0_14px_rgba(255,255,255,0.5)] transition-[height] duration-300 ease-out"
             style={{
               top: `${lineCoords.trackTop}px`,
               height: `${lineCoords.activeHeight}px`,
@@ -248,7 +248,7 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
                   {isActive && (
                     <motion.span
                       layoutId="sidebar-active-underline"
-                      className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-white via-zinc-200 to-amber-200/90 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.9),0_0_14px_rgba(255,245,210,0.6)]"
+                      className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-white via-zinc-200 to-zinc-100 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.9),0_0_14px_rgba(255,255,255,0.6)]"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}

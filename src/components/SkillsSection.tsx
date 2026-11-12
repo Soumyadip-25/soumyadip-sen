@@ -178,8 +178,8 @@ export default function SkillsSection() {
                 }}
                 className={`group absolute pointer-events-auto flex flex-col justify-between items-center px-1.5 py-1 rounded-[14px] overflow-hidden transition-all duration-300 cursor-pointer ${
                   isHovered
-                    ? "bg-amber-950/40 border border-amber-400/80 shadow-[0_0_16px_rgba(245,158,11,0.4),inset_0_0_20px_rgba(245,158,11,0.25)]"
-                    : "bg-black/20 border border-white/[0.08] hover:border-amber-500/40 shadow-[inset_0_0_15px_rgba(0,0,0,0.7)]"
+                    ? "bg-white/[0.08] border border-white/80 shadow-[0_0_16px_rgba(255,255,255,0.35),inset_0_0_20px_rgba(255,255,255,0.15)]"
+                    : "bg-black/20 border border-white/[0.08] hover:border-white/40 shadow-[inset_0_0_15px_rgba(0,0,0,0.7)]"
                 }`}
                 title={`Module ${topic.number}: ${topic.title} (Click to visit)`}
                 aria-label={`View ${topic.title} details`}
@@ -213,7 +213,7 @@ export default function SkillsSection() {
                   <span
                     style={{ fontSize: `${Math.round(10.5 * typographyScale)}px` }}
                     className={`font-mono font-bold tracking-tight transition-colors ${
-                      isHovered ? "text-amber-300" : "text-amber-400"
+                      isHovered ? "text-white" : "text-zinc-200"
                     }`}
                   >
                     MODULE // {topic.number}
@@ -223,7 +223,7 @@ export default function SkillsSection() {
                     <span
                       style={{ fontSize: `${Math.round(9.5 * typographyScale)}px` }}
                       className={`font-mono font-medium transition-colors ${
-                        isHovered ? "text-amber-300" : "text-zinc-400"
+                        isHovered ? "text-white" : "text-zinc-400"
                       }`}
                     >
                       {isHovered ? "LIVE" : "60Hz"}
@@ -231,7 +231,7 @@ export default function SkillsSection() {
                     <span
                       className={`w-2 h-2 rounded-full transition-all ${
                         isHovered
-                          ? "bg-amber-400 shadow-[0_0_8px_#fbbf24] animate-pulse"
+                          ? "bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)] animate-pulse"
                           : "bg-zinc-500"
                       }`}
                     />
@@ -244,7 +244,7 @@ export default function SkillsSection() {
                   <div
                     className={`transition-all duration-300 transform ${
                       isHovered
-                        ? "text-amber-300 scale-105 drop-shadow-[0_0_12px_rgba(251,191,36,0.95)]"
+                        ? "text-white scale-105 drop-shadow-[0_0_12px_rgba(255,255,255,0.95)]"
                         : "text-zinc-100 drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]"
                     }`}
                   >
@@ -280,7 +280,7 @@ export default function SkillsSection() {
                     style={{ fontSize: `${Math.round(10 * typographyScale)}px` }}
                     className={`inline-flex items-center gap-1.5 font-mono tracking-widest font-semibold transition-all duration-200 ${
                       isHovered
-                        ? "text-amber-300 opacity-100 translate-y-0"
+                        ? "text-white opacity-100 translate-y-0"
                         : "text-zinc-500 opacity-0 translate-y-0.5"
                     }`}
                   >
@@ -306,17 +306,17 @@ export default function SkillsSection() {
             <Link
               href={`/skills/${activeMobileTopic.slug}`}
               data-cursor-label="VISIT"
-              className="w-full p-3 rounded-lg bg-zinc-950/90 border border-amber-500/40 shadow-[0_0_20px_rgba(245,158,11,0.25)] flex items-center justify-between group"
+              className="w-full p-3 rounded-lg bg-zinc-950/90 border border-white/30 shadow-[0_0_20px_rgba(255,255,255,0.15)] flex items-center justify-between group"
             >
               <div className="flex items-center gap-2.5 min-w-0">
-                <span className="font-mono text-xs sm:text-sm font-bold text-amber-400 bg-amber-950/80 px-2 py-0.5 rounded">
+                <span className="font-mono text-xs sm:text-sm font-bold text-white bg-zinc-800/90 px-2 py-0.5 rounded">
                   MODULE // {activeMobileTopic.number}
                 </span>
                 <span className="font-typewriter text-sm font-bold text-white truncate">
                   {activeMobileTopic.title}
                 </span>
               </div>
-              <span className="font-mono text-xs font-semibold text-amber-400 group-hover:translate-x-0.5 transition-transform flex items-center gap-1 shrink-0">
+              <span className="font-mono text-xs font-semibold text-white group-hover:translate-x-0.5 transition-transform flex items-center gap-1 shrink-0">
                 Visit <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </Link>
@@ -345,7 +345,7 @@ export default function SkillsSection() {
                   }}
                   className={`font-mono text-xs px-2 py-0.5 rounded-full transition-all ${
                     activeMobileIndex === idx
-                      ? "bg-amber-400 text-black font-bold shadow-[0_0_8px_#fbbf24]"
+                      ? "bg-white text-black font-bold shadow-[0_0_8px_rgba(255,255,255,0.9)]"
                       : "text-zinc-400 hover:text-white"
                   }`}
                 >
