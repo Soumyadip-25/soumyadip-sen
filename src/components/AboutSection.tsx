@@ -35,12 +35,12 @@ export default function AboutSection() {
             {/* Typography Block: Shifted inwards to the right towards the center */}
             <div className="lg:col-span-7 flex flex-col items-start pl-2 sm:pl-8 md:pl-12 lg:pl-16 xl:pl-20">
               
-              {/* "About Me" Typewriter Title */}
+              {/* "About Me" Typewriter Title: Tactile Mechanical Ink Stamp Settle */}
               <motion.div
-                initial={{ opacity: 0, x: -25 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: -35, scale: 1.06, rotate: -3 }}
+                whileInView={{ opacity: 1, x: 0, scale: 1, rotate: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.95, ease: [0.19, 1, 0.22, 1] }}
                 whileHover={{ scale: 1.03, rotate: 1 }}
                 className="relative w-56 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-3 sm:mb-4 cursor-pointer transform-gpu"
                 data-cursor="interactive"
@@ -56,12 +56,12 @@ export default function AboutSection() {
                 />
               </motion.div>
 
-              {/* Core Bio Statement */}
+              {/* Core Bio Statement: Smooth Carriage Glide */}
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.95, delay: 0.15, ease: [0.19, 1, 0.22, 1] }}
                 className="font-typewriter text-[#161412] text-base sm:text-lg md:text-xl lg:text-[20px] leading-relaxed font-bold tracking-wide max-w-xl transform-gpu"
               >
                 A tech enthusiast and problem solver with a passion for building impactful solutions at the intersection of AI, full-stack development, and real-world innovation.
@@ -69,10 +69,10 @@ export default function AboutSection() {
 
               {/* Structured Extra Information: College Education & Address (No CGPA, No Tech Stacks) */}
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -25 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.55, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.9, delay: 0.32, ease: [0.19, 1, 0.22, 1] }}
                 className="mt-6 sm:mt-7 space-y-3.5 font-typewriter text-[#181614] max-w-xl transform-gpu"
               >
                 {/* College & Degree */}
@@ -114,10 +114,10 @@ export default function AboutSection() {
             {/* Polaroid Portrait with Paperclip - Positioned harmoniously in relation to text */}
             <div className="lg:col-span-5 flex justify-center lg:justify-center pt-4 lg:pt-0">
               <motion.div
-                initial={{ opacity: 0, scale: 0.94, rotate: -3, y: 25 }}
+                initial={{ opacity: 0, scale: 0.92, rotate: -6, y: 35 }}
                 whileInView={{ opacity: 1, scale: 1, rotate: 2, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.65, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1.15, delay: 0.25, ease: [0.19, 1, 0.22, 1] }}
                 whileHover={{ scale: 1.035, rotate: 0 }}
                 className="relative group cursor-pointer transform-gpu"
                 data-cursor="image"

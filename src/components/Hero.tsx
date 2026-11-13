@@ -81,17 +81,17 @@ export default function Hero({ onResumeClick }: HeroProps) {
           {/* LEFT: Filmstrip + Polaroid Frame (Increased Size) */}
           <div className="lg:col-span-5 flex items-center justify-center lg:justify-start gap-3 sm:gap-5">
             
-            {/* 35mm Filmstrip */}
+            {/* 35mm Filmstrip: Smooth downward mechanical slide into projector gate */}
             <motion.div
-              initial={{ opacity: 0, x: -25 }}
-              animate={isMounted ? { opacity: 1, x: 0 } : { opacity: 0, x: -25 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="shrink-0"
+              initial={{ opacity: 0, y: -35, rotate: -1.5 }}
+              animate={isMounted ? { opacity: 1, y: 0, rotate: 0 } : { opacity: 0, y: -35, rotate: -1.5 }}
+              transition={{ duration: 1.0, delay: 0.05, ease: [0.19, 1, 0.22, 1] }}
+              className="shrink-0 transform-gpu"
             >
               <Filmstrip />
             </motion.div>
 
-            {/* Polaroid Container with 3D Parallax */}
+            {/* Polaroid Container: Physical photograph placement with organic rotational settle */}
             <motion.div
               ref={cardRef}
               onMouseMove={handleMouseMove}
@@ -101,14 +101,14 @@ export default function Hero({ onResumeClick }: HeroProps) {
                 rotateY,
                 transformStyle: "preserve-3d",
               }}
-              initial={{ opacity: 0, y: 35, scale: 0.94, rotate: -6 }}
+              initial={{ opacity: 0, y: -45, scale: 1.04, rotate: -7 }}
               animate={
                 isMounted
                   ? { opacity: 1, y: 0, scale: 1, rotate: -3.5 }
-                  : { opacity: 0, y: 35, scale: 0.94, rotate: -6 }
+                  : { opacity: 0, y: -45, scale: 1.04, rotate: -7 }
               }
-              transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="relative group cursor-pointer"
+              transition={{ duration: 1.15, delay: 0.15, ease: [0.19, 1, 0.22, 1] }}
+              className="relative group cursor-pointer transform-gpu"
               data-cursor="image"
               data-cursor-label="ME"
             >
@@ -145,13 +145,25 @@ export default function Hero({ onResumeClick }: HeroProps) {
             
             {/* The Handwritten Signature - Lifted Up & Sized Up with Automatic Pulse */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.94, y: 20 }}
+              initial={{
+                opacity: 0,
+                scale: 0.94,
+                y: 20,
+              }}
               animate={
                 isMounted
-                  ? { opacity: 1, scale: 1, y: 0 }
-                  : { opacity: 0, scale: 0.94, y: 20 }
+                  ? {
+                      opacity: 1,
+                      scale: 1,
+                      y: 0,
+                    }
+                  : {
+                      opacity: 0,
+                      scale: 0.94,
+                      y: 20,
+                    }
               }
-              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 1.1, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
               className="relative w-full max-w-[480px] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[700px] xl:max-w-[740px] aspect-[1024/341] animate-signature-pulse cursor-pointer transform-gpu"
               data-cursor="interactive"
               data-cursor-label="SOUMYADIP // SIGNATURE"
@@ -166,15 +178,15 @@ export default function Hero({ onResumeClick }: HeroProps) {
               />
             </motion.div>
 
-            {/* Vintage Typewriter Download Resume Button - Shifted right below signature */}
+            {/* Vintage Typewriter Download Resume Button - Tactile Stamp Reveal after Signature */}
             <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              initial={{ opacity: 0, y: 22, scale: 0.92 }}
               animate={
                 isMounted
                   ? { opacity: 1, y: 0, scale: 1 }
-                  : { opacity: 0, y: 20, scale: 0.95 }
+                  : { opacity: 0, y: 22, scale: 0.92 }
               }
-              transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.95, delay: 0.75, ease: [0.19, 1, 0.22, 1] }}
               className="mt-6 sm:mt-8 lg:mt-9 self-center lg:self-start lg:ml-28 xl:ml-36 transform-gpu"
             >
               <DownloadResumeButton />

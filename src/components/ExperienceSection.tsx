@@ -111,12 +111,12 @@ export default function ExperienceSection() {
       {/* 2. Main Content Composition: Shifted comfortably towards the right */}
       <div className="relative z-10 w-full min-h-screen md:pl-64 lg:pl-72 xl:pl-80 flex flex-col justify-start px-6 sm:px-10 md:px-12 lg:px-14 pt-12 sm:pt-16 pb-14">
         
-        {/* Torn Paper Scrap Header: "Experience" */}
+        {/* Torn Paper Scrap Header: "Experience" - Tactile Pin-to-Board Entrance */}
         <motion.div
-          initial={{ opacity: 0, x: -25, rotate: -2 }}
-          whileInView={{ opacity: 1, x: 0, rotate: -1 }}
+          initial={{ opacity: 0, x: -35, rotate: -5, scale: 1.05 }}
+          whileInView={{ opacity: 1, x: 0, rotate: -1, scale: 1 }}
           viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.95, ease: [0.19, 1, 0.22, 1] }}
           whileHover={{ scale: 1.03, rotate: 0 }}
           className="relative w-56 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-8 sm:mb-10 -rotate-1 origin-left shrink-0 ml-1 sm:ml-2 cursor-pointer transform-gpu"
           data-cursor="interactive"
@@ -136,18 +136,18 @@ export default function ExperienceSection() {
           ref={scrollContainerRef}
           className="relative w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl max-h-[calc(100vh-220px)] sm:max-h-[calc(100vh-200px)] overflow-y-auto pr-4 sm:pr-8 vintage-scrollbar"
         >
-          {/* Vertical Luminous Timeline Wire */}
+          {/* Vertical Luminous Timeline Wire: Conducts current downwards as user scrolls */}
           <motion.div
             aria-hidden="true"
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
+            initial={{ scaleY: 0, opacity: 0 }}
+            whileInView={{ scaleY: 1, opacity: 1 }}
             viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.25, ease: [0.19, 1, 0.22, 1] }}
             style={{ originY: 0 }}
             className="absolute left-[20px] top-[18px] bottom-[22px] w-[2px] bg-gradient-to-b from-white via-zinc-400 to-zinc-700 shadow-[0_0_8px_rgba(255,255,255,0.7)] rounded-full pointer-events-none transform-gpu"
           />
 
-          {/* Timeline Experience Entries */}
+          {/* Timeline Experience Entries: Staggered Chronology Reveal */}
           <div className="relative space-y-10 sm:space-y-12 pb-6">
             {experiences.map((exp, index) => {
               const isTutor = exp.iconType === "tutor";
@@ -155,10 +155,10 @@ export default function ExperienceSection() {
               return (
                 <motion.div
                   key={exp.id}
-                  initial={{ opacity: 0, x: -25, y: 10 }}
+                  initial={{ opacity: 0, x: -30, y: 15 }}
                   whileInView={{ opacity: 1, x: 0, y: 0 }}
                   viewport={{ once: true, amount: 0.15 }}
-                  transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.85, delay: 0.25 + index * 0.18, ease: [0.19, 1, 0.22, 1] }}
                   className="relative group pl-14 sm:pl-16 transform-gpu"
                 >
                   {/* Vintage Mechanical Typewriter Keycap Bullet */}

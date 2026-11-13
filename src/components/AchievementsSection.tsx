@@ -204,12 +204,12 @@ export default function AchievementsSection() {
             className="absolute inset-0 bg-radial from-transparent via-transparent to-black/40 pointer-events-none"
           />
 
-          {/* 2. Top-Left Heading: "Achievements" sticker + retro script lettering */}
+          {/* 2. Top-Left Heading: "Achievements" sticker - Tactile Angle Settle */}
           <motion.div
-            initial={{ opacity: 0, y: -20, rotate: -4.5 }}
-            whileInView={{ opacity: 1, y: 0, rotate: -3.5 }}
+            initial={{ opacity: 0, y: -25, rotate: -6, scale: 1.05 }}
+            whileInView={{ opacity: 1, y: 0, rotate: -3.5, scale: 1 }}
             viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.95, ease: [0.19, 1, 0.22, 1] }}
             whileHover={{ scale: 1.04, rotate: -1 }}
             style={{
               left: "5.5%",
@@ -230,14 +230,12 @@ export default function AchievementsSection() {
             />
           </motion.div>
 
-          {/* 3. WIDE HORIZONTAL RECTANGLE DOCUMENT (Started more to the left and larger) */}
-          {/* Position: left: 18.5%, top: 13.0%, width: 63.0%, height: 63.0% (363px in 1024x576) */}
-          {/* Leaves Camera at bottom-left and Trophy on right 100% UNTOUCHED and INTACT */}
+          {/* 3. WIDE HORIZONTAL RECTANGLE DOCUMENT: Archival Ledger Unfurl */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0, scale: 0.94, y: 30 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.1, delay: 0.15, ease: [0.19, 1, 0.22, 1] }}
             style={{
               left: "18.5%",
               top: "13.0%",
@@ -276,10 +274,10 @@ export default function AchievementsSection() {
                       ref={(el) => {
                         itemRefs.current[idx] = el;
                       }}
-                      initial={{ opacity: 0, x: -15 }}
+                      initial={{ opacity: 0, x: -18 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, amount: 0.1 }}
-                      transition={{ duration: 0.4, delay: 0.05 + idx * 0.04, ease: [0.22, 1, 0.36, 1] }}
+                      transition={{ duration: 0.75, delay: 0.25 + idx * 0.1, ease: [0.19, 1, 0.22, 1] }}
                       data-cursor="interactive"
                       data-cursor-label={`HONOR // ${item.tag || "ACHIEVEMENT"}`}
                       className={`group relative p-2.5 sm:p-3 rounded-lg transition-all duration-200 cursor-pointer transform-gpu ${

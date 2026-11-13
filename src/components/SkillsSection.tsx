@@ -132,13 +132,12 @@ export default function SkillsSection() {
             className="absolute inset-0 bg-radial from-transparent via-transparent to-black/50 pointer-events-none"
           />
 
-          {/* 2. Top-Left Heading: "Skills & Technologies" sticker + typewriter lettering */}
-          {/* Positioned in the open dark wall area above the plant with organic vintage tilt and crisp shadow */}
+          {/* 2. Top-Left Heading: "Skills & Technologies" sticker - Tactile Wall Stamp */}
           <motion.div
-            initial={{ opacity: 0, y: -20, rotate: -4 }}
-            whileInView={{ opacity: 1, y: 0, rotate: -2.5 }}
+            initial={{ opacity: 0, y: -25, rotate: -5, scale: 1.05 }}
+            whileInView={{ opacity: 1, y: 0, rotate: -2.5, scale: 1 }}
             viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.95, ease: [0.19, 1, 0.22, 1] }}
             whileHover={{ scale: 1.04, rotate: 0 }}
             style={{
               left: "6.8%",
@@ -159,7 +158,7 @@ export default function SkillsSection() {
             />
           </motion.div>
 
-          {/* 3. The 6 CRT Monitor Interactive Overlays (Mathematically Locked to 16:9 Screen Pixels) */}
+          {/* 3. The 6 CRT Monitor Interactive Overlays: Sequential Cathode Terminal Wake-Up Sequence */}
           {skillTopics.map((topic, index) => {
             const Icon = iconMap[topic.iconName] || Terminal;
             const isHovered = hoveredTopicId === topic.id;
@@ -167,13 +166,13 @@ export default function SkillsSection() {
             return (
               <motion.div
                 key={topic.id}
-                initial={{ opacity: 0, scale: 0.92 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, scale: 0.92, y: 12 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{
-                  duration: 0.5,
-                  delay: 0.08 + index * 0.06,
-                  ease: [0.22, 1, 0.36, 1],
+                  duration: 0.85,
+                  delay: 0.15 + index * 0.12,
+                  ease: [0.19, 1, 0.22, 1],
                 }}
                 style={{
                   left: `${topic.rect.leftPct}%`,

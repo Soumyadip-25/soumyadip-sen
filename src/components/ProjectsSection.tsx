@@ -170,13 +170,13 @@ export default function ProjectsSection() {
       {/* 2. Single-Screen Container: Guaranteed to fit Heading, Cards, and Dots in 100vh with 0 overflow */}
       <div className="relative z-10 w-full h-full flex flex-col justify-between px-3 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-3 md:py-4 max-w-[1480px] mx-auto">
         
-        {/* Top Header Row: Torn Paper Scrap Header "Projects" (Enlarged & Prominent) */}
+        {/* Top Header Row: Torn Paper Scrap Header "Projects" - Weighted Settle */}
         <div className="flex flex-col items-start shrink-0">
           <motion.div
-            initial={{ opacity: 0, y: -20, rotate: -2 }}
-            whileInView={{ opacity: 1, y: 0, rotate: -1 }}
+            initial={{ opacity: 0, y: -30, rotate: -4, scale: 1.05 }}
+            whileInView={{ opacity: 1, y: 0, rotate: -1, scale: 1 }}
             viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.95, ease: [0.19, 1, 0.22, 1] }}
             whileHover={{ scale: 1.025, rotate: 0 }}
             className="relative w-56 sm:w-64 md:w-76 lg:w-88 xl:w-[380px] aspect-[1024/341] -rotate-1 origin-left shrink-0 ml-2 sm:ml-4 md:ml-6 mt-0.5 sm:mt-1 cursor-pointer transform-gpu"
             data-cursor="interactive"
@@ -192,12 +192,12 @@ export default function ProjectsSection() {
           </motion.div>
         </div>
 
-        {/* 3. Broad Panoramic 3D Carousel Stage: Automatically pauses when hovering over any card */}
+        {/* 3. Broad Panoramic 3D Carousel Stage: Luxurious Presentation Unfurl */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 20 }}
+          initial={{ opacity: 0, scale: 0.93, y: 35 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.1, delay: 0.15, ease: [0.19, 1, 0.22, 1] }}
           ref={containerRef}
           onMouseEnter={() => {
             isHovered.current = true;
@@ -289,9 +289,9 @@ export default function ProjectsSection() {
                   }}
                   transition={{
                     type: "spring",
-                    stiffness: 280,
-                    damping: 30,
-                    mass: 0.8,
+                    stiffness: 210,
+                    damping: 25,
+                    mass: 0.9,
                   }}
                   style={{
                     transformStyle: "preserve-3d",

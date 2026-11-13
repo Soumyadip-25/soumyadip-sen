@@ -27,12 +27,12 @@ export default function ContactSection() {
         {/* Ambient subtle vignette overlay for depth */}
         <div className="absolute inset-0 bg-radial-gradient pointer-events-none opacity-20" />
 
-        {/* TOP PAPER STRIP: "Let's Connect" Stamped Title - Shifted UP to center on paper strip */}
+        {/* TOP PAPER STRIP: "Let's Connect" Stamped Title - Tactile Ink Stamp Press */}
         <motion.div
-          initial={{ opacity: 0, scale: 1.1, y: -15 }}
+          initial={{ opacity: 0, scale: 1.18, y: -25 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.95, ease: [0.19, 1, 0.22, 1] }}
           whileHover={{ scale: 1.04, rotate: 1 }}
           className="absolute cursor-pointer transform-gpu"
           data-cursor="interactive"
@@ -58,12 +58,12 @@ export default function ContactSection() {
           </div>
         </motion.div>
 
-        {/* MAIN TORN PARCHMENT SHEET: Contact Info & Active Profile Links - Centralized on the parchment */}
+        {/* MAIN TORN PARCHMENT SHEET: Correspondence Letter Placement */}
         <motion.div
-          initial={{ opacity: 0, y: 20, scale: 0.96 }}
+          initial={{ opacity: 0, y: 35, scale: 0.95 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.1, delay: 0.15, ease: [0.19, 1, 0.22, 1] }}
           className="absolute flex flex-col justify-between transform-gpu"
           style={{
             top: "33.0%",
@@ -72,14 +72,17 @@ export default function ContactSection() {
             height: "51.0%",
           }}
         >
-          {/* Row 1: Gmail */}
+          {/* Row 1: Gmail - Staggered Line Type Reveal */}
           <motion.a
             href="mailto:soumyadip25sen@gmail.com"
+            initial={{ opacity: 0, x: -16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.25, ease: [0.19, 1, 0.22, 1] }}
             whileHover={{ x: 8 }}
-            transition={{ type: "spring", stiffness: 420, damping: 25 }}
             data-cursor="interactive"
             data-cursor-label="EMAIL ↗"
-            className="group/row flex items-center gap-3 sm:gap-4 md:gap-4.5 pb-2.5 sm:pb-3.5 md:pb-4 border-b border-[#24201a]/20 text-[#12100e] hover:text-black transition-colors duration-200 cursor-pointer outline-none focus:outline-none focus-visible:outline-none"
+            className="group/row flex items-center gap-3 sm:gap-4 md:gap-4.5 pb-2.5 sm:pb-3.5 md:pb-4 border-b border-[#24201a]/20 text-[#12100e] hover:text-black transition-colors duration-200 cursor-pointer outline-none focus:outline-none focus-visible:outline-none transform-gpu"
             title="Send an email to soumyadip25sen@gmail.com"
           >
             {/* Postal Envelope Icon */}
@@ -102,11 +105,14 @@ export default function ContactSection() {
             href="https://www.linkedin.com/in/soumyadip-sen-0937b1311"
             target="_blank"
             rel="noopener noreferrer"
+            initial={{ opacity: 0, x: -16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.35, ease: [0.19, 1, 0.22, 1] }}
             whileHover={{ x: 8 }}
-            transition={{ type: "spring", stiffness: 420, damping: 25 }}
             data-cursor="interactive"
             data-cursor-label="LINKEDIN ↗"
-            className="group/row flex items-center gap-3 sm:gap-4 md:gap-4.5 pb-2.5 sm:pb-3.5 md:pb-4 border-b border-[#24201a]/20 text-[#12100e] hover:text-black transition-colors duration-200 cursor-pointer outline-none focus:outline-none focus-visible:outline-none"
+            className="group/row flex items-center gap-3 sm:gap-4 md:gap-4.5 pb-2.5 sm:pb-3.5 md:pb-4 border-b border-[#24201a]/20 text-[#12100e] hover:text-black transition-colors duration-200 cursor-pointer outline-none focus:outline-none focus-visible:outline-none transform-gpu"
             title="Open LinkedIn Profile (soumyadip-sen-0937b1311)"
           >
             {/* LinkedIn Badge Icon */}
@@ -129,11 +135,14 @@ export default function ContactSection() {
             href="https://github.com/Soumyadip-25"
             target="_blank"
             rel="noopener noreferrer"
+            initial={{ opacity: 0, x: -16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.45, ease: [0.19, 1, 0.22, 1] }}
             whileHover={{ x: 8 }}
-            transition={{ type: "spring", stiffness: 420, damping: 25 }}
             data-cursor="interactive"
             data-cursor-label="GITHUB ↗"
-            className="group/row flex items-center gap-3 sm:gap-4 md:gap-4.5 pb-2.5 sm:pb-3.5 md:pb-4 border-b border-[#24201a]/20 text-[#12100e] hover:text-black transition-colors duration-200 cursor-pointer outline-none focus:outline-none focus-visible:outline-none"
+            className="group/row flex items-center gap-3 sm:gap-4 md:gap-4.5 pb-2.5 sm:pb-3.5 md:pb-4 border-b border-[#24201a]/20 text-[#12100e] hover:text-black transition-colors duration-200 cursor-pointer outline-none focus:outline-none focus-visible:outline-none transform-gpu"
             title="Open GitHub Profile (Soumyadip-25)"
           >
             {/* GitHub Octocat Icon */}
@@ -153,9 +162,12 @@ export default function ContactSection() {
 
           {/* Row 4: Address / Location */}
           <motion.div
+            initial={{ opacity: 0, x: -16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.55, ease: [0.19, 1, 0.22, 1] }}
             whileHover={{ x: 8 }}
-            transition={{ type: "spring", stiffness: 420, damping: 25 }}
-            className="flex items-center gap-3 sm:gap-4 md:gap-4.5 pb-1 text-[#12100e] group/loc cursor-pointer"
+            className="flex items-center gap-3 sm:gap-4 md:gap-4.5 pb-1 text-[#12100e] group/loc cursor-pointer transform-gpu"
           >
             {/* Location Pin Icon */}
             <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 shrink-0 flex items-center justify-center group-hover/loc:scale-110 group-hover/loc:-translate-y-0.5 transition-transform duration-200">
