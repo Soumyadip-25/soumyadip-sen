@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useInView } from "motion/react";
 import {
   initialContributionsData,
   type ContributionsPayload,
@@ -19,6 +19,30 @@ export default function ImpactSection() {
     x: number;
     y: number;
   } | null>(null);
+
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const inView = useInView(sectionRef, { amount: 0.25, once: true });
+  const [hasTriggered, setHasTriggered] = useState(false);
+
+  useEffect(() => {
+    if (inView) {
+      setHasTriggered(true);
+    }
+  }, [inView]);
+
+  // Also immediately trigger if navigated via sidebar click
+  useEffect(() => {
+    const handleSectionChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{ section: string }>;
+      if (customEvent.detail?.section === "impact") {
+        setHasTriggered(true);
+      }
+    };
+    window.addEventListener("sectionchange", handleSectionChange);
+    return () => window.removeEventListener("sectionchange", handleSectionChange);
+  }, []);
+
+  const isVisible = inView || hasTriggered;
 
   // Real-time synchronization with latest GitHub pushes and commits
   const fetchLiveActivity = useCallback(async () => {
@@ -200,6 +224,7 @@ export default function ImpactSection() {
   return (
     <section
       id="impact"
+      ref={sectionRef}
       className="relative h-screen max-h-screen w-full flex items-center justify-center overflow-hidden bg-[#070709] select-none scroll-mt-0"
     >
       {/* 1. Blackboard Desk Canvas Stage: Full-bleed, edge-to-edge with sidebar offset on desktop */}
@@ -225,31 +250,36 @@ export default function ImpactSection() {
           className="absolute z-10 flex flex-col justify-center items-center pointer-events-none"
         >
           <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
+            initial={{ opacity: 0, scale: 0.985 }}
+            animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.985 }}
             transition={{ duration: 0.95, ease: [0.19, 1, 0.22, 1] }}
             className="w-full flex flex-col gap-3 sm:gap-3.5 md:gap-4 select-none pointer-events-auto transform-gpu"
           >
             {/* Header Row: GITHUB ACTIVITY + Vintage Chalkboard Live Telemetry Badge */}
             <div className="w-full flex items-center justify-between pb-1.5 sm:pb-2.5 border-b border-white/10">
-              <a
+              <motion.a
                 href="https://github.com/Soumyadip-25"
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cursor="interactive"
                 data-cursor-label="GITHUB PROFILE ↗"
+                initial={{ opacity: 0, x: -32 }}
+                animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -32 }}
+                transition={{ duration: 0.95, delay: 0.05, ease: [0.19, 1, 0.22, 1] }}
                 className="group/title inline-flex items-center gap-2.5 hover:opacity-90 transition-opacity"
               >
                 <h2 className="font-mono text-lg sm:text-xl md:text-2xl lg:text-[27px] font-black tracking-[0.22em] sm:tracking-[0.26em] text-zinc-100 uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] group-hover/title:text-white transition-colors">
                   GITHUB ACTIVITY
                 </h2>
-              </a>
+              </motion.a>
 
               {/* Vintage Monochrome Live Telemetry Badge (Matching Noir Chalkboard Vibe) */}
-              <div
+              <motion.div
                 data-cursor="interactive"
                 data-cursor-label="STATUS // LIVE 2026"
+                initial={{ opacity: 0, x: 30 }}
+                animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+                transition={{ duration: 0.95, delay: 0.12, ease: [0.19, 1, 0.22, 1] }}
                 className="flex items-center shrink-0"
               >
                 <div className="font-mono text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/20 hover:border-white/40 text-zinc-300 hover:text-white font-medium tracking-wider flex items-center gap-2 backdrop-blur-md shadow-[0_2px_8px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.12)] transition-all duration-300 select-none">
@@ -261,13 +291,18 @@ export default function ImpactSection() {
                     LIVE // 2026
                   </span>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
             {/* Heatmap Matrix: Expanded 53-Column CSS Grid that properly fills the chalkboard space without touching the lamp */}
             <div className="w-full py-0.5 select-none">
               {/* Month Labels Header Row (1:1 column aligned with 53 weeks) */}
-              <div className="grid grid-cols-[repeat(53,minmax(0,1fr))] gap-[1.2px] sm:gap-[1.8px] md:gap-[2px] w-full mb-1 sm:mb-1.5 h-4.5 sm:h-5">
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
+                transition={{ duration: 0.75, delay: 0.18, ease: [0.19, 1, 0.22, 1] }}
+                className="grid grid-cols-[repeat(53,minmax(0,1fr))] gap-[1.2px] sm:gap-[1.8px] md:gap-[2px] w-full mb-1 sm:mb-1.5 h-4.5 sm:h-5"
+              >
                 {weeks.map((_, wIdx) => {
                   const label = monthMap.get(wIdx);
                   return (
@@ -283,13 +318,25 @@ export default function ImpactSection() {
                     </div>
                   );
                 })}
-              </div>
+              </motion.div>
 
-              {/* 53 Columns of 7 Squares Matrix */}
+              {/* 53 Columns of 7 Squares Matrix - Telematic Harmonic Sweep */}
               <div className="grid grid-cols-[repeat(53,minmax(0,1fr))] gap-[1.2px] sm:gap-[1.8px] md:gap-[2px] w-full">
                 {weeks.map((week, wIdx) => (
-                  <div
+                  <motion.div
                     key={`week-${wIdx}`}
+                    initial={{ opacity: 0, scaleY: 0.35, y: 8 }}
+                    animate={
+                      isVisible
+                        ? { opacity: 1, scaleY: 1, y: 0 }
+                        : { opacity: 0, scaleY: 0.35, y: 8 }
+                    }
+                    transition={{
+                      duration: 0.5,
+                      delay: 0.22 + (wIdx / 53) * 0.58,
+                      ease: [0.19, 1, 0.22, 1],
+                    }}
+                    style={{ transformOrigin: "bottom" }}
                     className="flex flex-col gap-[1.2px] sm:gap-[1.8px] md:gap-[2px]"
                   >
                     {week.map((day, dIdx) => {
@@ -324,13 +371,18 @@ export default function ImpactSection() {
                         />
                       );
                     })}
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
 
             {/* Bottom Footer Row: "{total} contributions in {year}" + "Less [■■■■■] More" */}
-            <div className="w-full flex items-center justify-between pt-2.5 sm:pt-3 border-t border-white/10 text-xs sm:text-sm md:text-base font-sans text-zinc-200">
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+              transition={{ duration: 0.85, delay: 0.82, ease: [0.19, 1, 0.22, 1] }}
+              className="w-full flex items-center justify-between pt-2.5 sm:pt-3 border-t border-white/10 text-xs sm:text-sm md:text-base font-sans text-zinc-200"
+            >
               <span className="font-medium text-zinc-200 tracking-normal">
                 {totalContributions} contributions in {selectedYear}
               </span>
@@ -345,7 +397,7 @@ export default function ImpactSection() {
                 <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 rounded-[1.5px] bg-[#39d353] border border-[#4ade80]" />
                 <span className="text-[10px] sm:text-xs md:text-[13px]">More</span>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>
