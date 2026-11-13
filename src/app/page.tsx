@@ -90,7 +90,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-[#070709] text-zinc-100 relative selection:bg-zinc-800 selection:text-white">
+    <main className="min-h-screen bg-[#070709] vintage-charcoal-bg text-zinc-100 relative selection:bg-zinc-800 selection:text-white">
       {/* Left Sidebar Navigation */}
       <Sidebar activeSection={activeSection} onSectionClick={handleSectionClick} />
 

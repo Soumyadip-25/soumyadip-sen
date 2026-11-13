@@ -98,10 +98,10 @@ export default function SkillsSection() {
   return (
     <section
       id="skills"
-      className="relative h-screen max-h-screen w-full overflow-hidden bg-[#070709] select-none md:pl-52 lg:pl-56"
+      className="relative h-screen max-h-screen w-full overflow-hidden bg-[#070709] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
     >
-      {/* Subtle Atmospheric Ambient Texture behind stage */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-20 filter blur-3xl">
+      {/* Subtle Atmospheric Ambient Texture behind stage (Desktop Only) */}
+      <div className="hidden md:block absolute inset-0 z-0 pointer-events-none opacity-20 filter blur-3xl">
         <Image
           src="/images/skills-bg.jpg"
           alt=""
@@ -325,62 +325,34 @@ export default function SkillsSection() {
       </div>
 
       {/* ========================================================= */}
-      {/* 2. MOBILE DEDICATED VIEW (< 768px): Authentic 9:16 CRT Stage */}
-      {/* Strictly uses skills-bg-mobile.jpg for mobile view          */}
+      {/* 2. MOBILE DEDICATED VIEW (< 768px): Responsive 2-Col CRT Wall */}
+      {/* Clean CSS-based vintage charcoal background (Zero Images) */}
       {/* ========================================================= */}
-      <div className="md:hidden relative z-10 w-full min-h-[100dvh] flex flex-col items-center justify-center px-2 pt-16 sm:pt-20 pb-4 overflow-y-auto overflow-x-hidden">
-        <div
-          style={{
-            width: "min(calc((100dvh - 84px) * (576 / 1024)), calc(100vw - 16px), 410px)",
-            aspectRatio: "576 / 1024",
-          }}
-          className="relative rounded-lg overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.95)] shrink-0 my-auto"
+      <div className="md:hidden relative z-10 w-full h-full flex flex-col items-center justify-between px-3 sm:px-6 pt-16 sm:pt-20 pb-4 overflow-hidden">
+        {/* Top Heading: "Skills & Technologies" paper sticker */}
+        <motion.div
+          initial={{ opacity: 0, y: -20, rotate: -2 }}
+          whileInView={{ opacity: 1, y: 0, rotate: -1 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.85, ease: [0.19, 1, 0.22, 1] }}
+          className="relative w-56 sm:w-64 aspect-[1024/341] shrink-0 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] cursor-pointer"
+          data-cursor="interactive"
+          data-cursor-label="SKILLS // CONSOLE"
         >
-          {/* Mobile Background Image (Strictly Mobile View) */}
           <Image
-            src="/images/skills-bg-mobile.jpg"
-            alt="Skills & Technologies Mobile CRT Wall"
+            src="/images/skills-title.png"
+            alt="Skills & Technologies"
             fill
             priority
-            sizes="(max-width: 768px) 100vw, 410px"
-            className="object-cover pointer-events-none select-none filter brightness-[1.02] contrast-[1.06]"
+            sizes="300px"
+            className="object-contain object-center pointer-events-none select-none filter contrast-125 brightness-105"
           />
+        </motion.div>
 
-          {/* Delicate Vignette Overlay for Filmic Texture */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-radial from-transparent via-transparent to-black/40 pointer-events-none"
-          />
-
-          {/* Top Heading: "Skills & Technologies" paper sticker on dark chalkboard wall */}
-          <motion.div
-            initial={{ opacity: 0, y: -20, rotate: -3 }}
-            whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.85, ease: [0.19, 1, 0.22, 1] }}
-            style={{
-              left: "10%",
-              top: "7.5%",
-              width: "80%",
-            }}
-            className="absolute aspect-[1024/341] z-30 pointer-events-auto -rotate-[1.5deg] origin-center drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]"
-            data-cursor="interactive"
-            data-cursor-label="SKILLS // CONSOLE"
-          >
-            <Image
-              src="/images/skills-title.png"
-              alt="Skills & Technologies"
-              fill
-              priority
-              sizes="360px"
-              className="object-contain object-center pointer-events-none select-none filter contrast-125 brightness-105"
-            />
-          </motion.div>
-
-          {/* The 6 CRT Monitors in 2-Column x 3-Row Grid */}
+        {/* 6 CRT Monitor Units in 2-Column x 3-Row Grid */}
+        <div className="w-full max-w-sm sm:max-w-md grid grid-cols-2 gap-2.5 sm:gap-3 flex-1 my-auto max-h-[calc(100vh-140px)]">
           {skillTopics.map((topic, index) => {
             const Icon = iconMap[topic.iconName] || Terminal;
-            const rect = mobileRects[index] || topic.rect;
 
             return (
               <motion.div
@@ -389,30 +361,24 @@ export default function SkillsSection() {
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{
-                  duration: 0.75,
-                  delay: 0.1 + index * 0.08,
+                  duration: 0.65,
+                  delay: 0.08 + index * 0.06,
                   ease: [0.19, 1, 0.22, 1],
                 }}
-                style={{
-                  left: `${rect.leftPct}%`,
-                  top: `${rect.topPct}%`,
-                  width: `${rect.widthPct}%`,
-                  height: `${rect.heightPct}%`,
-                }}
-                className="absolute pointer-events-auto"
+                className="w-full h-full"
               >
                 <Link
                   href={`/skills/${topic.slug}`}
                   data-cursor="interactive"
                   data-cursor-label={`MOD ${topic.number} // ${topic.shortTitle.toUpperCase()}`}
-                  className="group w-full h-full flex flex-col justify-between items-center px-1.5 py-1 rounded-[10px] sm:rounded-[12px] overflow-hidden transition-all duration-200 cursor-pointer bg-black/20 hover:bg-white/[0.08] active:bg-white/[0.12] active:scale-[0.97] border border-white/[0.08] hover:border-white/50 shadow-[inset_0_0_12px_rgba(0,0,0,0.8)]"
+                  className="group relative w-full h-full min-h-[92px] sm:min-h-[105px] flex flex-col justify-between items-center p-2 rounded-xl overflow-hidden transition-all duration-200 cursor-pointer bg-black/40 hover:bg-white/[0.08] active:bg-white/[0.12] active:scale-[0.97] border border-white/15 hover:border-white/50 shadow-[0_4px_14px_rgba(0,0,0,0.8),inset_0_0_12px_rgba(0,0,0,0.9)]"
                   title={`Module ${topic.number}: ${topic.title} (Tap to visit)`}
                   aria-label={`View ${topic.title} details`}
                 >
                   {/* CRT Scanline Layer */}
                   <div
                     aria-hidden="true"
-                    className="absolute inset-0 pointer-events-none opacity-25"
+                    className="absolute inset-0 pointer-events-none opacity-20"
                     style={{
                       backgroundImage:
                         "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.6) 2px, rgba(0, 0, 0, 0.6) 4px)",
@@ -426,31 +392,31 @@ export default function SkillsSection() {
                   />
 
                   {/* Top Readout: Module Number & Status Dot */}
-                  <div className="relative z-10 w-full flex items-center justify-between px-1 pt-0.5">
-                    <span className="font-mono font-bold text-[7.5px] sm:text-[9px] tracking-tight text-zinc-300 group-hover:text-white transition-colors">
+                  <div className="relative z-10 w-full flex items-center justify-between">
+                    <span className="font-mono font-bold text-[8.5px] sm:text-[9.5px] tracking-tight text-zinc-300 group-hover:text-white transition-colors">
                       MOD // {topic.number}
                     </span>
                     <div className="flex items-center gap-1 shrink-0">
-                      <span className="font-mono text-[7px] sm:text-[8px] text-zinc-400 group-hover:text-zinc-200 transition-colors">
+                      <span className="font-mono text-[7.5px] sm:text-[8.5px] text-zinc-400 group-hover:text-zinc-200 transition-colors">
                         60Hz
                       </span>
                       <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 group-hover:bg-white group-hover:shadow-[0_0_6px_rgba(255,255,255,0.9)] transition-all" />
                     </div>
                   </div>
 
-                  {/* Center Content: Icon & Title */}
-                  <div className="relative z-10 flex flex-col items-center justify-center my-auto text-center px-0.5 w-full">
-                    <div className="text-zinc-100 group-hover:text-white group-hover:scale-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.7)] transition-all duration-200">
-                      <Icon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.2} />
+                  {/* Center Content: Phosphor Icon & Title */}
+                  <div className="relative z-10 flex flex-col items-center justify-center my-auto text-center px-1 w-full">
+                    <div className="text-zinc-100 group-hover:text-white group-hover:scale-105 drop-shadow-[0_0_8px_rgba(255,255,255,0.7)] transition-all duration-200">
+                      <Icon className="w-4.5 h-4.5 sm:w-5.5 sm:h-5.5" strokeWidth={2.2} />
                     </div>
-                    <h3 className="font-typewriter font-bold text-[8.5px] sm:text-[10px] text-zinc-100 group-hover:text-white tracking-tight leading-tight mt-0.5 [text-wrap:balance] line-clamp-2 transition-colors">
+                    <h3 className="font-typewriter font-bold text-[9.5px] sm:text-[11px] text-zinc-100 group-hover:text-white tracking-tight leading-tight mt-1 [text-wrap:balance] line-clamp-2 transition-colors">
                       {topic.title}
                     </h3>
                   </div>
 
                   {/* Bottom Prompt */}
-                  <div className="relative z-10 w-full flex items-center justify-center pb-0.5">
-                    <span className="font-mono text-[7px] sm:text-[8px] font-semibold tracking-wider text-zinc-400 group-hover:text-white transition-colors inline-flex items-center gap-0.5">
+                  <div className="relative z-10 w-full flex items-center justify-center pt-0.5">
+                    <span className="font-mono text-[7.5px] sm:text-[8.5px] font-semibold tracking-wider text-zinc-400 group-hover:text-white transition-colors inline-flex items-center gap-0.5">
                       [ VISIT <ArrowRight className="w-2.5 h-2.5 inline stroke-[2.5]" /> ]
                     </span>
                   </div>

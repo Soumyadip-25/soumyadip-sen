@@ -225,25 +225,25 @@ export default function ImpactSection() {
     <section
       id="impact"
       ref={sectionRef}
-      className="relative h-screen max-h-screen w-full flex items-center justify-center overflow-hidden bg-[#070709] select-none scroll-mt-0"
+      className="relative h-screen max-h-screen w-full flex items-center justify-center overflow-hidden bg-[#070709] vintage-charcoal-bg select-none scroll-mt-0"
     >
-      {/* ========================================================= */}
-      {/* 1. DESKTOP BLACKBOARD STAGE (Strictly Preserved)           */}
-      {/* ========================================================= */}
-      <div className="hidden md:block absolute inset-0 z-0 overflow-hidden md:left-52 lg:left-56">
-        {/* Vintage 35mm Chalkboard Background Image (1024x652, 1.57:1 exact aspect ratio) */}
-        <Image
-          src="/images/impact-bg-v3.jpg"
-          alt="GitHub Activity Blackboard Background"
-          fill
-          priority
-          sizes="calc(100vw - 224px)"
-          className="object-fill object-center filter brightness-[1.0] contrast-[1.04] pointer-events-none select-none"
-        />
+      {/* 1. Blackboard Desk Canvas Stage: Full-bleed, edge-to-edge with sidebar offset on desktop */}
+      <div className="absolute inset-0 z-0 overflow-hidden md:left-52 lg:left-56">
+        {/* Vintage 35mm Chalkboard Background Image (Desktop Only) */}
+        <div className="hidden md:block absolute inset-0">
+          <Image
+            src="/images/impact-bg-v3.jpg"
+            alt="GitHub Activity Blackboard Background"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, calc(100vw - 224px)"
+            className="object-cover md:object-fill object-center filter brightness-[1.0] contrast-[1.04] pointer-events-none select-none"
+          />
+        </div>
 
-        {/* Desktop Chalkboard Content Zone: Strictly locked to desktop blackboard coordinates */}
+        {/* 2. Chalkboard Content Zone: Strictly locked to desktop blackboard coordinates, responsively fitted on mobile */}
         <div
-          className="absolute z-10 flex flex-col justify-center items-center pointer-events-none left-[17.0%] w-[54.5%] top-[11.0%] h-[76.0%]"
+          className="absolute z-10 flex flex-col justify-center items-center pointer-events-none inset-x-3 sm:inset-x-6 top-[12%] h-[78%] md:inset-x-auto md:left-[17.0%] md:w-[54.5%] md:top-[11.0%] md:h-[76.0%]"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.985 }}
@@ -287,9 +287,9 @@ export default function ImpactSection() {
               </motion.div>
             </div>
 
-            {/* Heatmap Matrix: 53-Column CSS Grid */}
-            <div className="w-full py-0.5 select-none overflow-x-visible">
-              <div className="w-full">
+            {/* Heatmap Matrix: Expanded 53-Column CSS Grid that properly fills the chalkboard space without touching the lamp */}
+            <div className="w-full py-0.5 select-none overflow-x-auto vintage-scrollbar pb-1 md:overflow-x-visible md:pb-0">
+              <div className="min-w-[560px] md:min-w-0 w-full">
                 {/* Month Labels Header Row (1:1 column aligned with 53 weeks) */}
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
@@ -394,154 +394,6 @@ export default function ImpactSection() {
               </div>
             </motion.div>
           </motion.div>
-        </div>
-      </div>
-
-      {/* ========================================================= */}
-      {/* 2. MOBILE DEDICATED VIEW (< 768px): Authentic 9:16 Canvas */}
-      {/* Strictly uses impact-bg-mobile.jpg for mobile view         */}
-      {/* ========================================================= */}
-      <div className="md:hidden relative z-10 w-full min-h-[100dvh] flex flex-col items-center justify-center px-2 pt-16 sm:pt-20 pb-4 overflow-y-auto overflow-x-hidden">
-        <div
-          style={{
-            width: "min(calc((100dvh - 84px) * (576 / 1024)), calc(100vw - 16px), 410px)",
-            aspectRatio: "576 / 1024",
-          }}
-          className="relative rounded-lg overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.95)] shrink-0 my-auto"
-        >
-          {/* Mobile Background Image (Strictly Mobile View) */}
-          <Image
-            src="/images/impact-bg-mobile.jpg"
-            alt="GitHub Activity Blackboard Backdrop (Mobile)"
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 410px"
-            className="object-cover pointer-events-none select-none filter brightness-[1.02] contrast-[1.05]"
-          />
-
-          {/* Delicate Vignette Overlay for Filmic Texture */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-radial from-transparent via-transparent to-black/35 pointer-events-none"
-          />
-
-          {/* Mobile Chalkboard Content Zone (Framed between top polaroids and desk lamp/Octocat) */}
-          <div
-            style={{
-              left: "6.5%",
-              top: "18.5%",
-              width: "87%",
-              height: "49%",
-            }}
-            className="absolute z-20 flex flex-col justify-between pointer-events-auto"
-          >
-            {/* Header Row: GITHUB ACTIVITY + Live Badge */}
-            <div className="w-full flex items-center justify-between pb-1.5 border-b border-white/10 gap-2">
-              <a
-                href="https://github.com/Soumyadip-25"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-cursor="interactive"
-                data-cursor-label="GITHUB PROFILE ↗"
-                className="group/title inline-flex items-center gap-1.5 hover:opacity-90 transition-opacity min-w-0"
-              >
-                <h2 className="font-mono text-xs sm:text-sm font-black tracking-[0.16em] text-zinc-100 uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)] group-hover/title:text-white transition-colors truncate">
-                  GITHUB ACTIVITY
-                </h2>
-              </a>
-
-              {/* Vintage Matte Chalkboard Live Telemetry Stamp */}
-              <div
-                data-cursor="interactive"
-                data-cursor-label="STATUS // LIVE 2026"
-                className="flex items-center shrink-0"
-              >
-                <div className="font-mono text-[8.5px] px-2 py-0.5 rounded border border-white/25 bg-white/[0.04] text-zinc-300 font-bold tracking-[0.14em] flex items-center gap-1 select-none">
-                  <span className="w-1.5 h-1.5 rounded-full bg-zinc-300 shrink-0" />
-                  <span className="uppercase whitespace-nowrap">
-                    LIVE // 2026
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Heatmap Matrix with Swipeable Container */}
-            <div className="w-full py-0.5 select-none overflow-x-auto vintage-scrollbar pb-1">
-              <div className="min-w-[500px] w-full">
-                {/* Month Labels Header Row */}
-                <div className="grid grid-cols-[repeat(53,minmax(0,1fr))] gap-[1.5px] w-full mb-1 h-3.5">
-                  {weeks.map((_, wIdx) => {
-                    const label = monthMap.get(wIdx);
-                    return (
-                      <div
-                        key={`m-month-slot-${wIdx}`}
-                        className="relative text-[9px] font-mono font-bold text-zinc-300 pointer-events-none"
-                      >
-                        {label && (
-                          <span className="absolute left-0 top-0 whitespace-nowrap">
-                            {label}
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* 53 Columns Matrix */}
-                <div className="grid grid-cols-[repeat(53,minmax(0,1fr))] gap-[1.5px] w-full">
-                  {weeks.map((week, wIdx) => (
-                    <div key={`m-week-${wIdx}`} className="flex flex-col gap-[1.5px]">
-                      {week.map((day, dIdx) => {
-                        if (!day) {
-                          return (
-                            <div
-                              key={`m-empty-${wIdx}-${dIdx}`}
-                              className="w-full aspect-square rounded-[1.5px] opacity-0"
-                            />
-                          );
-                        }
-
-                        return (
-                          <div
-                            key={`m-${day.date}`}
-                            onClick={(e) => {
-                              const rect = e.currentTarget.getBoundingClientRect();
-                              setHoveredDay({
-                                date: day.date,
-                                count: day.count,
-                                level: day.level,
-                                x: rect.left + rect.width / 2,
-                                y: rect.top,
-                              });
-                            }}
-                            className={`w-full aspect-square rounded-[1.5px] border cursor-pointer ${getLevelColor(day.level)}`}
-                          />
-                        );
-                      })}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Footer Row */}
-            <div className="w-full flex items-center justify-between pt-1 border-t border-white/10 text-zinc-200">
-              <span className="font-mono text-[9.5px] text-zinc-300 font-medium truncate">
-                {totalContributions} contributions in {selectedYear}
-              </span>
-
-              {/* Legend */}
-              <div className="flex items-center gap-1 text-zinc-300 shrink-0">
-                <span className="text-[8px] font-mono">Less</span>
-                <div className="w-2 h-2 rounded-[1px] bg-[#161b22] border border-[#21262d]" />
-                <div className="w-2 h-2 rounded-[1px] bg-[#0e4429] border border-[#166534]" />
-                <div className="w-2 h-2 rounded-[1px] bg-[#006d32] border border-[#15803d]" />
-                <div className="w-2 h-2 rounded-[1px] bg-[#26a641] border border-[#22c55e]" />
-                <div className="w-2 h-2 rounded-[1px] bg-[#39d353] border border-[#4ade80]" />
-                <span className="text-[8px] font-mono">More</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
