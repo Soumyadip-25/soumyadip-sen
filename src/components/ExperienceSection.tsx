@@ -92,8 +92,8 @@ export default function ExperienceSection() {
       onWheel={handleWheel}
       className="relative min-h-screen w-full flex items-center overflow-hidden bg-[#070709] select-none"
     >
-      {/* 1. Full-bleed Background: Vintage Slate Wall with Typewriter on the Right (No Gaps) */}
-      <div className="absolute inset-0 z-0">
+      {/* 1. Full-bleed Background: Vintage Slate Wall with Typewriter on the Right (No Gaps) - Desktop Only */}
+      <div className="hidden md:block absolute inset-0 z-0">
         <Image
           src="/images/experience-bg.jpg"
           alt="Vintage Typewriter Desk"
@@ -108,8 +108,8 @@ export default function ExperienceSection() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30 pointer-events-none" />
       </div>
 
-      {/* 2. Main Content Composition: Shifted comfortably towards the right */}
-      <div className="relative z-10 w-full min-h-screen md:pl-64 lg:pl-72 xl:pl-80 flex flex-col justify-start px-6 sm:px-10 md:px-12 lg:px-14 pt-12 sm:pt-16 pb-14">
+      {/* 2. Main Content Composition (Desktop Only) - STRICTLY PRESERVED */}
+      <div className="hidden md:flex relative z-10 w-full min-h-screen md:pl-64 lg:pl-72 xl:pl-80 flex-col justify-start px-4 sm:px-10 md:px-12 lg:px-14 pt-20 sm:pt-24 md:pt-12 lg:pt-16 pb-14">
         
         {/* Torn Paper Scrap Header: "Experience" - Tactile Pin-to-Board Entrance */}
         <motion.div
@@ -118,7 +118,7 @@ export default function ExperienceSection() {
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.95, ease: [0.19, 1, 0.22, 1] }}
           whileHover={{ scale: 1.03, rotate: 0 }}
-          className="relative w-56 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-8 sm:mb-10 -rotate-1 origin-left shrink-0 ml-1 sm:ml-2 cursor-pointer transform-gpu"
+          className="relative w-48 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-6 sm:mb-8 md:mb-10 -rotate-1 origin-left shrink-0 ml-1 sm:ml-2 cursor-pointer transform-gpu"
           data-cursor="interactive"
           data-cursor-label="EXPERIENCE // TIMELINE"
         >
@@ -134,7 +134,7 @@ export default function ExperienceSection() {
         {/* 3. Scrollable Timeline Container (Spread wider to the right to fill empty space) */}
         <div
           ref={scrollContainerRef}
-          className="relative w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl max-h-[calc(100vh-220px)] sm:max-h-[calc(100vh-200px)] overflow-y-auto pr-4 sm:pr-8 vintage-scrollbar"
+          className="relative w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl max-h-[calc(100vh-190px)] sm:max-h-[calc(100vh-200px)] overflow-y-auto pr-3 sm:pr-8 vintage-scrollbar"
         >
           {/* Vertical Luminous Timeline Wire: Conducts current downwards as user scrolls */}
           <motion.div
@@ -228,6 +228,124 @@ export default function ExperienceSection() {
             <ChevronDown className="w-3.5 h-3.5" />
           </motion.div>
         )}
+      </div>
+
+      {/* ========================================================= */}
+      {/* 3. MOBILE DEDICATED VIEW (< 768px): Authentic 9:16 Canvas */}
+      {/* Strictly uses experience-bg-mobile.jpg for mobile view     */}
+      {/* ========================================================= */}
+      <div className="md:hidden relative z-10 w-full min-h-[100dvh] flex flex-col items-center justify-center px-2 pt-16 sm:pt-20 pb-4 overflow-y-auto overflow-x-hidden">
+        <div
+          style={{
+            width: "min(calc((100dvh - 84px) * (576 / 1024)), calc(100vw - 16px), 410px)",
+            aspectRatio: "576 / 1024",
+          }}
+          className="relative rounded-lg overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.95)] shrink-0 my-auto"
+        >
+          {/* Mobile Background Image (Strictly Mobile View) */}
+          <Image
+            src="/images/experience-bg-mobile.jpg"
+            alt="Experience Mobile Backdrop"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 410px"
+            className="object-cover pointer-events-none select-none filter brightness-[1.02] contrast-[1.05]"
+          />
+
+          {/* Delicate Vignette Overlay for Filmic Texture */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-radial from-transparent via-transparent to-black/30 pointer-events-none"
+          />
+
+          {/* Top Heading: "Experience" torn paper banner positioned on dark wall */}
+          <motion.div
+            initial={{ opacity: 0, y: -20, rotate: -3 }}
+            whileInView={{ opacity: 1, y: 0, rotate: -1 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.85, ease: [0.19, 1, 0.22, 1] }}
+            style={{
+              left: "7%",
+              top: "5.5%",
+              width: "72%",
+            }}
+            className="absolute aspect-[1024/341] z-30 pointer-events-auto -rotate-1 origin-center drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]"
+            data-cursor="interactive"
+            data-cursor-label="EXPERIENCE // TIMELINE"
+          >
+            <Image
+              src="/images/experience-title.png"
+              alt="Experience"
+              fill
+              priority
+              sizes="360px"
+              className="object-contain object-left pointer-events-none select-none filter contrast-125 brightness-105"
+            />
+          </motion.div>
+
+          {/* Mobile Timeline Container (Framed cleanly in the upper blackboard above the vintage typewriter) */}
+          <div
+            style={{
+              left: "6.5%",
+              top: "16.5%",
+              width: "87%",
+              maxHeight: "47%",
+            }}
+            className="absolute z-20 flex flex-col justify-start overflow-y-auto vintage-scrollbar pr-1"
+          >
+            {/* Timeline Vertical Guide Line */}
+            <div
+              aria-hidden="true"
+              className="absolute left-[17px] top-[14px] bottom-[14px] w-[1.5px] bg-gradient-to-b from-white/80 via-zinc-400/50 to-zinc-700/20 pointer-events-none"
+            />
+
+            <div className="relative flex flex-col gap-4 py-1">
+              {experiences.map((exp, idx) => {
+                const isTutor = exp.iconType === "tutor";
+                return (
+                  <motion.div
+                    key={`mob-exp-${exp.id}`}
+                    initial={{ opacity: 0, x: -16 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{
+                      duration: 0.7,
+                      delay: 0.1 + idx * 0.15,
+                      ease: [0.19, 1, 0.22, 1],
+                    }}
+                    className="relative pl-10 pr-2 py-2 rounded-xl bg-black/40 border border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.7)] backdrop-blur-[2px]"
+                  >
+                    {/* Floating Circular Node Icon */}
+                    <div className="absolute -left-1 top-3 w-8 h-8 rounded-full bg-zinc-900 border border-white/40 flex items-center justify-center text-white shadow-[0_0_10px_rgba(0,0,0,0.9)]">
+                      {isTutor ? (
+                        <GraduationCap className="w-4 h-4 stroke-[2]" />
+                      ) : (
+                        <Code2 className="w-4 h-4 stroke-[2]" />
+                      )}
+                    </div>
+
+                    {/* Role Title and Period */}
+                    <div className="flex flex-col gap-0.5">
+                      <div className="flex items-center justify-between gap-1 flex-wrap">
+                        <h3 className="font-typewriter font-bold text-xs sm:text-sm text-white tracking-wide">
+                          {exp.role}
+                        </h3>
+                        <span className="font-mono text-[9.5px] px-1.5 py-0.5 rounded bg-white/10 text-zinc-300 border border-white/15">
+                          {exp.period}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Description Paragraph */}
+                    <p className="mt-1.5 text-zinc-300 font-typewriter text-[11px] leading-relaxed">
+                      {exp.description}
+                    </p>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

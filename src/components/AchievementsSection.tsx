@@ -64,19 +64,22 @@ const achievements: Achievement[] = [
 export default function AchievementsSection() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const mobileScrollContainerRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-
+  const mobileItemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [mobileActiveIdx, setMobileActiveIdx] = useState(0);
   const [stageBounds, setStageBounds] = useState({
     width: 1024,
     height: 576,
     scale: 1,
   });
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-  const [activeIdx, setActiveIdx] = useState<number>(0);
-  const [canScrollUp, setCanScrollUp] = useState<boolean>(false);
-  const [canScrollDown, setCanScrollDown] = useState<boolean>(true);
+  const [canScrollUp, setCanScrollUp] = useState(false);
+  const [canScrollDown, setCanScrollDown] = useState(true);
+  const [mobileCanScrollUp, setMobileCanScrollUp] = useState(false);
+  const [mobileCanScrollDown, setMobileCanScrollDown] = useState(true);
 
-  // Compute uniform scale so 100% of the 1024x576 background image is fully visible with ZERO cropping
+  // Desktop 16:9 stage bounds computation (Strictly Preserved)
   const updateLayout = useCallback(() => {
     if (!containerRef.current) return;
 
@@ -84,8 +87,6 @@ export default function AchievementsSection() {
     const stageH = containerRef.current.clientHeight;
 
     if (stageW === 0 || stageH === 0) return;
-
-    setIsMobile(stageW < 768);
 
     const scale = Math.min((stageW - 16) / 1024, (stageH - 16) / 576);
     const width = Math.max(Math.floor(1024 * scale), 320);
@@ -116,7 +117,7 @@ export default function AchievementsSection() {
     };
   }, [updateLayout]);
 
-  // Update scroll indicators and active item on scroll (top-to-bottom)
+  // Desktop scroll handler
   const handleScroll = useCallback(() => {
     const el = scrollContainerRef.current;
     if (!el) return;
@@ -156,6 +157,46 @@ export default function AchievementsSection() {
     el.scrollBy({ top: delta, behavior: "smooth" });
   };
 
+  // Mobile scroll handler
+  const handleMobileScroll = useCallback(() => {
+    const el = mobileScrollContainerRef.current;
+    if (!el) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    setMobileCanScrollUp(scrollTop > 10);
+    setMobileCanScrollDown(scrollTop + clientHeight < scrollHeight - 10);
+
+    const containerTop = el.getBoundingClientRect().top;
+    let closestIdx = 0;
+    let minDistance = Infinity;
+
+    mobileItemRefs.current.forEach((item, idx) => {
+      if (!item) return;
+      const rect = item.getBoundingClientRect();
+      const distance = Math.abs(rect.top - containerTop);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIdx = idx;
+      }
+    });
+
+    setMobileActiveIdx(closestIdx);
+  }, []);
+
+  const scrollMobileToIndex = (idx: number) => {
+    const target = mobileItemRefs.current[idx];
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  };
+
+  const scrollMobileByDelta = (direction: "up" | "down") => {
+    const el = mobileScrollContainerRef.current;
+    if (!el) return;
+    const delta = direction === "down" ? 120 : -120;
+    el.scrollBy({ top: delta, behavior: "smooth" });
+  };
+
   const typographyScale = Math.min(Math.max(stageBounds.scale, 0.72), 1.35);
 
   return (
@@ -175,10 +216,12 @@ export default function AchievementsSection() {
         />
       </div>
 
-      {/* Main Responsive Viewport Container */}
+      {/* ========================================================= */}
+      {/* 1. DESKTOP 16:9 CONTROL ROOM STAGE (Strictly Preserved)    */}
+      {/* ========================================================= */}
       <div
         ref={containerRef}
-        className="relative z-10 w-full h-full flex flex-col items-center justify-center p-2 sm:p-4 overflow-hidden"
+        className="hidden md:flex relative z-10 w-full h-full flex-col items-center justify-center p-4 pt-4 overflow-hidden"
       >
         {/* The Exact 16:9 Vintage Control Room Stage (100% Complete, Zero Cropping) */}
         <div
@@ -398,60 +441,188 @@ export default function AchievementsSection() {
             </div>
           </motion.div>
         </div>
+      </div>
 
-        {/* 4. MOBILE HELPER: Step Navigation for Small Screens (< 768px) */}
-        {isMobile && (
-          <div className="mt-3 w-full max-w-sm flex flex-col items-center gap-2 px-2 z-30">
-            {/* Mobile Header & Step Buttons */}
-            <div className="w-full flex items-center justify-between bg-zinc-950/90 px-3 py-1.5 rounded-full border border-zinc-800">
-              <span className="font-mono text-xs text-white font-bold">
-                ACHIEVEMENT 0{activeIdx + 1} / 05
-              </span>
-              <div className="flex items-center gap-1">
-                <button
-                  onClick={() => {
-                    const next = (activeIdx - 1 + achievements.length) % achievements.length;
-                    setActiveIdx(next);
-                    scrollToIndex(next);
-                  }}
-                  className="p-1 text-zinc-400 hover:text-white"
-                  aria-label="Previous Achievement"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => {
-                    const next = (activeIdx + 1) % achievements.length;
-                    setActiveIdx(next);
-                    scrollToIndex(next);
-                  }}
-                  className="p-1 text-zinc-400 hover:text-white"
-                  aria-label="Next Achievement"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
+      {/* ========================================================= */}
+      {/* 2. MOBILE DEDICATED VIEW (< 768px): Authentic 9:16 Canvas */}
+      {/* Strictly uses achievements-bg-mobile.jpg for mobile view   */}
+      {/* ========================================================= */}
+      <div className="md:hidden relative z-10 w-full min-h-[100dvh] flex flex-col items-center justify-center px-2 pt-16 sm:pt-20 pb-4 overflow-y-auto overflow-x-hidden">
+        <div
+          style={{
+            width: "min(calc((100dvh - 84px) * (576 / 1024)), calc(100vw - 16px), 410px)",
+            aspectRatio: "576 / 1024",
+          }}
+          className="relative rounded-lg overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.95)] shrink-0 my-auto"
+        >
+          {/* Mobile Background Image (Strictly Mobile View) */}
+          <Image
+            src="/images/achievements-bg-mobile.jpg"
+            alt="Achievements Mobile Backdrop"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 410px"
+            className="object-cover pointer-events-none select-none filter brightness-[1.02] contrast-[1.05]"
+          />
+
+          {/* Delicate Vignette Overlay for Filmic Texture */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-radial from-transparent via-transparent to-black/35 pointer-events-none"
+          />
+
+          {/* Top Heading: "Achievements" paper sticker positioned on dark wall */}
+          <motion.div
+            initial={{ opacity: 0, y: -20, rotate: -4 }}
+            whileInView={{ opacity: 1, y: 0, rotate: -2 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.85, ease: [0.19, 1, 0.22, 1] }}
+            style={{
+              left: "10%",
+              top: "5.5%",
+              width: "80%",
+            }}
+            className="absolute aspect-[1024/341] z-30 pointer-events-auto -rotate-[2deg] origin-center drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]"
+            data-cursor="interactive"
+            data-cursor-label="ACHIEVEMENTS // HONORS"
+          >
+            <Image
+              src="/images/achievements-title.png"
+              alt="Achievements"
+              fill
+              priority
+              sizes="360px"
+              className="object-contain object-center pointer-events-none select-none filter contrast-125 brightness-105"
+            />
+          </motion.div>
+
+          {/* Mobile Parchment Document (Framed between camera books & trophy) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94, y: 20 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.95, delay: 0.12, ease: [0.19, 1, 0.22, 1] }}
+            style={{
+              left: "6.5%",
+              top: "19.5%",
+              width: "82%",
+              height: "58%",
+            }}
+            className="absolute z-20 rounded-xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.85)] filter drop-shadow-[0_6px_20px_rgba(0,0,0,0.9)]"
+          >
+            {/* The Vintage Parchment Paper Image */}
+            <div className="absolute inset-0 z-0">
+              <Image
+                src="/images/achievements-document.jpg"
+                alt="Achievements Document"
+                fill
+                priority
+                sizes="(max-width: 768px) 360px, 400px"
+                className="object-cover select-none pointer-events-none filter contrast-[1.03] brightness-[1.01]"
+              />
             </div>
 
-            {/* Mobile Card Content */}
-            <div className="w-full p-3.5 rounded-xl bg-zinc-950/95 border border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.1)] flex flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-white/10 text-white border border-white/25 font-bold">
-                  {achievements[activeIdx].tag}
-                </span>
+            {/* Inner Content Area: Top-to-Bottom Scrollable List */}
+            <div className="relative z-10 w-full h-full flex flex-col justify-between pt-3 pb-2 px-3">
+              {/* Scrollable Viewport */}
+              <div
+                ref={mobileScrollContainerRef}
+                onScroll={handleMobileScroll}
+                className="relative w-full flex-1 overflow-y-auto paper-scrollbar pr-1.5 space-y-2 scroll-smooth"
+              >
+                {achievements.map((item, idx) => {
+                  const isActive = mobileActiveIdx === idx;
+
+                  return (
+                    <div
+                      key={`mobile-${item.id}`}
+                      ref={(el) => {
+                        mobileItemRefs.current[idx] = el;
+                      }}
+                      className={`group relative p-2 rounded-lg transition-all duration-200 cursor-pointer ${
+                        isActive
+                          ? "bg-[#1c1917]/[0.08] border-l-2 border-[#1c1917] pl-2.5 shadow-sm"
+                          : "bg-transparent hover:bg-[#1c1917]/[0.04] pl-2 border-l-2 border-transparent"
+                      }`}
+                    >
+                      {/* Title & Tag */}
+                      <div className="flex flex-col gap-1">
+                        <div className="flex items-center justify-between gap-1.5">
+                          <span className="font-mono text-[8px] font-bold px-1.5 py-0.5 rounded border border-[#1c1917]/25 bg-[#1c1917]/5 text-[#1c1917] uppercase tracking-wider shrink-0">
+                            {item.tag}
+                          </span>
+                          <span className="font-mono text-[9px] font-bold text-[#1c1917]/70">
+                            {item.number} / 05
+                          </span>
+                        </div>
+
+                        <h3 className="font-typewriter font-bold text-[11px] sm:text-xs text-[#1c1917] tracking-tight leading-snug flex items-start gap-1 mt-0.5">
+                          <span className="text-[#1c1917] select-none leading-none mt-0.5">•</span>
+                          <span>{item.title}</span>
+                        </h3>
+                      </div>
+
+                      {/* Description */}
+                      <p className="font-mono text-[9.5px] sm:text-[10.5px] text-[#38332b] font-medium mt-1 pl-2 leading-relaxed">
+                        {item.description}
+                      </p>
+
+                      {idx < achievements.length - 1 && (
+                        <div className="w-full h-[1px] bg-[#1c1917]/15 mt-2" />
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-              <h4 className="font-typewriter text-sm font-bold text-white flex items-start gap-1.5">
-                <span className="text-white">•</span>
-                <span>{achievements[activeIdx].number}.</span>
-                <span>{achievements[activeIdx].title}</span>
-              </h4>
-              <p className="font-mono text-xs text-zinc-300 leading-relaxed pl-3 relative">
-                <span className="absolute left-0 text-white">•</span>
-                {achievements[activeIdx].description}
-              </p>
+
+              {/* Bottom Footer: Numeric Jump Buttons + Scroll Arrows */}
+              <div className="flex items-center justify-between pt-1.5 border-t border-[#1c1917]/20 shrink-0 px-1 mt-auto">
+                <div className="flex items-center gap-1">
+                  {achievements.map((item, idx) => (
+                    <button
+                      key={`m-btn-${item.id}`}
+                      onClick={() => scrollMobileToIndex(idx)}
+                      className={`px-1.5 py-0.5 rounded font-mono text-[9px] font-bold transition-colors cursor-pointer ${
+                        mobileActiveIdx === idx
+                          ? "bg-[#1c1917] text-[#ded3c5] shadow-xs"
+                          : "bg-[#1c1917]/10 text-[#44403c] hover:bg-[#1c1917]/20"
+                      }`}
+                    >
+                      {item.number}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => scrollMobileByDelta("up")}
+                    disabled={!mobileCanScrollUp}
+                    title="Scroll Up"
+                    className={`p-1 rounded transition-colors ${
+                      mobileCanScrollUp
+                        ? "bg-[#1c1917]/15 text-[#1c1917] hover:bg-[#1c1917]/25 cursor-pointer"
+                        : "opacity-25 text-[#44403c] cursor-not-allowed"
+                    }`}
+                  >
+                    <ChevronUp className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    onClick={() => scrollMobileByDelta("down")}
+                    disabled={!mobileCanScrollDown}
+                    title="Scroll Down"
+                    className={`p-1 rounded transition-colors ${
+                      mobileCanScrollDown
+                        ? "bg-[#1c1917]/15 text-[#1c1917] hover:bg-[#1c1917]/25 cursor-pointer"
+                        : "opacity-25 text-[#44403c] cursor-not-allowed"
+                    }`}
+                  >
+                    <ChevronDown className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        )}
+          </motion.div>
+        </div>
       </div>
     </section>
   );

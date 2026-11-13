@@ -510,13 +510,13 @@ return () => window.removeEventListener("popstate", handlePopState);
     }),
   };
 return (
-    <div className="relative w-screen h-screen overflow-hidden bg-[#070709] text-zinc-100 select-none flex flex-col justify-between font-mono">
+    <div className="relative w-screen min-h-screen md:h-screen overflow-y-auto md:overflow-hidden bg-[#070709] text-zinc-100 select-none flex flex-col justify-between font-mono">
       
       {/* ========================================================= */}
-      {/* FULL-SCREEN FULL-BLEED BACKGROUND IMAGE                    */}
-      {/* 100% fits screen with ZERO spaces on left, right, or edges */}
+      {/* FULL-SCREEN BACKGROUND IMAGE (Desktop 16:9 & Mobile 9:16)  */}
       {/* ========================================================= */}
-      <div className="absolute inset-0 z-0 pointer-events-none w-full h-full">
+      {/* Desktop Background: 16:9 Blueprint Canvas (Strictly Preserved) */}
+      <div className="hidden md:block absolute inset-0 z-0 pointer-events-none w-full h-full">
         <Image
           src="/images/project-detail-bg.jpg"
           alt="Project blackboard blueprint background"
@@ -524,6 +524,18 @@ return (
           priority
           sizes="100vw"
           className="object-fill select-none pointer-events-none filter contrast-105 brightness-95"
+        />
+      </div>
+
+      {/* Mobile Background: User Provided 9:16 Compass Slate Backdrop */}
+      <div className="md:hidden fixed inset-0 z-0 pointer-events-none w-full h-full">
+        <Image
+          src="/images/project-detail-bg-mobile.jpg"
+          alt="Project Blueprint Mobile Backdrop"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-top select-none pointer-events-none filter contrast-105 brightness-95"
         />
       </div>
 
@@ -618,7 +630,7 @@ return (
       {/* ========================================================= */}
       {/* 2. CENTER STAGE: 2-Column Responsive Single-Screen Dossier */}
       {/* ========================================================= */}
-      <main className="flex-1 flex items-center justify-center min-h-0 py-1 sm:py-2 px-3 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative z-10 overflow-hidden">
+      <main className="flex-1 flex items-center justify-center min-h-0 py-1 sm:py-2 px-3 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative z-10 overflow-visible md:overflow-hidden">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentProject.id}
@@ -627,7 +639,7 @@ return (
             initial="enter"
             animate="center"
             exit="exit"
-            className="w-full h-full max-h-[calc(100vh-115px)] flex flex-col md:flex-row items-center justify-center md:justify-between xl:justify-center gap-6 md:gap-8 lg:gap-10 xl:gap-14 max-w-[1660px] 2xl:max-w-[1840px] mx-auto px-2"
+            className="w-full h-full md:max-h-[calc(100vh-115px)] flex flex-col md:flex-row items-center justify-center md:justify-between xl:justify-center gap-6 md:gap-8 lg:gap-10 xl:gap-14 max-w-[1660px] 2xl:max-w-[1840px] mx-auto px-2"
           >
             
             {/* ----------------------------------------------------- */}

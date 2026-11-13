@@ -50,10 +50,12 @@ export default function Hero({ onResumeClick }: HeroProps) {
   return (
     <section
       id="home"
-      className="relative min-h-screen w-full flex items-center overflow-hidden bg-[#070709] select-none"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#070709] select-none"
     >
-      {/* Background Image: The noir desk & lamp scene */}
-      <div className="absolute inset-0 z-0">
+      {/* ========================================================= */}
+      {/* 1. DESKTOP VIEW (>= 768px): Strictly Preserved 16:9 Canvas */}
+      {/* ========================================================= */}
+      <div className="hidden md:block absolute inset-0 z-0">
         <Image
           src="/images/hero-bg.jpg"
           alt="Vintage Noir Studio Workspace"
@@ -75,7 +77,7 @@ export default function Hero({ onResumeClick }: HeroProps) {
       </div>
 
       {/* Main Content Composition Container: Joined close to sidebar with no black dead space */}
-      <div className="relative z-10 w-full md:pl-56 lg:pl-64 pr-4 sm:pr-8 lg:pr-14 min-h-screen flex flex-col justify-center">
+      <div className="hidden md:flex relative z-10 w-full px-4 sm:px-6 md:px-0 md:pl-56 lg:pl-64 md:pr-4 sm:pr-8 lg:pr-14 min-h-screen flex-col justify-center pt-20 sm:pt-24 md:pt-0 pb-12 md:pb-0">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
           
           {/* LEFT: Filmstrip + Polaroid Frame */}
@@ -116,12 +118,12 @@ export default function Hero({ onResumeClick }: HeroProps) {
               <div className="relative rounded-sm filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)]">
                 
                 {/* Polaroid Image */}
-                <div className="relative w-[310px] sm:w-[370px] md:w-[410px] lg:w-[440px] xl:w-[465px] aspect-[807/1024]">
+                <div className="relative w-[260px] xs:w-[275px] sm:w-[340px] md:w-[410px] lg:w-[440px] xl:w-[465px] max-w-[calc(100vw-80px)] aspect-[807/1024]">
                   <Image
                     src="/images/soumyadip-polaroid.png"
                     alt="Soumyadip Sen - Vintage Portrait"
                     fill
-                    sizes="(max-width: 640px) 310px, (max-width: 768px) 370px, (max-width: 1024px) 410px, 465px"
+                    sizes="(max-width: 640px) 275px, (max-width: 768px) 340px, (max-width: 1024px) 410px, 465px"
                     priority
                     className="object-contain pointer-events-none select-none transition-transform duration-500 group-hover:scale-[1.01]"
                   />
@@ -159,7 +161,7 @@ export default function Hero({ onResumeClick }: HeroProps) {
               animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
               transition={{ duration: 0.95, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
               whileHover={{ scale: 1.015, transition: { duration: 0.25 } }}
-              className="relative w-full max-w-[480px] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[700px] xl:max-w-[740px] aspect-[1024/341] cursor-pointer transform-gpu"
+              className="relative w-full max-w-[320px] sm:max-w-[440px] md:max-w-[560px] lg:max-w-[700px] xl:max-w-[740px] aspect-[1024/341] cursor-pointer transform-gpu"
               data-cursor="interactive"
               data-cursor-label="SOUMYADIP // SIGNATURE"
             >
@@ -182,7 +184,7 @@ export default function Hero({ onResumeClick }: HeroProps) {
                   alt="Soumyadip Sen Signature"
                   fill
                   priority
-                  sizes="(max-width: 640px) 480px, (max-width: 768px) 560px, (max-width: 1024px) 640px, 740px"
+                  sizes="(max-width: 640px) 320px, (max-width: 768px) 440px, (max-width: 1024px) 640px, 740px"
                   className="object-contain"
                 />
               </motion.div>
@@ -199,7 +201,7 @@ export default function Hero({ onResumeClick }: HeroProps) {
               transition={{ duration: 0.75, delay: 1.35, ease: [0.19, 1, 0.22, 1] }}
               whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
               whileTap={{ scale: 0.98 }}
-              className="mt-6 sm:mt-8 lg:mt-9 self-center lg:self-start lg:ml-28 xl:ml-36 transform-gpu"
+              className="mt-5 sm:mt-7 lg:mt-9 self-center lg:self-start lg:ml-28 xl:ml-36 transform-gpu"
             >
               <DownloadResumeButton />
             </motion.div>
@@ -208,18 +210,172 @@ export default function Hero({ onResumeClick }: HeroProps) {
         </div>
       </div>
 
-      {/* Subtle bottom scroll indicator */}
+      {/* Subtle bottom scroll indicator (Desktop) */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={isMounted ? { opacity: 0.45, y: 0 } : { opacity: 0, y: 12 }}
         transition={{ duration: 0.8, delay: 1.6, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 md:pl-28 z-20 flex flex-col items-center gap-1 hover:opacity-85 transition-opacity"
+        className="hidden md:flex absolute bottom-4 left-1/2 -translate-x-1/2 md:pl-28 z-20 flex-col items-center gap-1 hover:opacity-85 transition-opacity"
       >
         <span className="text-[10px] font-mono tracking-widest text-zinc-400 uppercase">
           Scroll
         </span>
         <div className="w-1 h-3 rounded-full bg-zinc-500 animate-bounce" />
       </motion.div>
+
+      {/* ========================================================= */}
+      {/* 2. MOBILE DEDICATED VIEW (< 768px): Authentic 9:16 Canvas */}
+      {/* Strictly uses hero-bg-mobile.jpg for mobile view          */}
+      {/* ========================================================= */}
+      <div className="md:hidden relative z-10 w-full min-h-[100dvh] flex flex-col items-center justify-center px-2 pt-16 sm:pt-20 pb-4 overflow-y-auto overflow-x-hidden">
+        <div
+          style={{
+            width: "min(calc((100dvh - 84px) * (576 / 1024)), calc(100vw - 16px), 410px)",
+            aspectRatio: "576 / 1024",
+          }}
+          className="relative rounded-lg overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.95)] shrink-0 my-auto"
+        >
+          {/* Mobile Background Image (Strictly Mobile View) */}
+          <Image
+            src="/images/hero-bg-mobile.jpg"
+            alt="Hero Noir Workspace Mobile Backdrop"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 410px"
+            className="object-cover pointer-events-none select-none filter brightness-[1.02] contrast-[1.05]"
+          />
+
+          {/* Delicate Vignette Overlay for Filmic Texture */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-radial from-transparent via-transparent to-black/30 pointer-events-none"
+          />
+
+          {/* Ambient Dust Particles drifting in the mobile lamp beam */}
+          <div className="absolute inset-0 pointer-events-none">
+            <DustParticles />
+          </div>
+
+          {/* Mobile Composition Layers */}
+          <div className="relative z-10 w-full h-full flex flex-col items-center justify-between px-3 pt-6 pb-4">
+            
+            {/* Top Empty Space allowing the Desk Lamp to shine unobstructed */}
+            <div className="w-full h-1 sm:h-2" />
+
+            {/* Central Focal Group: Polaroid Portrait + Signature + Download Resume */}
+            <div className="w-full flex flex-col items-center mt-6 xs:mt-8">
+              
+              {/* Polaroid Frame: Physical photograph placement with tactile settle */}
+              <motion.div
+                initial={{ opacity: 0, y: -30, scale: 1.04, rotate: -5 }}
+                animate={
+                  isMounted
+                    ? { opacity: 1, y: 0, scale: 1, rotate: -2.5 }
+                    : { opacity: 0, y: -30, scale: 1.04, rotate: -5 }
+                }
+                transition={{ duration: 1.0, delay: 0.15, ease: [0.19, 1, 0.22, 1] }}
+                className="relative group cursor-pointer transform-gpu"
+                data-cursor="image"
+                data-cursor-label="ME"
+              >
+                <div className="relative rounded-sm filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.9)]">
+                  <div className="relative w-[165px] xs:w-[180px] aspect-[807/1024]">
+                    <Image
+                      src="/images/soumyadip-polaroid.png"
+                      alt="Soumyadip Sen - Vintage Portrait"
+                      fill
+                      sizes="180px"
+                      priority
+                      className="object-contain pointer-events-none select-none"
+                    />
+
+                    {/* '06 Vintage Typewriter Stamp - Mechanical Ink Strike */}
+                    <motion.div
+                      initial={{ opacity: 0, scale: 1.4, rotate: -15 }}
+                      animate={
+                        isMounted
+                          ? { opacity: 0.95, scale: 1, rotate: -2.5 }
+                          : { opacity: 0, scale: 1.4, rotate: -15 }
+                      }
+                      transition={{
+                        duration: 0.5,
+                        delay: 0.7,
+                        type: "spring",
+                        stiffness: 350,
+                        damping: 22,
+                      }}
+                      className="absolute right-5 bottom-4 xs:right-6 xs:bottom-5 font-typewriter text-xl xs:text-2xl font-black text-[#11100e] tracking-widest select-none drop-shadow-[0_1px_1px_rgba(255,255,255,0.7)] pointer-events-none"
+                    >
+                      &apos;06
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* The Handwritten Signature - Clean Matte Ink Sweep across the Desk */}
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+                transition={{ duration: 0.9, delay: 0.25, ease: [0.19, 1, 0.22, 1] }}
+                className="relative w-full max-w-[220px] xs:max-w-[245px] aspect-[1024/341] mt-2 xs:mt-3 cursor-pointer transform-gpu"
+                data-cursor="interactive"
+                data-cursor-label="SOUMYADIP // SIGNATURE"
+              >
+                <motion.div
+                  initial={{ clipPath: "inset(0% 100% 0% 0%)", opacity: 0 }}
+                  animate={
+                    isMounted
+                      ? { clipPath: "inset(0% 0% 0% 0%)", opacity: 1 }
+                      : { clipPath: "inset(0% 100% 0% 0%)", opacity: 0 }
+                  }
+                  transition={{
+                    clipPath: { duration: 1.15, delay: 0.4, ease: [0.22, 1, 0.36, 1] },
+                    opacity: { duration: 0.15, delay: 0.4 },
+                  }}
+                  className="relative w-full h-full overflow-hidden"
+                >
+                  <Image
+                    src="/images/signature.png"
+                    alt="Soumyadip Sen Signature"
+                    fill
+                    priority
+                    sizes="245px"
+                    className="object-contain"
+                  />
+                </motion.div>
+              </motion.div>
+
+              {/* Vintage Typewriter Download Resume Button - Tactile Stamp Reveal after Signature */}
+              <motion.div
+                initial={{ opacity: 0, y: 14, scale: 0.9 }}
+                animate={
+                  isMounted
+                    ? { opacity: 1, y: 0, scale: 1 }
+                    : { opacity: 0, y: 14, scale: 0.9 }
+                }
+                transition={{ duration: 0.7, delay: 1.25, ease: [0.19, 1, 0.22, 1] }}
+                whileTap={{ scale: 0.96 }}
+                className="mt-3 xs:mt-4 transform-gpu scale-[0.88] origin-center"
+              >
+                <DownloadResumeButton />
+              </motion.div>
+            </div>
+
+            {/* Bottom Area: Leaves Camera and Desk Planks visible at bottom right, subtle Scroll pill at bottom center */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={isMounted ? { opacity: 0.4 } : { opacity: 0 }}
+              transition={{ duration: 0.8, delay: 1.5 }}
+              className="flex flex-col items-center gap-0.5 mt-auto pt-2"
+            >
+              <span className="text-[8px] font-mono tracking-widest text-zinc-400 uppercase">
+                Scroll ↓
+              </span>
+            </motion.div>
+
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

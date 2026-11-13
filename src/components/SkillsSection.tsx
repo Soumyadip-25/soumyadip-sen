@@ -12,11 +12,9 @@ import {
   Cpu,
   ShieldCheck,
   ArrowRight,
-  ChevronLeft,
-  ChevronRight,
   Terminal,
 } from "lucide-react";
-import { skillTopics, SkillTopic } from "@/data/skills";
+import { skillTopics } from "@/data/skills";
 
 const iconMap = {
   Code2,
@@ -27,6 +25,23 @@ const iconMap = {
   ShieldCheck,
 };
 
+// Physical CRT monitor coordinates on the 9:16 mobile background image (skills-bg-mobile.jpg)
+// 3 Rows x 2 Columns of CRT monitors
+const mobileRects = [
+  // Module 01: Programming Languages (Row 1 Left)
+  { leftPct: 20.5, topPct: 26.8, widthPct: 28.5, heightPct: 12.3 },
+  // Module 02: Full Stack Development (Row 1 Right)
+  { leftPct: 58.0, topPct: 26.8, widthPct: 28.5, heightPct: 12.3 },
+  // Module 03: Databases & Cloud (Row 2 Left)
+  { leftPct: 20.5, topPct: 44.3, widthPct: 28.5, heightPct: 12.3 },
+  // Module 04: AI / ML & Data Analytics (Row 2 Right)
+  { leftPct: 58.0, topPct: 44.3, widthPct: 28.5, heightPct: 12.3 },
+  // Module 05: Tools / Platforms & IoT (Row 3 Left)
+  { leftPct: 20.5, topPct: 61.3, widthPct: 28.5, heightPct: 12.0 },
+  // Module 06: Core Competencies (Row 3 Right)
+  { leftPct: 58.0, topPct: 61.3, widthPct: 28.5, heightPct: 12.0 },
+];
+
 export default function SkillsSection() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [stageBounds, setStageBounds] = useState({
@@ -35,10 +50,8 @@ export default function SkillsSection() {
     scale: 1,
   });
   const [hoveredTopicId, setHoveredTopicId] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-  const [activeMobileIndex, setActiveMobileIndex] = useState<number>(0);
 
-  // Recompute the 16:9 stage dimensions so the ENTIRE background image is completely visible
+  // Recompute the 16:9 stage dimensions for desktop so the ENTIRE background image is completely visible
   const updateLayout = useCallback(() => {
     if (!containerRef.current) return;
 
@@ -47,8 +60,6 @@ export default function SkillsSection() {
     const stageH = containerRef.current.clientHeight;
 
     if (stageW === 0 || stageH === 0) return;
-
-    setIsMobile(stageW < 640);
 
     // Compute uniform scale so 100% of the 1024x576 image fits with ZERO cropping
     // and no parts of the left, right, top, or bottom are cut off
@@ -81,8 +92,6 @@ export default function SkillsSection() {
     };
   }, [updateLayout]);
 
-  const activeMobileTopic = skillTopics[activeMobileIndex];
-  const ActiveMobileIcon = iconMap[activeMobileTopic.iconName] || Terminal;
   // Dynamic typography scale balanced so titles fit cleanly without crowding the CRT screen
   const typographyScale = Math.min(Math.max(stageBounds.scale, 0.7), 1.38);
 
@@ -103,10 +112,12 @@ export default function SkillsSection() {
         />
       </div>
 
-      {/* Main Responsive Viewport Container */}
+      {/* ========================================================= */}
+      {/* 1. DESKTOP 16:9 CONTROL ROOM STAGE (Strictly Preserved)    */}
+      {/* ========================================================= */}
       <div
         ref={containerRef}
-        className="relative z-10 w-full h-full flex flex-col items-center justify-center p-2 sm:p-4 overflow-hidden"
+        className="hidden md:flex relative z-10 w-full h-full flex-col items-center justify-center p-4 pt-4 overflow-hidden"
       >
         {/* The Exact 16:9 Vintage Control Room Stage (100% Complete, Zero Cropping) */}
         <div
@@ -311,76 +322,143 @@ export default function SkillsSection() {
             );
           })}
         </div>
+      </div>
 
-        {/* 4. MOBILE HELPER BAR: Quick Module Switcher for Screens < 640px */}
-        {isMobile && (
-          <div className="mt-3 w-full max-w-sm flex flex-col items-center gap-2 px-2 z-30">
-            {/* Active Module Card */}
-            <Link
-              href={`/skills/${activeMobileTopic.slug}`}
-              data-cursor-label="VISIT"
-              className="w-full p-3 rounded-lg bg-zinc-950/90 border border-white/30 shadow-[0_0_20px_rgba(255,255,255,0.15)] flex items-center justify-between group"
-            >
-              <div className="flex items-center gap-2.5 min-w-0">
-                <span className="font-mono text-xs sm:text-sm font-bold text-white bg-zinc-800/90 px-2 py-0.5 rounded">
-                  MODULE // {activeMobileTopic.number}
-                </span>
-                <span className="font-typewriter text-sm font-bold text-white truncate">
-                  {activeMobileTopic.title}
-                </span>
-              </div>
-              <span className="font-mono text-xs font-semibold text-white group-hover:translate-x-0.5 transition-transform flex items-center gap-1 shrink-0">
-                Visit <ArrowRight className="w-3.5 h-3.5" />
-              </span>
-            </Link>
+      {/* ========================================================= */}
+      {/* 2. MOBILE DEDICATED VIEW (< 768px): Authentic 9:16 CRT Stage */}
+      {/* Strictly uses skills-bg-mobile.jpg for mobile view          */}
+      {/* ========================================================= */}
+      <div className="md:hidden relative z-10 w-full min-h-[100dvh] flex flex-col items-center justify-center px-2 pt-16 sm:pt-20 pb-4 overflow-y-auto overflow-x-hidden">
+        <div
+          style={{
+            width: "min(calc((100dvh - 84px) * (576 / 1024)), calc(100vw - 16px), 410px)",
+            aspectRatio: "576 / 1024",
+          }}
+          className="relative rounded-lg overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.95)] shrink-0 my-auto"
+        >
+          {/* Mobile Background Image (Strictly Mobile View) */}
+          <Image
+            src="/images/skills-bg-mobile.jpg"
+            alt="Skills & Technologies Mobile CRT Wall"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 410px"
+            className="object-cover pointer-events-none select-none filter brightness-[1.02] contrast-[1.06]"
+          />
 
-            {/* Numeric Module Switcher Buttons */}
-            <div className="flex items-center gap-1.5 bg-black/80 px-3 py-1.5 rounded-full border border-zinc-800">
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  setActiveMobileIndex(
-                    (prev) => (prev - 1 + skillTopics.length) % skillTopics.length
-                  );
+          {/* Delicate Vignette Overlay for Filmic Texture */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-radial from-transparent via-transparent to-black/40 pointer-events-none"
+          />
+
+          {/* Top Heading: "Skills & Technologies" paper sticker on dark chalkboard wall */}
+          <motion.div
+            initial={{ opacity: 0, y: -20, rotate: -3 }}
+            whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.85, ease: [0.19, 1, 0.22, 1] }}
+            style={{
+              left: "10%",
+              top: "7.5%",
+              width: "80%",
+            }}
+            className="absolute aspect-[1024/341] z-30 pointer-events-auto -rotate-[1.5deg] origin-center drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]"
+            data-cursor="interactive"
+            data-cursor-label="SKILLS // CONSOLE"
+          >
+            <Image
+              src="/images/skills-title.png"
+              alt="Skills & Technologies"
+              fill
+              priority
+              sizes="360px"
+              className="object-contain object-center pointer-events-none select-none filter contrast-125 brightness-105"
+            />
+          </motion.div>
+
+          {/* The 6 CRT Monitors in 2-Column x 3-Row Grid */}
+          {skillTopics.map((topic, index) => {
+            const Icon = iconMap[topic.iconName] || Terminal;
+            const rect = mobileRects[index] || topic.rect;
+
+            return (
+              <motion.div
+                key={`mobile-${topic.id}`}
+                initial={{ opacity: 0, scale: 0.92, y: 10 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{
+                  duration: 0.75,
+                  delay: 0.1 + index * 0.08,
+                  ease: [0.19, 1, 0.22, 1],
                 }}
-                className="p-1 text-zinc-400 hover:text-white"
-                aria-label="Previous module"
+                style={{
+                  left: `${rect.leftPct}%`,
+                  top: `${rect.topPct}%`,
+                  width: `${rect.widthPct}%`,
+                  height: `${rect.heightPct}%`,
+                }}
+                className="absolute pointer-events-auto"
               >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-
-              {skillTopics.map((topic, idx) => (
-                <button
-                  key={topic.id}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setActiveMobileIndex(idx);
-                  }}
-                  className={`font-mono text-xs px-2 py-0.5 rounded-full transition-all ${
-                    activeMobileIndex === idx
-                      ? "bg-white text-black font-bold shadow-[0_0_8px_rgba(255,255,255,0.9)]"
-                      : "text-zinc-400 hover:text-white"
-                  }`}
+                <Link
+                  href={`/skills/${topic.slug}`}
+                  data-cursor="interactive"
+                  data-cursor-label={`MOD ${topic.number} // ${topic.shortTitle.toUpperCase()}`}
+                  className="group w-full h-full flex flex-col justify-between items-center px-1.5 py-1 rounded-[10px] sm:rounded-[12px] overflow-hidden transition-all duration-200 cursor-pointer bg-black/20 hover:bg-white/[0.08] active:bg-white/[0.12] active:scale-[0.97] border border-white/[0.08] hover:border-white/50 shadow-[inset_0_0_12px_rgba(0,0,0,0.8)]"
+                  title={`Module ${topic.number}: ${topic.title} (Tap to visit)`}
+                  aria-label={`View ${topic.title} details`}
                 >
-                  {topic.number}
-                </button>
-              ))}
+                  {/* CRT Scanline Layer */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 pointer-events-none opacity-25"
+                    style={{
+                      backgroundImage:
+                        "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.6) 2px, rgba(0, 0, 0, 0.6) 4px)",
+                    }}
+                  />
 
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  setActiveMobileIndex(
-                    (prev) => (prev + 1) % skillTopics.length
-                  );
-                }}
-                className="p-1 text-zinc-400 hover:text-white"
-                aria-label="Next module"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        )}
+                  {/* CRT Glass Curved Glare */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none opacity-30 rounded-[inherit]"
+                  />
+
+                  {/* Top Readout: Module Number & Status Dot */}
+                  <div className="relative z-10 w-full flex items-center justify-between px-1 pt-0.5">
+                    <span className="font-mono font-bold text-[7.5px] sm:text-[9px] tracking-tight text-zinc-300 group-hover:text-white transition-colors">
+                      MOD // {topic.number}
+                    </span>
+                    <div className="flex items-center gap-1 shrink-0">
+                      <span className="font-mono text-[7px] sm:text-[8px] text-zinc-400 group-hover:text-zinc-200 transition-colors">
+                        60Hz
+                      </span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 group-hover:bg-white group-hover:shadow-[0_0_6px_rgba(255,255,255,0.9)] transition-all" />
+                    </div>
+                  </div>
+
+                  {/* Center Content: Icon & Title */}
+                  <div className="relative z-10 flex flex-col items-center justify-center my-auto text-center px-0.5 w-full">
+                    <div className="text-zinc-100 group-hover:text-white group-hover:scale-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.7)] transition-all duration-200">
+                      <Icon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.2} />
+                    </div>
+                    <h3 className="font-typewriter font-bold text-[8.5px] sm:text-[10px] text-zinc-100 group-hover:text-white tracking-tight leading-tight mt-0.5 [text-wrap:balance] line-clamp-2 transition-colors">
+                      {topic.title}
+                    </h3>
+                  </div>
+
+                  {/* Bottom Prompt */}
+                  <div className="relative z-10 w-full flex items-center justify-center pb-0.5">
+                    <span className="font-mono text-[7px] sm:text-[8px] font-semibold tracking-wider text-zinc-400 group-hover:text-white transition-colors inline-flex items-center gap-0.5">
+                      [ VISIT <ArrowRight className="w-2.5 h-2.5 inline stroke-[2.5]" /> ]
+                    </span>
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

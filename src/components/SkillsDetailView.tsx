@@ -115,7 +115,8 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
       {/* FULL-SCREEN FULL-BLEED BACKGROUND IMAGE                    */}
       {/* 100% fits screen with ZERO spaces on left, right, or edges */}
       {/* ========================================================= */}
-      <div className="absolute inset-0 z-0 pointer-events-none w-full h-full">
+      {/* Desktop Background: 16:9 Workstation Canvas (Strictly Preserved) */}
+      <div className="hidden md:block absolute inset-0 z-0 pointer-events-none w-full h-full">
         <Image
           src="/images/skills-detail-bg.jpg"
           alt="Vintage dark desk workstation background"
@@ -123,6 +124,18 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
           priority
           sizes="100vw"
           className="object-cover md:object-fill object-center select-none pointer-events-none filter contrast-105 brightness-95"
+        />
+      </div>
+
+      {/* Mobile Background: User Provided 9:16 Compass Slate Backdrop */}
+      <div className="md:hidden fixed inset-0 z-0 pointer-events-none w-full h-full">
+        <Image
+          src="/images/skills-detail-bg-mobile.jpg"
+          alt="Skills Technical Specification Mobile Backdrop"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-top select-none pointer-events-none filter contrast-105 brightness-95"
         />
       </div>
 

@@ -155,8 +155,8 @@ export default function ProjectsSection() {
       onWheel={handleWheel}
       className="relative h-screen max-h-screen w-full flex items-center justify-center overflow-hidden bg-[#070709] select-none md:pl-52 lg:pl-56 scroll-mt-0"
     >
-      {/* 1. Full-bleed Background: User's Vintage 35mm Chalkboard Desk Artwork (Fit to Screen) */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden md:left-52 lg:left-56">
+      {/* 1. Full-bleed Background: User's Vintage 35mm Chalkboard Desk Artwork (Fit to Screen) - Desktop Only */}
+      <div className="hidden md:block absolute inset-0 z-0 pointer-events-none overflow-hidden md:left-52 lg:left-56">
         <Image
           src="/images/projects-bg.jpg"
           alt="Vintage Projects Chalkboard Desk Background"
@@ -167,8 +167,8 @@ export default function ProjectsSection() {
         />
       </div>
 
-      {/* 2. Single-Screen Container: Guaranteed to fit Heading, Cards, and Dots in 100vh with 0 overflow */}
-      <div className="relative z-10 w-full h-full flex flex-col justify-between px-3 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-3 md:py-4 max-w-[1480px] mx-auto">
+      {/* 2. Single-Screen Container: Guaranteed to fit Heading, Cards, and Dots in 100vh with 0 overflow (Desktop Only) */}
+      <div className="hidden md:flex relative z-10 w-full h-full flex flex-col justify-between px-3 sm:px-6 md:px-8 lg:px-12 pt-16 sm:pt-20 md:pt-3 lg:pt-4 pb-2 sm:pb-3 md:pb-4 max-w-[1480px] mx-auto">
         
         {/* Top Header Row: Torn Paper Scrap Header "Projects" - Weighted Settle */}
         <div className="flex flex-col items-start shrink-0">
@@ -178,7 +178,7 @@ export default function ProjectsSection() {
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.95, ease: [0.19, 1, 0.22, 1] }}
             whileHover={{ scale: 1.025, rotate: 0 }}
-            className="relative w-56 sm:w-64 md:w-76 lg:w-88 xl:w-[380px] aspect-[1024/341] -rotate-1 origin-left shrink-0 ml-2 sm:ml-4 md:ml-6 mt-0.5 sm:mt-1 cursor-pointer transform-gpu"
+            className="relative w-48 sm:w-64 md:w-76 lg:w-88 xl:w-[380px] aspect-[1024/341] -rotate-1 origin-left shrink-0 ml-2 sm:ml-4 md:ml-6 mt-0.5 sm:mt-1 cursor-pointer transform-gpu"
             data-cursor="interactive"
             data-cursor-label="PROJECTS // GALLERY"
           >
@@ -221,9 +221,9 @@ export default function ProjectsSection() {
             aria-label="Previous project (Click or Hold)"
             data-cursor="interactive"
             data-cursor-label="HOLD ◄"
-            className="absolute left-1 sm:left-2 md:left-4 lg:left-6 z-40 w-11 h-11 sm:w-12 sm:h-12 md:w-13 md:h-13 rounded-full bg-white text-zinc-950 flex items-center justify-center shadow-[0_6px_20px_rgba(0,0,0,0.95),0_0_15px_rgba(255,255,255,0.4)] cursor-pointer group select-none"
+            className="absolute left-1 sm:left-2 md:left-4 lg:left-6 z-40 w-9 h-9 sm:w-11 sm:h-11 md:w-13 md:h-13 rounded-full bg-white text-zinc-950 flex items-center justify-center shadow-[0_6px_20px_rgba(0,0,0,0.95),0_0_15px_rgba(255,255,255,0.4)] cursor-pointer group select-none"
           >
-            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 stroke-[2.4] group-hover:-translate-x-0.5 transition-transform" />
+            <ChevronLeft className="w-4.5 h-4.5 sm:w-5.5 sm:h-5.5 md:w-7 md:h-7 stroke-[2.4] group-hover:-translate-x-0.5 transition-transform" />
           </motion.button>
 
           {/* Cards 3D Stage: All cards continuously mounted with smooth spring motion physics */}
@@ -298,7 +298,7 @@ export default function ProjectsSection() {
                   }}
                   data-cursor="project"
                   data-cursor-label={`${project.title.split("–")[0].trim().toUpperCase()} // EXPLORE`}
-                  className={`absolute w-[270px] sm:w-[315px] md:w-[355px] lg:w-[395px] xl:w-[425px] aspect-square rounded-2xl overflow-hidden border-2 transition-colors duration-300 transform-gpu ${
+                  className={`absolute w-[250px] sm:w-[305px] md:w-[355px] lg:w-[395px] xl:w-[425px] aspect-square rounded-2xl overflow-hidden border-2 transition-colors duration-300 transform-gpu ${
                     isCenter
                       ? "border-zinc-400/80 shadow-[0_18px_45px_rgba(0,0,0,0.95),0_0_24px_rgba(255,255,255,0.12)] cursor-grab active:cursor-grabbing bg-zinc-950"
                       : "border-zinc-700/60 shadow-[0_10px_35px_rgba(0,0,0,0.9)] cursor-pointer bg-zinc-950/80 hover:border-zinc-500"
@@ -366,9 +366,9 @@ export default function ProjectsSection() {
             aria-label="Next project (Click or Hold)"
             data-cursor="interactive"
             data-cursor-label="HOLD ►"
-            className="absolute right-1 sm:right-2 md:right-4 lg:right-6 z-40 w-11 h-11 sm:w-12 sm:h-12 md:w-13 md:h-13 rounded-full bg-white text-zinc-950 flex items-center justify-center shadow-[0_6px_20px_rgba(0,0,0,0.95),0_0_15px_rgba(255,255,255,0.4)] cursor-pointer group select-none"
+            className="absolute right-1 sm:right-2 md:right-4 lg:right-6 z-40 w-9 h-9 sm:w-11 sm:h-11 md:w-13 md:h-13 rounded-full bg-white text-zinc-950 flex items-center justify-center shadow-[0_6px_20px_rgba(0,0,0,0.95),0_0_15px_rgba(255,255,255,0.4)] cursor-pointer group select-none"
           >
-            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 stroke-[2.4] group-hover:translate-x-0.5 transition-transform" />
+            <ChevronRight className="w-4.5 h-4.5 sm:w-5.5 sm:h-5.5 md:w-7 md:h-7 stroke-[2.4] group-hover:translate-x-0.5 transition-transform" />
           </motion.button>
         </motion.div>
 
@@ -391,6 +391,189 @@ export default function ProjectsSection() {
               />
             );
           })}
+        </div>
+      </div>
+
+      {/* ========================================================= */}
+      {/* 3. MOBILE DEDICATED VIEW (< 768px): Authentic 9:16 Canvas */}
+      {/* Strictly uses projects-bg-mobile.jpg for mobile view      */}
+      {/* ========================================================= */}
+      <div className="md:hidden relative z-10 w-full min-h-[100dvh] flex flex-col items-center justify-center px-2 pt-16 sm:pt-20 pb-4 overflow-y-auto overflow-x-hidden">
+        <div
+          style={{
+            width: "min(calc((100dvh - 84px) * (576 / 1024)), calc(100vw - 16px), 410px)",
+            aspectRatio: "576 / 1024",
+          }}
+          className="relative rounded-lg overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.95)] shrink-0 my-auto"
+        >
+          {/* Mobile Background Image (Strictly Mobile View) */}
+          <Image
+            src="/images/projects-bg-mobile.jpg"
+            alt="Projects Mobile Backdrop"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 410px"
+            className="object-cover pointer-events-none select-none filter brightness-[1.02] contrast-[1.05]"
+          />
+
+          {/* Delicate Vignette Overlay for Filmic Texture */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-radial from-transparent via-transparent to-black/30 pointer-events-none"
+          />
+
+          {/* Top Heading: "Projects" torn paper banner positioned on dark wall (Clears top-right filmstrip) */}
+          <motion.div
+            initial={{ opacity: 0, y: -20, rotate: -3 }}
+            whileInView={{ opacity: 1, y: 0, rotate: -1 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.85, ease: [0.19, 1, 0.22, 1] }}
+            style={{
+              left: "6.5%",
+              top: "6.5%",
+              width: "68%",
+            }}
+            className="absolute aspect-[1024/341] z-30 pointer-events-auto -rotate-1 origin-center drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]"
+            data-cursor="interactive"
+            data-cursor-label="PROJECTS // ARCHIVE"
+          >
+            <Image
+              src="/images/projects-title.png"
+              alt="Projects"
+              fill
+              priority
+              sizes="360px"
+              className="object-contain object-left pointer-events-none select-none filter contrast-125 brightness-105"
+            />
+          </motion.div>
+
+          {/* Mobile Active Project Card (Framed cleanly between filmstrip & camera/coffee) */}
+          <div
+            style={{
+              left: "6.5%",
+              top: "19.5%",
+              width: "87%",
+              height: "51.5%",
+            }}
+            className="absolute z-20 flex flex-col justify-between"
+          >
+            <motion.div
+              key={projects[currentIndex].id}
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.94 }}
+              transition={{ duration: 0.45, ease: [0.19, 1, 0.22, 1] }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.25}
+              onDragEnd={(e, { offset: dragOffset, velocity }) => {
+                if (dragOffset.x < -30 || velocity.x < -180) handleNext();
+                else if (dragOffset.x > 30 || velocity.x > 180) handlePrev();
+              }}
+              className="w-full h-full rounded-xl overflow-hidden border border-zinc-700/80 bg-[#0d0d10]/95 shadow-[0_16px_36px_rgba(0,0,0,0.95)] flex flex-col justify-between p-2.5 sm:p-3 relative cursor-grab active:cursor-grabbing"
+            >
+              {/* Project Image Frame (Clickable link to dossier) */}
+              <Link
+                href={`/projects/${projects[currentIndex].slug}`}
+                className="relative w-full h-[50%] rounded-lg overflow-hidden border border-white/10 shrink-0 group/img block"
+                title={`Inspect ${projects[currentIndex].title}`}
+              >
+                <Image
+                  src={projects[currentIndex].image}
+                  alt={projects[currentIndex].title}
+                  fill
+                  priority
+                  sizes="340px"
+                  className="object-cover select-none pointer-events-none group-hover/img:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/25 pointer-events-none" />
+
+                {/* Badge: Index and Category */}
+                <div className="absolute top-1.5 left-2 px-2 py-0.5 rounded bg-black/80 border border-white/20 font-mono text-[8.5px] text-zinc-300">
+                  {`0${currentIndex + 1} / 0${total}`} // {projects[currentIndex].category.split("/")[0].trim().toUpperCase()}
+                </div>
+              </Link>
+
+              {/* Title, Synopsis & Tech Stacks */}
+              <div className="flex-1 flex flex-col justify-between pt-1.5 min-h-0">
+                <div>
+                  <Link href={`/projects/${projects[currentIndex].slug}`}>
+                    <h3 className="font-typewriter font-bold text-[13px] sm:text-sm text-white truncate drop-shadow hover:text-zinc-300 transition-colors">
+                      {projects[currentIndex].title}
+                    </h3>
+                  </Link>
+                  <p className="font-typewriter text-[10px] text-zinc-300 line-clamp-2 mt-0.5 leading-snug">
+                    {projects[currentIndex].subtitle}
+                  </p>
+
+                  {/* Tech Tags */}
+                  <div className="flex items-center gap-1 mt-1 overflow-hidden">
+                    {projects[currentIndex].tags.slice(0, 3).map((tag) => (
+                      <span
+                        key={tag}
+                        className="font-mono text-[8.5px] px-1.5 py-0.5 rounded bg-white/[0.06] text-zinc-300 border border-white/10 truncate"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Action Link: Inspect Dossier */}
+                <Link
+                  href={`/projects/${projects[currentIndex].slug}`}
+                  className="w-full mt-1.5 py-1.5 px-3 rounded-lg bg-white hover:bg-zinc-200 text-zinc-950 font-typewriter font-bold text-xs flex items-center justify-center gap-1.5 shadow-[0_4px_14px_rgba(0,0,0,0.85)] active:scale-[0.98] transition-all"
+                >
+                  <span>INSPECT DOSSIER</span>
+                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Left / Right Navigation Touch Arrows for Mobile */}
+          <div
+            style={{
+              left: "8%",
+              top: "72.2%",
+              width: "84%",
+            }}
+            className="absolute z-30 flex items-center justify-between"
+          >
+            <motion.button
+              whileTap={{ scale: 0.88 }}
+              onClick={handlePrev}
+              aria-label="Previous project"
+              className="w-8 h-8 rounded-full bg-white text-zinc-950 flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.9)] active:scale-90"
+            >
+              <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+            </motion.button>
+
+            {/* Pagination Dots */}
+            <div className="flex items-center gap-1.5">
+              {projects.map((p, idx) => (
+                <button
+                  key={`mob-dot-${p.id}`}
+                  onClick={() => setCurrentIndex(idx)}
+                  aria-label={`Jump to ${p.title}`}
+                  className={`rounded-full transition-all duration-200 ${
+                    idx === currentIndex
+                      ? "w-2.5 h-2.5 bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)]"
+                      : "w-1.5 h-1.5 bg-zinc-600 hover:bg-zinc-400"
+                  }`}
+                />
+              ))}
+            </div>
+
+            <motion.button
+              whileTap={{ scale: 0.88 }}
+              onClick={handleNext}
+              aria-label="Next project"
+              className="w-8 h-8 rounded-full bg-white text-zinc-950 flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.9)] active:scale-90"
+            >
+              <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+            </motion.button>
+          </div>
         </div>
       </div>
     </section>
