@@ -11,13 +11,13 @@ export default function Filmstrip() {
       aria-hidden="true"
       data-cursor="image"
       data-cursor-label="35MM FILMSTRIP"
-      className="hidden lg:flex flex-col items-center justify-between w-8 h-[520px] bg-[#0c0c0e]/90 border-y border-zinc-800 rounded-sm shadow-2xl py-3 px-1 select-none opacity-85 hover:opacity-100 transition-opacity cursor-pointer"
+      className="hidden lg:flex flex-col items-center justify-between w-8 h-[520px] bg-[#0c0c0e]/90 border-y border-zinc-800 rounded-sm shadow-2xl py-3 px-1 select-none opacity-85 hover:opacity-100 transition-all duration-300 cursor-pointer hover:border-zinc-700"
     >
       {holes.map((_, i) => (
-        <div key={i} className="flex flex-col items-center gap-1">
-          <div className="filmstrip-sprocket" />
+        <div key={i} className="flex flex-col items-center gap-1 group/hole">
+          <div className="filmstrip-sprocket transition-colors duration-200 group-hover/hole:bg-zinc-800" />
           {i % 4 === 1 && (
-            <span className="text-[7px] font-mono text-zinc-600 rotate-90 my-1 tracking-tighter">
+            <span className="text-[7px] font-mono text-zinc-600 group-hover/hole:text-zinc-300 rotate-90 my-1 tracking-tighter transition-colors duration-200">
               {i * 2 + 10}A
             </span>
           )}

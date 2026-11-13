@@ -68,37 +68,6 @@
   pointer-events: none;
 }
 
-/* Automatic Dim & Light Pulse Every 4 Seconds (Hardware-Accelerated Opacity) */
-@keyframes lampBreathCycle {
-  0%, 100% {
-    opacity: 0.72;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-.animate-lamp-breath {
-  will-change: opacity;
-  animation: lampBreathCycle 4s ease-in-out infinite;
-}
-
-@keyframes signatureAmbientPulse {
-  0%, 100% {
-    opacity: 0.88;
-    filter: drop-shadow(0 0 10px rgba(255, 250, 230, 0.45));
-  }
-  50% {
-    opacity: 1;
-    filter: drop-shadow(0 0 18px rgba(255, 250, 230, 0.7));
-  }
-}
-
-.animate-signature-pulse {
-  will-change: opacity;
-  animation: signatureAmbientPulse 4s ease-in-out infinite;
-}
-
 /* Noise overlay */
 .bg-noise {
   background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
