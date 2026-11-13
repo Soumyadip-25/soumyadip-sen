@@ -171,26 +171,47 @@ export default function ProjectsSection() {
       <div className="relative z-10 w-full h-full flex flex-col justify-between px-3 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-3 md:py-4 max-w-[1480px] mx-auto">
         
         {/* Top Header Row: Torn Paper Scrap Header "Projects" (Enlarged & Prominent) */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="relative w-56 sm:w-64 md:w-76 lg:w-88 xl:w-[380px] aspect-[1024/341] -rotate-1 origin-left shrink-0 ml-2 sm:ml-4 md:ml-6 mt-0.5 sm:mt-1 cursor-pointer"
-          data-cursor="interactive"
-          data-cursor-label="PROJECTS // GALLERY"
-        >
-          <Image
-            src="/images/projects-title.png"
-            alt="Projects"
-            fill
-            priority
-            className="object-contain object-left pointer-events-none select-none drop-shadow-[0_6px_18px_rgba(0,0,0,0.9)]"
-          />
-        </motion.div>
+        <div className="flex flex-col items-start shrink-0">
+          {/* CSE Terminal Prompt Header */}
+          <motion.div
+            initial={{ opacity: 0, x: -25, filter: "blur(4px)" }}
+            whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+            viewport={{ once: false, amount: 0.25 }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-flex items-center gap-2 mb-1 ml-2 sm:ml-4 md:ml-6 px-3 py-1 rounded bg-white/[0.06] border border-white/10 backdrop-blur-md select-none shrink-0"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-mono text-xs text-zinc-300 font-bold tracking-widest uppercase">
+              &gt; REPO::BUILDS // PRODUCTION_SYSTEMS
+            </span>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: -30, filter: "blur(8px)", rotate: -3 }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)", rotate: -1 }}
+            viewport={{ once: false, amount: 0.25 }}
+            transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ scale: 1.025, rotate: 0 }}
+            className="relative w-56 sm:w-64 md:w-76 lg:w-88 xl:w-[380px] aspect-[1024/341] -rotate-1 origin-left shrink-0 ml-2 sm:ml-4 md:ml-6 mt-0.5 sm:mt-1 cursor-pointer"
+            data-cursor="interactive"
+            data-cursor-label="PROJECTS // GALLERY"
+          >
+            <Image
+              src="/images/projects-title.png"
+              alt="Projects"
+              fill
+              priority
+              className="object-contain object-left pointer-events-none select-none drop-shadow-[0_6px_18px_rgba(0,0,0,0.9)]"
+            />
+          </motion.div>
+        </div>
 
         {/* 3. Broad Panoramic 3D Carousel Stage: Automatically pauses when hovering over any card */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, scale: 0.93, y: 35 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.25 }}
+          transition={{ duration: 0.85, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           ref={containerRef}
           onMouseEnter={() => {
             isHovered.current = true;
@@ -201,7 +222,10 @@ export default function ProjectsSection() {
           className="relative w-full max-w-full xl:max-w-[1400px] mx-auto my-auto flex items-center justify-center py-1 sm:py-2 -translate-y-4 sm:-translate-y-6 md:-translate-y-8 lg:-translate-y-9"
         >
           {/* Navigation Arrow: Left (Click or Press-and-Hold) */}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.92 }}
+            transition={{ type: "spring", stiffness: 420, damping: 25 }}
             onPointerDown={(e) => {
               e.stopPropagation();
               startHolding("prev");
@@ -211,10 +235,10 @@ export default function ProjectsSection() {
             aria-label="Previous project (Click or Hold)"
             data-cursor="interactive"
             data-cursor-label="HOLD ◄"
-            className="absolute left-1 sm:left-2 md:left-4 lg:left-6 z-40 w-11 h-11 sm:w-12 sm:h-12 md:w-13 md:h-13 rounded-full bg-white text-zinc-950 flex items-center justify-center shadow-[0_6px_20px_rgba(0,0,0,0.95),0_0_15px_rgba(255,255,255,0.4)] hover:scale-115 active:scale-95 transition-all duration-200 cursor-pointer group select-none"
+            className="absolute left-1 sm:left-2 md:left-4 lg:left-6 z-40 w-11 h-11 sm:w-12 sm:h-12 md:w-13 md:h-13 rounded-full bg-white text-zinc-950 flex items-center justify-center shadow-[0_6px_20px_rgba(0,0,0,0.95),0_0_15px_rgba(255,255,255,0.4)] cursor-pointer group select-none"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 stroke-[2.4] group-hover:-translate-x-0.5 transition-transform" />
-          </button>
+          </motion.button>
 
           {/* Cards 3D Stage: All cards continuously mounted with smooth spring motion physics */}
           <div className="relative w-full h-[290px] sm:h-[335px] md:h-[375px] lg:h-[415px] xl:h-[445px] flex items-center justify-center perspective-[1200px] overflow-visible">
@@ -280,9 +304,9 @@ export default function ProjectsSection() {
                   }}
                   transition={{
                     type: "spring",
-                    stiffness: 240,
-                    damping: 26,
-                    mass: 0.85,
+                    stiffness: 260,
+                    damping: 28,
+                    mass: 0.8,
                   }}
                   style={{
                     transformStyle: "preserve-3d",
@@ -331,7 +355,7 @@ export default function ProjectsSection() {
                       data-cursor="interactive"
                       data-cursor-label="PROJECT // VIEW"
                       title={`View details for ${project.title}`}
-                      className="shrink-0 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-black/85 hover:bg-white text-white hover:text-black border border-white/60 hover:border-white shadow-[0_4px_16px_rgba(0,0,0,0.95),0_0_12px_rgba(255,255,255,0.3)] flex items-center justify-center transition-all duration-300 group/btn pointer-events-auto"
+                      className="shrink-0 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-black/85 hover:bg-white text-white hover:text-black border border-white/60 hover:border-white shadow-[0_4px_16px_rgba(0,0,0,0.95),0_0_12px_rgba(255,255,255,0.3)] flex items-center justify-center transition-all duration-300 group/btn pointer-events-auto hover:scale-105 active:scale-95"
                     >
                       <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-5.5 md:h-5.5 group-hover/btn:translate-x-0.5 transition-transform" />
                     </Link>
@@ -342,7 +366,10 @@ export default function ProjectsSection() {
           </div>
 
           {/* Navigation Arrow: Right (Click or Press-and-Hold) */}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.92 }}
+            transition={{ type: "spring", stiffness: 420, damping: 25 }}
             onPointerDown={(e) => {
               e.stopPropagation();
               startHolding("next");
@@ -352,25 +379,27 @@ export default function ProjectsSection() {
             aria-label="Next project (Click or Hold)"
             data-cursor="interactive"
             data-cursor-label="HOLD ►"
-            className="absolute right-1 sm:right-2 md:right-4 lg:right-6 z-40 w-11 h-11 sm:w-12 sm:h-12 md:w-13 md:h-13 rounded-full bg-white text-zinc-950 flex items-center justify-center shadow-[0_6px_20px_rgba(0,0,0,0.95),0_0_15px_rgba(255,255,255,0.4)] hover:scale-115 active:scale-95 transition-all duration-200 cursor-pointer group select-none"
+            className="absolute right-1 sm:right-2 md:right-4 lg:right-6 z-40 w-11 h-11 sm:w-12 sm:h-12 md:w-13 md:h-13 rounded-full bg-white text-zinc-950 flex items-center justify-center shadow-[0_6px_20px_rgba(0,0,0,0.95),0_0_15px_rgba(255,255,255,0.4)] cursor-pointer group select-none"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 stroke-[2.4] group-hover:translate-x-0.5 transition-transform" />
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
 
         {/* 4. Carousel Pagination Indicator Dots */}
         <div className="flex items-center justify-center gap-2.5 sm:gap-3 py-1 shrink-0 -translate-y-3 sm:-translate-y-5 md:-translate-y-7 lg:-translate-y-8">
           {projects.map((proj, idx) => {
             const isActive = idx === currentIndex;
             return (
-              <button
+              <motion.button
                 key={proj.id}
                 onClick={() => setCurrentIndex(idx)}
                 aria-label={`Go to project ${idx + 1}: ${proj.title}`}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
                 className={`transition-all duration-300 rounded-full cursor-pointer ${
                   isActive
                     ? "w-3 h-3 bg-white shadow-[0_0_10px_rgba(255,255,255,0.95)] scale-110"
-                    : "w-2 h-2 bg-transparent border border-zinc-500/80 hover:border-zinc-300 hover:scale-110"
+                    : "w-2 h-2 bg-transparent border border-zinc-500/80 hover:border-zinc-300"
                 }`}
               />
             );

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   initialContributionsData,
   type ContributionsPayload,
@@ -225,13 +225,13 @@ export default function ImpactSection() {
           className="absolute z-10 flex flex-col justify-center items-center pointer-events-none"
         >
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, y: 35, filter: "blur(8px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            viewport={{ once: false, amount: 0.35 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="w-full flex flex-col gap-3 sm:gap-3.5 md:gap-4 select-none pointer-events-auto"
           >
-            {/* Header Row: GITHUB ACTIVITY */}
+            {/* Header Row: GITHUB ACTIVITY + CSE Live Badge */}
             <div className="w-full flex items-center justify-between pb-1.5 sm:pb-2.5 border-b border-white/10">
               <a
                 href="https://github.com/Soumyadip-25"
@@ -239,12 +239,20 @@ export default function ImpactSection() {
                 rel="noopener noreferrer"
                 data-cursor="interactive"
                 data-cursor-label="GITHUB PROFILE ↗"
-                className="group/title inline-flex items-center gap-2 hover:opacity-85 transition-opacity"
+                className="group/title inline-flex items-center gap-2.5 hover:opacity-90 transition-opacity"
               >
-                <h2 className="font-mono text-lg sm:text-xl md:text-2xl lg:text-[27px] font-black tracking-[0.22em] sm:tracking-[0.26em] text-zinc-100 uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
+                <h2 className="font-mono text-lg sm:text-xl md:text-2xl lg:text-[27px] font-black tracking-[0.22em] sm:tracking-[0.26em] text-zinc-100 uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] group-hover/title:text-white transition-colors">
                   GITHUB ACTIVITY
                 </h2>
               </a>
+
+              {/* CSE Live Telemetry Badge */}
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-[10px] sm:text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-semibold flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>LIVE // 2026</span>
+                </span>
+              </div>
             </div>
 
             {/* Heatmap Matrix: Expanded 53-Column CSS Grid that properly fills the chalkboard space without touching the lamp */}
@@ -299,9 +307,11 @@ export default function ImpactSection() {
                             });
                           }}
                           onMouseLeave={() => setHoveredDay(null)}
-                          className={`w-full aspect-[1/1.06] rounded-[2px] sm:rounded-[2.5px] border transition-transform hover:scale-130 cursor-pointer ${getLevelColor(
-                            day.level
-                          )}`}
+                          className={`w-full aspect-[1/1.06] rounded-[2px] sm:rounded-[2.5px] border transition-all duration-150 hover:scale-135 hover:z-20 cursor-pointer ${
+                            day.level > 0
+                              ? "hover:shadow-[0_0_8px_rgba(57,211,83,0.7)]"
+                              : "hover:shadow-[0_0_6px_rgba(255,255,255,0.4)]"
+                          } ${getLevelColor(day.level)}`}
                         />
                       );
                     })}
@@ -332,26 +342,32 @@ export default function ImpactSection() {
       </div>
 
       {/* Floating Tooltip when hovering any calendar square */}
-      {hoveredDay && (
-        <div
-          className="fixed z-50 pointer-events-none -translate-x-1/2 -translate-y-full mb-2 px-3 py-1.5 rounded bg-black/95 text-white border border-white/20 shadow-xl font-mono text-xs whitespace-nowrap"
-          style={{
-            left: `${hoveredDay.x}px`,
-            top: `${hoveredDay.y - 6}px`,
-          }}
-        >
-          <div className="font-bold text-white">
-            {hoveredDay.count === 0
-              ? "No contributions"
-              : `${hoveredDay.count} contribution${
-                  hoveredDay.count === 1 ? "" : "s"
-                }`}
-          </div>
-          <div className="text-[10px] text-zinc-400">
-            {formatDate(hoveredDay.date)}
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {hoveredDay && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94, y: 4 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.94, y: 2 }}
+            transition={{ duration: 0.14, ease: "easeOut" }}
+            className="fixed z-50 pointer-events-none -translate-x-1/2 -translate-y-full mb-2 px-3 py-1.5 rounded bg-black/95 text-white border border-white/20 shadow-xl font-mono text-xs whitespace-nowrap"
+            style={{
+              left: `${hoveredDay.x}px`,
+              top: `${hoveredDay.y - 6}px`,
+            }}
+          >
+            <div className="font-bold text-white">
+              {hoveredDay.count === 0
+                ? "No contributions"
+                : `${hoveredDay.count} contribution${
+                    hoveredDay.count === 1 ? "" : "s"
+                  }`}
+            </div>
+            <div className="text-[10px] text-zinc-400">
+              {formatDate(hoveredDay.date)}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

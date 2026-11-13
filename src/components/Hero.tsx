@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import Filmstrip from "./Filmstrip";
@@ -12,18 +12,25 @@ interface HeroProps {
 }
 
 export default function Hero({ onResumeClick }: HeroProps) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsMounted(true), 180);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Parallax 3D tilt effect on the polaroid card
   const cardRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), {
-    damping: 20,
-    stiffness: 150,
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), {
+    damping: 24,
+    stiffness: 160,
   });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), {
-    damping: 20,
-    stiffness: 150,
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), {
+    damping: 24,
+    stiffness: 160,
   });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -75,7 +82,14 @@ export default function Hero({ onResumeClick }: HeroProps) {
           <div className="lg:col-span-5 flex items-center justify-center lg:justify-start gap-3 sm:gap-5">
             
             {/* 35mm Filmstrip */}
-            <Filmstrip />
+            <motion.div
+              initial={{ opacity: 0, x: -35 }}
+              animate={isMounted ? { opacity: 1, x: 0 } : { opacity: 0, x: -35 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="shrink-0"
+            >
+              <Filmstrip />
+            </motion.div>
 
             {/* Polaroid Container with 3D Parallax */}
             <motion.div
@@ -87,9 +101,13 @@ export default function Hero({ onResumeClick }: HeroProps) {
                 rotateY,
                 transformStyle: "preserve-3d",
               }}
-              initial={{ opacity: 0, y: 30, rotate: -6 }}
-              animate={{ opacity: 1, y: 0, rotate: -3.5 }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, y: 55, scale: 0.9, rotate: -7 }}
+              animate={
+                isMounted
+                  ? { opacity: 1, y: 0, scale: 1, rotate: -3.5 }
+                  : { opacity: 0, y: 55, scale: 0.9, rotate: -7 }
+              }
+              transition={{ duration: 1.0, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="relative group cursor-pointer"
               data-cursor="image"
               data-cursor-label="ME"
@@ -125,11 +143,32 @@ export default function Hero({ onResumeClick }: HeroProps) {
           {/* RIGHT: Lifted Up Area Just Below The Lamp with Signature & Download Resume */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left -mt-4 sm:-mt-8 lg:-mt-24 xl:-mt-28">
             
+            {/* CSE Status Badge Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 25, filter: "blur(6px)" }}
+              animate={
+                isMounted
+                  ? { opacity: 1, y: 0, filter: "blur(0px)" }
+                  : { opacity: 0, y: 25, filter: "blur(6px)" }
+              }
+              transition={{ duration: 0.75, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 mb-2.5 rounded-full bg-white/[0.06] border border-white/15 backdrop-blur-md shadow-lg self-center lg:self-start select-none"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)] animate-pulse" />
+              <span className="font-mono text-xs sm:text-[13px] text-zinc-200 tracking-wider font-semibold">
+                SYS::ACTIVE // CSE &apos;28 // AI &amp; FULL-STACK
+              </span>
+            </motion.div>
+
             {/* The Handwritten Signature - Lifted Up & Sized Up with Automatic Pulse */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, scale: 0.88, y: 30, filter: "blur(6px)" }}
+              animate={
+                isMounted
+                  ? { opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }
+                  : { opacity: 0, scale: 0.88, y: 30, filter: "blur(6px)" }
+              }
+              transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
               className="relative w-full max-w-[480px] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[700px] xl:max-w-[740px] aspect-[1024/341] animate-signature-pulse cursor-pointer"
               data-cursor="interactive"
               data-cursor-label="SOUMYADIP // SIGNATURE"
@@ -146,9 +185,13 @@ export default function Hero({ onResumeClick }: HeroProps) {
 
             {/* Vintage Typewriter Download Resume Button - Shifted right below signature */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              initial={{ opacity: 0, y: 30, scale: 0.92 }}
+              animate={
+                isMounted
+                  ? { opacity: 1, y: 0, scale: 1 }
+                  : { opacity: 0, y: 30, scale: 0.92 }
+              }
+              transition={{ duration: 0.85, delay: 0.52, ease: [0.16, 1, 0.3, 1] }}
               className="mt-6 sm:mt-8 lg:mt-9 self-center lg:self-start lg:ml-28 xl:ml-36"
             >
               <DownloadResumeButton />
@@ -159,12 +202,17 @@ export default function Hero({ onResumeClick }: HeroProps) {
       </div>
 
       {/* Subtle bottom scroll indicator */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 md:pl-28 z-20 flex flex-col items-center gap-1 opacity-40 hover:opacity-80 transition-opacity">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 0.45, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 md:pl-28 z-20 flex flex-col items-center gap-1 hover:opacity-85 transition-opacity"
+      >
         <span className="text-[10px] font-mono tracking-widest text-zinc-400 uppercase">
           Scroll
         </span>
         <div className="w-1 h-3 rounded-full bg-zinc-500 animate-bounce" />
-      </div>
+      </motion.div>
     </section>
   );
 }

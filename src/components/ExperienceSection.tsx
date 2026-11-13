@@ -111,12 +111,27 @@ export default function ExperienceSection() {
       {/* 2. Main Content Composition: Shifted comfortably towards the right */}
       <div className="relative z-10 w-full min-h-screen md:pl-64 lg:pl-72 xl:pl-80 flex flex-col justify-start px-6 sm:px-10 md:px-12 lg:px-14 pt-12 sm:pt-16 pb-14">
         
+        {/* CSE Terminal Prompt Header */}
+        <motion.div
+          initial={{ opacity: 0, x: -25, filter: "blur(4px)" }}
+          whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+          viewport={{ once: false, amount: 0.25 }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded bg-white/[0.06] border border-white/10 backdrop-blur-md select-none shrink-0"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="font-mono text-xs text-zinc-300 font-bold tracking-widest uppercase">
+            &gt; EXEC::TRACK_RECORD // CHRONOLOGY
+          </span>
+        </motion.div>
+
         {/* Torn Paper Scrap Header: "Experience" */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, x: -45, filter: "blur(8px)", rotate: -4 }}
+          whileInView={{ opacity: 1, x: 0, filter: "blur(0px)", rotate: -1 }}
+          viewport={{ once: false, amount: 0.25 }}
+          transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          whileHover={{ scale: 1.03, rotate: 0 }}
           className="relative w-56 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-8 sm:mb-10 -rotate-1 origin-left shrink-0 ml-1 sm:ml-2 cursor-pointer"
           data-cursor="interactive"
           data-cursor-label="EXPERIENCE // TIMELINE"
@@ -136,8 +151,13 @@ export default function ExperienceSection() {
           className="relative w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl max-h-[calc(100vh-220px)] sm:max-h-[calc(100vh-200px)] overflow-y-auto pr-4 sm:pr-8 vintage-scrollbar"
         >
           {/* Vertical Luminous Timeline Wire */}
-          <div
+          <motion.div
             aria-hidden="true"
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: false, amount: 0.25 }}
+            transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+            style={{ originY: 0 }}
             className="absolute left-[20px] top-[18px] bottom-[22px] w-[2px] bg-gradient-to-b from-white via-zinc-400 to-zinc-700 shadow-[0_0_8px_rgba(255,255,255,0.7)] rounded-full pointer-events-none"
           />
 
@@ -149,16 +169,16 @@ export default function ExperienceSection() {
               return (
                 <motion.div
                   key={exp.id}
-                  initial={{ opacity: 0, x: -15 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.15 }}
+                  initial={{ opacity: 0, x: -45, y: 15 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: false, amount: 0.25 }}
+                  transition={{ duration: 0.75, delay: index * 0.2, ease: [0.16, 1, 0.3, 1] }}
                   className="relative group pl-14 sm:pl-16"
                 >
                   {/* Vintage Mechanical Typewriter Keycap Bullet */}
                   <div
                     aria-hidden="true"
-                    className="absolute left-[21px] -translate-x-1/2 top-[4px] w-[36px] h-[36px] rounded-full p-[2px] bg-gradient-to-b from-zinc-200 via-zinc-400 to-zinc-800 shadow-[0_4px_12px_rgba(0,0,0,0.95),0_0_12px_rgba(255,255,255,0.2)] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:shadow-[0_4px_16px_rgba(255,255,255,0.4)] transition-all duration-300 pointer-events-none"
+                    className="absolute left-[21px] -translate-x-1/2 top-[4px] w-[36px] h-[36px] rounded-full p-[2px] bg-gradient-to-b from-zinc-200 via-zinc-400 to-zinc-800 shadow-[0_4px_12px_rgba(0,0,0,0.95),0_0_12px_rgba(255,255,255,0.2)] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-[-3deg] group-hover:shadow-[0_4px_16px_rgba(255,255,255,0.4)] transition-all duration-300 pointer-events-none"
                   >
                     {/* Recessed Mechanical Black Key Well with Glass Curved Reflection */}
                     <div className="relative w-full h-full rounded-full bg-gradient-to-br from-[#27272a] via-[#141416] to-[#09090b] border border-[#161619] flex items-center justify-center shadow-[inset_0_2px_4px_rgba(0,0,0,0.95),inset_0_-1px_2px_rgba(255,255,255,0.15)] overflow-hidden">
@@ -174,7 +194,10 @@ export default function ExperienceSection() {
                   {/* Header Row: Heading with Second Image Paper Scrap Behind + Timeline Date Moved to the Right */}
                   <div className="flex items-center gap-4 sm:gap-6 flex-wrap">
                     {/* Role Heading on Torn Kraft Paper Scrap Banner (Image 2) */}
-                    <div
+                    <motion.div
+                      whileHover={{ scale: 1.025, y: -1 }}
+                      whileTap={{ scale: 0.98 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
                       className="relative inline-flex items-center justify-center px-5 sm:px-6 py-2 sm:py-2.5 filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.65)] shrink-0 cursor-pointer"
                       data-cursor="interactive"
                       data-cursor-label={`${exp.role.toUpperCase()} // ${exp.period}`}
@@ -189,10 +212,10 @@ export default function ExperienceSection() {
                       <span className="relative z-10 font-typewriter font-bold text-[17px] sm:text-[19px] md:text-[20px] text-[#181613] tracking-wide select-none whitespace-nowrap -translate-y-[1px]">
                         {exp.role}
                       </span>
-                    </div>
+                    </motion.div>
 
                     {/* Timeline Date Moved to the Right of the Heading */}
-                    <div className="font-typewriter text-[14.5px] sm:text-[15.5px] md:text-[16.5px] text-zinc-300 tracking-wider pl-3 border-l-2 border-zinc-600 bg-white/[0.03] py-1 pr-3 rounded-r">
+                    <div className="font-typewriter text-[14.5px] sm:text-[15.5px] md:text-[16.5px] text-zinc-300 tracking-wider pl-3 border-l-2 border-zinc-600 bg-white/[0.03] py-1 pr-3 rounded-r group-hover:border-zinc-400 group-hover:text-white transition-colors duration-200">
                       {exp.period}
                     </div>
                   </div>

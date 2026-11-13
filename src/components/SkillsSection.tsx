@@ -135,9 +135,11 @@ export default function SkillsSection() {
           {/* 2. Top-Left Heading: "Skills & Technologies" sticker + typewriter lettering */}
           {/* Positioned in the open dark wall area above the plant with organic vintage tilt and crisp shadow */}
           <motion.div
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            initial={{ opacity: 0, y: -30, filter: "blur(8px)", rotate: -5 }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)", rotate: -2.5 }}
+            viewport={{ once: false, amount: 0.35 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ scale: 1.04, rotate: 0 }}
             style={{
               left: "6.8%",
               top: "2.2%",
@@ -158,143 +160,155 @@ export default function SkillsSection() {
           </motion.div>
 
           {/* 3. The 6 CRT Monitor Interactive Overlays (Mathematically Locked to 16:9 Screen Pixels) */}
-          {skillTopics.map((topic) => {
+          {skillTopics.map((topic, index) => {
             const Icon = iconMap[topic.iconName] || Terminal;
             const isHovered = hoveredTopicId === topic.id;
 
             return (
-              <Link
+              <motion.div
                 key={topic.id}
-                href={`/skills/${topic.slug}`}
-                data-cursor="interactive"
-                data-cursor-label={`MOD ${topic.number} // ${topic.shortTitle.toUpperCase()}`}
-                onMouseEnter={() => setHoveredTopicId(topic.id)}
-                onMouseLeave={() => setHoveredTopicId(null)}
+                initial={{ opacity: 0, scale: 0.84, filter: "brightness(0.2) contrast(1.6)" }}
+                whileInView={{ opacity: 1, scale: 1, filter: "brightness(1) contrast(1.08)" }}
+                viewport={{ once: false, amount: 0.35 }}
+                transition={{
+                  duration: 0.75,
+                  delay: 0.12 + index * 0.12,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
                 style={{
                   left: `${topic.rect.leftPct}%`,
                   top: `${topic.rect.topPct}%`,
                   width: `${topic.rect.widthPct}%`,
                   height: `${topic.rect.heightPct}%`,
                 }}
-                className={`group absolute pointer-events-auto flex flex-col justify-between items-center px-1.5 py-1 rounded-[14px] overflow-hidden transition-all duration-300 cursor-pointer ${
-                  isHovered
-                    ? "bg-white/[0.08] border border-white/80 shadow-[0_0_16px_rgba(255,255,255,0.35),inset_0_0_20px_rgba(255,255,255,0.15)]"
-                    : "bg-black/20 border border-white/[0.08] hover:border-white/40 shadow-[inset_0_0_15px_rgba(0,0,0,0.7)]"
-                }`}
-                title={`Module ${topic.number}: ${topic.title} (Click to visit)`}
-                aria-label={`View ${topic.title} details`}
+                className="absolute pointer-events-auto"
               >
-                {/* CRT Scanline Texture Layer */}
-                <div
-                  aria-hidden="true"
-                  className={`absolute inset-0 pointer-events-none transition-opacity duration-300 ${
-                    isHovered ? "opacity-35" : "opacity-20"
+                <Link
+                  href={`/skills/${topic.slug}`}
+                  data-cursor="interactive"
+                  data-cursor-label={`MOD ${topic.number} // ${topic.shortTitle.toUpperCase()}`}
+                  onMouseEnter={() => setHoveredTopicId(topic.id)}
+                  onMouseLeave={() => setHoveredTopicId(null)}
+                  className={`group w-full h-full flex flex-col justify-between items-center px-1.5 py-1 rounded-[14px] overflow-hidden transition-all duration-300 cursor-pointer ${
+                    isHovered
+                      ? "bg-white/[0.09] border border-white/80 shadow-[0_0_18px_rgba(255,255,255,0.4),inset_0_0_20px_rgba(255,255,255,0.18)]"
+                      : "bg-black/20 border border-white/[0.08] hover:border-white/40 shadow-[inset_0_0_15px_rgba(0,0,0,0.7)]"
                   }`}
-                  style={{
-                    backgroundImage:
-                      "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.6) 2px, rgba(0, 0, 0, 0.6) 4px)",
-                  }}
-                />
-
-                {/* CRT Glass Curved Reflection Glare */}
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none opacity-30 rounded-[inherit]"
-                />
-
-                {/* CRT Glass Vignette (Bulging CRT Edge Falloff) */}
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 bg-radial from-transparent via-transparent to-black/70 pointer-events-none rounded-[inherit]"
-                />
-
-                {/* Top Readout: Module Number & Live Status Dot */}
-                <div className="relative z-10 w-full flex items-center justify-between px-2 pt-1">
-                  <span
-                    style={{ fontSize: `${Math.round(10.5 * typographyScale)}px` }}
-                    className={`font-mono font-bold tracking-tight transition-colors ${
-                      isHovered ? "text-white" : "text-zinc-200"
+                  title={`Module ${topic.number}: ${topic.title} (Click to visit)`}
+                  aria-label={`View ${topic.title} details`}
+                >
+                  {/* CRT Scanline Texture Layer */}
+                  <div
+                    aria-hidden="true"
+                    className={`absolute inset-0 pointer-events-none transition-opacity duration-300 ${
+                      isHovered ? "opacity-35" : "opacity-20"
                     }`}
-                  >
-                    MODULE // {topic.number}
-                  </span>
+                    style={{
+                      backgroundImage:
+                        "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.6) 2px, rgba(0, 0, 0, 0.6) 4px)",
+                    }}
+                  />
 
-                  <div className="flex items-center gap-1.5 shrink-0">
+                  {/* CRT Glass Curved Reflection Glare */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none opacity-30 rounded-[inherit]"
+                  />
+
+                  {/* CRT Glass Vignette (Bulging CRT Edge Falloff) */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-radial from-transparent via-transparent to-black/70 pointer-events-none rounded-[inherit]"
+                  />
+
+                  {/* Top Readout: Module Number & Live Status Dot */}
+                  <div className="relative z-10 w-full flex items-center justify-between px-2 pt-1">
                     <span
-                      style={{ fontSize: `${Math.round(9.5 * typographyScale)}px` }}
-                      className={`font-mono font-medium transition-colors ${
-                        isHovered ? "text-white" : "text-zinc-400"
+                      style={{ fontSize: `${Math.round(10.5 * typographyScale)}px` }}
+                      className={`font-mono font-bold tracking-tight transition-colors ${
+                        isHovered ? "text-white" : "text-zinc-200"
                       }`}
                     >
-                      {isHovered ? "LIVE" : "60Hz"}
+                      MODULE // {topic.number}
                     </span>
-                    <span
-                      className={`w-2 h-2 rounded-full transition-all ${
+
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <span
+                        style={{ fontSize: `${Math.round(9.5 * typographyScale)}px` }}
+                        className={`font-mono font-medium transition-colors ${
+                          isHovered ? "text-white" : "text-zinc-400"
+                        }`}
+                      >
+                        {isHovered ? "LIVE" : "60Hz"}
+                      </span>
+                      <span
+                        className={`w-2 h-2 rounded-full transition-all ${
+                          isHovered
+                            ? "bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)] animate-pulse"
+                            : "bg-zinc-500"
+                        }`}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Center Content: Phosphor Glowing Icon & Typewriter Title */}
+                  <div className="relative z-10 flex flex-col items-center justify-center my-auto text-center px-1 w-full">
+                    {/* Glowing Icon */}
+                    <div
+                      className={`transition-all duration-300 transform ${
                         isHovered
-                          ? "bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)] animate-pulse"
-                          : "bg-zinc-500"
+                          ? "text-white scale-105 drop-shadow-[0_0_12px_rgba(255,255,255,0.95)]"
+                          : "text-zinc-100 drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]"
                       }`}
-                    />
-                  </div>
-                </div>
+                    >
+                      <Icon
+                        style={{
+                          width: `${Math.round(28 * typographyScale)}px`,
+                          height: `${Math.round(28 * typographyScale)}px`,
+                        }}
+                        strokeWidth={2.2}
+                      />
+                    </div>
 
-                {/* Center Content: Phosphor Glowing Icon & Typewriter Title */}
-                <div className="relative z-10 flex flex-col items-center justify-center my-auto text-center px-1 w-full">
-                  {/* Glowing Icon */}
-                  <div
-                    className={`transition-all duration-300 transform ${
-                      isHovered
-                        ? "text-white scale-105 drop-shadow-[0_0_12px_rgba(255,255,255,0.95)]"
-                        : "text-zinc-100 drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]"
-                    }`}
-                  >
-                    <Icon
+                    {/* Topic Title in Typewriter Font (Refined & Balanced) */}
+                    <h3
                       style={{
-                        width: `${Math.round(28 * typographyScale)}px`,
-                        height: `${Math.round(28 * typographyScale)}px`,
+                        fontSize: `${Math.round(14.2 * typographyScale)}px`,
+                        lineHeight: 1.24,
+                        marginTop: `${Math.round(4 * typographyScale)}px`,
                       }}
-                      strokeWidth={2.2}
-                    />
+                      className={`font-typewriter font-bold tracking-tight [text-wrap:balance] transition-colors duration-200 ${
+                        isHovered
+                          ? "text-white drop-shadow-[0_0_12px_rgba(255,255,255,0.95)]"
+                          : "text-zinc-100 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]"
+                      }`}
+                    >
+                      {topic.title}
+                    </h3>
                   </div>
 
-                  {/* Topic Title in Typewriter Font (Refined & Balanced) */}
-                  <h3
-                    style={{
-                      fontSize: `${Math.round(14.2 * typographyScale)}px`,
-                      lineHeight: 1.24,
-                      marginTop: `${Math.round(4 * typographyScale)}px`,
-                    }}
-                    className={`font-typewriter font-bold tracking-tight [text-wrap:balance] transition-colors duration-200 ${
-                      isHovered
-                        ? "text-white drop-shadow-[0_0_12px_rgba(255,255,255,0.95)]"
-                        : "text-zinc-100 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]"
-                    }`}
-                  >
-                    {topic.title}
-                  </h3>
-                </div>
-
-                {/* Bottom Bar: Access / Click Prompt */}
-                <div className="relative z-10 w-full flex items-center justify-center pb-1">
-                  <div
-                    style={{ fontSize: `${Math.round(10 * typographyScale)}px` }}
-                    className={`inline-flex items-center gap-1.5 font-mono tracking-widest font-semibold transition-all duration-200 ${
-                      isHovered
-                        ? "text-white opacity-100 translate-y-0"
-                        : "text-zinc-500 opacity-0 translate-y-0.5"
-                    }`}
-                  >
-                    <span>[ VISIT ]</span>
-                    <ArrowRight
-                      style={{
-                        width: `${Math.round(10.5 * typographyScale)}px`,
-                        height: `${Math.round(10.5 * typographyScale)}px`,
-                      }}
-                      className="group-hover:translate-x-0.5 transition-transform"
-                    />
+                  {/* Bottom Bar: Access / Click Prompt */}
+                  <div className="relative z-10 w-full flex items-center justify-center pb-1">
+                    <div
+                      style={{ fontSize: `${Math.round(10 * typographyScale)}px` }}
+                      className={`inline-flex items-center gap-1.5 font-mono tracking-widest font-semibold transition-all duration-200 ${
+                        isHovered
+                          ? "text-white opacity-100 translate-y-0"
+                          : "text-zinc-500 opacity-0 translate-y-0.5"
+                      }`}
+                    >
+                      <span>[ VISIT ]</span>
+                      <ArrowRight
+                        style={{
+                          width: `${Math.round(10.5 * typographyScale)}px`,
+                          height: `${Math.round(10.5 * typographyScale)}px`,
+                        }}
+                        className="group-hover:translate-x-0.5 transition-transform"
+                      />
+                    </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </motion.div>
             );
           })}
         </div>

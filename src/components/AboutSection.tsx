@@ -35,12 +35,26 @@ export default function AboutSection() {
             {/* Typography Block: Shifted inwards to the right towards the center */}
             <div className="lg:col-span-7 flex flex-col items-start pl-2 sm:pl-8 md:pl-12 lg:pl-16 xl:pl-20">
               
+              {/* CSE Terminal Prompt Header */}
+              <motion.div
+                initial={{ opacity: 0, x: -25, filter: "blur(4px)" }}
+                whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                viewport={{ once: false, amount: 0.35 }}
+                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                className="inline-flex items-center gap-2 mb-2.5 px-3 py-1 rounded bg-[#1c1917]/10 border border-[#1c1917]/20 select-none"
+              >
+                <span className="font-mono text-[11px] sm:text-xs text-[#1c1917] font-bold tracking-widest uppercase">
+                  &gt; SYSTEM::PROFILE // DOSSIER_01
+                </span>
+              </motion.div>
+
               {/* "About Me" Typewriter Title */}
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
+                initial={{ opacity: 0, x: -40, filter: "blur(8px)" }}
+                whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                viewport={{ once: false, amount: 0.35 }}
+                transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ scale: 1.03, rotate: 1 }}
                 className="relative w-56 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-3 sm:mb-4 cursor-pointer"
                 data-cursor="interactive"
                 data-cursor-label="ABOUT ME // DOSSIER"
@@ -57,10 +71,10 @@ export default function AboutSection() {
 
               {/* Core Bio Statement */}
               <motion.p
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.1 }}
+                viewport={{ once: false, amount: 0.35 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 className="font-typewriter text-[#161412] text-base sm:text-lg md:text-xl lg:text-[20px] leading-relaxed font-bold tracking-wide max-w-xl"
               >
                 A tech enthusiast and problem solver with a passion for building impactful solutions at the intersection of AI, full-stack development, and real-world innovation.
@@ -68,40 +82,44 @@ export default function AboutSection() {
 
               {/* Structured Extra Information: College Education & Address (No CGPA, No Tech Stacks) */}
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.2 }}
+                initial={{ opacity: 0, x: -35 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, amount: 0.35 }}
+                transition={{ duration: 0.75, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-6 sm:mt-7 space-y-3.5 font-typewriter text-[#181614] max-w-xl"
               >
                 {/* College & Degree */}
-                <div
-                  className="flex items-start gap-3 cursor-pointer group/edu"
+                <motion.div
+                  whileHover={{ x: 8 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  className="flex items-start gap-3 cursor-pointer group/edu p-2 -ml-2 rounded-lg hover:bg-black/[0.04] transition-colors"
                   data-cursor="interactive"
                   data-cursor-label="ADAMAS // CSE '28"
                 >
-                  <GraduationCap className="w-5 h-5 text-[#181614] shrink-0 mt-0.5 stroke-[2.2]" />
+                  <GraduationCap className="w-5 h-5 text-[#181614] shrink-0 mt-0.5 stroke-[2.2] group-hover/edu:scale-115 group-hover/edu:rotate-[-6deg] transition-transform duration-200" />
                   <div className="space-y-0.5">
                     <div className="text-base sm:text-lg font-bold tracking-tight text-[#12100e]">
-                      B.Tech in Computer Science & Engineering
+                      B.Tech in Computer Science &amp; Engineering
                     </div>
                     <div className="text-sm sm:text-[15px] text-[#2e2922] font-semibold">
                       Adamas University (2024 — 2028)
                     </div>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Address / Location */}
-                <div
-                  className="flex items-center gap-3 pt-0.5 cursor-pointer group/loc"
+                <motion.div
+                  whileHover={{ x: 8 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  className="flex items-center gap-3 pt-0.5 cursor-pointer group/loc p-2 -ml-2 rounded-lg hover:bg-black/[0.04] transition-colors"
                   data-cursor="interactive"
                   data-cursor-label="KOLKATA // INDIA"
                 >
-                  <MapPin className="w-5 h-5 text-[#181614] shrink-0 stroke-[2.2]" />
+                  <MapPin className="w-5 h-5 text-[#181614] shrink-0 stroke-[2.2] group-hover/loc:scale-115 group-hover/loc:-translate-y-0.5 transition-transform duration-200" />
                   <span className="text-sm sm:text-[15px] font-semibold text-[#181614]">
                     Barrackpore, Kolkata, West Bengal, India
                   </span>
-                </div>
+                </motion.div>
               </motion.div>
 
             </div>
@@ -109,11 +127,11 @@ export default function AboutSection() {
             {/* Polaroid Portrait with Paperclip - Positioned harmoniously in relation to text */}
             <div className="lg:col-span-5 flex justify-center lg:justify-center pt-4 lg:pt-0">
               <motion.div
-                initial={{ opacity: 0, scale: 0.94, rotate: 0 }}
-                whileInView={{ opacity: 1, scale: 1, rotate: 2 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ scale: 1.02, rotate: 0.5 }}
+                initial={{ opacity: 0, scale: 0.88, rotate: -4, y: 35 }}
+                whileInView={{ opacity: 1, scale: 1, rotate: 2, y: 0 }}
+                viewport={{ once: false, amount: 0.35 }}
+                transition={{ duration: 0.9, delay: 0.22, type: "spring", stiffness: 220, damping: 22 }}
+                whileHover={{ scale: 1.035, rotate: 0 }}
                 className="relative group cursor-pointer"
                 data-cursor="image"
                 data-cursor-label="ME"
@@ -138,11 +156,17 @@ export default function AboutSection() {
         </div>
 
         {/* Bottom space intentionally kept open for the printed Coffee • Code • Mountain icons in the background */}
-        <div className="pt-6 flex justify-center items-center pointer-events-none select-none opacity-80">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 0.8 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.35 }}
+          className="pt-6 flex justify-center items-center pointer-events-none select-none"
+        >
           <span className="font-typewriter text-[11px] sm:text-xs text-[#4a4338] tracking-widest uppercase">
             Caffeine • Code • Ascent
           </span>
-        </div>
+        </motion.div>
 
       </div>
     </section>

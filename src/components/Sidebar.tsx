@@ -108,8 +108,9 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
 
         <div className="flex items-center gap-2.5">
           {/* Mobile Audio Toggle Button (Muted/off by default per user specification) */}
-          <button
+          <motion.button
             onClick={togglePlay}
+            whileTap={{ scale: 0.92 }}
             data-cursor="interactive"
             data-cursor-label={isPlaying ? "PAUSE AUDIO" : "PLAY AUDIO"}
             aria-label={isPlaying ? "Pause Background Music" : "Play Background Music"}
@@ -124,15 +125,16 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
             ) : (
               <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
             )}
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
             onClick={() => setMobileOpen(!mobileOpen)}
+            whileTap={{ scale: 0.92 }}
             className="p-2 text-zinc-300 hover:text-white rounded-lg bg-zinc-900/60 border border-white/10 cursor-pointer"
             aria-label="Toggle Navigation"
           >
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          </motion.button>
         </div>
       </div>
 
@@ -152,8 +154,9 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
 
             {/* Mobile Menu Audio Player Button */}
             <div className="w-full pt-1 pb-1 flex justify-center">
-              <button
+              <motion.button
                 onClick={togglePlay}
+                whileTap={{ scale: 0.95 }}
                 className={`flex items-center justify-center gap-3 px-5 py-2.5 rounded-full border transition-all cursor-pointer ${
                   isPlaying
                     ? "bg-zinc-900/90 border-white/30 text-white shadow-[0_0_15px_rgba(255,255,255,0.15)]"
@@ -193,7 +196,7 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
                     }`}
                   />
                 </div>
-              </button>
+              </motion.button>
             </div>
             {navItems.map((item, idx) => {
               const isActive = activeSection === item.id;
@@ -257,7 +260,7 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
           {/* Active Highlighted Line: fills from the first dot directly to the active dot with 0 overshoot */}
           <div
             aria-hidden="true"
-            className="absolute left-[30px] w-[2px] rounded-full pointer-events-none bg-gradient-to-b from-white via-zinc-200 to-zinc-300 shadow-[0_0_8px_rgba(255,255,255,0.8),0_0_14px_rgba(255,255,255,0.5)] transition-[height] duration-300 ease-out"
+            className="absolute left-[30px] w-[2px] rounded-full pointer-events-none bg-gradient-to-b from-white via-zinc-200 to-zinc-300 shadow-[0_0_8px_rgba(255,255,255,0.8),0_0_14px_rgba(255,255,255,0.5)] transition-[height] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
             style={{
               top: `${lineCoords.trackTop}px`,
               height: `${lineCoords.activeHeight}px`,
@@ -330,8 +333,11 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
 
         {/* Bottom: Small Floating Play/Pause Button (Minimalist Monochrome White) */}
         <div className="w-full px-3 pt-2 pb-1 flex items-center justify-center shrink-0">
-          <button
+          <motion.button
             onClick={togglePlay}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 450, damping: 25 }}
             data-cursor="interactive"
             data-cursor-label={isPlaying ? "PAUSE AUDIO" : "PLAY AUDIO"}
             aria-label={isPlaying ? "Pause Background Music" : "Play Background Music"}
@@ -387,7 +393,7 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
                 }`}
               />
             </div>
-          </button>
+          </motion.button>
         </div>
       </aside>
     </>

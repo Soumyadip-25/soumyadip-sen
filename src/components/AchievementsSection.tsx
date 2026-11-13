@@ -206,9 +206,11 @@ export default function AchievementsSection() {
 
           {/* 2. Top-Left Heading: "Achievements" sticker + retro script lettering */}
           <motion.div
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            initial={{ opacity: 0, y: -30, filter: "blur(8px)", rotate: -6 }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)", rotate: -3.5 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ scale: 1.04, rotate: -1 }}
             style={{
               left: "5.5%",
               top: "2.0%",
@@ -231,7 +233,11 @@ export default function AchievementsSection() {
           {/* 3. WIDE HORIZONTAL RECTANGLE DOCUMENT (Started more to the left and larger) */}
           {/* Position: left: 18.5%, top: 13.0%, width: 63.0%, height: 63.0% (363px in 1024x576) */}
           {/* Leaves Camera at bottom-left and Trophy on right 100% UNTOUCHED and INTACT */}
-          <div
+          <motion.div
+            initial={{ opacity: 0, scale: 0.88, y: 40 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.85, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
             style={{
               left: "18.5%",
               top: "13.0%",
@@ -265,17 +271,21 @@ export default function AchievementsSection() {
                   const isActive = activeIdx === idx;
 
                   return (
-                    <div
+                    <motion.div
                       key={item.id}
                       ref={(el) => {
                         itemRefs.current[idx] = el;
                       }}
+                      initial={{ opacity: 0, x: -25 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: false, amount: 0.3 }}
+                      transition={{ duration: 0.55, delay: 0.15 + idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
                       data-cursor="interactive"
                       data-cursor-label={`HONOR // ${item.tag || "ACHIEVEMENT"}`}
                       className={`group relative p-2.5 sm:p-3 rounded-lg transition-all duration-200 cursor-pointer ${
                         isActive
-                          ? "bg-[#1c1917]/[0.05] border-l-2 border-[#1c1917]"
-                          : "bg-transparent hover:bg-[#1c1917]/[0.03] border-l-2 border-transparent"
+                          ? "bg-[#1c1917]/[0.06] border-l-2 border-[#1c1917] pl-3.5 shadow-sm"
+                          : "bg-transparent hover:bg-[#1c1917]/[0.03] hover:pl-3 border-l-2 border-transparent"
                       }`}
                     >
                       {/* Title row with increased font size spreading horizontally from left to right */}
@@ -318,7 +328,7 @@ export default function AchievementsSection() {
                       {idx < achievements.length - 1 && (
                         <div className="w-full h-[1px] bg-[#1c1917]/15 mt-2.5" />
                       )}
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
@@ -327,23 +337,28 @@ export default function AchievementsSection() {
               <div className="flex items-center justify-between pt-1.5 border-t border-[#1c1917]/15 shrink-0 px-2 mt-auto">
                 <div className="flex items-center gap-1 sm:gap-1.5">
                   {achievements.map((item, idx) => (
-                    <button
+                    <motion.button
                       key={item.id}
                       onClick={() => scrollToIndex(idx)}
+                      whileHover={{ scale: 1.08 }}
+                      whileTap={{ scale: 0.94 }}
+                      transition={{ type: "spring", stiffness: 450, damping: 25 }}
                       style={{ fontSize: `${Math.round(9.5 * typographyScale)}px` }}
-                      className={`px-2.5 py-0.5 rounded font-mono font-bold transition-all cursor-pointer ${
+                      className={`px-2.5 py-0.5 rounded font-mono font-bold transition-colors cursor-pointer ${
                         activeIdx === idx
                           ? "bg-[#1c1917] text-[#ded3c5] shadow-[0_1px_3px_rgba(0,0,0,0.3)]"
                           : "bg-[#1c1917]/10 text-[#44403c] hover:bg-[#1c1917]/20"
                       }`}
                     >
                       • {item.number}
-                    </button>
+                    </motion.button>
                   ))}
                 </div>
 
                 <div className="flex items-center gap-1">
-                  <button
+                  <motion.button
+                    whileHover={{ scale: canScrollUp ? 1.12 : 1 }}
+                    whileTap={{ scale: canScrollUp ? 0.9 : 1 }}
                     onClick={() => scrollByDelta("up")}
                     disabled={!canScrollUp}
                     title="Scroll Up"
@@ -359,8 +374,10 @@ export default function AchievementsSection() {
                         height: `${Math.round(14 * typographyScale)}px`,
                       }}
                     />
-                  </button>
-                  <button
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: canScrollDown ? 1.12 : 1 }}
+                    whileTap={{ scale: canScrollDown ? 0.9 : 1 }}
                     onClick={() => scrollByDelta("down")}
                     disabled={!canScrollDown}
                     title="Scroll Down"
@@ -376,12 +393,12 @@ export default function AchievementsSection() {
                         height: `${Math.round(14 * typographyScale)}px`,
                       }}
                     />
-                  </button>
+                  </motion.button>
                 </div>
               </div>
 
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* 4. MOBILE HELPER: Step Navigation for Small Screens (< 768px) */}
