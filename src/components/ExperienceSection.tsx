@@ -90,12 +90,12 @@ export default function ExperienceSection() {
       id="experience"
       ref={sectionRef}
       onWheel={handleWheel}
-      className="relative min-h-screen md:h-screen md:max-h-screen w-full flex items-center overflow-hidden bg-[#070709] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
+      className="relative min-h-screen md:h-screen md:max-h-screen w-full flex items-center overflow-hidden bg-[#070709] vintage-charcoal-bg select-none"
     >
       {/* 1. Full-bleed Background: Vintage Slate Wall with Typewriter on the Right (Desktop Only) */}
       <div className="hidden md:block absolute inset-0 z-0 pointer-events-none overflow-hidden md:left-52 lg:left-56">
         <Image
-          src="/images/experience-bg.jpg"
+          src="/images/experience-typewriter.jpg"
           alt="Vintage Typewriter Desk"
           fill
           priority
@@ -105,7 +105,8 @@ export default function ExperienceSection() {
       </div>
 
       {/* 2. Main Content Composition: Shifted comfortably onto the left chalkboard area */}
-      <div className="relative z-10 w-full min-h-screen md:min-h-0 md:h-full flex flex-col justify-start px-4 sm:px-8 md:px-10 lg:px-12 pt-20 sm:pt-24 md:pt-8 lg:pt-10 pb-10">
+      <div className="relative z-10 w-full min-h-screen md:min-h-0 md:h-full md:pl-52 lg:pl-56 flex flex-col justify-start px-4 sm:px-8 pt-20 sm:pt-24 md:pt-8 lg:pt-10 pb-10">
+        <div className="w-full flex flex-col md:pl-14 lg:pl-24 xl:pl-28">
         
         {/* Torn Paper Scrap Header: "Experience" - Tactile Pin-to-Board Entrance */}
         <motion.div
@@ -130,7 +131,7 @@ export default function ExperienceSection() {
         {/* 3. Scrollable Timeline Container (Spread wider to the right to fill empty space) */}
         <div
           ref={scrollContainerRef}
-          className="relative w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl max-h-[calc(100vh-190px)] sm:max-h-[calc(100vh-200px)] overflow-y-auto pr-3 sm:pr-8 vintage-scrollbar"
+          className="relative w-full max-w-xl lg:max-w-2xl xl:max-w-2xl max-h-[calc(100vh-180px)] sm:max-h-[calc(100vh-190px)] overflow-y-auto pr-3 sm:pr-8 vintage-scrollbar"
         >
           {/* Vertical Luminous Timeline Wire: Conducts current downwards as user scrolls */}
           <motion.div
@@ -203,7 +204,7 @@ export default function ExperienceSection() {
                   </div>
 
                   {/* Expanded Description Paragraph: Spread Out to the Right to Fill Space */}
-                  <p className="mt-3.5 text-zinc-200 font-typewriter text-[15.5px] sm:text-[16.5px] md:text-[17.5px] leading-[1.8] tracking-[0.25px] max-w-2xl lg:max-w-3xl text-shadow-sm">
+                  <p className="mt-3.5 text-zinc-200 font-typewriter text-[15px] sm:text-[16px] md:text-[16.5px] leading-[1.75] tracking-[0.2px] max-w-xl lg:max-w-2xl text-shadow-sm">
                     {exp.description}
                   </p>
                 </motion.div>
@@ -224,6 +225,7 @@ export default function ExperienceSection() {
             <ChevronDown className="w-3.5 h-3.5" />
           </motion.div>
         )}
+        </div>
       </div>
     </section>
   );
