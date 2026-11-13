@@ -35,19 +35,6 @@ export default function AboutSection() {
             {/* Typography Block: Shifted inwards to the right towards the center */}
             <div className="lg:col-span-7 flex flex-col items-start pl-2 sm:pl-8 md:pl-12 lg:pl-16 xl:pl-20">
               
-              {/* CSE Terminal Prompt Header */}
-              <motion.div
-                initial={{ opacity: 0, x: -25, filter: "blur(4px)" }}
-                whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                viewport={{ once: false, amount: 0.35 }}
-                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                className="inline-flex items-center gap-2 mb-2.5 px-3 py-1 rounded bg-[#1c1917]/10 border border-[#1c1917]/20 select-none"
-              >
-                <span className="font-mono text-[11px] sm:text-xs text-[#1c1917] font-bold tracking-widest uppercase">
-                  &gt; SYSTEM::PROFILE // DOSSIER_01
-                </span>
-              </motion.div>
-
               {/* "About Me" Typewriter Title */}
               <motion.div
                 initial={{ opacity: 0, x: -40, filter: "blur(8px)" }}

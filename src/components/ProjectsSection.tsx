@@ -172,20 +172,6 @@ export default function ProjectsSection() {
         
         {/* Top Header Row: Torn Paper Scrap Header "Projects" (Enlarged & Prominent) */}
         <div className="flex flex-col items-start shrink-0">
-          {/* CSE Terminal Prompt Header */}
-          <motion.div
-            initial={{ opacity: 0, x: -25, filter: "blur(4px)" }}
-            whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-            viewport={{ once: false, amount: 0.25 }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2 mb-1 ml-2 sm:ml-4 md:ml-6 px-3 py-1 rounded bg-white/[0.06] border border-white/10 backdrop-blur-md select-none shrink-0"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-mono text-xs text-zinc-300 font-bold tracking-widest uppercase">
-              &gt; REPO::BUILDS // PRODUCTION_SYSTEMS
-            </span>
-          </motion.div>
-
           <motion.div
             initial={{ opacity: 0, y: -30, filter: "blur(8px)", rotate: -3 }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)", rotate: -1 }}

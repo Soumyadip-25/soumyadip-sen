@@ -231,7 +231,7 @@ export default function ImpactSection() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="w-full flex flex-col gap-3 sm:gap-3.5 md:gap-4 select-none pointer-events-auto"
           >
-            {/* Header Row: GITHUB ACTIVITY + CSE Live Badge */}
+            {/* Header Row: GITHUB ACTIVITY + Vintage Chalkboard Live Telemetry Badge */}
             <div className="w-full flex items-center justify-between pb-1.5 sm:pb-2.5 border-b border-white/10">
               <a
                 href="https://github.com/Soumyadip-25"
@@ -246,12 +246,21 @@ export default function ImpactSection() {
                 </h2>
               </a>
 
-              {/* CSE Live Telemetry Badge */}
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-[10px] sm:text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-semibold flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>LIVE // 2026</span>
-                </span>
+              {/* Vintage Monochrome Live Telemetry Badge (Matching Noir Chalkboard Vibe) */}
+              <div
+                data-cursor="interactive"
+                data-cursor-label="STATUS // LIVE 2026"
+                className="flex items-center shrink-0"
+              >
+                <div className="font-mono text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/20 hover:border-white/40 text-zinc-300 hover:text-white font-medium tracking-wider flex items-center gap-2 backdrop-blur-md shadow-[0_2px_8px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.12)] transition-all duration-300 select-none">
+                  <span className="relative flex h-2 w-2 items-center justify-center">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/60 opacity-60" />
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white shadow-[0_0_6px_rgba(255,255,255,0.95)]" />
+                  </span>
+                  <span className="font-mono tracking-widest text-[10px] sm:text-[11px] uppercase">
+                    LIVE // 2026
+                  </span>
+                </div>
               </div>
             </div>
 

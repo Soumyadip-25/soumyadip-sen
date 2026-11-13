@@ -143,23 +143,6 @@ export default function Hero({ onResumeClick }: HeroProps) {
           {/* RIGHT: Lifted Up Area Just Below The Lamp with Signature & Download Resume */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left -mt-4 sm:-mt-8 lg:-mt-24 xl:-mt-28">
             
-            {/* CSE Status Badge Header */}
-            <motion.div
-              initial={{ opacity: 0, y: 25, filter: "blur(6px)" }}
-              animate={
-                isMounted
-                  ? { opacity: 1, y: 0, filter: "blur(0px)" }
-                  : { opacity: 0, y: 25, filter: "blur(6px)" }
-              }
-              transition={{ duration: 0.75, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 mb-2.5 rounded-full bg-white/[0.06] border border-white/15 backdrop-blur-md shadow-lg self-center lg:self-start select-none"
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)] animate-pulse" />
-              <span className="font-mono text-xs sm:text-[13px] text-zinc-200 tracking-wider font-semibold">
-                SYS::ACTIVE // CSE &apos;28 // AI &amp; FULL-STACK
-              </span>
-            </motion.div>
-
             {/* The Handwritten Signature - Lifted Up & Sized Up with Automatic Pulse */}
             <motion.div
               initial={{ opacity: 0, scale: 0.88, y: 30, filter: "blur(6px)" }}

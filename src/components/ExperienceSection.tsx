@@ -111,20 +111,6 @@ export default function ExperienceSection() {
       {/* 2. Main Content Composition: Shifted comfortably towards the right */}
       <div className="relative z-10 w-full min-h-screen md:pl-64 lg:pl-72 xl:pl-80 flex flex-col justify-start px-6 sm:px-10 md:px-12 lg:px-14 pt-12 sm:pt-16 pb-14">
         
-        {/* CSE Terminal Prompt Header */}
-        <motion.div
-          initial={{ opacity: 0, x: -25, filter: "blur(4px)" }}
-          whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-          viewport={{ once: false, amount: 0.25 }}
-          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded bg-white/[0.06] border border-white/10 backdrop-blur-md select-none shrink-0"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="font-mono text-xs text-zinc-300 font-bold tracking-widest uppercase">
-            &gt; EXEC::TRACK_RECORD // CHRONOLOGY
-          </span>
-        </motion.div>
-
         {/* Torn Paper Scrap Header: "Experience" */}
         <motion.div
           initial={{ opacity: 0, x: -45, filter: "blur(8px)", rotate: -4 }}
