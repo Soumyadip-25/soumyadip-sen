@@ -29,12 +29,12 @@ export default function ContactSection() {
 
         {/* TOP PAPER STRIP: "Let's Connect" Stamped Title - Shifted UP to center on paper strip */}
         <motion.div
-          initial={{ opacity: 0, scale: 1.25, y: -20, filter: "blur(6px)" }}
-          whileInView={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.65, type: "spring", stiffness: 280, damping: 18 }}
+          initial={{ opacity: 0, scale: 1.1, y: -15 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           whileHover={{ scale: 1.04, rotate: 1 }}
-          className="absolute cursor-pointer"
+          className="absolute cursor-pointer transform-gpu"
           data-cursor="interactive"
           data-cursor-label="CONTACT // CONNECT"
           style={{
@@ -60,11 +60,11 @@ export default function ContactSection() {
 
         {/* MAIN TORN PARCHMENT SHEET: Contact Info & Active Profile Links - Centralized on the parchment */}
         <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.94 }}
+          initial={{ opacity: 0, y: 20, scale: 0.96 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute flex flex-col justify-between"
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute flex flex-col justify-between transform-gpu"
           style={{
             top: "33.0%",
             left: "20.2%",

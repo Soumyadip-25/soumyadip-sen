@@ -113,12 +113,12 @@ export default function ExperienceSection() {
         
         {/* Torn Paper Scrap Header: "Experience" */}
         <motion.div
-          initial={{ opacity: 0, x: -45, filter: "blur(8px)", rotate: -4 }}
-          whileInView={{ opacity: 1, x: 0, filter: "blur(0px)", rotate: -1 }}
-          viewport={{ once: false, amount: 0.25 }}
-          transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, x: -25, rotate: -2 }}
+          whileInView={{ opacity: 1, x: 0, rotate: -1 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           whileHover={{ scale: 1.03, rotate: 0 }}
-          className="relative w-56 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-8 sm:mb-10 -rotate-1 origin-left shrink-0 ml-1 sm:ml-2 cursor-pointer"
+          className="relative w-56 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-8 sm:mb-10 -rotate-1 origin-left shrink-0 ml-1 sm:ml-2 cursor-pointer transform-gpu"
           data-cursor="interactive"
           data-cursor-label="EXPERIENCE // TIMELINE"
         >
@@ -141,10 +141,10 @@ export default function ExperienceSection() {
             aria-hidden="true"
             initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
-            viewport={{ once: false, amount: 0.25 }}
-            transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             style={{ originY: 0 }}
-            className="absolute left-[20px] top-[18px] bottom-[22px] w-[2px] bg-gradient-to-b from-white via-zinc-400 to-zinc-700 shadow-[0_0_8px_rgba(255,255,255,0.7)] rounded-full pointer-events-none"
+            className="absolute left-[20px] top-[18px] bottom-[22px] w-[2px] bg-gradient-to-b from-white via-zinc-400 to-zinc-700 shadow-[0_0_8px_rgba(255,255,255,0.7)] rounded-full pointer-events-none transform-gpu"
           />
 
           {/* Timeline Experience Entries */}
@@ -155,11 +155,11 @@ export default function ExperienceSection() {
               return (
                 <motion.div
                   key={exp.id}
-                  initial={{ opacity: 0, x: -45, y: 15 }}
+                  initial={{ opacity: 0, x: -25, y: 10 }}
                   whileInView={{ opacity: 1, x: 0, y: 0 }}
-                  viewport={{ once: false, amount: 0.25 }}
-                  transition={{ duration: 0.75, delay: index * 0.2, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative group pl-14 sm:pl-16"
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative group pl-14 sm:pl-16 transform-gpu"
                 >
                   {/* Vintage Mechanical Typewriter Keycap Bullet */}
                   <div

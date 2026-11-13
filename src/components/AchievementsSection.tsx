@@ -206,17 +206,17 @@ export default function AchievementsSection() {
 
           {/* 2. Top-Left Heading: "Achievements" sticker + retro script lettering */}
           <motion.div
-            initial={{ opacity: 0, y: -30, filter: "blur(8px)", rotate: -6 }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)", rotate: -3.5 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: -20, rotate: -4.5 }}
+            whileInView={{ opacity: 1, y: 0, rotate: -3.5 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ scale: 1.04, rotate: -1 }}
             style={{
               left: "5.5%",
               top: "2.0%",
               width: "25.0%",
             }}
-            className="absolute aspect-[1024/341] z-30 pointer-events-auto cursor-pointer -rotate-[3.5deg] origin-center drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]"
+            className="absolute aspect-[1024/341] z-30 pointer-events-auto cursor-pointer -rotate-[3.5deg] origin-center drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)] transform-gpu"
             data-cursor="interactive"
             data-cursor-label="ACHIEVEMENTS // HONORS"
           >
@@ -234,17 +234,17 @@ export default function AchievementsSection() {
           {/* Position: left: 18.5%, top: 13.0%, width: 63.0%, height: 63.0% (363px in 1024x576) */}
           {/* Leaves Camera at bottom-left and Trophy on right 100% UNTOUCHED and INTACT */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.88, y: 40 }}
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.85, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
             style={{
               left: "18.5%",
               top: "13.0%",
               width: "63.0%",
               height: "63.0%",
             }}
-            className="absolute z-20 rounded-xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.85)] filter drop-shadow-[0_8px_24px_rgba(0,0,0,0.9)]"
+            className="absolute z-20 rounded-xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.85)] filter drop-shadow-[0_8px_24px_rgba(0,0,0,0.9)] transform-gpu"
           >
             {/* The 16:9 Vintage Parchment Paper Image */}
             <div className="absolute inset-0 z-0">
@@ -276,13 +276,13 @@ export default function AchievementsSection() {
                       ref={(el) => {
                         itemRefs.current[idx] = el;
                       }}
-                      initial={{ opacity: 0, x: -25 }}
+                      initial={{ opacity: 0, x: -15 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: false, amount: 0.3 }}
-                      transition={{ duration: 0.55, delay: 0.15 + idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                      viewport={{ once: true, amount: 0.1 }}
+                      transition={{ duration: 0.4, delay: 0.05 + idx * 0.04, ease: [0.22, 1, 0.36, 1] }}
                       data-cursor="interactive"
                       data-cursor-label={`HONOR // ${item.tag || "ACHIEVEMENT"}`}
-                      className={`group relative p-2.5 sm:p-3 rounded-lg transition-all duration-200 cursor-pointer ${
+                      className={`group relative p-2.5 sm:p-3 rounded-lg transition-all duration-200 cursor-pointer transform-gpu ${
                         isActive
                           ? "bg-[#1c1917]/[0.06] border-l-2 border-[#1c1917] pl-3.5 shadow-sm"
                           : "bg-transparent hover:bg-[#1c1917]/[0.03] hover:pl-3 border-l-2 border-transparent"

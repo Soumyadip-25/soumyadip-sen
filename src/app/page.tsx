@@ -18,8 +18,10 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [resumeModalOpen, setResumeModalOpen] = useState(false);
 
-  // Scroll spy to update active sidebar navigation indicator
+  // Scroll spy to update active sidebar navigation indicator (rAF Throttled for 60/120fps fluid scrolling)
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
       // 1. If at or near bottom of document, activate the last section ("contact")
       const scrollBottom = window.innerHeight + window.scrollY;
@@ -61,9 +63,19 @@ export default function Home() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const handleSectionClick = (id: string) => {

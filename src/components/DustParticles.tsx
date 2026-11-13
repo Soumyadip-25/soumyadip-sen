@@ -34,13 +34,14 @@ export default function DustParticles() {
       {particles.map((p) => (
         <span
           key={p.id}
-          className="absolute rounded-full bg-white/70 blur-[0.3px]"
+          className="absolute rounded-full bg-white/70"
           style={{
             left: `${p.x}%`,
             top: `${p.y}%`,
             width: `${p.size}px`,
             height: `${p.size}px`,
             opacity: p.opacity,
+            willChange: "transform",
             animation: `floatParticle ${p.duration}s ease-in-out infinite alternate`,
             animationDelay: `${p.delay}s`,
           }}
@@ -49,13 +50,13 @@ export default function DustParticles() {
       <style jsx>{`
         @keyframes floatParticle {
           0% {
-            transform: translateY(0px) translateX(0px);
+            transform: translate3d(0, 0, 0);
           }
           50% {
-            transform: translateY(-24px) translateX(12px);
+            transform: translate3d(12px, -24px, 0);
           }
           100% {
-            transform: translateY(-48px) translateX(-8px);
+            transform: translate3d(-8px, -48px, 0);
           }
         }
       `}</style>

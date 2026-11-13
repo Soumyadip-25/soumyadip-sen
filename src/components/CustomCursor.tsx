@@ -252,7 +252,7 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
           translateX: "-50%",
           translateY: "-50%",
         }}
-        className="absolute top-0 left-0 pointer-events-none"
+        className="absolute top-0 left-0 pointer-events-none transform-gpu will-change-transform"
       >
         <motion.div
           animate={

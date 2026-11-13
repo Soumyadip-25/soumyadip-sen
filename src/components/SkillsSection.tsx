@@ -135,17 +135,17 @@ export default function SkillsSection() {
           {/* 2. Top-Left Heading: "Skills & Technologies" sticker + typewriter lettering */}
           {/* Positioned in the open dark wall area above the plant with organic vintage tilt and crisp shadow */}
           <motion.div
-            initial={{ opacity: 0, y: -30, filter: "blur(8px)", rotate: -5 }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)", rotate: -2.5 }}
-            viewport={{ once: false, amount: 0.35 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: -20, rotate: -4 }}
+            whileInView={{ opacity: 1, y: 0, rotate: -2.5 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ scale: 1.04, rotate: 0 }}
             style={{
               left: "6.8%",
               top: "2.2%",
               width: "25.0%",
             }}
-            className="absolute aspect-[1024/341] z-30 pointer-events-auto cursor-pointer -rotate-[2.5deg] origin-center drop-shadow-[0_4px_18px_rgba(0,0,0,0.95)]"
+            className="absolute aspect-[1024/341] z-30 pointer-events-auto cursor-pointer -rotate-[2.5deg] origin-center drop-shadow-[0_4px_18px_rgba(0,0,0,0.95)] transform-gpu"
             data-cursor="interactive"
             data-cursor-label="SKILLS // CONSOLE"
           >
@@ -167,13 +167,13 @@ export default function SkillsSection() {
             return (
               <motion.div
                 key={topic.id}
-                initial={{ opacity: 0, scale: 0.84, filter: "brightness(0.2) contrast(1.6)" }}
-                whileInView={{ opacity: 1, scale: 1, filter: "brightness(1) contrast(1.08)" }}
-                viewport={{ once: false, amount: 0.35 }}
+                initial={{ opacity: 0, scale: 0.92 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.15 }}
                 transition={{
-                  duration: 0.75,
-                  delay: 0.12 + index * 0.12,
-                  ease: [0.16, 1, 0.3, 1],
+                  duration: 0.5,
+                  delay: 0.08 + index * 0.06,
+                  ease: [0.22, 1, 0.36, 1],
                 }}
                 style={{
                   left: `${topic.rect.leftPct}%`,
@@ -181,7 +181,7 @@ export default function SkillsSection() {
                   width: `${topic.rect.widthPct}%`,
                   height: `${topic.rect.heightPct}%`,
                 }}
-                className="absolute pointer-events-auto"
+                className="absolute pointer-events-auto transform-gpu"
               >
                 <Link
                   href={`/skills/${topic.slug}`}

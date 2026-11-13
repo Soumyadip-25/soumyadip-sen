@@ -173,12 +173,12 @@ export default function ProjectsSection() {
         {/* Top Header Row: Torn Paper Scrap Header "Projects" (Enlarged & Prominent) */}
         <div className="flex flex-col items-start shrink-0">
           <motion.div
-            initial={{ opacity: 0, y: -30, filter: "blur(8px)", rotate: -3 }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)", rotate: -1 }}
-            viewport={{ once: false, amount: 0.25 }}
-            transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: -20, rotate: -2 }}
+            whileInView={{ opacity: 1, y: 0, rotate: -1 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ scale: 1.025, rotate: 0 }}
-            className="relative w-56 sm:w-64 md:w-76 lg:w-88 xl:w-[380px] aspect-[1024/341] -rotate-1 origin-left shrink-0 ml-2 sm:ml-4 md:ml-6 mt-0.5 sm:mt-1 cursor-pointer"
+            className="relative w-56 sm:w-64 md:w-76 lg:w-88 xl:w-[380px] aspect-[1024/341] -rotate-1 origin-left shrink-0 ml-2 sm:ml-4 md:ml-6 mt-0.5 sm:mt-1 cursor-pointer transform-gpu"
             data-cursor="interactive"
             data-cursor-label="PROJECTS // GALLERY"
           >
@@ -194,10 +194,10 @@ export default function ProjectsSection() {
 
         {/* 3. Broad Panoramic 3D Carousel Stage: Automatically pauses when hovering over any card */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.93, y: 35 }}
+          initial={{ opacity: 0, scale: 0.96, y: 20 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.25 }}
-          transition={{ duration: 0.85, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           ref={containerRef}
           onMouseEnter={() => {
             isHovered.current = true;
@@ -205,7 +205,7 @@ export default function ProjectsSection() {
           onMouseLeave={() => {
             isHovered.current = false;
           }}
-          className="relative w-full max-w-full xl:max-w-[1400px] mx-auto my-auto flex items-center justify-center py-1 sm:py-2 -translate-y-4 sm:-translate-y-6 md:-translate-y-8 lg:-translate-y-9"
+          className="relative w-full max-w-full xl:max-w-[1400px] mx-auto my-auto flex items-center justify-center py-1 sm:py-2 -translate-y-4 sm:-translate-y-6 md:-translate-y-8 lg:-translate-y-9 transform-gpu"
         >
           {/* Navigation Arrow: Left (Click or Press-and-Hold) */}
           <motion.button
@@ -286,12 +286,11 @@ export default function ProjectsSection() {
                     rotateY,
                     opacity,
                     zIndex,
-                    filter: `brightness(${brightness}) contrast(1.04)`,
                   }}
                   transition={{
                     type: "spring",
-                    stiffness: 260,
-                    damping: 28,
+                    stiffness: 280,
+                    damping: 30,
                     mass: 0.8,
                   }}
                   style={{
@@ -299,7 +298,7 @@ export default function ProjectsSection() {
                   }}
                   data-cursor="project"
                   data-cursor-label={`${project.title.split("–")[0].trim().toUpperCase()} // EXPLORE`}
-                  className={`absolute w-[270px] sm:w-[315px] md:w-[355px] lg:w-[395px] xl:w-[425px] aspect-square rounded-2xl overflow-hidden border-2 transition-colors duration-300 ${
+                  className={`absolute w-[270px] sm:w-[315px] md:w-[355px] lg:w-[395px] xl:w-[425px] aspect-square rounded-2xl overflow-hidden border-2 transition-colors duration-300 transform-gpu ${
                     isCenter
                       ? "border-zinc-400/80 shadow-[0_18px_45px_rgba(0,0,0,0.95),0_0_24px_rgba(255,255,255,0.12)] cursor-grab active:cursor-grabbing bg-zinc-950"
                       : "border-zinc-700/60 shadow-[0_10px_35px_rgba(0,0,0,0.9)] cursor-pointer bg-zinc-950/80 hover:border-zinc-500"
@@ -312,7 +311,9 @@ export default function ProjectsSection() {
                     fill
                     priority={isCenter}
                     sizes="(max-width: 768px) 340px, 460px"
-                    className="object-cover select-none pointer-events-none"
+                    className={`object-cover select-none pointer-events-none transition-[filter] duration-300 ${
+                      isCenter ? "brightness-100" : "brightness-[0.7] contrast-[0.95]"
+                    }`}
                   />
 
                   {/* Dark Vignette & Bottom Text Scrim (Smoothly shows on active card) */}

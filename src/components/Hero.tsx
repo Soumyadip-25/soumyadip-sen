@@ -83,9 +83,9 @@ export default function Hero({ onResumeClick }: HeroProps) {
             
             {/* 35mm Filmstrip */}
             <motion.div
-              initial={{ opacity: 0, x: -35 }}
-              animate={isMounted ? { opacity: 1, x: 0 } : { opacity: 0, x: -35 }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, x: -25 }}
+              animate={isMounted ? { opacity: 1, x: 0 } : { opacity: 0, x: -25 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="shrink-0"
             >
               <Filmstrip />
@@ -101,13 +101,13 @@ export default function Hero({ onResumeClick }: HeroProps) {
                 rotateY,
                 transformStyle: "preserve-3d",
               }}
-              initial={{ opacity: 0, y: 55, scale: 0.9, rotate: -7 }}
+              initial={{ opacity: 0, y: 35, scale: 0.94, rotate: -6 }}
               animate={
                 isMounted
                   ? { opacity: 1, y: 0, scale: 1, rotate: -3.5 }
-                  : { opacity: 0, y: 55, scale: 0.9, rotate: -7 }
+                  : { opacity: 0, y: 35, scale: 0.94, rotate: -6 }
               }
-              transition={{ duration: 1.0, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
               className="relative group cursor-pointer"
               data-cursor="image"
               data-cursor-label="ME"
@@ -145,14 +145,14 @@ export default function Hero({ onResumeClick }: HeroProps) {
             
             {/* The Handwritten Signature - Lifted Up & Sized Up with Automatic Pulse */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.88, y: 30, filter: "blur(6px)" }}
+              initial={{ opacity: 0, scale: 0.94, y: 20 }}
               animate={
                 isMounted
-                  ? { opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }
-                  : { opacity: 0, scale: 0.88, y: 30, filter: "blur(6px)" }
+                  ? { opacity: 1, scale: 1, y: 0 }
+                  : { opacity: 0, scale: 0.94, y: 20 }
               }
-              transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-[480px] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[700px] xl:max-w-[740px] aspect-[1024/341] animate-signature-pulse cursor-pointer"
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="relative w-full max-w-[480px] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[700px] xl:max-w-[740px] aspect-[1024/341] animate-signature-pulse cursor-pointer transform-gpu"
               data-cursor="interactive"
               data-cursor-label="SOUMYADIP // SIGNATURE"
             >
@@ -168,14 +168,14 @@ export default function Hero({ onResumeClick }: HeroProps) {
 
             {/* Vintage Typewriter Download Resume Button - Shifted right below signature */}
             <motion.div
-              initial={{ opacity: 0, y: 30, scale: 0.92 }}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={
                 isMounted
                   ? { opacity: 1, y: 0, scale: 1 }
-                  : { opacity: 0, y: 30, scale: 0.92 }
+                  : { opacity: 0, y: 20, scale: 0.95 }
               }
-              transition={{ duration: 0.85, delay: 0.52, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-6 sm:mt-8 lg:mt-9 self-center lg:self-start lg:ml-28 xl:ml-36"
+              transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-6 sm:mt-8 lg:mt-9 self-center lg:self-start lg:ml-28 xl:ml-36 transform-gpu"
             >
               <DownloadResumeButton />
             </motion.div>

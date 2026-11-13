@@ -37,12 +37,12 @@ export default function AboutSection() {
               
               {/* "About Me" Typewriter Title */}
               <motion.div
-                initial={{ opacity: 0, x: -40, filter: "blur(8px)" }}
-                whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                viewport={{ once: false, amount: 0.35 }}
-                transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+                initial={{ opacity: 0, x: -25 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ scale: 1.03, rotate: 1 }}
-                className="relative w-56 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-3 sm:mb-4 cursor-pointer"
+                className="relative w-56 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-3 sm:mb-4 cursor-pointer transform-gpu"
                 data-cursor="interactive"
                 data-cursor-label="ABOUT ME // DOSSIER"
               >
@@ -58,22 +58,22 @@ export default function AboutSection() {
 
               {/* Core Bio Statement */}
               <motion.p
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.35 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="font-typewriter text-[#161412] text-base sm:text-lg md:text-xl lg:text-[20px] leading-relaxed font-bold tracking-wide max-w-xl"
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="font-typewriter text-[#161412] text-base sm:text-lg md:text-xl lg:text-[20px] leading-relaxed font-bold tracking-wide max-w-xl transform-gpu"
               >
                 A tech enthusiast and problem solver with a passion for building impactful solutions at the intersection of AI, full-stack development, and real-world innovation.
               </motion.p>
 
               {/* Structured Extra Information: College Education & Address (No CGPA, No Tech Stacks) */}
               <motion.div
-                initial={{ opacity: 0, x: -35 }}
+                initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false, amount: 0.35 }}
-                transition={{ duration: 0.75, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-6 sm:mt-7 space-y-3.5 font-typewriter text-[#181614] max-w-xl"
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.55, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-6 sm:mt-7 space-y-3.5 font-typewriter text-[#181614] max-w-xl transform-gpu"
               >
                 {/* College & Degree */}
                 <motion.div
@@ -114,12 +114,12 @@ export default function AboutSection() {
             {/* Polaroid Portrait with Paperclip - Positioned harmoniously in relation to text */}
             <div className="lg:col-span-5 flex justify-center lg:justify-center pt-4 lg:pt-0">
               <motion.div
-                initial={{ opacity: 0, scale: 0.88, rotate: -4, y: 35 }}
+                initial={{ opacity: 0, scale: 0.94, rotate: -3, y: 25 }}
                 whileInView={{ opacity: 1, scale: 1, rotate: 2, y: 0 }}
-                viewport={{ once: false, amount: 0.35 }}
-                transition={{ duration: 0.9, delay: 0.22, type: "spring", stiffness: 220, damping: 22 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.65, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ scale: 1.035, rotate: 0 }}
-                className="relative group cursor-pointer"
+                className="relative group cursor-pointer transform-gpu"
                 data-cursor="image"
                 data-cursor-label="ME"
               >

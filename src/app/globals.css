@@ -68,32 +68,34 @@
   pointer-events: none;
 }
 
-/* Automatic Dim & Light Pulse Every 2 Seconds */
+/* Automatic Dim & Light Pulse Every 4 Seconds (Hardware-Accelerated Opacity) */
 @keyframes lampBreathCycle {
   0%, 100% {
-    opacity: 0.68;
-    filter: brightness(0.92);
+    opacity: 0.72;
   }
   50% {
     opacity: 1;
-    filter: brightness(1.15);
   }
 }
 
 .animate-lamp-breath {
+  will-change: opacity;
   animation: lampBreathCycle 4s ease-in-out infinite;
 }
 
 @keyframes signatureAmbientPulse {
   0%, 100% {
-    filter: drop-shadow(0 0 8px rgba(255, 250, 230, 0.35)) brightness(0.95);
+    opacity: 0.88;
+    filter: drop-shadow(0 0 10px rgba(255, 250, 230, 0.45));
   }
   50% {
-    filter: drop-shadow(0 0 20px rgba(255, 250, 230, 0.7)) brightness(1.15);
+    opacity: 1;
+    filter: drop-shadow(0 0 18px rgba(255, 250, 230, 0.7));
   }
 }
 
 .animate-signature-pulse {
+  will-change: opacity;
   animation: signatureAmbientPulse 4s ease-in-out infinite;
 }
 

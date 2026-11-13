@@ -225,11 +225,11 @@ export default function ImpactSection() {
           className="absolute z-10 flex flex-col justify-center items-center pointer-events-none"
         >
           <motion.div
-            initial={{ opacity: 0, y: 35, filter: "blur(8px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: false, amount: 0.35 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full flex flex-col gap-3 sm:gap-3.5 md:gap-4 select-none pointer-events-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="w-full flex flex-col gap-3 sm:gap-3.5 md:gap-4 select-none pointer-events-auto transform-gpu"
           >
             {/* Header Row: GITHUB ACTIVITY + Vintage Chalkboard Live Telemetry Badge */}
             <div className="w-full flex items-center justify-between pb-1.5 sm:pb-2.5 border-b border-white/10">
