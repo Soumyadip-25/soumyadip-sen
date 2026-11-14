@@ -83,7 +83,7 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
   // Animation variants for smooth page transitions between expertise sections
   const slideVariants: Variants = {
     enter: (dir: number) => ({
-      x: dir > 0 ? 40 : -40,
+      x: dir > 0 ? 30 : -30,
       opacity: 0,
       scale: 0.98,
     }),
@@ -92,17 +92,17 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
       opacity: 1,
       scale: 1,
       transition: {
-        x: { type: "spring" as const, stiffness: 350, damping: 32 },
-        opacity: { duration: 0.22 },
-        scale: { duration: 0.22 },
+        x: { type: "spring" as const, stiffness: 260, damping: 28 },
+        opacity: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+        scale: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
       },
     },
     exit: (dir: number) => ({
-      x: dir > 0 ? -40 : 40,
+      x: dir > 0 ? -30 : 30,
       opacity: 0,
       scale: 0.98,
       transition: {
-        duration: 0.16,
+        duration: 0.22,
         ease: "easeIn" as const,
       },
     }),

@@ -148,7 +148,7 @@ export default function SkillsSection() {
             initial={{ opacity: 0, y: -25, rotate: -5, scale: 1.05 }}
             whileInView={{ opacity: 1, y: 0, rotate: -2.5, scale: 1 }}
             viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.95, ease: [0.19, 1, 0.22, 1] }}
+            transition={{ duration: 1.15, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ scale: 1.04, rotate: 0 }}
             style={{
               left: "6.8%",
@@ -181,9 +181,9 @@ export default function SkillsSection() {
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{
-                  duration: 0.85,
-                  delay: 0.15 + index * 0.12,
-                  ease: [0.19, 1, 0.22, 1],
+                  duration: 1.25,
+                  delay: 0.2 + index * 0.18,
+                  ease: [0.22, 1, 0.36, 1],
                 }}
                 style={{
                   left: `${topic.rect.leftPct}%`,
@@ -334,7 +334,7 @@ export default function SkillsSection() {
           initial={{ opacity: 0, y: -20, rotate: -2 }}
           whileInView={{ opacity: 1, y: 0, rotate: -1 }}
           viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.85, ease: [0.19, 1, 0.22, 1] }}
+          transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
           className="relative w-48 sm:w-56 aspect-[1024/341] shrink-0 mb-3 sm:mb-4 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] cursor-pointer"
           data-cursor="interactive"
           data-cursor-label="SKILLS // CONSOLE"
@@ -361,9 +361,9 @@ export default function SkillsSection() {
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{
-                  duration: 0.65,
-                  delay: 0.08 + index * 0.06,
-                  ease: [0.19, 1, 0.22, 1],
+                  duration: 1.1,
+                  delay: 0.15 + index * 0.14,
+                  ease: [0.22, 1, 0.36, 1],
                 }}
                 className="w-full"
               >
