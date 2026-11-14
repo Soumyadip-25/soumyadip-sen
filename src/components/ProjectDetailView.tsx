@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -402,6 +402,19 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
   const prevProject = projects[prevIndex];
   const nextProject = projects[nextIndex];
 
+  // Ref to automatically center the active project in the scrollable headings track
+  const activeBtnRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    if (activeBtnRef.current) {
+      activeBtnRef.current.scrollIntoView({
+        behavior: "smooth",
+        inline: "nearest",
+        block: "nearest",
+      });
+    }
+  }, [currentSlug]);
+
   // Uniform typography constants shared across all 6 project pages as requested
   const titleFontClass = "text-[12px] sm:text-[14px] md:text-[17px] lg:text-[19px] xl:text-[20.5px] 2xl:text-[21.5px]";
   const sectionBadgeFontClass = "font-typewriter font-bold text-[12px] sm:text-[13px] md:text-[13.5px] lg:text-[14px] text-[#14120f] uppercase tracking-wider select-none";
@@ -541,76 +554,82 @@ return (
       {/* 1. TOP STATUS BAR: Back Button + Switcher + Live Status   */}
       {/* Inset from corners to preserve compass & tape accents     */}
       {/* ========================================================= */}
-      <header className="w-full flex items-center justify-between gap-2 sm:gap-3 shrink-0 select-none pt-2 sm:pt-2.5 pb-1 px-3 sm:px-8 md:px-12 lg:px-16 relative z-30 max-w-full overflow-x-hidden">
+      <header className="w-full flex flex-col gap-2 shrink-0 select-none pt-2 sm:pt-2.5 pb-1 px-3 sm:px-8 md:px-12 lg:px-16 relative z-30 max-w-full">
         
-        {/* Back to Projects Gallery: Authentic Taped Torn-Paper Memo */}
-        <Link
-          href="/#projects"
-          data-cursor="interactive"
-          data-cursor-label="RETURN // PROJECTS"
-          className="group relative w-[145px] sm:w-[190px] md:w-[226px] lg:w-[242px] aspect-[1007/212] drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:translate-y-0.5 hover:rotate-0 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg] shrink-0 translate-y-0.5 sm:translate-y-1.5"
-          title="Return to Projects Gallery"
-        >
-          {/* Authentic Ripped Paper Strip with Scotch Tape */}
-          <Image
-            src="/images/back-to-console-paper.png"
-            alt="Return to Projects memo"
-            fill
-            priority
-            sizes="(max-width: 640px) 160px, 250px"
-            className="object-fill pointer-events-none select-none filter contrast-105"
-          />
+        {/* Row 1: Back Navigation Button + Live Dossier Status */}
+        <div className="w-full flex items-center justify-between gap-3">
+          {/* Back to Projects Gallery: Authentic Taped Torn-Paper Memo */}
+          <Link
+            href="/#projects"
+            data-cursor="interactive"
+            data-cursor-label="RETURN // PROJECTS"
+            className="group relative w-[145px] sm:w-[185px] md:w-[215px] aspect-[1007/212] drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:translate-y-0.5 hover:rotate-0 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg] shrink-0 translate-y-0.5 sm:translate-y-1"
+            title="Return to Projects Gallery"
+          >
+            {/* Authentic Ripped Paper Strip with Scotch Tape */}
+            <Image
+              src="/images/back-to-console-paper.png"
+              alt="Return to Projects memo"
+              fill
+              priority
+              sizes="(max-width: 640px) 160px, 220px"
+              className="object-fill pointer-events-none select-none filter contrast-105"
+            />
 
-          {/* Overlaid Stamped Typewriter Memo Lettering */}
-          <div className="absolute inset-0 flex items-center pl-5 sm:pl-7 md:pl-8.5 pr-2 pointer-events-none gap-1.5 sm:gap-2">
-            <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4.5 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5] shrink-0" />
-            <div className="flex flex-col text-left justify-center min-w-0">
-              <span className="font-mono text-[7px] sm:text-[8px] md:text-[8.5px] font-bold tracking-widest text-zinc-800/80 uppercase leading-none">
-                [ ESC ] // GALLERY
-              </span>
-              <span className="font-typewriter font-bold text-[10.5px] sm:text-[12px] md:text-[13px] lg:text-[13.5px] text-[#14120f] tracking-tight leading-tight mt-0.5 truncate group-hover:text-black transition-colors">
-                Back to Projects
-              </span>
-            </div>
-          </div>
-        </Link>
-
-        {/* Quick Project Switcher Track */}
-        <nav
-          aria-label="Project Quick Switcher"
-          className="flex items-center bg-black/85 backdrop-blur-md px-1.5 py-1 rounded-full border border-zinc-800 shadow-md overflow-x-auto max-w-[calc(100vw-165px)] sm:max-w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] shrink"
-        >
-          {projects.map((p, idx) => {
-            const isActive = p.slug === currentProject.slug;
-            const shortName = p.title.split(/[-–—]/)[0].trim();
-            return (
-              <button
-                key={p.id}
-                onClick={() => navigateToProject(p.slug, idx > currentIndex ? 1 : -1)}
-                data-cursor="interactive"
-                data-cursor-label={`PROJECT // ${shortName.toUpperCase()}`}
-                className={`px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[11px] sm:text-xs transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
-                  isActive
-                    ? "bg-[#ede8db] text-zinc-950 font-typewriter font-bold shadow-md -rotate-[0.5deg]"
-                    : "text-zinc-400 hover:text-white font-mono font-medium hover:bg-zinc-800/80"
-                }`}
-                title={`Switch to ${shortName}`}
-              >
-                <span className={isActive ? "text-zinc-900 font-bold" : "text-zinc-100 font-bold"}>
-                  0{idx + 1}
+            {/* Overlaid Stamped Typewriter Memo Lettering */}
+            <div className="absolute inset-0 flex items-center pl-5 sm:pl-7 md:pl-8 pr-2 pointer-events-none gap-1.5 sm:gap-2">
+              <ArrowLeft className="w-3.5 h-3.5 sm:w-4 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5] shrink-0" />
+              <div className="flex flex-col text-left justify-center min-w-0">
+                <span className="font-mono text-[7px] sm:text-[8px] font-bold tracking-widest text-zinc-800/80 uppercase leading-none">
+                  [ ESC ] // GALLERY
                 </span>
-                <span>{shortName}</span>
-              </button>
-            );
-          })}
-        </nav>
+                <span className="font-typewriter font-bold text-[10.5px] sm:text-[12px] md:text-[13px] text-[#14120f] tracking-tight leading-tight mt-0.5 truncate group-hover:text-black transition-colors">
+                  Back to Projects
+                </span>
+              </div>
+            </div>
+          </Link>
 
-        {/* Live Dossier Status Indicator (Inset from top-right to preserve compass rose) */}
-        <div className="hidden lg:flex items-center gap-2 bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-zinc-800 text-xs font-mono shadow-md mr-14 xl:mr-20">
-          <span className="w-2 h-2 rounded-full bg-white animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.9)]" />
-          <span className="text-zinc-100 font-bold tracking-wider">
-            DOSSIER // 0{currentIndex + 1} OF 0{projects.length}
-          </span>
+          {/* Live Dossier Status Indicator (Inset from top-right to preserve compass rose) */}
+          <div className="flex items-center gap-2 bg-black/85 backdrop-blur-md px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full border border-zinc-800 text-[10.5px] sm:text-xs font-mono shadow-md mr-1 sm:mr-4 md:mr-14 xl:mr-20 shrink-0">
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.9)]" />
+            <span className="text-zinc-100 font-bold tracking-wider">
+              DOSSIER // 0{currentIndex + 1} OF 0{projects.length}
+            </span>
+          </div>
+        </div>
+
+        {/* Row 2: Quick Project Switcher Track — Positioned JUST BELOW the Back Navigation Button and Scrollable */}
+        <div className="w-full overflow-x-auto vintage-scrollbar pb-1 pt-0.5">
+          <nav
+            aria-label="Project Quick Switcher"
+            className="inline-flex items-center bg-black/85 backdrop-blur-md px-2 py-1 rounded-full border border-zinc-800/90 shadow-md gap-1 min-w-max"
+          >
+            {projects.map((p, idx) => {
+              const isActive = p.slug === currentProject.slug;
+              const shortName = p.title.split(/[-–—]/)[0].trim();
+              return (
+                <button
+                  key={p.id}
+                  ref={isActive ? activeBtnRef : null}
+                  onClick={() => navigateToProject(p.slug, idx > currentIndex ? 1 : -1)}
+                  data-cursor="interactive"
+                  data-cursor-label={`PROJECT // ${shortName.toUpperCase()}`}
+                  className={`px-3 sm:px-3.5 py-1 rounded-full text-xs sm:text-[12.5px] transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0 ${
+                    isActive
+                      ? "bg-[#ede8db] text-zinc-950 font-typewriter font-bold shadow-md -rotate-[0.5deg]"
+                      : "text-zinc-400 hover:text-white font-mono font-medium hover:bg-zinc-800/80"
+                  }`}
+                  title={`Switch to ${shortName}`}
+                >
+                  <span className={isActive ? "text-zinc-900 font-bold" : "text-zinc-300 font-bold"}>
+                    0{idx + 1}
+                  </span>
+                  <span>{shortName}</span>
+                </button>
+              );
+            })}
+          </nav>
         </div>
 
       </header>
