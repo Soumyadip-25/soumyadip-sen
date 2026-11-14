@@ -9,26 +9,25 @@ interface SectionDividerProps {
 
 /**
  * Mobile/Tablet Section Divider (< md)
- * Displays the vintage mountain ascent and horizontal divider illustration
- * to gracefully separate sections on all non-desktop devices.
- * Strictly hidden on desktop (md:hidden).
+ * Spans seamlessly edge-to-edge from the left to right of the viewport
+ * with 100% responsive proportional scaling and zero distortion.
+ * Strictly hidden on desktop views (md:hidden).
  */
 export default function SectionDivider({ className = "" }: SectionDividerProps) {
   return (
     <div
-      className={`md:hidden relative w-full flex items-center justify-center pointer-events-none select-none z-20 overflow-hidden py-1 sm:py-2 ${className}`}
+      className={`md:hidden relative w-full pointer-events-none select-none z-20 overflow-hidden flex items-center justify-center -my-3 sm:-my-5 ${className}`}
       aria-hidden="true"
     >
-      <div className="relative w-full max-w-[380px] sm:max-w-[460px] h-14 sm:h-16 px-4 flex items-center justify-center">
-        <div className="relative w-full h-full">
-          <Image
-            src="/images/section-divider.png"
-            alt=""
-            fill
-            sizes="(max-width: 640px) 380px, 460px"
-            className="object-cover object-center filter contrast-[1.12] brightness-[1.08]"
-          />
-        </div>
+      <div className="relative w-full aspect-[1024/341]">
+        <Image
+          src="/images/section-divider.png"
+          alt=""
+          fill
+          priority={false}
+          sizes="100vw"
+          className="object-contain object-center filter contrast-[1.12] brightness-[1.08]"
+        />
       </div>
     </div>
   );
