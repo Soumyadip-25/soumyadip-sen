@@ -416,10 +416,10 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
   }, [currentSlug]);
 
   // Uniform typography constants shared across all 6 project pages as requested
-  const titleFontClass = "text-[12px] sm:text-[14px] md:text-[17px] lg:text-[19px] xl:text-[20.5px] 2xl:text-[21.5px]";
-  const sectionBadgeFontClass = "font-typewriter font-bold text-[12px] sm:text-[13px] md:text-[13.5px] lg:text-[14px] text-[#14120f] uppercase tracking-wider select-none";
-  const descriptionFontClass = "font-typewriter text-zinc-200 text-xs sm:text-[13px] md:text-[14px] lg:text-[14.5px] xl:text-[15.5px] leading-relaxed tracking-[0.015em]";
-  const highlightFontClass = "font-typewriter text-zinc-200 text-xs sm:text-[13px] md:text-[14px] lg:text-[14.5px] xl:text-[15.5px] leading-snug md:leading-none whitespace-normal md:whitespace-nowrap tracking-tight";
+  const titleFontClass = "text-[12px] sm:text-[14px] md:text-[15px] lg:text-[17px] xl:text-[18.5px] 2xl:text-[19.5px]";
+  const sectionBadgeFontClass = "font-typewriter font-bold text-[10.5px] sm:text-[11.5px] md:text-[12px] lg:text-[12.5px] text-[#14120f] uppercase tracking-wider select-none";
+  const descriptionFontClass = "font-typewriter text-zinc-200 text-xs sm:text-[12px] md:text-[12.5px] lg:text-[13px] xl:text-[13.5px] leading-relaxed tracking-[0.012em]";
+  const highlightFontClass = "font-typewriter text-zinc-200 text-xs sm:text-[12px] md:text-[12.5px] lg:text-[13px] xl:text-[13.5px] leading-tight md:leading-snug whitespace-normal md:whitespace-nowrap tracking-tight";
 
   // Check if current project has live online demo or github repo (Hardware projects have no online demo/repo)
   const hasOnlineLinks =
@@ -554,7 +554,7 @@ return (
       {/* 1. TOP STATUS BAR: Back Button + Switcher + Live Status   */}
       {/* Inset from corners to preserve compass & tape accents     */}
       {/* ========================================================= */}
-      <header className="w-full flex flex-col gap-2 shrink-0 select-none pt-2 sm:pt-2.5 pb-1 px-3 sm:px-8 md:px-12 lg:px-16 relative z-30 max-w-full">
+      <header className="w-full flex flex-col gap-1.5 sm:gap-2 shrink-0 select-none pt-1.5 sm:pt-2 md:pt-2 pb-0.5 sm:pb-1 px-3 sm:px-8 md:px-12 lg:px-16 relative z-30 max-w-full">
         
         {/* Row 1: Back Navigation Button + Live Dossier Status */}
         <div className="w-full flex items-center justify-between gap-3">
@@ -637,7 +637,7 @@ return (
       {/* ========================================================= */}
       {/* 2. CENTER STAGE: 2-Column Responsive Single-Screen Dossier */}
       {/* ========================================================= */}
-      <main className="flex-1 flex items-center justify-center min-h-0 py-2 sm:py-3 px-3 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative z-10 overflow-x-hidden md:overflow-hidden w-full max-w-full">
+      <main className="flex-1 flex items-center justify-center min-h-0 py-1 sm:py-2 md:py-1 px-3 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative z-10 overflow-x-hidden md:overflow-y-auto md:overflow-x-hidden w-full max-w-full">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentProject.id}
@@ -646,13 +646,13 @@ return (
             initial="enter"
             animate="center"
             exit="exit"
-            className="w-full h-full md:max-h-[calc(100vh-115px)] flex flex-col md:flex-row items-center justify-start md:justify-between xl:justify-center gap-6 md:gap-8 lg:gap-10 xl:gap-14 max-w-[1660px] 2xl:max-w-[1840px] mx-auto px-1 sm:px-2"
+            className="w-full h-full md:max-h-[calc(100vh-140px)] flex flex-col md:flex-row items-center justify-start md:justify-between xl:justify-center gap-5 md:gap-6 lg:gap-8 xl:gap-12 max-w-[1660px] 2xl:max-w-[1840px] mx-auto px-1 sm:px-2"
           >
             
             {/* ----------------------------------------------------- */}
             {/* LEFT COLUMN: Authentic Binder-Clipped Dossier Frame    */}
             {/* ----------------------------------------------------- */}
-            <div className="w-full max-w-[340px] sm:max-w-[400px] md:max-w-none md:w-auto h-auto md:h-full max-h-[520px] sm:max-h-[580px] md:max-h-[620px] lg:max-h-[660px] xl:max-h-[700px] aspect-[682/1024] relative flex items-center justify-center shrink-0 filter drop-shadow-[0_18px_42px_rgba(0,0,0,0.95)] mx-auto md:mx-0">
+            <div className="w-full max-w-[340px] sm:max-w-[400px] md:max-w-none md:w-auto h-auto md:h-full max-h-[500px] sm:max-h-[540px] md:max-h-[530px] lg:max-h-[580px] xl:max-h-[630px] aspect-[682/1024] relative flex items-center justify-center shrink-0 filter drop-shadow-[0_18px_42px_rgba(0,0,0,0.95)] mx-auto md:mx-0">
               
               {/* 1. Project Card Positioned Beneath Cutout Window */}
               <div
@@ -796,12 +796,12 @@ return (
             {/* ----------------------------------------------------- */}
             {/* RIGHT COLUMN: Inspired by Reference Mockup             */}
             {/* ----------------------------------------------------- */}
-            <div className="w-full min-w-0 md:w-auto md:min-w-[600px] lg:min-w-[720px] xl:min-w-[840px] 2xl:min-w-[920px] max-w-full flex flex-col justify-center space-y-3 sm:space-y-3.5 md:space-y-4 shrink-0 md:shrink-0">
+            <div className="w-full min-w-0 md:w-auto md:min-w-[600px] lg:min-w-[720px] xl:min-w-[840px] 2xl:min-w-[920px] max-w-full flex flex-col justify-center space-y-2.5 sm:space-y-3 md:space-y-2 lg:space-y-2.5 xl:space-y-3 shrink-0 md:shrink-0">
               
               {/* 1. Project Title on Authentic Pinned Torn Paper Strip (Tailored to title length) */}
               <div className="relative inline-block w-full max-w-full">
                 <div
-                  className={`relative ${bannerWidthClass} min-h-[54px] sm:min-h-[62px] md:min-h-0 md:aspect-[1000/175] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)] -rotate-[0.5deg] py-1.5 sm:py-2 md:py-0`}
+                  className={`relative ${bannerWidthClass} min-h-[50px] sm:min-h-[58px] md:min-h-0 md:aspect-[1000/155] md:max-h-[64px] lg:max-h-[72px] xl:max-h-[80px] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)] -rotate-[0.5deg] py-1 sm:py-1.5 md:py-0`}
                   data-cursor="interactive"
                   data-cursor-label={`${currentProject.title.split(/[-–—]/)[0].trim().toUpperCase()} // ARCHIVE`}
                 >
@@ -833,7 +833,7 @@ return (
               </div>
 
               {/* 3. Technologies Used Section */}
-              <div className="space-y-1.5 sm:space-y-2 flex flex-col items-center md:items-start">
+              <div className="space-y-1 sm:space-y-1.5 md:space-y-1 lg:space-y-1.5 flex flex-col items-center md:items-start">
                 {/* Torn Paper Header Badge */}
                 <div className="relative inline-block w-fit">
                   <div className="relative px-3.5 py-0.5 sm:px-4 sm:py-1 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] -rotate-[0.5deg]">
@@ -865,7 +865,7 @@ return (
                       data-cursor-label={tech.name.toUpperCase()}
                       className={`relative aspect-square flex flex-col items-center justify-center p-1 group/tile cursor-default filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.7)] hover:scale-105 transition-transform duration-200 shrink-0 ${
                         isDesktop
-                          ? "w-[66px] h-[66px] lg:w-[72px] lg:h-[72px]"
+                          ? "w-[56px] h-[56px] md:w-[58px] md:h-[58px] lg:w-[62px] lg:h-[62px] xl:w-[66px] xl:h-[66px]"
                           : "w-[60px] h-[60px] xs:w-[66px] xs:h-[66px] sm:w-[74px] sm:h-[74px]"
                       }`}
                       title={tech.name}
@@ -885,7 +885,7 @@ return (
                         <span
                           className={`font-typewriter font-bold text-zinc-200 group-hover/tile:text-white mt-0.5 text-center leading-[1.08] line-clamp-2 w-full break-normal select-none ${
                             isDesktop
-                              ? "text-[8.5px] lg:text-[9.2px]"
+                              ? "text-[8px] md:text-[8.2px] lg:text-[8.8px] xl:text-[9.2px]"
                               : "text-[6.8px] xs:text-[7.4px] sm:text-[8.2px]"
                           }`}
                         >
@@ -919,7 +919,7 @@ return (
               </div>
 
               {/* 4. Key Features Section */}
-              <div className="space-y-1.5 sm:space-y-2">
+              <div className="space-y-1 sm:space-y-1.5 md:space-y-1 lg:space-y-1.5">
                 {/* Torn Paper Header Badge */}
                 <div className="relative inline-block w-fit">
                   <div className="relative px-3.5 py-0.5 sm:px-4 sm:py-1 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] -rotate-[0.5deg]">
@@ -938,10 +938,10 @@ return (
                 </div>
 
                 {/* Vertical Checklist with Retro Checkboxes */}
-                <ul className="space-y-1.5 sm:space-y-2 md:space-y-2 w-full max-w-full">
+                <ul className="space-y-1 sm:space-y-1.5 md:space-y-1 lg:space-y-1.5 w-full max-w-full">
                   {currentProject.highlights.map((item, idx) => (
                     <li key={idx} className="flex items-start md:items-center gap-2 sm:gap-2.5">
-                      <span className="inline-flex items-center justify-center w-4 h-4 sm:w-4.5 sm:h-4.5 rounded-[3px] border border-zinc-400 bg-zinc-900/90 text-white text-[10px] sm:text-[11px] font-bold shrink-0 mt-0.5 md:mt-0 shadow-sm">
+                      <span className="inline-flex items-center justify-center w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-3.5 md:h-3.5 lg:w-4 lg:h-4 rounded-[3px] border border-zinc-400 bg-zinc-900/90 text-white text-[9px] sm:text-[10px] md:text-[9.5px] lg:text-[10px] font-bold shrink-0 mt-0.5 md:mt-0 shadow-sm">
                         ✓
                       </span>
                       <span className={highlightFontClass}>{item}</span>
@@ -959,7 +959,7 @@ return (
       {/* ========================================================= */}
       {/* 3. BOTTOM CONTROLS & NAVIGATION BAR                       */}
       {/* ========================================================= */}
-      <footer className="w-full flex flex-col md:flex-row items-center md:justify-end gap-3 px-3 sm:px-8 md:px-14 lg:px-16 py-3 md:py-2.5 relative z-30 select-none shrink-0 border-t border-white/5 md:border-none bg-black/40 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none">
+      <footer className="w-full flex flex-col md:flex-row items-center md:justify-end gap-2.5 sm:gap-3 px-3 sm:px-8 md:px-14 lg:px-16 py-2 sm:py-2.5 md:py-1 lg:py-1.5 relative z-30 select-none shrink-0 border-t border-white/5 md:border-none bg-black/40 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none">
         
         {/* Pagination Indicator Dots: Placed cleanly above buttons on mobile, centered on desktop */}
         <div className="order-1 md:order-none md:absolute md:left-1/2 md:-translate-x-1/2 flex items-center gap-2 bg-black/85 backdrop-blur-sm px-3.5 py-1.5 rounded-full border border-zinc-800/80 shadow-[0_4px_16px_rgba(0,0,0,0.8)] z-10">
@@ -986,7 +986,7 @@ return (
             onClick={goToPrev}
             data-cursor="interactive"
             data-cursor-label={`PREV // ${prevProject.title.split(/[-–—]/)[0].trim().toUpperCase()}`}
-            className="group relative flex-1 md:flex-initial w-auto md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg]"
+            className="group relative flex-1 md:flex-initial w-auto md:w-38 lg:w-42 xl:w-46 md:max-h-[46px] lg:max-h-[50px] aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg]"
             title={`Previous: ${prevProject.title}`}
           >
             <Image
@@ -998,11 +998,11 @@ return (
               className="object-fill pointer-events-none select-none group-hover:brightness-105 transition-all"
             />
             <div className="absolute inset-0 flex flex-col justify-center items-center px-2 sm:px-3 text-center pointer-events-none">
-              <span className="font-mono text-[8px] sm:text-[9.5px] md:text-[10px] lg:text-[10.5px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1 sm:gap-1.5">
-                <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5]" />
+              <span className="font-mono text-[8px] sm:text-[9px] md:text-[9.5px] lg:text-[10px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1 sm:gap-1.5">
+                <ArrowLeft className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5]" />
                 <span>VISIT PREVIOUS</span>
               </span>
-              <span className="font-typewriter font-bold text-[10.5px] sm:text-[11.5px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight mt-0.5 truncate max-w-[105px] sm:max-w-[135px] md:max-w-[165px]">
+              <span className="font-typewriter font-bold text-[10px] sm:text-[11px] md:text-[11.5px] lg:text-[12px] text-[#14120f] tracking-tight mt-0.5 truncate max-w-[100px] sm:max-w-[125px] md:max-w-[150px]">
                 {prevProject.title.split(/[-–—]/)[0].trim()}
               </span>
             </div>
@@ -1013,7 +1013,7 @@ return (
             onClick={goToNext}
             data-cursor="interactive"
             data-cursor-label={`NEXT // ${nextProject.title.split(/[-–—]/)[0].trim().toUpperCase()}`}
-            className="group relative flex-1 md:flex-initial w-auto md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none rotate-[0.5deg]"
+            className="group relative flex-1 md:flex-initial w-auto md:w-38 lg:w-42 xl:w-46 md:max-h-[46px] lg:max-h-[50px] aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none rotate-[0.5deg]"
             title={`Next: ${nextProject.title}`}
           >
             <Image
@@ -1025,11 +1025,11 @@ return (
               className="object-fill pointer-events-none select-none group-hover:brightness-105 transition-all"
             />
             <div className="absolute inset-0 flex flex-col justify-center items-center px-2.5 sm:px-3 text-center pointer-events-none">
-              <span className="font-mono text-[8px] sm:text-[9.5px] md:text-[10px] lg:text-[10.5px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1 sm:gap-1.5">
+              <span className="font-mono text-[8px] sm:text-[9px] md:text-[9.5px] lg:text-[10px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1 sm:gap-1.5">
                 <span>VISIT NEXT</span>
-                <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-[#14120f] group-hover:translate-x-1 transition-transform stroke-[2.5]" />
+                <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#14120f] group-hover:translate-x-1 transition-transform stroke-[2.5]" />
               </span>
-              <span className="font-typewriter font-bold text-[10.5px] sm:text-[11.5px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight mt-0.5 truncate max-w-[105px] sm:max-w-[135px] md:max-w-[165px]">
+              <span className="font-typewriter font-bold text-[10px] sm:text-[11px] md:text-[11.5px] lg:text-[12px] text-[#14120f] tracking-tight mt-0.5 truncate max-w-[100px] sm:max-w-[125px] md:max-w-[150px]">
                 {nextProject.title.split(/[-–—]/)[0].trim()}
               </span>
             </div>
