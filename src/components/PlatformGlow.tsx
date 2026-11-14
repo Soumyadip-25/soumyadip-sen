@@ -40,7 +40,7 @@ export default function PlatformGlow() {
       currentY += dy * 0.18;
 
       if (glowRef.current) {
-        glowRef.current.style.background = `radial-gradient(650px circle at ${currentX.toFixed(1)}px ${currentY.toFixed(1)}px, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 22%, rgba(255, 255, 255, 0.025) 45%, rgba(255, 255, 255, 0.005) 65%, transparent 80%)`;
+        glowRef.current.style.background = `radial-gradient(460px circle at ${currentX.toFixed(1)}px ${currentY.toFixed(1)}px, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.075) 24%, rgba(255, 255, 255, 0.02) 48%, rgba(255, 255, 255, 0.004) 68%, transparent 82%)`;
       }
 
       // Keep updating while moving or settling
