@@ -153,7 +153,7 @@ export default function ProjectsSection() {
       id="projects"
       ref={sectionRef}
       onWheel={handleWheel}
-      className="relative h-screen max-h-screen w-full flex items-center justify-center overflow-hidden bg-[#121214] vintage-charcoal-bg select-none md:pl-52 lg:pl-56 scroll-mt-0"
+      className="relative min-h-0 md:h-screen md:max-h-screen w-full flex items-center justify-center overflow-hidden bg-[#121214] vintage-charcoal-bg select-none md:pl-52 lg:pl-56 scroll-mt-0"
     >
       {/* 1. Full-bleed Background: User's Vintage 35mm Chalkboard Desk Artwork (Desktop Only) */}
       <div className="hidden md:block absolute inset-0 z-0 pointer-events-none overflow-hidden md:left-52 lg:left-56">
@@ -167,8 +167,8 @@ export default function ProjectsSection() {
         />
       </div>
 
-      {/* 2. Single-Screen Container: Guaranteed to fit Heading, Cards, and Dots in 100vh with 0 overflow */}
-      <div className="relative z-10 w-full h-full flex flex-col justify-between px-3 sm:px-6 md:px-8 lg:px-12 pt-12 sm:pt-16 md:pt-3 lg:pt-4 pb-2 sm:pb-3 md:pb-4 max-w-[1480px] mx-auto">
+      {/* 2. Single-Screen Container: Balanced compact vertical spacing on mobile, full stage on desktop */}
+      <div className="relative z-10 w-full h-full flex flex-col justify-start md:justify-between px-3 sm:px-6 md:px-8 lg:px-12 pt-4 sm:pt-6 md:pt-3 lg:pt-4 pb-4 sm:pb-6 md:pb-4 max-w-[1480px] mx-auto gap-2 sm:gap-3 md:gap-0">
         
         {/* Top Header Row: Torn Paper Scrap Header "Projects" - Weighted Settle */}
         <div className="flex flex-col items-start shrink-0">
@@ -206,7 +206,7 @@ export default function ProjectsSection() {
           onMouseLeave={() => {
             isHovered.current = false;
           }}
-          className="relative w-full max-w-full xl:max-w-[1400px] mx-auto my-auto flex items-center justify-center py-1 sm:py-2 -translate-y-1 sm:-translate-y-3 md:-translate-y-8 lg:-translate-y-9 transform-gpu"
+          className="relative w-full max-w-full xl:max-w-[1400px] mx-auto my-2 sm:my-3 md:my-auto flex items-center justify-center py-1 sm:py-2 -translate-y-0 md:-translate-y-8 lg:-translate-y-9 transform-gpu"
         >
           {/* Navigation Arrow: Left (Click or Press-and-Hold) */}
           <motion.button

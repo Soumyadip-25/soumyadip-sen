@@ -98,7 +98,7 @@ export default function SkillsSection() {
   return (
     <section
       id="skills"
-      className="relative h-screen max-h-screen w-full overflow-hidden bg-[#121214] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
+      className="relative min-h-0 md:h-screen md:max-h-screen w-full overflow-hidden bg-[#121214] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
     >
       {/* Subtle Atmospheric Ambient Texture behind stage (Desktop Only) */}
       <div className="hidden md:block absolute inset-0 z-0 pointer-events-none opacity-20 filter blur-3xl">
@@ -326,16 +326,16 @@ export default function SkillsSection() {
 
       {/* ========================================================= */}
       {/* 2. MOBILE DEDICATED VIEW (< 768px): Responsive 2-Col CRT Wall */}
-      {/* Clean CSS-based vintage charcoal background (Zero Images) */}
+      {/* Authentic Vintage CRT Monitor Sets with Screen, Knobs & Speaker */}
       {/* ========================================================= */}
-      <div className="md:hidden relative z-10 w-full h-full flex flex-col items-center justify-between px-3 sm:px-6 pt-12 sm:pt-14 pb-3 sm:pb-4 overflow-hidden">
+      <div className="md:hidden relative z-10 w-full min-h-0 flex flex-col items-center justify-start px-3 sm:px-6 pt-4 sm:pt-6 pb-4 sm:pb-6 overflow-hidden">
         {/* Top Heading: "Skills & Technologies" paper sticker */}
         <motion.div
           initial={{ opacity: 0, y: -20, rotate: -2 }}
           whileInView={{ opacity: 1, y: 0, rotate: -1 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.85, ease: [0.19, 1, 0.22, 1] }}
-          className="relative w-48 sm:w-56 aspect-[1024/341] shrink-0 mb-1.5 sm:mb-2 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] cursor-pointer"
+          className="relative w-48 sm:w-56 aspect-[1024/341] shrink-0 mb-3 sm:mb-4 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] cursor-pointer"
           data-cursor="interactive"
           data-cursor-label="SKILLS // CONSOLE"
         >
@@ -349,8 +349,8 @@ export default function SkillsSection() {
           />
         </motion.div>
 
-        {/* 6 CRT Monitor Units in 2-Column x 3-Row Grid */}
-        <div className="w-full max-w-sm sm:max-w-md grid grid-cols-2 gap-2 sm:gap-2.5 flex-1 my-auto max-h-[calc(100vh-115px)]">
+        {/* 6 Authentic CRT Monitor Units in 2-Column x 3-Row Grid */}
+        <div className="w-full max-w-sm sm:max-w-md grid grid-cols-2 gap-2.5 sm:gap-3.5">
           {skillTopics.map((topic, index) => {
             const Icon = iconMap[topic.iconName] || Terminal;
 
@@ -365,60 +365,61 @@ export default function SkillsSection() {
                   delay: 0.08 + index * 0.06,
                   ease: [0.19, 1, 0.22, 1],
                 }}
-                className="w-full h-full"
+                className="w-full"
               >
                 <Link
                   href={`/skills/${topic.slug}`}
                   data-cursor="interactive"
                   data-cursor-label={`MOD ${topic.number} // ${topic.shortTitle.toUpperCase()}`}
-                  className="group relative w-full h-full min-h-[92px] sm:min-h-[105px] flex flex-col justify-between items-center p-2 rounded-xl overflow-hidden transition-all duration-200 cursor-pointer bg-black/40 hover:bg-white/[0.08] active:bg-white/[0.12] active:scale-[0.97] border border-white/15 hover:border-white/50 shadow-[0_4px_14px_rgba(0,0,0,0.8),inset_0_0_12px_rgba(0,0,0,0.9)]"
+                  className="group relative w-full aspect-[768/1024] flex flex-col justify-between items-center rounded-xl overflow-hidden transition-all duration-200 cursor-pointer shadow-[0_6px_18px_rgba(0,0,0,0.9)] hover:scale-[1.03] active:scale-[0.98] border border-white/10 hover:border-white/40"
                   title={`Module ${topic.number}: ${topic.title} (Tap to visit)`}
                   aria-label={`View ${topic.title} details`}
                 >
-                  {/* CRT Scanline Layer */}
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-0 pointer-events-none opacity-20"
-                    style={{
-                      backgroundImage:
-                        "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.6) 2px, rgba(0, 0, 0, 0.6) 4px)",
-                    }}
-                  />
+                  {/* Authentic Vintage CRT Television Monitor Frame (With screen, knobs & speaker grille) */}
+                  <div className="absolute inset-0 z-0">
+                    <Image
+                      src="/images/skills-module-crt.jpg"
+                      alt={`CRT Monitor for Module ${topic.number}`}
+                      fill
+                      priority={index < 2}
+                      sizes="(max-width: 640px) 190px, 240px"
+                      className="object-fill select-none pointer-events-none filter brightness-[1.0] contrast-[1.04]"
+                    />
+                  </div>
 
-                  {/* CRT Glass Curved Glare */}
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none opacity-30 rounded-[inherit]"
-                  />
-
-                  {/* Top Readout: Module Number & Status Dot */}
-                  <div className="relative z-10 w-full flex items-center justify-between">
-                    <span className="font-mono font-bold text-[8.5px] sm:text-[9.5px] tracking-tight text-zinc-300 group-hover:text-white transition-colors">
-                      MOD // {topic.number}
-                    </span>
-                    <div className="flex items-center gap-1 shrink-0">
-                      <span className="font-mono text-[7.5px] sm:text-[8.5px] text-zinc-400 group-hover:text-zinc-200 transition-colors">
-                        60Hz
+                  {/* Inner CRT Screen Area (Positioned precisely over the screen tube of the monitor) */}
+                  <div className="absolute inset-x-[7.5%] top-[5.5%] bottom-[19%] z-10 flex flex-col justify-between items-center p-1.5 sm:p-2 pointer-events-none select-none">
+                    
+                    {/* Top Screen Readout: Module Number & Live 60Hz Telemetry */}
+                    <div className="relative z-10 w-full flex items-center justify-between">
+                      <span className="font-mono font-bold text-[8px] sm:text-[9px] tracking-tight text-zinc-300 group-hover:text-white transition-colors drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
+                        MOD // {topic.number}
                       </span>
-                      <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 group-hover:bg-white group-hover:shadow-[0_0_6px_rgba(255,255,255,0.9)] transition-all" />
+                      <div className="flex items-center gap-1 shrink-0">
+                        <span className="font-mono text-[7px] sm:text-[8px] text-zinc-400 group-hover:text-zinc-200 transition-colors">
+                          60Hz
+                        </span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 group-hover:bg-white group-hover:shadow-[0_0_6px_rgba(255,255,255,0.95)] transition-all" />
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Center Content: Phosphor Icon & Title */}
-                  <div className="relative z-10 flex flex-col items-center justify-center my-auto text-center px-1 w-full">
-                    <div className="text-zinc-100 group-hover:text-white group-hover:scale-105 drop-shadow-[0_0_8px_rgba(255,255,255,0.7)] transition-all duration-200">
-                      <Icon className="w-4.5 h-4.5 sm:w-5.5 sm:h-5.5" strokeWidth={2.2} />
+                    {/* Center Screen: Glowing Phosphor Icon & Typewriter Module Title */}
+                    <div className="relative z-10 flex flex-col items-center justify-center my-auto text-center px-1 w-full">
+                      <div className="text-zinc-100 group-hover:text-white group-hover:scale-105 drop-shadow-[0_0_8px_rgba(255,255,255,0.85)] transition-all duration-200">
+                        <Icon className="w-4.5 h-4.5 sm:w-5.5 sm:h-5.5" strokeWidth={2.2} />
+                      </div>
+                      <h3 className="font-typewriter font-bold text-[9px] sm:text-[10px] text-zinc-100 group-hover:text-white tracking-tight leading-tight mt-1 [text-wrap:balance] line-clamp-2 transition-colors drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">
+                        {topic.title}
+                      </h3>
                     </div>
-                    <h3 className="font-typewriter font-bold text-[9.5px] sm:text-[11px] text-zinc-100 group-hover:text-white tracking-tight leading-tight mt-1 [text-wrap:balance] line-clamp-2 transition-colors">
-                      {topic.title}
-                    </h3>
-                  </div>
 
-                  {/* Bottom Prompt */}
-                  <div className="relative z-10 w-full flex items-center justify-center pt-0.5">
-                    <span className="font-mono text-[7.5px] sm:text-[8.5px] font-semibold tracking-wider text-zinc-400 group-hover:text-white transition-colors inline-flex items-center gap-0.5">
-                      [ VISIT <ArrowRight className="w-2.5 h-2.5 inline stroke-[2.5]" /> ]
-                    </span>
+                    {/* Bottom Screen Prompt */}
+                    <div className="relative z-10 w-full flex items-center justify-center pt-0.5">
+                      <span className="font-mono text-[7px] sm:text-[8px] font-semibold tracking-wider text-zinc-400 group-hover:text-white transition-colors inline-flex items-center gap-0.5 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
+                        [ VISIT <ArrowRight className="w-2.5 h-2.5 inline stroke-[2.5]" /> ]
+                      </span>
+                    </div>
+
                   </div>
                 </Link>
               </motion.div>
