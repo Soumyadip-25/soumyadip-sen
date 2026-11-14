@@ -98,7 +98,7 @@ export default function SkillsSection() {
   return (
     <section
       id="skills"
-      className="relative h-screen max-h-screen w-full overflow-hidden bg-[#070709] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
+      className="relative h-screen max-h-screen w-full overflow-hidden bg-[#121214] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
     >
       {/* Subtle Atmospheric Ambient Texture behind stage (Desktop Only) */}
       <div className="hidden md:block absolute inset-0 z-0 pointer-events-none opacity-20 filter blur-3xl">
@@ -107,7 +107,7 @@ export default function SkillsSection() {
           alt=""
           fill
           priority
-          sizes="100vw"
+          sizes="(min-width: 768px) 100vw, 1px"
           className="object-cover object-center"
         />
       </div>

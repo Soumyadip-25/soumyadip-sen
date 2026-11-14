@@ -109,7 +109,7 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
   };
 
   return (
-    <div className="relative w-screen min-h-screen md:h-screen md:overflow-hidden overflow-y-auto bg-[#070709] vintage-charcoal-bg text-zinc-100 select-none flex flex-col justify-between font-mono">
+    <div className="relative w-screen min-h-screen md:h-screen md:overflow-hidden overflow-y-auto bg-[#121214] vintage-charcoal-bg text-zinc-100 select-none flex flex-col justify-between font-mono">
       
       {/* ========================================================= */}
       {/* FULL-SCREEN FULL-BLEED BACKGROUND IMAGE (Desktop Only)     */}
@@ -121,7 +121,7 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
           alt="Vintage dark desk workstation background"
           fill
           priority
-          sizes="100vw"
+          sizes="(min-width: 768px) 100vw, 1px"
           className="object-cover md:object-fill object-center select-none pointer-events-none filter contrast-105 brightness-95"
         />
       </div>
@@ -384,10 +384,10 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
         {/* BOTTOM NAVIGATION BAR: Centered Dots + Right Transition Buttons */}
         {/* Leaves bottom-left camera area completely clear and open  */}
         {/* ========================================================= */}
-        <footer className="w-full relative flex items-center shrink-0 pb-1 sm:pb-1.5 px-3 sm:px-6 md:px-8 lg:px-12 select-none z-30">
+        <footer className="w-full relative flex flex-col md:flex-row items-center md:justify-end gap-3 shrink-0 pb-3 md:pb-1.5 px-3 sm:px-6 md:px-8 lg:px-12 select-none z-30 border-t border-white/5 md:border-none bg-black/40 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none">
           
-          {/* Center Track Dots: Centered in the bottom middle of the page */}
-          <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-zinc-800 font-mono text-xs sm:text-[13px] text-zinc-400 shadow-md z-10">
+          {/* Center Track Dots: Stacked above buttons on mobile, centered on desktop */}
+          <div className="order-1 md:order-none md:absolute md:left-1/2 md:-translate-x-1/2 flex items-center gap-2 bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-zinc-800 font-mono text-xs sm:text-[13px] text-zinc-400 shadow-md z-10">
             <span>[</span>
             <div className="flex items-center gap-1.5">
               {skillTopics.map((t, idx) => (
@@ -410,14 +410,14 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
             </span>
           </div>
 
-          {/* Transition Buttons: Both Grouped on the Right Side */}
-          <div className="flex items-center gap-2.5 sm:gap-3.5 ml-auto z-20">
+          {/* Transition Buttons: Side-by-side on mobile, right-aligned on desktop */}
+          <div className="order-2 md:order-none flex items-center justify-between md:justify-end w-full md:w-auto gap-2.5 sm:gap-3.5 md:ml-auto max-w-[390px] sm:max-w-[440px] md:max-w-none z-20">
             
             {/* Previous Module Button */}
             <button
               onClick={goToPrev}
               data-cursor-label="VISIT"
-              className="group relative w-38 sm:w-44 md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg]"
+              className="group relative flex-1 md:flex-initial w-auto md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg]"
               title={`Visit previous module: ${prevTopic.title}`}
             >
               <Image
@@ -427,12 +427,12 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
                 sizes="220px"
                 className="object-fill pointer-events-none select-none group-hover:brightness-105 transition-all"
               />
-              <div className="absolute inset-0 flex flex-col justify-center items-center px-3.5 text-center pointer-events-none">
-                <span className="font-mono text-[9px] sm:text-[9.5px] md:text-[10px] lg:text-[10.5px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1.5">
-                  <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5]" />
+              <div className="absolute inset-0 flex flex-col justify-center items-center px-2.5 sm:px-3 text-center pointer-events-none">
+                <span className="font-mono text-[8px] sm:text-[9.5px] md:text-[10px] lg:text-[10.5px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1 sm:gap-1.5">
+                  <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5]" />
                   <span>VISIT PREVIOUS</span>
                 </span>
-                <span className="font-typewriter font-bold text-[11.5px] sm:text-[12px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight mt-0.5 truncate max-w-[140px] sm:max-w-[165px]">
+                <span className="font-typewriter font-bold text-[10.5px] sm:text-[11.5px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight mt-0.5 truncate max-w-[105px] sm:max-w-[135px] md:max-w-[165px]">
                   {prevTopic.shortTitle || prevTopic.title}
                 </span>
               </div>
@@ -442,7 +442,7 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
             <button
               onClick={goToNext}
               data-cursor-label="VISIT"
-              className="group relative w-38 sm:w-44 md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none rotate-[0.5deg]"
+              className="group relative flex-1 md:flex-initial w-auto md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none rotate-[0.5deg]"
               title={`Visit next module: ${nextTopic.title}`}
             >
               <Image
@@ -452,12 +452,12 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
                 sizes="220px"
                 className="object-fill pointer-events-none select-none group-hover:brightness-105 transition-all"
               />
-              <div className="absolute inset-0 flex flex-col justify-center items-center px-3.5 text-center pointer-events-none">
-                <span className="font-mono text-[9px] sm:text-[9.5px] md:text-[10px] lg:text-[10.5px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1.5">
+              <div className="absolute inset-0 flex flex-col justify-center items-center px-2.5 sm:px-3 text-center pointer-events-none">
+                <span className="font-mono text-[8px] sm:text-[9.5px] md:text-[10px] lg:text-[10.5px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1 sm:gap-1.5">
                   <span>VISIT NEXT</span>
-                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#14120f] group-hover:translate-x-1 transition-transform stroke-[2.5]" />
+                  <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-[#14120f] group-hover:translate-x-1 transition-transform stroke-[2.5]" />
                 </span>
-                <span className="font-typewriter font-bold text-[11.5px] sm:text-[12px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight mt-0.5 truncate max-w-[140px] sm:max-w-[165px]">
+                <span className="font-typewriter font-bold text-[10.5px] sm:text-[11.5px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight mt-0.5 truncate max-w-[105px] sm:max-w-[135px] md:max-w-[165px]">
                   {nextTopic.shortTitle || nextTopic.title}
                 </span>
               </div>

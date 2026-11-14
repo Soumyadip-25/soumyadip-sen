@@ -96,7 +96,7 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
   return (
     <>
       {/* Mobile Top Bar */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-4 bg-[#0a0a0c]/90 backdrop-blur-md border-b border-white/5">
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-4 bg-[#121214]/90 backdrop-blur-md border-b border-white/5">
         <button
           onClick={() => onSectionClick("home")}
           className="flex items-center gap-2 text-zinc-100 hover:text-white transition-colors"
@@ -146,7 +146,7 @@ export default function Sidebar({ activeSection, onSectionClick }: SidebarProps)
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden fixed inset-x-0 top-[61px] z-40 bg-[#0d0d10]/95 backdrop-blur-xl border-b border-white/10 p-6 flex flex-col gap-4 shadow-2xl max-h-[calc(100vh-61px)] overflow-y-auto"
+            className="md:hidden fixed inset-x-0 top-[61px] z-40 bg-[#141417]/95 backdrop-blur-xl border-b border-white/10 p-6 flex flex-col gap-4 shadow-2xl max-h-[calc(100vh-61px)] overflow-y-auto"
           >
             <div className="w-full flex justify-center pb-2">
               <FlipClock />

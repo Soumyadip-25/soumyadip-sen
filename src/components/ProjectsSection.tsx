@@ -153,7 +153,7 @@ export default function ProjectsSection() {
       id="projects"
       ref={sectionRef}
       onWheel={handleWheel}
-      className="relative h-screen max-h-screen w-full flex items-center justify-center overflow-hidden bg-[#070709] vintage-charcoal-bg select-none md:pl-52 lg:pl-56 scroll-mt-0"
+      className="relative h-screen max-h-screen w-full flex items-center justify-center overflow-hidden bg-[#121214] vintage-charcoal-bg select-none md:pl-52 lg:pl-56 scroll-mt-0"
     >
       {/* 1. Full-bleed Background: User's Vintage 35mm Chalkboard Desk Artwork (Desktop Only) */}
       <div className="hidden md:block absolute inset-0 z-0 pointer-events-none overflow-hidden md:left-52 lg:left-56">
@@ -187,6 +187,7 @@ export default function ProjectsSection() {
               alt="Projects"
               fill
               priority
+              sizes="(max-width: 640px) 192px, (max-width: 768px) 256px, 380px"
               className="object-contain object-left pointer-events-none select-none drop-shadow-[0_6px_18px_rgba(0,0,0,0.9)]"
             />
           </motion.div>

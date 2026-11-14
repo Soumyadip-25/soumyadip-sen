@@ -9,7 +9,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative min-h-screen w-full flex items-center overflow-hidden bg-[#070709] vintage-charcoal-bg select-none"
+      className="relative min-h-screen w-full flex items-center overflow-hidden bg-[#121214] vintage-charcoal-bg select-none"
     >
       {/* Full Bleed Parchment Background Image - Desktop Only */}
       <div className="hidden md:block absolute inset-0 z-0 md:left-52 lg:left-56">
@@ -18,7 +18,7 @@ export default function AboutSection() {
           alt="Vintage Parchment Dossier"
           fill
           priority
-          sizes="100vw"
+          sizes="(min-width: 768px) calc(100vw - 224px), 1px"
           className="object-cover object-center filter contrast-[1.03] brightness-[0.98]"
         />
         {/* Subtle vintage ink wash */}

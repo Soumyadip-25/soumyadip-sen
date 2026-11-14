@@ -6,8 +6,6 @@ import { motion } from "motion/react";
 import {
   ChevronUp,
   ChevronDown,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 
 interface Achievement {
@@ -65,6 +63,11 @@ export default function AchievementsSection() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const mobileScrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const mobileItemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [mobileCanScrollUp, setMobileCanScrollUp] = useState<boolean>(false);
+  const [mobileCanScrollDown, setMobileCanScrollDown] = useState<boolean>(true);
 
   const [stageBounds, setStageBounds] = useState({
     width: 1024,
@@ -156,12 +159,51 @@ export default function AchievementsSection() {
     el.scrollBy({ top: delta, behavior: "smooth" });
   };
 
+  const handleMobileScroll = useCallback(() => {
+    const el = mobileScrollContainerRef.current;
+    if (!el) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    setMobileCanScrollUp(scrollTop > 8);
+    setMobileCanScrollDown(scrollTop + clientHeight < scrollHeight - 8);
+
+    const containerTop = el.getBoundingClientRect().top;
+    let closestIdx = 0;
+    let minDistance = Infinity;
+
+    mobileItemRefs.current.forEach((item, idx) => {
+      if (!item) return;
+      const rect = item.getBoundingClientRect();
+      const distance = Math.abs(rect.top - containerTop);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIdx = idx;
+      }
+    });
+
+    setActiveIdx(closestIdx);
+  }, []);
+
+  const scrollMobileToIndex = (idx: number) => {
+    const target = mobileItemRefs.current[idx];
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  };
+
+  const scrollMobileByDelta = (direction: "up" | "down") => {
+    const el = mobileScrollContainerRef.current;
+    if (!el) return;
+    const delta = direction === "down" ? 140 : -140;
+    el.scrollBy({ top: delta, behavior: "smooth" });
+  };
+
   const typographyScale = Math.min(Math.max(stageBounds.scale, 0.72), 1.35);
 
   return (
     <section
       id="achievements"
-      className="relative h-screen max-h-screen w-full overflow-hidden bg-[#070709] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
+      className="relative h-screen max-h-screen w-full overflow-hidden bg-[#121214] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
     >
       {/* Ambient background texture (Desktop Only) */}
       <div className="hidden md:block absolute inset-0 z-0 pointer-events-none opacity-20 filter blur-3xl">
@@ -170,7 +212,7 @@ export default function AchievementsSection() {
           alt=""
           fill
           priority
-          sizes="100vw"
+          sizes="(min-width: 768px) 100vw, 1px"
           className="object-cover object-center"
         />
       </div>
@@ -204,7 +246,7 @@ export default function AchievementsSection() {
             className="absolute inset-0 bg-radial from-transparent via-transparent to-black/40 pointer-events-none"
           />
 
-          {/* 2. Top-Left Heading: "Achievements" sticker - Tactile Angle Settle */}
+          {/* 2. Top-Left Heading: "Achievements" sticker - with Background Paper */}
           <motion.div
             initial={{ opacity: 0, y: -25, rotate: -6, scale: 1.05 }}
             whileInView={{ opacity: 1, y: 0, rotate: -3.5, scale: 1 }}
@@ -216,18 +258,30 @@ export default function AchievementsSection() {
               top: "2.0%",
               width: "25.0%",
             }}
-            className="absolute aspect-[1024/341] z-30 pointer-events-auto cursor-pointer -rotate-[3.5deg] origin-center drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)] transform-gpu"
+            className="absolute aspect-[1024/341] z-30 pointer-events-auto cursor-pointer -rotate-[3.5deg] origin-center drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)] transform-gpu flex items-center justify-center"
             data-cursor="interactive"
             data-cursor-label="ACHIEVEMENTS // HONORS"
           >
+            {/* Background Paper Image for High Contrast Visibility */}
             <Image
-              src="/images/achievements-title.png"
-              alt="Achievements"
+              src="/images/heading-paper-bg.png"
+              alt=""
               fill
               priority
               sizes="360px"
-              className="object-contain object-left pointer-events-none select-none filter contrast-125 brightness-105"
+              className="object-fill pointer-events-none select-none filter contrast-105"
             />
+            {/* Achievements Graphic on Top */}
+            <div className="relative z-10 w-[84%] h-[75%] flex items-center justify-center">
+              <Image
+                src="/images/achievements-title.png"
+                alt="Achievements"
+                fill
+                priority
+                sizes="340px"
+                className="object-contain object-center pointer-events-none select-none filter contrast-125"
+              />
+            </div>
           </motion.div>
 
           {/* 3. WIDE HORIZONTAL RECTANGLE DOCUMENT: Archival Ledger Unfurl */}
@@ -400,96 +454,148 @@ export default function AchievementsSection() {
         </div>
       </div>
 
-      {/* Mobile/Tablet Dedicated View (< md, pure CSS vintage-charcoal-bg, zero image decode lag) */}
-      <div className="md:hidden relative z-10 w-full h-full flex flex-col justify-between items-center px-4 pt-16 pb-8 overflow-y-auto">
-        {/* Top Header: Achievements Title */}
-        <div className="relative w-60 sm:w-72 aspect-[1024/341] shrink-0 mb-4 filter invert brightness-125 drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+      {/* Mobile/Tablet Dedicated View (< md): Exact Vintage Parchment Ledger in Vertical Orientation */}
+      <div className="md:hidden relative z-10 w-full h-full flex flex-col justify-between items-center px-3 sm:px-6 pt-14 sm:pt-16 pb-3 sm:pb-4 overflow-hidden">
+        {/* Top Header: Achievements Title on Vintage Paper Background */}
+        <div className="relative w-52 sm:w-64 aspect-[1024/341] shrink-0 mb-2 sm:mb-2.5 filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)] -rotate-1 select-none pointer-events-none flex items-center justify-center">
+          {/* Background Paper Image */}
           <Image
-            src="/images/achievements-title.png"
-            alt="Achievements"
+            src="/images/heading-paper-bg.png"
+            alt=""
             fill
             priority
-            sizes="288px"
-            className="object-contain object-center pointer-events-none select-none"
+            sizes="(max-width: 640px) 220px, 280px"
+            className="object-fill pointer-events-none select-none filter contrast-105"
           />
+          {/* Achievements Graphic on Top */}
+          <div className="relative z-10 w-[84%] h-[75%] flex items-center justify-center">
+            <Image
+              src="/images/achievements-title.png"
+              alt="Achievements"
+              fill
+              priority
+              sizes="(max-width: 640px) 200px, 260px"
+              className="object-contain object-center pointer-events-none select-none filter contrast-125"
+            />
+          </div>
         </div>
 
-        {/* Vintage Ledger Document Card */}
-        <div className="w-full max-w-sm flex-1 flex flex-col justify-center gap-3">
-          {/* Step Navigation Pill */}
-          <div className="w-full flex items-center justify-between bg-zinc-950/90 px-3.5 py-2 rounded-full border border-zinc-800 shadow-md">
-            <span className="font-mono text-xs text-zinc-300 font-bold tracking-wider">
-              ACHIEVEMENT 0{activeIdx + 1} / 05
-            </span>
-            <div className="flex items-center gap-1.5">
-              <button
-                onClick={() => {
-                  const next = (activeIdx - 1 + achievements.length) % achievements.length;
-                  setActiveIdx(next);
-                }}
-                className="p-1 rounded bg-zinc-800/60 hover:bg-zinc-700 text-zinc-300 hover:text-white transition-colors"
-                aria-label="Previous Achievement"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => {
-                  const next = (activeIdx + 1) % achievements.length;
-                  setActiveIdx(next);
-                }}
-                className="p-1 rounded bg-zinc-800/60 hover:bg-zinc-700 text-zinc-300 hover:text-white transition-colors"
-                aria-label="Next Achievement"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
+        {/* Vertical Parchment Document Ledger */}
+        <div className="relative w-full max-w-[420px] sm:max-w-[480px] flex-1 max-h-[calc(100vh-125px)] sm:max-h-[calc(100vh-140px)] rounded-xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.85)] filter drop-shadow-[0_8px_24px_rgba(0,0,0,0.9)] flex flex-col justify-between my-auto">
+          {/* Vertical Parchment Document Backdrop */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/achievements-document-vertical.jpg"
+              alt="Achievements Document"
+              fill
+              priority
+              sizes="(max-width: 640px) 100vw, 480px"
+              className="object-fill select-none pointer-events-none filter contrast-[1.03] brightness-[1.01]"
+            />
           </div>
 
-          {/* Active Card Content */}
-          <motion.div
-            key={activeIdx}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className="w-full p-5 rounded-2xl bg-[#0f0e11]/90 border border-white/15 shadow-[0_8px_30px_rgba(0,0,0,0.8)] flex flex-col gap-3"
-          >
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-white/10 text-zinc-200 border border-white/20 font-bold uppercase tracking-wider">
-                {achievements[activeIdx].tag}
-              </span>
-              <span className="font-mono text-xs text-zinc-500 font-bold">
-                REF #{achievements[activeIdx].number}
-              </span>
+          {/* Document Content: Scrollable list of achievements */}
+          <div className="relative z-10 w-full h-full flex flex-col justify-between pt-8 sm:pt-10 pb-3 sm:pb-4 px-5 sm:px-7">
+            <div
+              ref={mobileScrollContainerRef}
+              onScroll={handleMobileScroll}
+              className="relative w-full flex-1 overflow-y-auto paper-scrollbar pr-1.5 sm:pr-2 space-y-2 sm:space-y-2.5 scroll-smooth"
+            >
+              {achievements.map((item, idx) => {
+                const isActive = activeIdx === idx;
+
+                return (
+                  <div
+                    key={item.id}
+                    ref={(el) => {
+                      mobileItemRefs.current[idx] = el;
+                    }}
+                    onClick={() => {
+                      setActiveIdx(idx);
+                      scrollMobileToIndex(idx);
+                    }}
+                    className={`group relative p-2 sm:p-2.5 rounded-lg transition-all duration-200 cursor-pointer ${
+                      isActive
+                        ? "bg-[#1c1917]/[0.08] border-l-2 border-[#1c1917] pl-2.5 sm:pl-3 shadow-sm"
+                        : "bg-transparent hover:bg-[#1c1917]/[0.03] border-l-2 border-transparent"
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-1.5">
+                      <h4 className="font-typewriter font-bold text-xs sm:text-sm text-[#1c1917] flex items-start gap-1.5 leading-snug">
+                        <span className="text-[#1c1917] select-none leading-none mt-0.5">•</span>
+                        <span className="font-mono text-[#1c1917] select-none">{item.number}.</span>
+                        <span>{item.title}</span>
+                      </h4>
+
+                      {item.tag && (
+                        <span className="font-mono text-[8.5px] sm:text-[9.5px] px-1.5 py-0.5 rounded border border-[#1c1917]/25 bg-[#1c1917]/5 text-[#1c1917] font-bold uppercase tracking-wider shrink-0 mt-0.5">
+                          {item.tag}
+                        </span>
+                      )}
+                    </div>
+
+                    <p className="font-mono text-[11px] sm:text-xs text-[#38332b] font-medium mt-1 pl-3 sm:pl-3.5 relative leading-relaxed">
+                      <span className="absolute left-0.5 top-0 text-[#1c1917] text-xs leading-none">•</span>
+                      {item.description}
+                    </p>
+
+                    {idx < achievements.length - 1 && (
+                      <div className="w-full h-[1px] bg-[#1c1917]/15 mt-2 sm:mt-2.5" />
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
-            <h4 className="font-typewriter text-base font-bold text-white leading-snug flex items-start gap-2">
-              <span className="text-zinc-400">•</span>
-              <span>{achievements[activeIdx].title}</span>
-            </h4>
+            {/* Bottom Number Pills & Scroll Buttons (Exact Desktop Replica) */}
+            <div className="flex items-center justify-between pt-1.5 sm:pt-2 border-t border-[#1c1917]/15 shrink-0 px-1 mt-auto">
+              <div className="flex items-center gap-1 sm:gap-1.5">
+                {achievements.map((item, idx) => (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setActiveIdx(idx);
+                      scrollMobileToIndex(idx);
+                    }}
+                    className={`px-2 sm:px-2.5 py-0.5 rounded font-mono text-[9.5px] sm:text-[10.5px] font-bold transition-colors cursor-pointer ${
+                      activeIdx === idx
+                        ? "bg-[#1c1917] text-[#ded3c5] shadow-sm"
+                        : "bg-[#1c1917]/10 text-[#44403c] hover:bg-[#1c1917]/20"
+                    }`}
+                  >
+                    • {item.number}
+                  </button>
+                ))}
+              </div>
 
-            <p className="font-mono text-xs text-zinc-300 leading-relaxed pl-3 relative border-l-2 border-white/10 my-1">
-              {achievements[activeIdx].description}
-            </p>
-
-            {/* Pagination Dots */}
-            <div className="flex items-center justify-center gap-1.5 pt-2 mt-1 border-t border-white/10">
-              {achievements.map((_, i) => (
+              <div className="flex items-center gap-1">
                 <button
-                  key={i}
-                  onClick={() => setActiveIdx(i)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === activeIdx ? "w-6 bg-white" : "w-1.5 bg-zinc-600 hover:bg-zinc-400"
+                  onClick={() => scrollMobileByDelta("up")}
+                  disabled={!mobileCanScrollUp}
+                  title="Scroll Up"
+                  className={`p-1 sm:p-1.5 rounded transition-colors ${
+                    mobileCanScrollUp
+                      ? "bg-[#1c1917]/15 hover:bg-[#1c1917]/25 text-[#1c1917] cursor-pointer"
+                      : "opacity-25 text-[#44403c] cursor-not-allowed"
                   }`}
-                  aria-label={`Go to achievement ${i + 1}`}
-                />
-              ))}
+                >
+                  <ChevronUp className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </button>
+                <button
+                  onClick={() => scrollMobileByDelta("down")}
+                  disabled={!mobileCanScrollDown}
+                  title="Scroll Down"
+                  className={`p-1 sm:p-1.5 rounded transition-colors ${
+                    mobileCanScrollDown
+                      ? "bg-[#1c1917]/15 hover:bg-[#1c1917]/25 text-[#1c1917] cursor-pointer"
+                      : "opacity-25 text-[#44403c] cursor-not-allowed"
+                  }`}
+                >
+                  <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </button>
+              </div>
             </div>
-          </motion.div>
-        </div>
-
-        {/* Bottom subtle brand stamp */}
-        <div className="text-[10px] font-mono text-zinc-500 tracking-widest uppercase mt-3">
-          VERIFIED ARCHIVES // DECLASSIFIED
+          </div>
         </div>
       </div>
     </section>

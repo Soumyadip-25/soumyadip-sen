@@ -52,9 +52,10 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
 
   // Short focus-pull effect when scrolling between sections or changing routes
   const triggerFocusPull = useCallback(() => {
-    setIsFocusPulling(true);
-    const timer = setTimeout(() => setIsFocusPulling(false), 360);
-    return () => clearTimeout(timer);
+    requestAnimationFrame(() => {
+      setIsFocusPulling(true);
+      setTimeout(() => setIsFocusPulling(false), 360);
+    });
   }, []);
 
   // Trigger focus pull on route transitions

@@ -50,7 +50,7 @@ export default function Hero({ onResumeClick }: HeroProps) {
   return (
     <section
       id="home"
-      className="relative min-h-screen w-full flex items-center overflow-hidden bg-[#070709] vintage-charcoal-bg select-none"
+      className="relative min-h-screen w-full flex items-center overflow-hidden bg-[#121214] vintage-charcoal-bg select-none"
     >
       {/* Background Image: The noir desk & lamp scene (Desktop Only) */}
       <div className="hidden md:block absolute inset-0 z-0">
@@ -59,7 +59,7 @@ export default function Hero({ onResumeClick }: HeroProps) {
           alt="Vintage Noir Studio Workspace"
           fill
           priority
-          sizes="100vw"
+          sizes="(min-width: 768px) 100vw, 1px"
           className="object-cover object-[15%_center] md:object-[10%_center] filter brightness-[0.98] contrast-[1.05]"
         />
 
@@ -163,7 +163,7 @@ export default function Hero({ onResumeClick }: HeroProps) {
               data-cursor="interactive"
               data-cursor-label="SOUMYADIP // SIGNATURE"
             >
-              {/* Progressive Left-to-Right Ink Stroke Sweep (Crisp Matte, Zero Glow) */}
+              {/* Progressive Left-to-Right Ink Stroke Sweep (Crisp Matte, Zero Glow, Gracefully Paced) */}
               <motion.div
                 initial={{ clipPath: "inset(0% 100% 0% 0%)", opacity: 0 }}
                 animate={
@@ -172,8 +172,8 @@ export default function Hero({ onResumeClick }: HeroProps) {
                     : { clipPath: "inset(0% 100% 0% 0%)", opacity: 0 }
                 }
                 transition={{
-                  clipPath: { duration: 1.25, delay: 0.35, ease: [0.22, 1, 0.36, 1] },
-                  opacity: { duration: 0.15, delay: 0.35 },
+                  clipPath: { duration: 2.35, delay: 0.35, ease: [0.25, 0.1, 0.25, 1] },
+                  opacity: { duration: 0.2, delay: 0.35 },
                 }}
                 className="relative w-full h-full overflow-hidden"
               >
@@ -196,7 +196,7 @@ export default function Hero({ onResumeClick }: HeroProps) {
                   ? { opacity: 1, y: 0, scale: 1 }
                   : { opacity: 0, y: 18, scale: 0.92 }
               }
-              transition={{ duration: 0.75, delay: 1.35, ease: [0.19, 1, 0.22, 1] }}
+              transition={{ duration: 0.75, delay: 2.15, ease: [0.19, 1, 0.22, 1] }}
               whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
               whileTap={{ scale: 0.98 }}
               className="mt-5 sm:mt-7 lg:mt-9 self-center lg:self-start lg:ml-28 xl:ml-36 transform-gpu"
@@ -212,7 +212,7 @@ export default function Hero({ onResumeClick }: HeroProps) {
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={isMounted ? { opacity: 0.45, y: 0 } : { opacity: 0, y: 12 }}
-        transition={{ duration: 0.8, delay: 1.6, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.8, delay: 2.6, ease: [0.16, 1, 0.3, 1] }}
         className="absolute bottom-4 left-1/2 -translate-x-1/2 md:pl-28 z-20 flex flex-col items-center gap-1 hover:opacity-85 transition-opacity"
       >
         <span className="text-[10px] font-mono tracking-widest text-zinc-400 uppercase">

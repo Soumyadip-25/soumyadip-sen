@@ -17,7 +17,7 @@
 
   body {
     font-family: var(--font-sans);
-    background-color: #08080a;
+    background-color: #121214;
     color: #e4e4e7;
     overflow-x: hidden;
   }
@@ -124,14 +124,17 @@
   background: rgba(255, 255, 255, 0.45);
 }
 
-/* Clean Consistent Vintage Charcoal Background for Non-Desktop Devices */
+/* Authentic Vintage Slate & Charcoal Blackboard Background for Mobile / Non-Desktop Devices */
 .vintage-charcoal-bg {
-  background-color: #070709;
+  background-color: #121214;
   background-image: 
-    radial-gradient(circle at 50% 15%, rgba(255, 255, 255, 0.04) 0%, transparent 55%),
-    radial-gradient(circle at 80% 85%, rgba(255, 255, 255, 0.02) 0%, transparent 45%),
-    radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 0);
-  background-size: 100% 100%, 100% 100%, 20px 20px;
+    radial-gradient(ellipse at 50% 25%, rgba(255, 255, 255, 0.045) 0%, transparent 65%),
+    radial-gradient(circle at 75% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 55%),
+    radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.42) 100%),
+    url('/images/vintage-slate-texture.webp');
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 380px 380px;
+  background-position: center, center, center, top left;
 }
 
 /* Antique Parchment Paper Scrollbar */

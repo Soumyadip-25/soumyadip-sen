@@ -403,10 +403,10 @@ export default function ProjectDetailView({ initialSlug }: ProjectDetailViewProp
   const nextProject = projects[nextIndex];
 
   // Uniform typography constants shared across all 6 project pages as requested
-  const titleFontClass = "text-[14px] sm:text-[15.5px] md:text-[17px] lg:text-[19px] xl:text-[20.5px] 2xl:text-[21.5px]";
+  const titleFontClass = "text-[12px] sm:text-[14px] md:text-[17px] lg:text-[19px] xl:text-[20.5px] 2xl:text-[21.5px]";
   const sectionBadgeFontClass = "font-typewriter font-bold text-[12px] sm:text-[13px] md:text-[13.5px] lg:text-[14px] text-[#14120f] uppercase tracking-wider select-none";
-  const descriptionFontClass = "font-typewriter text-zinc-200 text-[13px] sm:text-[13.5px] md:text-[14px] lg:text-[14.5px] xl:text-[15.5px] leading-relaxed tracking-[0.015em]";
-  const highlightFontClass = "font-typewriter text-zinc-200 text-[13px] sm:text-[13.5px] md:text-[14px] lg:text-[14.5px] xl:text-[15.5px] leading-none whitespace-nowrap tracking-tight";
+  const descriptionFontClass = "font-typewriter text-zinc-200 text-xs sm:text-[13px] md:text-[14px] lg:text-[14.5px] xl:text-[15.5px] leading-relaxed tracking-[0.015em]";
+  const highlightFontClass = "font-typewriter text-zinc-200 text-xs sm:text-[13px] md:text-[14px] lg:text-[14.5px] xl:text-[15.5px] leading-snug md:leading-none whitespace-normal md:whitespace-nowrap tracking-tight";
 
   // Check if current project has live online demo or github repo (Hardware projects have no online demo/repo)
   const hasOnlineLinks =
@@ -510,7 +510,7 @@ return () => window.removeEventListener("popstate", handlePopState);
     }),
   };
 return (
-    <div className="relative w-screen min-h-screen md:h-screen overflow-y-auto md:overflow-hidden bg-[#070709] vintage-charcoal-bg text-zinc-100 select-none flex flex-col justify-between font-mono">
+    <div className="relative w-full max-w-full min-h-screen md:h-screen overflow-y-auto md:overflow-hidden overflow-x-hidden bg-[#121214] vintage-charcoal-bg text-zinc-100 select-none flex flex-col justify-between font-mono">
       
       {/* ========================================================= */}
       {/* FULL-SCREEN FULL-BLEED BACKGROUND IMAGE (Desktop Only)     */}
@@ -522,7 +522,7 @@ return (
           alt="Project blackboard blueprint background"
           fill
           priority
-          sizes="100vw"
+          sizes="(min-width: 768px) 100vw, 1px"
           className="object-fill select-none pointer-events-none filter contrast-105 brightness-95"
         />
       </div>
@@ -541,14 +541,14 @@ return (
       {/* 1. TOP STATUS BAR: Back Button + Switcher + Live Status   */}
       {/* Inset from corners to preserve compass & tape accents     */}
       {/* ========================================================= */}
-      <header className="w-full flex items-center justify-between gap-3 shrink-0 select-none pt-2 sm:pt-2.5 pb-1 px-4 sm:px-8 md:px-12 lg:px-16 relative z-30">
+      <header className="w-full flex items-center justify-between gap-2 sm:gap-3 shrink-0 select-none pt-2 sm:pt-2.5 pb-1 px-3 sm:px-8 md:px-12 lg:px-16 relative z-30 max-w-full overflow-x-hidden">
         
-        {/* Back to Projects Gallery: Authentic Taped Torn-Paper Memo (Slightly enlarged & nudged downward) */}
+        {/* Back to Projects Gallery: Authentic Taped Torn-Paper Memo */}
         <Link
           href="/#projects"
           data-cursor="interactive"
           data-cursor-label="RETURN // PROJECTS"
-          className="group relative w-[180px] sm:w-[204px] md:w-[226px] lg:w-[242px] aspect-[1007/212] drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:translate-y-0.5 hover:rotate-0 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg] shrink-0 translate-y-1 sm:translate-y-1.5"
+          className="group relative w-[145px] sm:w-[190px] md:w-[226px] lg:w-[242px] aspect-[1007/212] drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:translate-y-0.5 hover:rotate-0 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg] shrink-0 translate-y-0.5 sm:translate-y-1.5"
           title="Return to Projects Gallery"
         >
           {/* Authentic Ripped Paper Strip with Scotch Tape */}
@@ -557,18 +557,18 @@ return (
             alt="Return to Projects memo"
             fill
             priority
-            sizes="250px"
+            sizes="(max-width: 640px) 160px, 250px"
             className="object-fill pointer-events-none select-none filter contrast-105"
           />
 
           {/* Overlaid Stamped Typewriter Memo Lettering */}
-          <div className="absolute inset-0 flex items-center pl-7 sm:pl-8 md:pl-8.5 pr-2.5 pointer-events-none gap-2">
-            <ArrowLeft className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5] shrink-0" />
+          <div className="absolute inset-0 flex items-center pl-5 sm:pl-7 md:pl-8.5 pr-2 pointer-events-none gap-1.5 sm:gap-2">
+            <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4.5 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5] shrink-0" />
             <div className="flex flex-col text-left justify-center min-w-0">
-              <span className="font-mono text-[7.5px] sm:text-[8px] md:text-[8.5px] font-bold tracking-widest text-zinc-800/80 uppercase leading-none">
+              <span className="font-mono text-[7px] sm:text-[8px] md:text-[8.5px] font-bold tracking-widest text-zinc-800/80 uppercase leading-none">
                 [ ESC ] // GALLERY
               </span>
-              <span className="font-typewriter font-bold text-[11.5px] sm:text-[12.5px] md:text-[13px] lg:text-[13.5px] text-[#14120f] tracking-tight leading-tight mt-0.5 whitespace-nowrap group-hover:text-black transition-colors">
+              <span className="font-typewriter font-bold text-[10.5px] sm:text-[12px] md:text-[13px] lg:text-[13.5px] text-[#14120f] tracking-tight leading-tight mt-0.5 truncate group-hover:text-black transition-colors">
                 Back to Projects
               </span>
             </div>
@@ -578,7 +578,7 @@ return (
         {/* Quick Project Switcher Track */}
         <nav
           aria-label="Project Quick Switcher"
-          className="flex items-center bg-black/85 backdrop-blur-md px-1.5 py-1 rounded-full border border-zinc-800 shadow-md overflow-x-auto max-w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          className="flex items-center bg-black/85 backdrop-blur-md px-1.5 py-1 rounded-full border border-zinc-800 shadow-md overflow-x-auto max-w-[calc(100vw-165px)] sm:max-w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] shrink"
         >
           {projects.map((p, idx) => {
             const isActive = p.slug === currentProject.slug;
@@ -618,7 +618,7 @@ return (
       {/* ========================================================= */}
       {/* 2. CENTER STAGE: 2-Column Responsive Single-Screen Dossier */}
       {/* ========================================================= */}
-      <main className="flex-1 flex items-center justify-center min-h-0 py-1 sm:py-2 px-3 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative z-10 overflow-visible md:overflow-hidden">
+      <main className="flex-1 flex items-center justify-center min-h-0 py-2 sm:py-3 px-3 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative z-10 overflow-x-hidden md:overflow-hidden w-full max-w-full">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentProject.id}
@@ -627,13 +627,13 @@ return (
             initial="enter"
             animate="center"
             exit="exit"
-            className="w-full h-full md:max-h-[calc(100vh-115px)] flex flex-col md:flex-row items-center justify-center md:justify-between xl:justify-center gap-6 md:gap-8 lg:gap-10 xl:gap-14 max-w-[1660px] 2xl:max-w-[1840px] mx-auto px-2"
+            className="w-full h-full md:max-h-[calc(100vh-115px)] flex flex-col md:flex-row items-center justify-start md:justify-between xl:justify-center gap-6 md:gap-8 lg:gap-10 xl:gap-14 max-w-[1660px] 2xl:max-w-[1840px] mx-auto px-1 sm:px-2"
           >
             
             {/* ----------------------------------------------------- */}
             {/* LEFT COLUMN: Authentic Binder-Clipped Dossier Frame    */}
             {/* ----------------------------------------------------- */}
-            <div className="w-full md:w-auto h-full max-h-[560px] sm:max-h-[590px] md:max-h-[620px] lg:max-h-[660px] xl:max-h-[700px] aspect-[682/1024] relative flex items-center justify-center shrink-0 filter drop-shadow-[0_18px_42px_rgba(0,0,0,0.95)]">
+            <div className="w-full max-w-[340px] sm:max-w-[400px] md:max-w-none md:w-auto h-auto md:h-full max-h-[520px] sm:max-h-[580px] md:max-h-[620px] lg:max-h-[660px] xl:max-h-[700px] aspect-[682/1024] relative flex items-center justify-center shrink-0 filter drop-shadow-[0_18px_42px_rgba(0,0,0,0.95)] mx-auto md:mx-0">
               
               {/* 1. Project Card Positioned Beneath Cutout Window */}
               <div
@@ -777,12 +777,12 @@ return (
             {/* ----------------------------------------------------- */}
             {/* RIGHT COLUMN: Inspired by Reference Mockup             */}
             {/* ----------------------------------------------------- */}
-            <div className="w-full md:w-auto md:min-w-[620px] lg:min-w-[760px] xl:min-w-[880px] 2xl:min-w-[960px] flex flex-col justify-center space-y-2.5 sm:space-y-3 md:space-y-3.5 lg:space-y-4 shrink-0">
+            <div className="w-full min-w-0 md:w-auto md:min-w-[600px] lg:min-w-[720px] xl:min-w-[840px] 2xl:min-w-[920px] max-w-full flex flex-col justify-center space-y-3 sm:space-y-3.5 md:space-y-4 shrink-0 md:shrink-0">
               
               {/* 1. Project Title on Authentic Pinned Torn Paper Strip (Tailored to title length) */}
               <div className="relative inline-block w-full max-w-full">
                 <div
-                  className={`relative ${bannerWidthClass} aspect-[1000/175] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)] -rotate-[0.5deg]`}
+                  className={`relative ${bannerWidthClass} min-h-[54px] sm:min-h-[62px] md:min-h-0 md:aspect-[1000/175] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)] -rotate-[0.5deg] py-1.5 sm:py-2 md:py-0`}
                   data-cursor="interactive"
                   data-cursor-label={`${currentProject.title.split(/[-–—]/)[0].trim().toUpperCase()} // ARCHIVE`}
                 >
@@ -795,10 +795,10 @@ return (
                     sizes="(max-width: 768px) 100vw, 750px"
                     className="object-fill pointer-events-none select-none"
                   />
-                  {/* Stamped Typewriter Title Text (Centered in the exact middle of the paper banner) */}
-                  <div className="relative z-10 w-full h-full px-5 sm:px-6 md:px-8 flex items-center justify-center">
+                  {/* Stamped Typewriter Title Text (Centered with safe margins) */}
+                  <div className="relative z-10 w-full h-full px-4 sm:px-6 md:px-8 flex items-center justify-center">
                     <h1
-                      className={`font-typewriter font-bold text-[#14120f] tracking-tight select-none whitespace-nowrap text-center ${titleFontClass}`}
+                      className={`font-typewriter font-bold text-[#14120f] tracking-tight select-none text-center ${titleFontClass} leading-tight break-words whitespace-normal md:whitespace-nowrap`}
                     >
                       {currentProject.title}
                     </h1>
@@ -882,11 +882,11 @@ return (
                   </div>
                 </div>
 
-                {/* Vertical Checklist with Retro Checkboxes (Each point strictly on a single line, extending rightward) */}
-                <ul className="space-y-1 sm:space-y-1.5 md:space-y-2 w-full">
+                {/* Vertical Checklist with Retro Checkboxes */}
+                <ul className="space-y-1.5 sm:space-y-2 md:space-y-2 w-full max-w-full">
                   {currentProject.highlights.map((item, idx) => (
-                    <li key={idx} className="flex items-center gap-2 sm:gap-2.5 whitespace-nowrap">
-                      <span className="inline-flex items-center justify-center w-4 h-4 sm:w-4.5 sm:h-4.5 rounded-[3px] border border-zinc-400 bg-zinc-900/90 text-white text-[10px] sm:text-[11px] font-bold shrink-0 shadow-sm">
+                    <li key={idx} className="flex items-start md:items-center gap-2 sm:gap-2.5">
+                      <span className="inline-flex items-center justify-center w-4 h-4 sm:w-4.5 sm:h-4.5 rounded-[3px] border border-zinc-400 bg-zinc-900/90 text-white text-[10px] sm:text-[11px] font-bold shrink-0 mt-0.5 md:mt-0 shadow-sm">
                         ✓
                       </span>
                       <span className={highlightFontClass}>{item}</span>
@@ -903,12 +903,11 @@ return (
 
       {/* ========================================================= */}
       {/* 3. BOTTOM CONTROLS & NAVIGATION BAR                       */}
-      {/* Pagination centered in bottom middle, transition buttons on bottom right */}
       {/* ========================================================= */}
-      <footer className="w-full flex items-center justify-end px-4 sm:px-10 md:px-14 lg:px-16 py-2 sm:py-2.5 relative z-30 select-none">
+      <footer className="w-full flex flex-col md:flex-row items-center md:justify-end gap-3 px-3 sm:px-8 md:px-14 lg:px-16 py-3 md:py-2.5 relative z-30 select-none shrink-0 border-t border-white/5 md:border-none bg-black/40 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none">
         
-        {/* Pagination Indicator Dots: Centered in the bottom middle of the page */}
-        <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/85 backdrop-blur-sm px-3.5 py-1.5 rounded-full border border-zinc-800/80 shadow-[0_4px_16px_rgba(0,0,0,0.8)] z-10">
+        {/* Pagination Indicator Dots: Placed cleanly above buttons on mobile, centered on desktop */}
+        <div className="order-1 md:order-none md:absolute md:left-1/2 md:-translate-x-1/2 flex items-center gap-2 bg-black/85 backdrop-blur-sm px-3.5 py-1.5 rounded-full border border-zinc-800/80 shadow-[0_4px_16px_rgba(0,0,0,0.8)] z-10">
           {projects.map((p, idx) => (
             <button
               key={p.id}
@@ -925,14 +924,14 @@ return (
           ))}
         </div>
 
-        {/* Transition Buttons: Both Grouped on Bottom-Right on Torn Paper Strips */}
-        <div className="flex items-center gap-2.5 sm:gap-3.5 ml-auto">
+        {/* Transition Buttons: Side-by-side with no overlap, responsive paper width */}
+        <div className="order-2 md:order-none flex items-center justify-between md:justify-end w-full md:w-auto gap-2.5 sm:gap-3.5 md:ml-auto max-w-[390px] sm:max-w-[440px] md:max-w-none">
           {/* Previous Project Button */}
           <button
             onClick={goToPrev}
             data-cursor="interactive"
             data-cursor-label={`PREV // ${prevProject.title.split(/[-–—]/)[0].trim().toUpperCase()}`}
-            className="group relative w-38 sm:w-44 md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg]"
+            className="group relative flex-1 md:flex-initial w-auto md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none -rotate-[0.5deg]"
             title={`Previous: ${prevProject.title}`}
           >
             <Image
@@ -943,12 +942,12 @@ return (
               sizes="220px"
               className="object-fill pointer-events-none select-none group-hover:brightness-105 transition-all"
             />
-            <div className="absolute inset-0 flex flex-col justify-center items-center px-3.5 text-center pointer-events-none">
-              <span className="font-mono text-[9px] sm:text-[9.5px] md:text-[10px] lg:text-[10.5px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1.5">
-                <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5]" />
+            <div className="absolute inset-0 flex flex-col justify-center items-center px-2 sm:px-3 text-center pointer-events-none">
+              <span className="font-mono text-[8px] sm:text-[9.5px] md:text-[10px] lg:text-[10.5px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1 sm:gap-1.5">
+                <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 text-[#14120f] group-hover:-translate-x-1 transition-transform stroke-[2.5]" />
                 <span>VISIT PREVIOUS</span>
               </span>
-              <span className="font-typewriter font-bold text-[11.5px] sm:text-[12px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight mt-0.5 truncate max-w-[140px] sm:max-w-[165px]">
+              <span className="font-typewriter font-bold text-[10.5px] sm:text-[11.5px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight mt-0.5 truncate max-w-[105px] sm:max-w-[135px] md:max-w-[165px]">
                 {prevProject.title.split(/[-–—]/)[0].trim()}
               </span>
             </div>
@@ -959,7 +958,7 @@ return (
             onClick={goToNext}
             data-cursor="interactive"
             data-cursor-label={`NEXT // ${nextProject.title.split(/[-–—]/)[0].trim().toUpperCase()}`}
-            className="group relative w-38 sm:w-44 md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none rotate-[0.5deg]"
+            className="group relative flex-1 md:flex-initial w-auto md:w-48 lg:w-52 aspect-[1024/341] flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.75)] hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.95)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none rotate-[0.5deg]"
             title={`Next: ${nextProject.title}`}
           >
             <Image
@@ -970,12 +969,12 @@ return (
               sizes="220px"
               className="object-fill pointer-events-none select-none group-hover:brightness-105 transition-all"
             />
-            <div className="absolute inset-0 flex flex-col justify-center items-center px-3.5 text-center pointer-events-none">
-              <span className="font-mono text-[9px] sm:text-[9.5px] md:text-[10px] lg:text-[10.5px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1.5">
+            <div className="absolute inset-0 flex flex-col justify-center items-center px-2.5 sm:px-3 text-center pointer-events-none">
+              <span className="font-mono text-[8px] sm:text-[9.5px] md:text-[10px] lg:text-[10.5px] font-bold uppercase tracking-wider text-zinc-800 leading-none group-hover:text-zinc-950 transition-colors inline-flex items-center gap-1 sm:gap-1.5">
                 <span>VISIT NEXT</span>
-                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#14120f] group-hover:translate-x-1 transition-transform stroke-[2.5]" />
+                <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-[#14120f] group-hover:translate-x-1 transition-transform stroke-[2.5]" />
               </span>
-              <span className="font-typewriter font-bold text-[11.5px] sm:text-[12px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight mt-0.5 truncate max-w-[140px] sm:max-w-[165px]">
+              <span className="font-typewriter font-bold text-[10.5px] sm:text-[11.5px] md:text-[12.5px] lg:text-[13px] text-[#14120f] tracking-tight mt-0.5 truncate max-w-[105px] sm:max-w-[135px] md:max-w-[165px]">
                 {nextProject.title.split(/[-–—]/)[0].trim()}
               </span>
             </div>

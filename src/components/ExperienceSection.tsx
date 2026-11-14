@@ -90,7 +90,7 @@ export default function ExperienceSection() {
       id="experience"
       ref={sectionRef}
       onWheel={handleWheel}
-      className="relative min-h-screen md:h-screen md:max-h-screen w-full flex items-center overflow-hidden bg-[#070709] vintage-charcoal-bg select-none"
+      className="relative min-h-screen md:h-screen md:max-h-screen w-full flex items-center overflow-hidden bg-[#121214] vintage-charcoal-bg select-none"
     >
       {/* 1. Full-bleed Background: Vintage Slate Wall with Typewriter on the Right (Desktop Only) */}
       <div className="hidden md:block absolute inset-0 z-0 pointer-events-none overflow-hidden md:left-52 lg:left-56">
@@ -190,6 +190,7 @@ export default function ExperienceSection() {
                         alt=""
                         fill
                         priority
+                        sizes="260px"
                         className="object-fill pointer-events-none select-none"
                       />
                       <span className="relative z-10 font-typewriter font-bold text-[17px] sm:text-[19px] md:text-[20px] text-[#181613] tracking-wide select-none whitespace-nowrap -translate-y-[1px]">

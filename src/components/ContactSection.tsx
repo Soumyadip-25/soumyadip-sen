@@ -9,7 +9,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#070709] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#121214] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
     >
       {/* 1. DESKTOP 16:9 Precision Canvas - Locked to background image coordinates (Strictly Preserved) */}
       <div className="hidden md:flex relative w-full max-w-[1440px] aspect-[1024/576] max-h-[96vh] sm:max-h-[92vh] items-center justify-center my-auto">
@@ -44,15 +44,25 @@ export default function ContactSection() {
             height: "10.5%",
           }}
         >
-          <div className="relative w-full h-full flex items-center justify-center">
-            {/* Dark Ink Stamped Title from User Provided Asset */}
-            <div className="relative w-[88%] h-[84%] -translate-y-1">
+          <div className="relative w-full h-full flex items-center justify-center filter drop-shadow-[0_4px_14px_rgba(0,0,0,0.7)]">
+            {/* Background Paper Image for Visibility */}
+            <Image
+              src="/images/heading-paper-bg.png"
+              alt=""
+              fill
+              priority
+              sizes="(max-width: 768px) 320px, 460px"
+              className="object-fill pointer-events-none select-none filter contrast-105"
+            />
+            {/* Dark Ink Stamped Title (Pure Black in Colour, No Invert) */}
+            <div className="relative z-10 w-[84%] h-[75%] flex items-center justify-center">
               <Image
                 src="/images/lets-connect-title.png"
                 alt="Let's Connect"
                 fill
                 priority
-                className="object-contain object-center pointer-events-none select-none filter contrast-[1.15]"
+                sizes="(max-width: 768px) 280px, 420px"
+                className="object-contain object-center pointer-events-none select-none filter contrast-125"
               />
             </div>
           </div>
@@ -203,21 +213,34 @@ export default function ContactSection() {
       {/* 2. MOBILE DEDICATED LAYOUT (< 768px): Spacious, Accessible & Elegantly Positioned */}
       <div className="md:hidden relative z-10 w-full min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-20">
         <div className="relative z-10 w-full max-w-sm mx-auto flex flex-col items-center">
-          {/* Top Title: "Let's Connect" */}
+          {/* Top Title: "Let's Connect" on Vintage Paper Banner */}
           <motion.div
             initial={{ opacity: 0, scale: 1.1, y: -20 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.85, ease: [0.19, 1, 0.22, 1] }}
-            className="relative w-64 sm:w-72 aspect-[1024/341] mb-6 filter invert brightness-125 drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)]"
+            className="relative w-64 sm:w-72 aspect-[1024/341] mb-6 filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)] flex items-center justify-center -rotate-1"
           >
+            {/* Background Paper Image */}
             <Image
-              src="/images/lets-connect-title.png"
-              alt="Let's Connect"
+              src="/images/heading-paper-bg.png"
+              alt=""
               fill
               priority
-              className="object-contain object-center"
+              sizes="(max-width: 640px) 256px, 288px"
+              className="object-fill pointer-events-none select-none filter contrast-105"
             />
+            {/* Black in Colour Heading Title (No Invert Filter!) */}
+            <div className="relative z-10 w-[84%] h-[75%] flex items-center justify-center">
+              <Image
+                src="/images/lets-connect-title.png"
+                alt="Let's Connect"
+                fill
+                priority
+                sizes="(max-width: 640px) 240px, 270px"
+                className="object-contain object-center pointer-events-none select-none filter contrast-125"
+              />
+            </div>
           </motion.div>
 
           {/* Parchment Letter Card with 4 Contact Rows */}

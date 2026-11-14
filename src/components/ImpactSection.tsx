@@ -225,7 +225,7 @@ export default function ImpactSection() {
     <section
       id="impact"
       ref={sectionRef}
-      className="relative h-screen max-h-screen w-full flex items-center justify-center overflow-hidden bg-[#070709] vintage-charcoal-bg select-none scroll-mt-0"
+      className="relative h-screen max-h-screen w-full flex items-center justify-center overflow-hidden bg-[#121214] vintage-charcoal-bg select-none scroll-mt-0"
     >
       {/* 1. Blackboard Desk Canvas Stage: Full-bleed, edge-to-edge with sidebar offset on desktop */}
       <div className="absolute inset-0 z-0 overflow-hidden md:left-52 lg:left-56">
