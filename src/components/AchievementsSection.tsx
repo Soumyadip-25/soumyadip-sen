@@ -64,9 +64,6 @@ export default function AchievementsSection() {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const ITEMS_PER_MOBILE_PAGE = 3;
-  const [mobilePage, setMobilePage] = useState<number>(0);
-
   const [stageBounds, setStageBounds] = useState({
     width: 1024,
     height: 576,
@@ -155,28 +152,6 @@ export default function AchievementsSection() {
     if (!el) return;
     const delta = direction === "down" ? 140 : -140;
     el.scrollBy({ top: delta, behavior: "smooth" });
-  };
-
-  const totalMobilePages = Math.ceil(achievements.length / ITEMS_PER_MOBILE_PAGE);
-  const hasNextMobilePage = mobilePage < totalMobilePages - 1;
-  const hasPrevMobilePage = mobilePage > 0;
-
-  const handleMobilePillClick = (idx: number) => {
-    setActiveIdx(idx);
-    const targetPage = Math.floor(idx / ITEMS_PER_MOBILE_PAGE);
-    setMobilePage(targetPage);
-  };
-
-  const handleMobilePageChange = (direction: "up" | "down") => {
-    if (direction === "down" && hasNextMobilePage) {
-      const nextPage = mobilePage + 1;
-      setMobilePage(nextPage);
-      setActiveIdx(nextPage * ITEMS_PER_MOBILE_PAGE);
-    } else if (direction === "up" && hasPrevMobilePage) {
-      const prevPage = mobilePage - 1;
-      setMobilePage(prevPage);
-      setActiveIdx(prevPage * ITEMS_PER_MOBILE_PAGE);
-    }
   };
 
   const typographyScale = Math.min(Math.max(stageBounds.scale, 0.72), 1.35);
@@ -445,161 +420,62 @@ export default function AchievementsSection() {
           </div>
         </div>
 
-        {/* Vertical Parchment Document Ledger */}
-        <div className="relative w-full max-w-[420px] sm:max-w-[480px] rounded-xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.85)] filter drop-shadow-[0_8px_24px_rgba(0,0,0,0.9)] flex flex-col justify-between">
-          {/* Vertical Parchment Document Backdrop */}
+        {/* Vertical Parchment Document Ledger: Shorter from bottom, does not take whole section */}
+        <div className="relative w-full max-w-[390px] sm:max-w-[440px] h-[370px] sm:h-[410px] rounded-xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.85)] filter drop-shadow-[0_8px_24px_rgba(0,0,0,0.9)] flex flex-col">
+          {/* Vertical Parchment Document Backdrop (Shortened from bottom) */}
           <div className="absolute inset-0 z-0">
             <Image
               src="/images/achievements-document-vertical.jpg"
               alt="Achievements Document"
               fill
               priority
-              sizes="(max-width: 640px) 100vw, 480px"
+              sizes="(max-width: 640px) 100vw, 440px"
               className="object-fill select-none pointer-events-none filter contrast-[1.03] brightness-[1.01]"
             />
           </div>
 
-          {/* Document Content: Showing 3 achievements first, navigate for more */}
-          <div className="relative z-10 w-full flex flex-col justify-between pt-5 sm:pt-6 pb-2.5 sm:pb-3 px-4 sm:px-6 min-h-[440px] sm:min-h-[470px]">
-            <div className="relative w-full flex-1 overflow-hidden flex flex-col justify-between">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={`mobile-page-${mobilePage}`}
-                  initial={{ opacity: 0, y: mobilePage === 1 ? 14 : -14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: mobilePage === 1 ? -14 : 14 }}
-                  transition={{ duration: 0.28, ease: [0.19, 1, 0.22, 1] }}
-                  className="space-y-2 sm:space-y-2.5"
-                >
-                  {achievements
-                    .slice(
-                      mobilePage * ITEMS_PER_MOBILE_PAGE,
-                      mobilePage * ITEMS_PER_MOBILE_PAGE + ITEMS_PER_MOBILE_PAGE
-                    )
-                    .map((item, localIdx) => {
-                      const globalIdx = mobilePage * ITEMS_PER_MOBILE_PAGE + localIdx;
-                      const isActive = activeIdx === globalIdx;
+          {/* Document Content: Scrollable from top to bottom (No navigation buttons) */}
+          <div className="relative z-10 w-full h-full flex flex-col pt-5 sm:pt-6 pb-3 sm:pb-4 px-3.5 sm:px-5">
+            {/* Scrollable list of all achievements (01 to 05) */}
+            <div className="w-full flex-1 overflow-y-auto paper-scrollbar pr-1.5 space-y-2 sm:space-y-2.5 touch-pan-y overscroll-contain">
+              {achievements.map((item, idx) => {
+                const isActive = activeIdx === idx;
 
-                      return (
-                        <div
-                          key={item.id}
-                          onClick={() => setActiveIdx(globalIdx)}
-                          className={`group relative p-2 sm:p-2.5 rounded-lg transition-all duration-200 cursor-pointer ${
-                            isActive
-                              ? "bg-[#1c1917]/[0.08] border-l-2 border-[#1c1917] pl-2.5 sm:pl-3 shadow-sm"
-                              : "bg-transparent hover:bg-[#1c1917]/[0.03] border-l-2 border-transparent"
-                          }`}
-                        >
-                          <div className="flex items-start justify-between gap-1.5">
-                            <h4 className="font-typewriter font-bold text-xs sm:text-sm text-[#1c1917] flex items-start gap-1.5 leading-snug">
-                              <span className="text-[#1c1917] select-none leading-none mt-0.5">•</span>
-                              <span className="font-mono text-[#1c1917] select-none">{item.number}.</span>
-                              <span>{item.title}</span>
-                            </h4>
-
-                            {item.tag && (
-                              <span className="font-mono text-[8.5px] sm:text-[9.5px] px-1.5 py-0.5 rounded border border-[#1c1917]/25 bg-[#1c1917]/5 text-[#1c1917] font-bold uppercase tracking-wider shrink-0 mt-0.5">
-                                {item.tag}
-                              </span>
-                            )}
-                          </div>
-
-                          <p className="font-mono text-[11px] sm:text-xs text-[#38332b] font-medium mt-1 pl-3 sm:pl-3.5 relative leading-relaxed">
-                            <span className="absolute left-0.5 top-0 text-[#1c1917] text-xs leading-none">•</span>
-                            {item.description}
-                          </p>
-
-                          {localIdx < ITEMS_PER_MOBILE_PAGE - 1 && localIdx < (mobilePage === 0 ? 2 : 1) && (
-                            <div className="w-full h-[1px] bg-[#1c1917]/15 mt-2 sm:mt-2.5" />
-                          )}
-                        </div>
-                      );
-                    })}
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Navigation Action Prompt inside Document */}
-              <div className="pt-2 pb-0.5">
-                {mobilePage === 0 ? (
-                  <motion.button
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => handleMobilePageChange("down")}
-                    className="w-full py-1.5 px-3 rounded-lg border border-[#1c1917]/25 bg-[#1c1917]/[0.06] hover:bg-[#1c1917]/[0.12] text-[#1c1917] font-mono text-[10.5px] sm:text-[11.5px] font-bold tracking-wider uppercase flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm group"
+                return (
+                  <div
+                    key={item.id}
+                    onClick={() => setActiveIdx(idx)}
+                    className={`group relative p-2 sm:p-2.5 rounded-lg transition-all duration-200 cursor-pointer ${
+                      isActive
+                        ? "bg-[#1c1917]/[0.08] border-l-2 border-[#1c1917] pl-2.5 sm:pl-3 shadow-sm"
+                        : "bg-transparent hover:bg-[#1c1917]/[0.03] border-l-2 border-transparent"
+                    }`}
                   >
-                    <span>View More Achievements (04–05)</span>
-                    <ChevronDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
-                  </motion.button>
-                ) : (
-                  <motion.button
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => handleMobilePageChange("up")}
-                    className="w-full py-1.5 px-3 rounded-lg border border-[#1c1917]/25 bg-[#1c1917]/[0.06] hover:bg-[#1c1917]/[0.12] text-[#1c1917] font-mono text-[10.5px] sm:text-[11.5px] font-bold tracking-wider uppercase flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm group"
-                  >
-                    <ChevronUp className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform" />
-                    <span>Back to Achievements (01–03)</span>
-                  </motion.button>
-                )}
-              </div>
-            </div>
+                    <div className="flex items-start justify-between gap-1.5">
+                      <h4 className="font-typewriter font-bold text-xs sm:text-sm text-[#1c1917] flex items-start gap-1.5 leading-snug">
+                        <span className="text-[#1c1917] select-none leading-none mt-0.5">•</span>
+                        <span className="font-mono text-[#1c1917] select-none">{item.number}.</span>
+                        <span>{item.title}</span>
+                      </h4>
 
-            {/* Bottom Number Pills & Navigation Buttons */}
-            <div className="flex items-center justify-between pt-1.5 sm:pt-2 border-t border-[#1c1917]/15 shrink-0 px-1 mt-auto">
-              <div className="flex items-center gap-1 sm:gap-1.5">
-                {achievements.map((item, idx) => {
-                  const itemPage = Math.floor(idx / ITEMS_PER_MOBILE_PAGE);
-                  const isCurrentPage = itemPage === mobilePage;
-                  const isActive = activeIdx === idx;
+                      {item.tag && (
+                        <span className="font-mono text-[8.5px] sm:text-[9.5px] px-1.5 py-0.5 rounded border border-[#1c1917]/25 bg-[#1c1917]/5 text-[#1c1917] font-bold uppercase tracking-wider shrink-0 mt-0.5">
+                          {item.tag}
+                        </span>
+                      )}
+                    </div>
 
-                  return (
-                    <button
-                      key={item.id}
-                      onClick={() => handleMobilePillClick(idx)}
-                      className={`px-2 sm:px-2.5 py-0.5 rounded font-mono text-[9.5px] sm:text-[10.5px] font-bold transition-all cursor-pointer ${
-                        isActive
-                          ? "bg-[#1c1917] text-[#ded3c5] shadow-sm scale-105"
-                          : isCurrentPage
-                          ? "bg-[#1c1917]/15 text-[#292524] hover:bg-[#1c1917]/25"
-                          : "bg-[#1c1917]/5 text-[#78716c] hover:bg-[#1c1917]/15"
-                      }`}
-                    >
-                      • {item.number}
-                    </button>
-                  );
-                })}
-              </div>
+                    <p className="font-mono text-[11px] sm:text-xs text-[#38332b] font-medium mt-1 pl-3 sm:pl-3.5 relative leading-relaxed">
+                      <span className="absolute left-0.5 top-0 text-[#1c1917] text-xs leading-none">•</span>
+                      {item.description}
+                    </p>
 
-              {/* Page Indicator & Chevron Arrows */}
-              <div className="flex items-center gap-1.5">
-                <span className="font-mono text-[9px] sm:text-[10px] text-[#57534e] font-semibold">
-                  {mobilePage + 1}/{totalMobilePages}
-                </span>
-                <button
-                  onClick={() => handleMobilePageChange("up")}
-                  disabled={!hasPrevMobilePage}
-                  title="Previous Achievements"
-                  className={`p-1 sm:p-1.5 rounded transition-colors ${
-                    hasPrevMobilePage
-                      ? "bg-[#1c1917]/15 hover:bg-[#1c1917]/25 text-[#1c1917] cursor-pointer"
-                      : "opacity-25 text-[#44403c] cursor-not-allowed"
-                  }`}
-                >
-                  <ChevronUp className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                </button>
-                <button
-                  onClick={() => handleMobilePageChange("down")}
-                  disabled={!hasNextMobilePage}
-                  title="Next Achievements"
-                  className={`p-1 sm:p-1.5 rounded transition-colors ${
-                    hasNextMobilePage
-                      ? "bg-[#1c1917]/15 hover:bg-[#1c1917]/25 text-[#1c1917] cursor-pointer"
-                      : "opacity-25 text-[#44403c] cursor-not-allowed"
-                  }`}
-                >
-                  <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                </button>
-              </div>
+                    {idx < achievements.length - 1 && (
+                      <div className="w-full h-[1px] bg-[#1c1917]/15 mt-2 sm:mt-2.5" />
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
