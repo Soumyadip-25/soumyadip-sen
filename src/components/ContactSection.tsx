@@ -44,25 +44,16 @@ export default function ContactSection() {
             height: "10.5%",
           }}
         >
-          <div className="relative w-full h-full flex items-center justify-center filter drop-shadow-[0_4px_14px_rgba(0,0,0,0.7)]">
-            {/* Background Paper Image for Visibility */}
-            <Image
-              src="/images/heading-paper-bg.png"
-              alt=""
-              fill
-              priority
-              sizes="(max-width: 768px) 320px, 460px"
-              className="object-fill pointer-events-none select-none filter contrast-105"
-            />
-            {/* Dark Ink Stamped Title (Pure Black in Colour, No Invert) */}
-            <div className="relative z-10 w-[84%] h-[75%] flex items-center justify-center">
+          <div className="relative w-full h-full flex items-center justify-center">
+            {/* Dark Ink Stamped Title from User Provided Asset directly on background's printed paper strip */}
+            <div className="relative w-[88%] h-[84%] -translate-y-1">
               <Image
                 src="/images/lets-connect-title.png"
                 alt="Let's Connect"
                 fill
                 priority
                 sizes="(max-width: 768px) 280px, 420px"
-                className="object-contain object-center pointer-events-none select-none filter contrast-125"
+                className="object-contain object-center pointer-events-none select-none filter contrast-[1.15]"
               />
             </div>
           </div>

@@ -227,7 +227,7 @@ export default function AchievementsSection() {
             className="absolute inset-0 bg-radial from-transparent via-transparent to-black/40 pointer-events-none"
           />
 
-          {/* 2. Top-Left Heading: "Achievements" sticker - with Background Paper */}
+          {/* 2. Top-Left Heading: "Achievements" sticker - Tactile Angle Settle */}
           <motion.div
             initial={{ opacity: 0, y: -25, rotate: -6, scale: 1.05 }}
             whileInView={{ opacity: 1, y: 0, rotate: -3.5, scale: 1 }}
@@ -239,30 +239,18 @@ export default function AchievementsSection() {
               top: "2.0%",
               width: "25.0%",
             }}
-            className="absolute aspect-[1024/341] z-30 pointer-events-auto cursor-pointer -rotate-[3.5deg] origin-center drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)] transform-gpu flex items-center justify-center"
+            className="absolute aspect-[1024/341] z-30 pointer-events-auto cursor-pointer -rotate-[3.5deg] origin-center drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)] transform-gpu"
             data-cursor="interactive"
             data-cursor-label="ACHIEVEMENTS // HONORS"
           >
-            {/* Background Paper Image for High Contrast Visibility */}
             <Image
-              src="/images/heading-paper-bg.png"
-              alt=""
+              src="/images/achievements-title.png"
+              alt="Achievements"
               fill
               priority
-              sizes="360px"
-              className="object-fill pointer-events-none select-none filter contrast-105"
+              sizes="340px"
+              className="object-contain object-left pointer-events-none select-none drop-shadow-[0_4px_14px_rgba(0,0,0,0.85)]"
             />
-            {/* Achievements Graphic on Top */}
-            <div className="relative z-10 w-[84%] h-[75%] flex items-center justify-center">
-              <Image
-                src="/images/achievements-title.png"
-                alt="Achievements"
-                fill
-                priority
-                sizes="340px"
-                className="object-contain object-center pointer-events-none select-none filter contrast-125"
-              />
-            </div>
           </motion.div>
 
           {/* 3. WIDE HORIZONTAL RECTANGLE DOCUMENT: Archival Ledger Unfurl */}
