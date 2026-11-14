@@ -51,25 +51,20 @@ export default function SkillsSection() {
   });
   const [hoveredTopicId, setHoveredTopicId] = useState<string | null>(null);
 
-  // Recompute the 16:9 stage dimensions for desktop so the ENTIRE background image is completely visible
+  // Recompute typography scale for desktop so text and icons scale smoothly
   const updateLayout = useCallback(() => {
     if (!containerRef.current) return;
 
-    // Available space inside the stage (accounting for desktop sidebar padding)
     const stageW = containerRef.current.clientWidth;
     const stageH = containerRef.current.clientHeight;
 
     if (stageW === 0 || stageH === 0) return;
 
-    // Compute uniform scale so 100% of the 1024x576 image fits with ZERO cropping
-    // and no parts of the left, right, top, or bottom are cut off
-    const scale = Math.min((stageW - 16) / 1024, (stageH - 16) / 576);
-    const width = Math.max(Math.floor(1024 * scale), 320);
-    const height = Math.max(Math.floor(576 * scale), 180);
+    const scale = Math.min(stageW / 1024, stageH / 576);
 
     setStageBounds({
-      width,
-      height,
+      width: stageW,
+      height: stageH,
       scale,
     });
   }, []);
@@ -98,50 +93,32 @@ export default function SkillsSection() {
   return (
     <section
       id="skills"
-      className="relative min-h-0 md:h-screen md:max-h-screen w-full overflow-hidden bg-[#121214] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
+      className="relative min-h-0 md:h-screen md:max-h-screen w-full overflow-hidden bg-[#121214] vintage-charcoal-bg select-none scroll-mt-0"
     >
-      {/* Subtle Atmospheric Ambient Texture behind stage (Desktop Only) */}
-      <div className="hidden md:block absolute inset-0 z-0 pointer-events-none opacity-20 filter blur-3xl">
-        <Image
-          src="/images/skills-bg.jpg"
-          alt=""
-          fill
-          priority
-          sizes="(min-width: 768px) 100vw, 1px"
-          className="object-cover object-center"
-        />
-      </div>
-
       {/* ========================================================= */}
-      {/* 1. DESKTOP 16:9 CONTROL ROOM STAGE (Strictly Preserved)    */}
+      {/* 1. DESKTOP 16:9 CONTROL ROOM STAGE - Full-bleed (Zero gaps) */}
       {/* ========================================================= */}
       <div
         ref={containerRef}
-        className="hidden md:flex relative z-10 w-full h-full flex-col items-center justify-center p-4 pt-4 overflow-hidden"
+        className="hidden md:block absolute inset-0 z-0 overflow-hidden md:left-52 lg:left-56"
       >
-        {/* The Exact 16:9 Vintage Control Room Stage (100% Complete, Zero Cropping) */}
-        <div
-          style={{
-            width: `${stageBounds.width}px`,
-            height: `${stageBounds.height}px`,
-          }}
-          className="relative shrink-0 select-none shadow-[0_0_50px_rgba(0,0,0,0.9)] rounded-lg overflow-hidden"
-        >
-          {/* 1. Complete Background Image (Fully Visible, Pot & Plant & Desks 100% Intact) */}
+        {/* 1. Complete Background Image: Pot & Plant & Desks 100% Intact */}
+        <div className="absolute inset-0">
           <Image
             src="/images/skills-bg.jpg"
             alt="Vintage CRT Wall Background"
             fill
             priority
-            sizes="(max-width: 1200px) 100vw, 1400px"
-            className="object-contain pointer-events-none select-none filter brightness-[1.02] contrast-[1.08]"
+            sizes="calc(100vw - 224px)"
+            className="object-cover md:object-fill object-center pointer-events-none select-none filter brightness-[1.02] contrast-[1.08]"
           />
+        </div>
 
-          {/* Delicate Vignette Overlay for Filmic Texture */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-radial from-transparent via-transparent to-black/50 pointer-events-none"
-          />
+        {/* Delicate Vignette Overlay for Filmic Texture */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-radial from-transparent via-transparent to-black/50 pointer-events-none"
+        />
 
           {/* 2. Top-Left Heading: "Skills & Technologies" sticker - Tactile Wall Stamp */}
           <motion.div
@@ -322,7 +299,6 @@ export default function SkillsSection() {
             );
           })}
         </div>
-      </div>
 
       {/* ========================================================= */}
       {/* 2. MOBILE DEDICATED VIEW (< 768px): Responsive 2-Col CRT Wall */}

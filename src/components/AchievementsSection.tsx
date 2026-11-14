@@ -74,7 +74,7 @@ export default function AchievementsSection() {
   const [canScrollUp, setCanScrollUp] = useState<boolean>(false);
   const [canScrollDown, setCanScrollDown] = useState<boolean>(true);
 
-  // Compute uniform scale so 100% of the 1024x576 background image is fully visible with ZERO cropping
+  // Recompute typography scale for desktop so text and icons scale smoothly
   const updateLayout = useCallback(() => {
     if (!containerRef.current) return;
 
@@ -85,13 +85,11 @@ export default function AchievementsSection() {
 
     setIsMobile(stageW < 768);
 
-    const scale = Math.min((stageW - 16) / 1024, (stageH - 16) / 576);
-    const width = Math.max(Math.floor(1024 * scale), 320);
-    const height = Math.max(Math.floor(576 * scale), 180);
+    const scale = Math.min(stageW / 1024, stageH / 576);
 
     setStageBounds({
-      width,
-      height,
+      width: stageW,
+      height: stageH,
       scale,
     });
   }, []);
@@ -159,48 +157,30 @@ export default function AchievementsSection() {
   return (
     <section
       id="achievements"
-      className="relative min-h-0 md:h-screen md:max-h-screen w-full overflow-hidden bg-[#121214] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
+      className="relative min-h-0 md:h-screen md:max-h-screen w-full overflow-hidden bg-[#121214] vintage-charcoal-bg select-none scroll-mt-0"
     >
-      {/* Ambient background texture (Desktop Only) */}
-      <div className="hidden md:block absolute inset-0 z-0 pointer-events-none opacity-20 filter blur-3xl">
-        <Image
-          src="/images/achievements-bg.jpg"
-          alt=""
-          fill
-          priority
-          sizes="(min-width: 768px) 100vw, 1px"
-          className="object-cover object-center"
-        />
-      </div>
-
-      {/* Main Responsive Viewport Container (Desktop 16:9 Precision Stage) */}
+      {/* Main Responsive Viewport Container (Desktop 16:9 Full-bleed Stage - Zero gaps) */}
       <div
         ref={containerRef}
-        className="hidden md:flex relative z-10 w-full h-full flex-col items-center justify-center p-2 sm:p-4 pt-16 sm:pt-20 md:pt-4 overflow-hidden"
+        className="hidden md:block absolute inset-0 z-0 overflow-hidden md:left-52 lg:left-56"
       >
-        {/* The Exact 16:9 Vintage Control Room Stage (100% Complete, Zero Cropping) */}
-        <div
-          style={{
-            width: `${stageBounds.width}px`,
-            height: `${stageBounds.height}px`,
-          }}
-          className="relative shrink-0 select-none shadow-[0_0_50px_rgba(0,0,0,0.95)] rounded-lg overflow-hidden border border-white/5"
-        >
-          {/* 1. Complete Background Image (Camera & Books at bottom-left and Silver Trophy on right 100% INTACT) */}
+        {/* 1. Complete Background Image (Camera & Books at bottom-left and Silver Trophy on right 100% INTACT) */}
+        <div className="absolute inset-0">
           <Image
             src="/images/achievements-bg.jpg"
             alt="Vintage Achievements Backdrop"
             fill
             priority
-            sizes="(max-width: 1200px) 100vw, 1400px"
-            className="object-contain pointer-events-none select-none filter brightness-[1.02] contrast-[1.05]"
+            sizes="calc(100vw - 224px)"
+            className="object-cover md:object-fill object-center pointer-events-none select-none filter brightness-[1.02] contrast-[1.05]"
           />
+        </div>
 
-          {/* Vignette Overlay for Filmic Texture */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-radial from-transparent via-transparent to-black/40 pointer-events-none"
-          />
+        {/* Vignette Overlay for Filmic Texture */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-radial from-transparent via-transparent to-black/40 pointer-events-none"
+        />
 
           {/* 2. Top-Left Heading: "Achievements" sticker - Tactile Angle Settle */}
           <motion.div
@@ -392,7 +372,6 @@ export default function AchievementsSection() {
             </div>
           </motion.div>
         </div>
-      </div>
 
       {/* Mobile/Tablet Dedicated View (< md): Exact Vintage Parchment Ledger in Vertical Orientation */}
       <div className="md:hidden relative z-10 w-full min-h-0 flex flex-col items-center px-3 sm:px-6 pt-5 sm:pt-6 pb-5 sm:pb-6 overflow-hidden">
