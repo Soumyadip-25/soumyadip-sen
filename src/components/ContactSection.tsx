@@ -202,7 +202,7 @@ export default function ContactSection() {
       </div>
 
       {/* 2. MOBILE DEDICATED LAYOUT (< 768px): Compact, Balanced & Elegantly Positioned */}
-      <div className="md:hidden relative z-10 w-full min-h-0 flex flex-col justify-center items-center px-4 sm:px-6 py-10 sm:py-14">
+      <div className="md:hidden relative z-10 w-full min-h-0 flex flex-col justify-start items-center px-4 sm:px-6 pt-3 sm:pt-4 pb-8 sm:pb-12">
         <div className="relative z-10 w-full max-w-sm mx-auto flex flex-col items-center">
           {/* Top Title: "Let's Connect" on Vintage Paper Banner */}
           <motion.div

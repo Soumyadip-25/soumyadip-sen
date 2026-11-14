@@ -184,7 +184,7 @@ export default function AchievementsSection() {
   return (
     <section
       id="achievements"
-      className="relative h-screen max-h-screen w-full overflow-hidden bg-[#121214] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
+      className="relative min-h-0 md:h-screen md:max-h-screen w-full overflow-hidden bg-[#121214] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
     >
       {/* Ambient background texture (Desktop Only) */}
       <div className="hidden md:block absolute inset-0 z-0 pointer-events-none opacity-20 filter blur-3xl">
@@ -420,9 +420,9 @@ export default function AchievementsSection() {
       </div>
 
       {/* Mobile/Tablet Dedicated View (< md): Exact Vintage Parchment Ledger in Vertical Orientation */}
-      <div className="md:hidden relative z-10 w-full h-full flex flex-col justify-between items-center px-3 sm:px-6 pt-10 sm:pt-12 pb-2.5 sm:pb-3 overflow-hidden">
+      <div className="md:hidden relative z-10 w-full min-h-0 flex flex-col items-center px-3 sm:px-6 pt-5 sm:pt-6 pb-4 sm:pb-5 overflow-hidden">
         {/* Top Header: Achievements Title on Vintage Paper Background */}
-        <div className="relative w-52 sm:w-64 aspect-[1024/341] shrink-0 mb-1.5 sm:mb-2 filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)] -rotate-1 select-none pointer-events-none flex items-center justify-center">
+        <div className="relative w-52 sm:w-60 aspect-[1024/341] shrink-0 mb-2.5 sm:mb-3 filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)] -rotate-1 select-none pointer-events-none flex items-center justify-center">
           {/* Background Paper Image */}
           <Image
             src="/images/heading-paper-bg.png"
@@ -446,7 +446,7 @@ export default function AchievementsSection() {
         </div>
 
         {/* Vertical Parchment Document Ledger */}
-        <div className="relative w-full max-w-[420px] sm:max-w-[480px] flex-1 max-h-[calc(100vh-100px)] sm:max-h-[calc(100vh-115px)] rounded-xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.85)] filter drop-shadow-[0_8px_24px_rgba(0,0,0,0.9)] flex flex-col justify-between my-auto">
+        <div className="relative w-full max-w-[420px] sm:max-w-[480px] rounded-xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.85)] filter drop-shadow-[0_8px_24px_rgba(0,0,0,0.9)] flex flex-col justify-between">
           {/* Vertical Parchment Document Backdrop */}
           <div className="absolute inset-0 z-0">
             <Image
@@ -460,7 +460,7 @@ export default function AchievementsSection() {
           </div>
 
           {/* Document Content: Showing 3 achievements first, navigate for more */}
-          <div className="relative z-10 w-full h-full flex flex-col justify-between pt-6 sm:pt-8 pb-2.5 sm:pb-3 px-4 sm:px-6">
+          <div className="relative z-10 w-full flex flex-col justify-between pt-5 sm:pt-6 pb-2.5 sm:pb-3 px-4 sm:px-6 min-h-[440px] sm:min-h-[470px]">
             <div className="relative w-full flex-1 overflow-hidden flex flex-col justify-between">
               <AnimatePresence mode="wait">
                 <motion.div
