@@ -851,9 +851,14 @@ return (
                   </div>
                 </div>
 
-                {/* Horizontal Row of Vintage Worn Slate Tech Cards (Only technology logo and name) */}
-                <div className="flex items-center gap-1.5 sm:gap-2 md:gap-2.5 flex-wrap">
-                  {(currentProject.technologies || currentProject.tags.map(t => ({ name: t, icon: t.toLowerCase() }))).map((tech, idx) => (
+                {/* Vintage Worn Slate Tech Cards: Divided Equally into Two Balanced Decorative Lines */}
+                {(() => {
+                  const allTech = currentProject.technologies || currentProject.tags.map((t) => ({ name: t, icon: t.toLowerCase() }));
+                  const midPoint = Math.ceil(allTech.length / 2);
+                  const line1 = allTech.slice(0, midPoint);
+                  const line2 = allTech.slice(midPoint);
+
+                  const renderTechTile = (tech: { name: string; icon?: string }, idx: number) => (
                     <div
                       key={idx}
                       data-cursor="interactive"
@@ -878,8 +883,21 @@ return (
                         </span>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  );
+
+                  return (
+                    <div className="flex flex-col gap-2 sm:gap-2.5">
+                      {/* Line 1 of Technologies */}
+                      <div className="flex items-center gap-1.5 sm:gap-2 md:gap-2.5 flex-wrap">
+                        {line1.map((tech, idx) => renderTechTile(tech, idx))}
+                      </div>
+                      {/* Line 2 of Technologies */}
+                      <div className="flex items-center gap-1.5 sm:gap-2 md:gap-2.5 flex-wrap">
+                        {line2.map((tech, idx) => renderTechTile(tech, idx + midPoint))}
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
 
               {/* 4. Key Features Section */}
