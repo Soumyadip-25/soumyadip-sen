@@ -397,24 +397,24 @@ export default function AchievementsSection() {
       {/* Mobile/Tablet Dedicated View (< md): Exact Vintage Parchment Ledger in Vertical Orientation */}
       <div className="md:hidden relative z-10 w-full min-h-0 flex flex-col items-center px-3 sm:px-6 pt-5 sm:pt-6 pb-5 sm:pb-6 overflow-hidden">
         {/* Top Header: Achievements Title on Vintage Paper Background */}
-        <div className="relative w-52 sm:w-60 aspect-[1024/341] shrink-0 mb-2.5 sm:mb-3 filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)] -rotate-1 select-none pointer-events-none flex items-center justify-center">
+        <div className="relative w-56 sm:w-64 aspect-[1024/341] shrink-0 mb-3 sm:mb-3.5 filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)] -rotate-1 select-none pointer-events-none flex items-center justify-center">
           {/* Background Paper Image */}
           <Image
             src="/images/heading-paper-bg.png"
             alt=""
             fill
             priority
-            sizes="(max-width: 640px) 220px, 280px"
+            sizes="(max-width: 640px) 240px, 300px"
             className="object-fill pointer-events-none select-none filter contrast-105"
           />
           {/* Achievements Graphic on Top */}
-          <div className="relative z-10 w-[84%] h-[75%] flex items-center justify-center">
+          <div className="relative z-10 w-[88%] h-[80%] flex items-center justify-center">
             <Image
               src="/images/achievements-title.png"
               alt="Achievements"
               fill
               priority
-              sizes="(max-width: 640px) 200px, 260px"
+              sizes="(max-width: 640px) 220px, 280px"
               className="object-contain object-center pointer-events-none select-none filter contrast-125"
             />
           </div>
