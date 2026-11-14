@@ -851,19 +851,14 @@ return (
                   </div>
                 </div>
 
-                {/* Vintage Worn Slate Tech Cards: Divided Equally into Two Balanced Decorative Lines */}
-                {(() => {
-                  const allTech = currentProject.technologies || currentProject.tags.map((t) => ({ name: t, icon: t.toLowerCase() }));
-                  const midPoint = Math.ceil(allTech.length / 2);
-                  const line1 = allTech.slice(0, midPoint);
-                  const line2 = allTech.slice(midPoint);
-
-                  const renderTechTile = (tech: { name: string; icon?: string }, idx: number) => (
+                {/* Horizontal Row of Vintage Worn Slate Tech Cards in One Line on Desktop */}
+                <div className="flex items-center justify-center md:justify-start gap-1.5 sm:gap-2 md:gap-2.5 flex-wrap md:flex-nowrap w-full md:w-fit">
+                  {(currentProject.technologies || currentProject.tags.map((t) => ({ name: t, icon: t.toLowerCase() }))).map((tech, idx) => (
                     <div
                       key={idx}
                       data-cursor="interactive"
                       data-cursor-label={tech.name.toUpperCase()}
-                      className="relative w-[54px] h-[54px] sm:w-[60px] sm:h-[60px] md:w-[66px] md:h-[66px] lg:w-[72px] lg:h-[72px] aspect-square flex flex-col items-center justify-center p-1 group/tile cursor-default filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.7)] hover:scale-105 transition-transform duration-200"
+                      className="relative w-[54px] h-[54px] sm:w-[60px] sm:h-[60px] md:w-[66px] md:h-[66px] lg:w-[72px] lg:h-[72px] aspect-square flex flex-col items-center justify-center p-1 group/tile cursor-default filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.7)] hover:scale-105 transition-transform duration-200 shrink-0"
                       title={tech.name}
                     >
                       {/* Authentic Distressed Worn Slate Card Image */}
@@ -883,21 +878,8 @@ return (
                         </span>
                       </div>
                     </div>
-                  );
-
-                  return (
-                    <div className="flex flex-col items-center md:items-start gap-2 sm:gap-2.5 w-full md:w-fit">
-                      {/* Line 1 of Technologies */}
-                      <div className="flex items-center justify-center gap-1.5 sm:gap-2 md:gap-2.5 flex-wrap w-full">
-                        {line1.map((tech, idx) => renderTechTile(tech, idx))}
-                      </div>
-                      {/* Line 2 of Technologies */}
-                      <div className="flex items-center justify-center gap-1.5 sm:gap-2 md:gap-2.5 flex-wrap w-full">
-                        {line2.map((tech, idx) => renderTechTile(tech, idx + midPoint))}
-                      </div>
-                    </div>
-                  );
-                })()}
+                  ))}
+                </div>
               </div>
 
               {/* 4. Key Features Section */}
