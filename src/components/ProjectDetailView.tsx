@@ -851,14 +851,23 @@ return (
                   </div>
                 </div>
 
-                {/* Horizontal Row of Vintage Worn Slate Tech Cards in One Line on Desktop */}
-                <div className="flex items-center justify-center md:justify-start gap-1.5 sm:gap-2 md:gap-2.5 flex-wrap md:flex-nowrap w-full md:w-fit">
-                  {(currentProject.technologies || currentProject.tags.map((t) => ({ name: t, icon: t.toLowerCase() }))).map((tech, idx) => (
+                {/* Technologies Cards: 1 Single Line on Desktop, Equally Distributed into 2 Lines on Mobile/Tablet */}
+                {(() => {
+                  const allTech = currentProject.technologies || currentProject.tags.map((t) => ({ name: t, icon: t.toLowerCase() }));
+                  const midPoint = Math.ceil(allTech.length / 2);
+                  const line1 = allTech.slice(0, midPoint);
+                  const line2 = allTech.slice(midPoint);
+
+                  const renderTile = (tech: { name: string; icon?: string }, idx: number, isDesktop: boolean) => (
                     <div
                       key={idx}
                       data-cursor="interactive"
                       data-cursor-label={tech.name.toUpperCase()}
-                      className="relative w-[54px] h-[54px] sm:w-[60px] sm:h-[60px] md:w-[66px] md:h-[66px] lg:w-[72px] lg:h-[72px] aspect-square flex flex-col items-center justify-center p-1 group/tile cursor-default filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.7)] hover:scale-105 transition-transform duration-200 shrink-0"
+                      className={`relative aspect-square flex flex-col items-center justify-center p-1 group/tile cursor-default filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.7)] hover:scale-105 transition-transform duration-200 shrink-0 ${
+                        isDesktop
+                          ? "w-[66px] h-[66px] lg:w-[72px] lg:h-[72px]"
+                          : "w-[60px] h-[60px] xs:w-[66px] xs:h-[66px] sm:w-[74px] sm:h-[74px]"
+                      }`}
                       title={tech.name}
                     >
                       {/* Authentic Distressed Worn Slate Card Image */}
@@ -870,16 +879,43 @@ return (
                         className="object-contain pointer-events-none select-none"
                       />
 
-                      {/* Icon & Label Centered Inside Card (Only logo and name) */}
-                      <div className="relative z-10 flex flex-col items-center justify-center w-full px-0.5 -mt-0.5">
+                      {/* Icon & Label Centered Inside Card (No awkward character breaking) */}
+                      <div className="relative z-10 flex flex-col items-center justify-center w-full px-1 -mt-0.5">
                         <TechIcon name={tech.name} iconKey={tech.icon} />
-                        <span className="font-typewriter font-bold text-[7.5px] sm:text-[8px] md:text-[8.5px] lg:text-[9.2px] text-zinc-200 group-hover/tile:text-white mt-0.5 text-center leading-[1.05] line-clamp-2 w-full break-words">
+                        <span
+                          className={`font-typewriter font-bold text-zinc-200 group-hover/tile:text-white mt-0.5 text-center leading-[1.08] line-clamp-2 w-full break-normal select-none ${
+                            isDesktop
+                              ? "text-[8.5px] lg:text-[9.2px]"
+                              : "text-[6.8px] xs:text-[7.4px] sm:text-[8.2px]"
+                          }`}
+                        >
                           {tech.name}
                         </span>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  );
+
+                  return (
+                    <>
+                      {/* 1. DESKTOP VIEW (>= md): Strictly ONE Single Continuous Line */}
+                      <div className="hidden md:flex items-center justify-start gap-1.5 md:gap-2 lg:gap-2.5 flex-nowrap w-fit">
+                        {allTech.map((tech, idx) => renderTile(tech, idx, true))}
+                      </div>
+
+                      {/* 2. OTHER VIEWS (< md: Mobile & Tablet): Distributed Equally into Two Balanced Lines */}
+                      <div className="md:hidden flex flex-col items-center gap-2 sm:gap-2.5 w-full">
+                        {/* Line 1: First 4 Technologies */}
+                        <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-nowrap">
+                          {line1.map((tech, idx) => renderTile(tech, idx, false))}
+                        </div>
+                        {/* Line 2: Remaining 3 Technologies */}
+                        <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-nowrap">
+                          {line2.map((tech, idx) => renderTile(tech, idx + midPoint, false))}
+                        </div>
+                      </div>
+                    </>
+                  );
+                })()}
               </div>
 
               {/* 4. Key Features Section */}
