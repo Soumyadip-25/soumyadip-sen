@@ -395,7 +395,7 @@ export default function AchievementsSection() {
       </div>
 
       {/* Mobile/Tablet Dedicated View (< md): Exact Vintage Parchment Ledger in Vertical Orientation */}
-      <div className="md:hidden relative z-10 w-full min-h-0 flex flex-col items-center px-3 sm:px-6 pt-5 sm:pt-6 pb-4 sm:pb-5 overflow-hidden">
+      <div className="md:hidden relative z-10 w-full min-h-0 flex flex-col items-center px-3 sm:px-6 pt-5 sm:pt-6 pb-7 sm:pb-9 overflow-hidden">
         {/* Top Header: Achievements Title on Vintage Paper Background */}
         <div className="relative w-52 sm:w-60 aspect-[1024/341] shrink-0 mb-2.5 sm:mb-3 filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)] -rotate-1 select-none pointer-events-none flex items-center justify-center">
           {/* Background Paper Image */}
