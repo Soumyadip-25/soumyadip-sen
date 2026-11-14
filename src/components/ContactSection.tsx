@@ -9,20 +9,22 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative min-h-0 md:min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#121214] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
+      className="relative min-h-0 md:h-screen md:max-h-screen w-full flex items-center justify-center overflow-hidden bg-[#121214] vintage-charcoal-bg select-none scroll-mt-0"
     >
-      {/* 1. DESKTOP 16:9 Precision Canvas - Locked to background image coordinates (Strictly Preserved) */}
-      <div className="hidden md:flex relative w-full max-w-[1440px] aspect-[1024/576] max-h-[96vh] sm:max-h-[92vh] items-center justify-center my-auto">
+      {/* 1. DESKTOP 16:9 Precision Canvas - Full-bleed edge-to-edge with sidebar offset on desktop (Zero gaps) */}
+      <div className="hidden md:block absolute inset-0 z-0 overflow-hidden md:left-52 lg:left-56">
         
         {/* Full-bleed Vintage Background Image: Dark wall, torn papers, postage stamp, and rotary telephone */}
-        <Image
-          src="/images/contact-bg.jpg"
-          alt="Vintage Rotary Telephone and Correspondence Dossier"
-          fill
-          priority
-          sizes="(max-width: 768px) 100vw, 1440px"
-          className="object-cover object-center pointer-events-none select-none filter brightness-[0.98] contrast-[1.03]"
-        />
+        <div className="absolute inset-0">
+          <Image
+            src="/images/contact-bg.jpg"
+            alt="Vintage Rotary Telephone and Correspondence Dossier"
+            fill
+            priority
+            sizes="calc(100vw - 224px)"
+            className="object-cover md:object-fill object-center pointer-events-none select-none filter brightness-[0.98] contrast-[1.03]"
+          />
+        </div>
 
         {/* Ambient subtle vignette overlay for depth */}
         <div className="absolute inset-0 bg-radial-gradient pointer-events-none opacity-20" />
