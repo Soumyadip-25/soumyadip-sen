@@ -833,7 +833,7 @@ return (
               </div>
 
               {/* 3. Technologies Used Section */}
-              <div className="space-y-1.5 sm:space-y-2">
+              <div className="space-y-1.5 sm:space-y-2 flex flex-col items-center md:items-start">
                 {/* Torn Paper Header Badge */}
                 <div className="relative inline-block w-fit">
                   <div className="relative px-3.5 py-0.5 sm:px-4 sm:py-1 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] -rotate-[0.5deg]">
@@ -886,13 +886,13 @@ return (
                   );
 
                   return (
-                    <div className="flex flex-col gap-2 sm:gap-2.5">
+                    <div className="flex flex-col items-center md:items-start gap-2 sm:gap-2.5 w-full md:w-fit">
                       {/* Line 1 of Technologies */}
-                      <div className="flex items-center gap-1.5 sm:gap-2 md:gap-2.5 flex-wrap">
+                      <div className="flex items-center justify-center gap-1.5 sm:gap-2 md:gap-2.5 flex-wrap w-full">
                         {line1.map((tech, idx) => renderTechTile(tech, idx))}
                       </div>
                       {/* Line 2 of Technologies */}
-                      <div className="flex items-center gap-1.5 sm:gap-2 md:gap-2.5 flex-wrap">
+                      <div className="flex items-center justify-center gap-1.5 sm:gap-2 md:gap-2.5 flex-wrap w-full">
                         {line2.map((tech, idx) => renderTechTile(tech, idx + midPoint))}
                       </div>
                     </div>
