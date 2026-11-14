@@ -419,7 +419,7 @@ export default function ImpactSection() {
       {/* ========================================================= */}
       {/* 2. MOBILE/TABLET DEDICATED VIEW (< md): Balanced Spacing */}
       {/* ========================================================= */}
-      <div className="md:hidden relative z-10 w-full min-h-0 flex flex-col items-center justify-center px-3 sm:px-6 py-8 sm:py-10">
+      <div className="md:hidden relative z-10 w-full min-h-0 flex flex-col items-center justify-center px-3 sm:px-6 py-5 sm:py-6">
         <div className="w-full max-w-[420px] sm:max-w-[480px] rounded-xl border border-white/10 bg-black/50 backdrop-blur-sm p-3.5 sm:p-4 shadow-[0_8px_24px_rgba(0,0,0,0.85)]">
           {renderHeatmapContent(true)}
         </div>

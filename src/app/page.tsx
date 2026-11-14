@@ -11,6 +11,7 @@ import AchievementsSection from "@/components/AchievementsSection";
 import ImpactSection from "@/components/ImpactSection";
 import ContactSection from "@/components/ContactSection";
 import ResumeModal from "@/components/ResumeModal";
+import SectionDivider from "@/components/SectionDivider";
 
 const sectionIds = ["home", "about", "experience", "projects", "skills", "achievements", "impact", "contact"];
 
@@ -97,12 +98,19 @@ export default function Home() {
       {/* Main Content Area */}
       <div className="w-full">
         <Hero onResumeClick={() => setResumeModalOpen(true)} />
+        <SectionDivider />
         <AboutSection />
+        <SectionDivider />
         <ExperienceSection />
+        <SectionDivider />
         <ProjectsSection />
+        <SectionDivider />
         <SkillsSection />
+        <SectionDivider />
         <AchievementsSection />
+        <SectionDivider />
         <ImpactSection />
+        <SectionDivider />
         <ContactSection />
       </div>
 
