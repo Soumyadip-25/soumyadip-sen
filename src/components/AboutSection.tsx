@@ -26,7 +26,7 @@ export default function AboutSection() {
       </div>
 
       {/* Content Layer directly on the full-bleed parchment */}
-      <div className="relative z-10 w-full min-h-0 md:min-h-screen md:pl-52 lg:pl-56 flex flex-col justify-between px-4 sm:px-8 md:px-12 lg:px-16 py-10 sm:py-14 md:pt-8 lg:pt-12 md:pb-24 lg:pb-32">
+      <div className="relative z-10 w-full min-h-0 md:min-h-screen md:pl-52 lg:pl-56 flex flex-col justify-between px-4 sm:px-8 md:px-12 lg:px-16 pt-10 sm:pt-14 pb-4 sm:pb-6 md:pt-8 lg:pt-12 md:pb-10 lg:pb-14">
         
         {/* Centered Main Dossier: Typography Block shifted towards center + Polaroid Portrait */}
         <div className="w-full max-w-6xl mx-auto my-0 md:my-auto">
@@ -142,17 +142,21 @@ export default function AboutSection() {
           </div>
         </div>
 
-        {/* Bottom space intentionally kept open for the printed Coffee • Code • Mountain icons in the background */}
+        {/* Bottom space: Caffeine • Code • Ascent positioned slightly down with clean separate spacing */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 0.8 }}
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 0.85, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.35 }}
-          className="pt-3 sm:pt-6 flex justify-center items-center pointer-events-none select-none"
+          className="pt-4 sm:pt-6 md:pt-8 pb-1 sm:pb-2 flex justify-center items-center pointer-events-none select-none"
         >
-          <span className="font-typewriter text-[11px] sm:text-xs text-[#4a4338] tracking-widest uppercase">
-            Caffeine • Code • Ascent
-          </span>
+          <div className="flex items-center justify-center gap-3.5 sm:gap-6 md:gap-8 font-typewriter text-[11px] sm:text-xs md:text-[13px] text-zinc-400 md:text-[#4a4338] tracking-[0.24em] uppercase font-medium">
+            <span>Caffeine</span>
+            <span className="text-zinc-500 md:text-[#6e6353] text-[0.75em] opacity-75 select-none">•</span>
+            <span>Code</span>
+            <span className="text-zinc-500 md:text-[#6e6353] text-[0.75em] opacity-75 select-none">•</span>
+            <span>Ascent</span>
+          </div>
         </motion.div>
 
       </div>
