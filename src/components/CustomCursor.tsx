@@ -245,6 +245,50 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
   return (
     <div className="fixed inset-0 pointer-events-none z-[999999] overflow-hidden select-none">
       
+      {/* 0. ATMOSPHERIC WHITE GLOW SPOTLIGHT (Illuminates the whole platform under the cursor) */}
+      <motion.div
+        style={{
+          x: smoothX,
+          y: smoothY,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+        animate={
+          mode === "hidden"
+            ? { opacity: 0, scale: 0.5 }
+            : isClicked
+            ? { opacity: 0.95, scale: 0.88 }
+            : isInteractionMode || isProjectMode || isImageMode
+            ? { opacity: 1, scale: 1.2 }
+            : { opacity: 0.88, scale: 1 }
+        }
+        transition={{
+          duration: isClicked ? 0.08 : 0.25,
+          ease: "easeOut",
+        }}
+        className="absolute top-0 left-0 pointer-events-none transform-gpu will-change-transform mix-blend-screen flex items-center justify-center"
+      >
+        {/* Broad Diffused Soft Ambient White Glow */}
+        <div
+          className="w-[320px] h-[320px] sm:w-[380px] sm:h-[380px] rounded-full pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 32%, rgba(255, 255, 255, 0.02) 60%, transparent 75%)",
+            filter: "blur(14px)",
+          }}
+        />
+
+        {/* Concentrated Inner Luminous White Core Bloom */}
+        <div
+          className="absolute w-[80px] h-[80px] sm:w-[96px] sm:h-[96px] rounded-full pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.22) 36%, rgba(255, 255, 255, 0.05) 65%, transparent 80%)",
+            filter: "blur(8px)",
+          }}
+        />
+      </motion.div>
+
       {/* Precision Mechanical Optical Assembly - Spring Follower */}
       <motion.div
         style={{
@@ -271,14 +315,15 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
           }}
           className="relative flex items-center justify-center"
         >
-          {/* Main SVG Geometry: Dual-layer lens rings, corner brackets, aperture blades */}
+          {/* Main SVG Geometry: Dual-layer lens rings, corner brackets, aperture blades with radiant white glow */}
           <svg
             width="42"
             height="42"
             viewBox="-29 -29 58 58"
             className="overflow-visible"
             style={{
-              filter: "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 1px rgba(0, 0, 0, 0.85))",
+              filter:
+                "drop-shadow(0 0 6px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 14px rgba(255, 255, 255, 0.45)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95))",
             }}
           >
             {/* LAYER 1: OUTER CALIBRATION RING ASSEMBLY (Rotates subtly in default state) */}
@@ -457,8 +502,8 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
                 transition={{ duration: 0.16, ease: "easeOut" }}
                 className="absolute left-[26px] top-[-14px] whitespace-nowrap pointer-events-none"
               >
-                <div className="flex items-center gap-2 px-2.5 py-1 bg-[#141416]/95 text-[#f4efe4] border border-white/20 rounded-[3px] shadow-[0_4px_14px_rgba(0,0,0,0.9)] backdrop-blur-md max-w-[340px]">
-                  <span className="w-2 h-2 rounded-full bg-white animate-pulse inline-block shrink-0 shadow-[0_0_6px_rgba(255,255,255,0.8)]" />
+                <div className="flex items-center gap-2 px-2.5 py-1 bg-[#141416]/95 text-[#f4efe4] border border-white/20 rounded-[3px] shadow-[0_0_16px_rgba(255,255,255,0.22),0_4px_14px_rgba(0,0,0,0.9)] backdrop-blur-md max-w-[340px]">
+                  <span className="w-2 h-2 rounded-full bg-white animate-pulse inline-block shrink-0 shadow-[0_0_8px_rgba(255,255,255,0.95)]" />
                   <span className="font-mono text-[10px] font-bold tracking-widest uppercase truncate leading-none">
                     {label}
                   </span>
@@ -469,7 +514,7 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
         </motion.div>
       </motion.div>
 
-      {/* Pinpoint Micro Focus Point (0ms Instantaneous Cursor Tip) */}
+      {/* Pinpoint Micro Focus Point (0ms Instantaneous Cursor Tip with Radiant White Glow) */}
       <motion.div
         style={{
           x: mouseX,
@@ -480,9 +525,10 @@ export default function CustomCursor({ activeSection }: CustomCursorProps) {
         className="absolute top-0 left-0 pointer-events-none flex items-center justify-center"
       >
         <div
-          className="w-1.5 h-1.5 rounded-full bg-[#f0ece1] transition-transform duration-100"
+          className="w-1.5 h-1.5 rounded-full bg-white transition-transform duration-100"
           style={{
-            boxShadow: "0 0 2px 1px rgba(0, 0, 0, 0.95)",
+            boxShadow:
+              "0 0 6px 2px rgba(255, 255, 255, 0.95), 0 0 14px 4px rgba(255, 255, 255, 0.7), 0 0 2px 1px rgba(0, 0, 0, 0.95)",
             transform: isClicked ? "scale(1.5)" : isProjectMode ? "scale(1.3)" : "scale(1)",
           }}
         />
