@@ -276,7 +276,7 @@ export default function SkillsDetailView({ initialSlug }: SkillsDetailViewProps)
               {/* 2. OVERVIEW BAR (Positioned below Heading Banner) */}
               <div className="w-full max-w-xl sm:max-w-2xl md:max-w-3xl flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/85 backdrop-blur-md border border-white/10 shadow-md text-xs font-mono my-0.5 shrink-0 select-none">
                 <span className="bg-[#ede8db] text-zinc-950 font-typewriter font-bold px-2.5 py-0.5 rounded-xs shrink-0 shadow-xs text-[10px] sm:text-[11px] -rotate-[1deg]">
-                  // Expertise Overview
+                  {"// Expertise Overview"}
                 </span>
                 <span className="text-zinc-500 font-bold">|</span>
                 <span className="text-zinc-300 truncate font-medium text-[10.5px] sm:text-[11.5px]">
