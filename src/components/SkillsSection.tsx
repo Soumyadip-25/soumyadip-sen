@@ -328,14 +328,14 @@ export default function SkillsSection() {
       {/* 2. MOBILE DEDICATED VIEW (< 768px): Responsive 2-Col CRT Wall */}
       {/* Clean CSS-based vintage charcoal background (Zero Images) */}
       {/* ========================================================= */}
-      <div className="md:hidden relative z-10 w-full h-full flex flex-col items-center justify-between px-3 sm:px-6 pt-16 sm:pt-20 pb-4 overflow-hidden">
+      <div className="md:hidden relative z-10 w-full h-full flex flex-col items-center justify-between px-3 sm:px-6 pt-12 sm:pt-14 pb-3 sm:pb-4 overflow-hidden">
         {/* Top Heading: "Skills & Technologies" paper sticker */}
         <motion.div
           initial={{ opacity: 0, y: -20, rotate: -2 }}
           whileInView={{ opacity: 1, y: 0, rotate: -1 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.85, ease: [0.19, 1, 0.22, 1] }}
-          className="relative w-56 sm:w-64 aspect-[1024/341] shrink-0 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] cursor-pointer"
+          className="relative w-48 sm:w-56 aspect-[1024/341] shrink-0 mb-1.5 sm:mb-2 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] cursor-pointer"
           data-cursor="interactive"
           data-cursor-label="SKILLS // CONSOLE"
         >
@@ -350,7 +350,7 @@ export default function SkillsSection() {
         </motion.div>
 
         {/* 6 CRT Monitor Units in 2-Column x 3-Row Grid */}
-        <div className="w-full max-w-sm sm:max-w-md grid grid-cols-2 gap-2.5 sm:gap-3 flex-1 my-auto max-h-[calc(100vh-140px)]">
+        <div className="w-full max-w-sm sm:max-w-md grid grid-cols-2 gap-2 sm:gap-2.5 flex-1 my-auto max-h-[calc(100vh-115px)]">
           {skillTopics.map((topic, index) => {
             const Icon = iconMap[topic.iconName] || Terminal;
 

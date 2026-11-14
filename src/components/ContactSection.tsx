@@ -9,7 +9,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#121214] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
+      className="relative min-h-0 md:min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#121214] vintage-charcoal-bg select-none md:pl-52 lg:pl-56"
     >
       {/* 1. DESKTOP 16:9 Precision Canvas - Locked to background image coordinates (Strictly Preserved) */}
       <div className="hidden md:flex relative w-full max-w-[1440px] aspect-[1024/576] max-h-[96vh] sm:max-h-[92vh] items-center justify-center my-auto">
@@ -210,8 +210,8 @@ export default function ContactSection() {
 
       </div>
 
-      {/* 2. MOBILE DEDICATED LAYOUT (< 768px): Spacious, Accessible & Elegantly Positioned */}
-      <div className="md:hidden relative z-10 w-full min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-20">
+      {/* 2. MOBILE DEDICATED LAYOUT (< 768px): Compact, Balanced & Elegantly Positioned */}
+      <div className="md:hidden relative z-10 w-full min-h-0 flex flex-col justify-center items-center px-4 sm:px-6 py-10 sm:py-14">
         <div className="relative z-10 w-full max-w-sm mx-auto flex flex-col items-center">
           {/* Top Title: "Let's Connect" on Vintage Paper Banner */}
           <motion.div
@@ -219,7 +219,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.85, ease: [0.19, 1, 0.22, 1] }}
-            className="relative w-64 sm:w-72 aspect-[1024/341] mb-6 filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)] flex items-center justify-center -rotate-1"
+            className="relative w-56 sm:w-68 md:w-72 aspect-[1024/341] mb-4 sm:mb-5 filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)] flex items-center justify-center -rotate-1"
           >
             {/* Background Paper Image */}
             <Image
@@ -249,7 +249,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.95, delay: 0.15, ease: [0.19, 1, 0.22, 1] }}
-            className="w-full rounded-2xl bg-[#ede6d8]/95 p-6 shadow-2xl border border-[#24201a]/25 flex flex-col gap-4 text-[#12100e]"
+            className="w-full rounded-2xl bg-[#ede6d8]/95 p-5 sm:p-6 shadow-2xl border border-[#24201a]/25 flex flex-col gap-3.5 sm:gap-4 text-[#12100e]"
           >
             {/* Email */}
             <a

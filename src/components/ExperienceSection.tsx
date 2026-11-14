@@ -90,7 +90,7 @@ export default function ExperienceSection() {
       id="experience"
       ref={sectionRef}
       onWheel={handleWheel}
-      className="relative min-h-screen md:h-screen md:max-h-screen w-full flex items-center overflow-hidden bg-[#121214] vintage-charcoal-bg select-none"
+      className="relative min-h-0 md:h-screen md:max-h-screen w-full flex items-start md:items-center overflow-hidden bg-[#121214] vintage-charcoal-bg select-none"
     >
       {/* 1. Full-bleed Background: Vintage Slate Wall with Typewriter on the Right (Desktop Only) */}
       <div className="hidden md:block absolute inset-0 z-0 pointer-events-none overflow-hidden md:left-52 lg:left-56">
@@ -105,7 +105,7 @@ export default function ExperienceSection() {
       </div>
 
       {/* 2. Main Content Composition: Shifted comfortably onto the left chalkboard area */}
-      <div className="relative z-10 w-full min-h-screen md:min-h-0 md:h-full md:pl-52 lg:pl-56 flex flex-col justify-start px-4 sm:px-8 pt-20 sm:pt-24 md:pt-8 lg:pt-10 pb-10">
+      <div className="relative z-10 w-full min-h-0 md:min-h-0 md:h-full md:pl-52 lg:pl-56 flex flex-col justify-start px-4 sm:px-8 py-10 sm:py-14 md:pt-8 lg:pt-10 md:pb-10">
         <div className="w-full flex flex-col md:pl-14 lg:pl-24 xl:pl-28">
         
         {/* Torn Paper Scrap Header: "Experience" - Tactile Pin-to-Board Entrance */}
@@ -115,7 +115,7 @@ export default function ExperienceSection() {
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.95, ease: [0.19, 1, 0.22, 1] }}
           whileHover={{ scale: 1.03, rotate: 0 }}
-          className="relative w-48 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-6 sm:mb-8 md:mb-10 -rotate-1 origin-left shrink-0 ml-1 sm:ml-2 cursor-pointer transform-gpu"
+          className="relative w-48 sm:w-64 md:w-72 lg:w-80 aspect-[1024/341] mb-4 sm:mb-6 md:mb-10 -rotate-1 origin-left shrink-0 ml-1 sm:ml-2 cursor-pointer transform-gpu"
           data-cursor="interactive"
           data-cursor-label="EXPERIENCE // TIMELINE"
         >
@@ -131,7 +131,7 @@ export default function ExperienceSection() {
         {/* 3. Scrollable Timeline Container (Spread wider to the right to fill empty space) */}
         <div
           ref={scrollContainerRef}
-          className="relative w-full max-w-xl lg:max-w-2xl xl:max-w-2xl max-h-[calc(100vh-180px)] sm:max-h-[calc(100vh-190px)] overflow-y-auto pr-3 sm:pr-8 vintage-scrollbar"
+          className="relative w-full max-w-xl lg:max-w-2xl xl:max-w-2xl max-h-none md:max-h-[calc(100vh-180px)] md:overflow-y-auto pr-2 sm:pr-8 vintage-scrollbar"
         >
           {/* Vertical Luminous Timeline Wire: Conducts current downwards as user scrolls */}
           <motion.div
@@ -145,7 +145,7 @@ export default function ExperienceSection() {
           />
 
           {/* Timeline Experience Entries: Staggered Chronology Reveal */}
-          <div className="relative space-y-10 sm:space-y-12 pb-6">
+          <div className="relative space-y-7 sm:space-y-9 md:space-y-12 pb-2 sm:pb-4 md:pb-6">
             {experiences.map((exp, index) => {
               const isTutor = exp.iconType === "tutor";
 

@@ -75,7 +75,7 @@ export default function Hero({ onResumeClick }: HeroProps) {
       </div>
 
       {/* Main Content Composition Container: Joined close to sidebar with no black dead space */}
-      <div className="relative z-10 w-full px-4 sm:px-6 md:px-0 md:pl-56 lg:pl-64 md:pr-4 sm:pr-8 lg:pr-14 min-h-screen flex flex-col justify-center pt-20 sm:pt-24 md:pt-0 pb-12 md:pb-0">
+      <div className="relative z-10 w-full px-4 sm:px-6 md:px-0 md:pl-56 lg:pl-64 md:pr-4 sm:pr-8 lg:pr-14 min-h-screen flex flex-col justify-center pt-14 sm:pt-16 md:pt-0 pb-8 md:pb-0">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
           
           {/* LEFT: Filmstrip + Polaroid Frame */}

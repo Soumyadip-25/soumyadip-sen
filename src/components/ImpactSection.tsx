@@ -243,7 +243,7 @@ export default function ImpactSection() {
 
         {/* 2. Chalkboard Content Zone: Strictly locked to desktop blackboard coordinates, responsively fitted on mobile */}
         <div
-          className="absolute z-10 flex flex-col justify-center items-center pointer-events-none inset-x-3 sm:inset-x-6 top-[12%] h-[78%] md:inset-x-auto md:left-[17.0%] md:w-[54.5%] md:top-[11.0%] md:h-[76.0%]"
+          className="absolute z-10 flex flex-col justify-center items-center pointer-events-none inset-x-3 sm:inset-x-6 top-[9%] h-[82%] sm:top-[10%] sm:h-[80%] md:inset-x-auto md:left-[17.0%] md:w-[54.5%] md:top-[11.0%] md:h-[76.0%]"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.985 }}

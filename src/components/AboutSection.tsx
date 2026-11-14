@@ -9,7 +9,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative min-h-screen w-full flex items-center overflow-hidden bg-[#121214] vintage-charcoal-bg select-none"
+      className="relative min-h-0 md:min-h-screen w-full flex items-center overflow-hidden bg-[#121214] vintage-charcoal-bg select-none"
     >
       {/* Full Bleed Parchment Background Image - Desktop Only */}
       <div className="hidden md:block absolute inset-0 z-0 md:left-52 lg:left-56">
@@ -26,10 +26,10 @@ export default function AboutSection() {
       </div>
 
       {/* Content Layer directly on the full-bleed parchment */}
-      <div className="relative z-10 w-full min-h-screen md:pl-52 lg:pl-56 flex flex-col justify-between px-5 sm:px-10 md:px-12 lg:px-16 pt-20 sm:pt-24 md:pt-8 lg:pt-12 pb-16 sm:pb-24 md:pb-24 lg:pb-32">
+      <div className="relative z-10 w-full min-h-0 md:min-h-screen md:pl-52 lg:pl-56 flex flex-col justify-between px-4 sm:px-8 md:px-12 lg:px-16 py-10 sm:py-14 md:pt-8 lg:pt-12 md:pb-24 lg:pb-32">
         
         {/* Centered Main Dossier: Typography Block shifted towards center + Polaroid Portrait */}
-        <div className="w-full max-w-6xl mx-auto my-auto">
+        <div className="w-full max-w-6xl mx-auto my-0 md:my-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             {/* Typography Block: Shifted inwards to the right towards the center */}
@@ -148,7 +148,7 @@ export default function AboutSection() {
           whileInView={{ opacity: 0.8 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.35 }}
-          className="pt-6 flex justify-center items-center pointer-events-none select-none"
+          className="pt-3 sm:pt-6 flex justify-center items-center pointer-events-none select-none"
         >
           <span className="font-typewriter text-[11px] sm:text-xs text-[#4a4338] tracking-widest uppercase">
             Caffeine • Code • Ascent
