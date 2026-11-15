@@ -24,42 +24,9 @@ This portfolio serves as a central place to explore my professional journey, tec
 - GitHub activity integration
 - Contact information and social links
 
-## Getting Started
-
-Clone the repository:
-
-```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
-```
-
-Navigate to the project directory:
-
-```bash
-cd YOUR_REPOSITORY
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-Open `http://localhost:3000` in your browser.
-
 ## Live Website
 
-**Portfolio:** [Add your live Vercel URL]
-
-## Contact
-
-- **LinkedIn:** [Add your LinkedIn URL]
-- **GitHub:** [Add your GitHub URL]
+**Portfolio:** [https://soumyadip-sen.vercel.app/]
 
 ---
 
