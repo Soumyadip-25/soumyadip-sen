@@ -3,51 +3,69 @@
 import React, { useEffect, useState } from "react";
 import styles from "./FlipClock.module.css";
 
-function getKolkataDate() {
-  const now = new Date();
+interface ClockData {
+  digits: string;
+  period: string;
+  weekday: string;
+  month: string;
+  day: string;
+  year: string;
+}
 
-  const timeParts = new Intl.DateTimeFormat("en-GB", {
-    timeZone: "Asia/Kolkata",
-    hour: "2-digit",
+function getLiveClock(targetDate?: Date): ClockData {
+  const d = targetDate || new Date();
+
+  // Dynamically resolve client's local timezone, fallback to Asia/Kolkata
+  let tz = "Asia/Kolkata";
+  try {
+    if (typeof Intl !== "undefined" && Intl.DateTimeFormat) {
+      tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Kolkata";
+    }
+  } catch {
+    tz = "Asia/Kolkata";
+  }
+
+  // Format accurate 12-hour time and full date parts
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: tz,
+    hour: "numeric",
     minute: "2-digit",
-    hour12: false,
-  }).formatToParts(now);
-
-  const get = (type: string) =>
-    timeParts.find((part) => part.type === type)?.value ?? "00";
-
-  const hour24 = Number(get("hour"));
-  const hour12 = hour24 % 12 || 12;
-
-  const dateParts = new Intl.DateTimeFormat("en-US", {
-    timeZone: "Asia/Kolkata",
+    hour12: true,
     weekday: "short",
     month: "short",
     day: "2-digit",
     year: "numeric",
-  }).formatToParts(now);
+  });
 
-  const dateGet = (type: string) =>
-    dateParts.find((part) => part.type === type)?.value ?? "";
+  const parts = formatter.formatToParts(d);
+  const partMap: Record<string, string> = {};
+  for (const p of parts) {
+    partMap[p.type] = p.value;
+  }
+
+  const rawHour = Number(partMap.hour || 12);
+  const hourStr = String(rawHour).padStart(2, "0");
+  const minuteStr = String(partMap.minute || "00").padStart(2, "0");
+  const period = (partMap.dayPeriod || (d.getHours() >= 12 ? "PM" : "AM")).toUpperCase();
 
   return {
-    digits: `${String(hour12).padStart(2, "0")}${get("minute")}`,
-    period: hour24 >= 12 ? "PM" : "AM",
-    weekday: dateGet("weekday"),
-    month: dateGet("month"),
-    day: dateGet("day"),
-    year: dateGet("year"),
+    digits: `${hourStr}${minuteStr}`,
+    period: period.includes("P") ? "PM" : "AM",
+    weekday: partMap.weekday || "Tue",
+    month: partMap.month || "Nov",
+    day: partMap.day || String(d.getDate()).padStart(2, "0"),
+    year: partMap.year || String(d.getFullYear()),
   };
 }
 
-function FlipDigit({ value }: { value: string }) {
+function FlipDigit({ value, pos }: { value: string; pos: number }) {
   return (
     <div className={styles.digit}>
       <div className={styles.digitTop}>
-        <span suppressHydrationWarning>{value}</span>
+        <span key={`top-${pos}-${value}`}>{value}</span>
       </div>
       <div className={styles.digitBottom}>
-        <span key={value} className={styles.digitValue} suppressHydrationWarning>
+        <span key={`bot-${pos}-${value}`} className={styles.digitValue}>
           {value}
         </span>
       </div>
@@ -58,23 +76,39 @@ function FlipDigit({ value }: { value: string }) {
 }
 
 export default function FlipClock() {
-  const [clock, setClock] = useState(getKolkataDate);
+  const [clock, setClock] = useState<ClockData>(() => getLiveClock());
 
   useEffect(() => {
-    const update = () => setClock(getKolkataDate());
-
+    // Immediate sync on client mount
+    const update = () => setClock(getLiveClock());
     update();
+
+    // 1-second accurate tick interval
     const timer = window.setInterval(update, 1000);
 
-    return () => window.clearInterval(timer);
+    // Immediate re-synchronization when tab wakes up or regains focus
+    const handleSync = () => {
+      if (document.visibilityState === "visible") {
+        update();
+      }
+    };
+
+    window.addEventListener("focus", handleSync);
+    document.addEventListener("visibilitychange", handleSync);
+
+    return () => {
+      window.clearInterval(timer);
+      window.removeEventListener("focus", handleSync);
+      document.removeEventListener("visibilitychange", handleSync);
+    };
   }, []);
 
   return (
     <div
       className={styles.clockScene}
-      aria-label="Kolkata Analog Flip Clock"
+      aria-label="Vintage Flip Clock"
       data-cursor="interactive"
-      data-cursor-label="VINTAGE CLOCK // 24H"
+      data-cursor-label="VINTAGE CLOCK // LIVE"
     >
       <div className={styles.clock}>
         {/* Top metal details */}
@@ -89,11 +123,11 @@ export default function FlipClock() {
           <div className={styles.display}>
             <div className={styles.timeDigits}>
               {clock.digits.split("").map((digit, index) => (
-                <FlipDigit key={index} value={digit} />
+                <FlipDigit key={index} value={digit} pos={index} />
               ))}
             </div>
 
-            <div className={styles.period} suppressHydrationWarning>
+            <div className={styles.period}>
               {clock.period}
             </div>
           </div>
@@ -112,11 +146,11 @@ export default function FlipClock() {
               </svg>
             </div>
 
-            <span className={styles.weekday} suppressHydrationWarning>
+            <span className={styles.weekday}>
               {clock.weekday}
             </span>
             <span className={styles.dateDivider}>|</span>
-            <span suppressHydrationWarning>
+            <span>
               {clock.month} {clock.day}, {clock.year}
             </span>
           </div>
@@ -135,7 +169,6 @@ export default function FlipClock() {
           <span />
         </div>
       </div>
-      {/* Note: .clockCaption omitted per user specification */}
     </div>
   );
 }
