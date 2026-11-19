@@ -12,6 +12,7 @@ import ImpactSection from "@/components/ImpactSection";
 import ContactSection from "@/components/ContactSection";
 import ResumeModal from "@/components/ResumeModal";
 import SectionDivider from "@/components/SectionDivider";
+import BackToTop from "@/components/BackToTop";
 
 const sectionIds = ["home", "about", "experience", "projects", "skills", "achievements", "impact", "contact"];
 
@@ -119,6 +120,9 @@ export default function Home() {
         isOpen={resumeModalOpen}
         onClose={() => setResumeModalOpen(false)}
       />
+
+      {/* Floating Back to Top Button */}
+      <BackToTop />
     </main>
   );
 }
