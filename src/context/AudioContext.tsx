@@ -30,17 +30,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const userManuallyPausedRef = useRef<boolean>(false);
 
-  // Check if device is mobile
-  const checkIsMobile = useCallback(() => {
-    if (typeof window === "undefined") return false;
-    return (
-      window.innerWidth < 768 ||
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      )
-    );
-  }, []);
-
   // Smooth fade-in helper
   const fadeIn = useCallback((targetVol = DEFAULT_VOLUME, durationMs = 800) => {
     if (!audioRef.current) return;
@@ -147,31 +136,21 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // Initialize and handle automatic playback
+  // Initialize and handle automatic playback across desktop and mobile
   useEffect(() => {
     const audio = new Audio(AUDIO_SRC);
     audio.loop = true;
     audio.preload = "auto";
-    audio.volume = DEFAULT_VOLUME;
+    audio.volume = 0; // Starts at 0 and fades in smoothly
     audioRef.current = audio;
 
-    const isMobile = checkIsMobile();
-
-    // On mobile devices: Muted/off by default per user requirement
-    if (isMobile) {
-      setIsPlaying(false);
-      return () => {
-        audio.pause();
-        audio.src = "";
-      };
-    }
-
-    // On desktop: Automatic playback when someone enters the platform
     let cleanedUp = false;
+    let interactionListenersAttached = false;
 
-    const tryAutoPlay = () => {
-      if (userManuallyPausedRef.current || cleanedUp) return;
-      const promise = audio.play();
+    const startAudioPlayback = () => {
+      if (cleanedUp || userManuallyPausedRef.current || !audioRef.current) return;
+
+      const promise = audioRef.current.play();
       if (promise !== undefined) {
         promise
           .then(() => {
@@ -182,53 +161,74 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
           })
           .catch(() => {
             // Browser autoplay policy blocked unprompted audio;
-            // Attach one-time listener to start on the very first user interaction
-            const handleFirstInteraction = () => {
-              if (cleanedUp || userManuallyPausedRef.current) return;
-              audio
-                .play()
-                .then(() => {
-                  if (!cleanedUp && !userManuallyPausedRef.current) {
-                    setIsPlaying(true);
-                    fadeIn(DEFAULT_VOLUME, 1000);
-                  }
-                })
-                .catch(() => {});
-              cleanupListeners();
-            };
-
-            const cleanupListeners = () => {
-              window.removeEventListener("pointerdown", handleFirstInteraction);
-              window.removeEventListener("click", handleFirstInteraction);
-              window.removeEventListener("keydown", handleFirstInteraction);
-              window.removeEventListener("scroll", handleFirstInteraction);
-            };
-
-            window.addEventListener("pointerdown", handleFirstInteraction, {
-              once: true,
-            });
-            window.addEventListener("click", handleFirstInteraction, {
-              once: true,
-            });
-            window.addEventListener("keydown", handleFirstInteraction, {
-              once: true,
-            });
-            window.addEventListener("scroll", handleFirstInteraction, {
-              once: true,
-            });
+            // Attach interaction listeners to start on very first user gesture anywhere on page
+            attachInteractionListeners();
           });
       }
     };
 
-    tryAutoPlay();
+    const handleFirstInteraction = () => {
+      cleanupInteractionListeners();
+      startAudioPlayback();
+    };
+
+    const attachInteractionListeners = () => {
+      if (interactionListenersAttached || cleanedUp) return;
+      interactionListenersAttached = true;
+
+      const events = [
+        "click",
+        "pointerdown",
+        "touchstart",
+        "touchend",
+        "keydown",
+        "wheel",
+        "scroll",
+      ];
+
+      events.forEach((evt) => {
+        window.addEventListener(evt, handleFirstInteraction, {
+          once: true,
+          capture: true,
+          passive: true,
+        });
+        document.addEventListener(evt, handleFirstInteraction, {
+          once: true,
+          capture: true,
+          passive: true,
+        });
+      });
+    };
+
+    const cleanupInteractionListeners = () => {
+      interactionListenersAttached = false;
+      const events = [
+        "click",
+        "pointerdown",
+        "touchstart",
+        "touchend",
+        "keydown",
+        "wheel",
+        "scroll",
+      ];
+
+      events.forEach((evt) => {
+        window.removeEventListener(evt, handleFirstInteraction, { capture: true } as EventListenerOptions);
+        document.removeEventListener(evt, handleFirstInteraction, { capture: true } as EventListenerOptions);
+      });
+    };
+
+    // Attempt automatic playback on initial visit
+    startAudioPlayback();
 
     return () => {
       cleanedUp = true;
+      cleanupInteractionListeners();
       if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
       audio.pause();
       audio.src = "";
     };
-  }, [checkIsMobile, fadeIn]);
+  }, [fadeIn]);
 
   return (
     <AudioContext.Provider
